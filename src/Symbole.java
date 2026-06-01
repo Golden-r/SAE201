@@ -46,10 +46,7 @@ public class Symbole
 
     public boolean supprimerEnsVoisin ( )
     {
-        for ( Symbole s : this.ensVoisin )
-        {
-            s.supprimerVoisin( this ) ;
-        }
+        this.ensVoisin  .clear();
         return true ;
 
     }
