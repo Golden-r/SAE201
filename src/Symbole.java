@@ -39,6 +39,8 @@ public class Symbole
 
     public boolean supprimerVoisin( Symbole voisin )
     {
+        if (voisin == null) return false;
+        
         this.ensVoisin  .remove ( voisin ) ;
         voisin.ensVoisin.remove ( this   ) ;
         return true ;
@@ -46,7 +48,11 @@ public class Symbole
 
     public boolean supprimerEnsVoisin ( )
     {
-        this.ensVoisin  .clear();
+        for ( Symbole s : this.ensVoisin )
+        {
+            s.ensVoisin.remove( this ) ;
+        }
+        this.ensVoisin.clear();
         return true ;
 
     }
