@@ -37,6 +37,22 @@ public class Symbole
         return true ;
     }
 
+    public boolean supprimerVoisin( Symbole voisin )
+    {
+        this.ensVoisin.remove ( voisin ) ;
+        return true ;
+    }
+
+    public boolean supprimerEnsVoisin ( )
+    {
+        for ( Symbole s : this.ensVoisin )
+        {
+            s.supprimerVoisin( this ) ;
+        }
+        return true ;
+
+    }
+
     public String toString ()
     {
         return "Symbole : (" + this.coordonneeX + "," + this.coordonneeY + ")" ;
