@@ -27,7 +27,7 @@ Déroulement d’une manche
 2. Les joueurs jouent à tour de rôle dans le sens horaire. À son tour, un joueur pioche une carte.  
 3. La carte indique un type de bâtiment et sa version (clair/foncé). Si possible, le joueur place ou relie ce bâtiment à partir d’une base de la couleur de la manche en le connectant à un bâtiment adjacent.  
 4. Si le joueur ne peut pas jouer ou choisi de ne pas jouer, il passe.  
-5. Les jokers permettent de relier un bâtiment à n’importe quelle base ou extrémité (ils valent comme n’importe quel symbole).  
+5. Les jokers permettent de relier la base ou l'extreminité n’importe quel bâtiment (ils valent comme n’importe quel symbole).  
 6. La manche se termine lorsque la condition convenue est atteinte (ex. épuisement de la pioche).
 
 Connexions (physique)
