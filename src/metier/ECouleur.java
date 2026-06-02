@@ -3,14 +3,14 @@ package metier;
 import java.awt.Color;
 
 /* SAE 2.01 | Développement d'une application 
-* Enums
+* ECouleur
 *
 * Date     : 02/06/2026
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
 * Groupe   : 4
 */
 
-public enum Enums
+public enum ECouleur
 {
     BLEU  ("Eau potable"           , Color.BLUE   ),
 	JAUNE ("Électricité"           , Color.YELLOW ),
@@ -22,7 +22,7 @@ public enum Enums
     private String libelle;
     private Color  couleur;
 
-    Enums ( String libelle, Color couleur )
+    ECouleur ( String libelle, Color couleur )
     {
         this.libelle = libelle;
         this.couleur = couleur;

@@ -1,4 +1,4 @@
-package metier;
+import ihm.FrameConception; 
 
 /* SAE 2.01 | Développement d'une application 
 * Controleur
@@ -16,19 +16,31 @@ public class Controleur
 
         if (args.length == 0)
         {
-            System.out.println("Usage : java Controleur [jeu|editeur]");
+            System.out.println("ERREUR : Précisez le mode ! (\"concept\" / \"jeu\")");
             return;
         }
 
 
-        if (args[0].equals("jeu"))
+        if ( args[0].equals("concept") )
         {
-            System.out.println("Lancement du jeu");
+            System.out.println("Lancement de l'application conception");
+
+			FrameConception frame = new FrameConception();
+
         }
-        else
-        {
-            System.out.println("Lancement de l'éditeur de niveau");
-        }
+        else 
+		{
+			
+			if ( args[0].equals("jeu") )
+			{
+				System.out.println("Lancement du jeu");
+			}
+			else 
+			{
+				 System.out.println("ERREUR : mode incorrect ! (\"concept\" / \"jeu\")");
+			}
+
+		}
     }
 
 }

@@ -1,6 +1,7 @@
 package metier ;
 
 import java.util.ArrayList ;
+import java.awt.Color;
 
 /* SAE 2.01 | Développement d'une application 
 * Zone
@@ -17,6 +18,8 @@ public class Zone
 	/*----------------------------*/
 
     private ArrayList<Symbole> ensSymbole ;
+	private ArrayList<Long> cellules;
+    private Color couleur;
 
 
 	/*----------------------------*/
@@ -26,12 +29,18 @@ public class Zone
     public Zone () 
     {
         this.ensSymbole = new ArrayList<Symbole>() ;
+		this.cellules   = new ArrayList<Long>();
+        this.couleur    = new Color(200, 200, 200);
     }
 
 
 	/*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
+
+	public ArrayList<Long> getCellules() { return this.cellules; }
+    public Color getCouleur() { return this.couleur; }
+
     /*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
@@ -57,4 +66,8 @@ public class Zone
         return true ;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> aba016d (Co-authored-by: Rayan <Golden-r@users.noreply.github.com>)
