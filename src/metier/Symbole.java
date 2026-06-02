@@ -2,16 +2,30 @@ package metier ;
 
 import java.util.ArrayList ;
 
+/* SAE 2.01 | Développement d'une application 
+* Symbole
+*
+* Date     : 02/06/2026
+* @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
+* Groupe   : 4
+*/
+
 public class Symbole
 {
+	/*----------------------------*/
+	/*  Attributs de la classe    */
+	/*----------------------------*/
 
     private int                 coordonneeX ;
-
     private int                 coordonneeY ;
 
     private ArrayList<Symbole>  ensVoisin                   ;
 
-    /* CONSTRUCTEUR */
+
+    /*----------------------------*/
+	/*  Constructeur de la classe */
+	/*----------------------------*/
+
     public Symbole ( int coordonneeX , int coordonneeY ) 
     {
         this.coordonneeX  = coordonneeX ;
@@ -20,20 +34,30 @@ public class Symbole
         this.ensVoisin    = new ArrayList<Symbole>() ;
     }
 
-    /* GETTERS */
+
+    /*----------------------------*/
+	/*  Accesseur                 */
+	/*----------------------------*/
+
     public int  getX () { return this.coordonneeX ; }
     public int  getY () { return this.coordonneeY ; }
 
-    /* SETTERS */
+
+    /*----------------------------*/
+	/*  Modificateur              */
+	/*----------------------------*/
+
     public void setX ( int coordonneeX ) { this.coordonneeX = coordonneeX ; }
     public void setY ( int coordonneeY ) { this.coordonneeY = coordonneeY ; }
 
-    /* METHODES */
-    public boolean ajouterVoisin ( Symbole voisin )
+
+    /*----------------------------*/
+	/*  Méthodes                  */
+	/*----------------------------*/
+    
+	public boolean ajouterVoisin ( Symbole voisin )
     {
         this  .ensVoisin   .add( voisin ) ;
-
-        // on n'appele pas ajouterVoisin pour éviter les appels récursifs infinis
         voisin.ensVoisin   .add( this   ) ;
 
         return true ;
@@ -41,10 +65,11 @@ public class Symbole
 
     public boolean supprimerVoisin( Symbole voisin )
     {
-        if (voisin == null) return false;
+        if (voisin == null){ return false;}
         
         this.ensVoisin  .remove ( voisin ) ;
         voisin.ensVoisin.remove ( this   ) ;
+
         return true ;
     }
 
@@ -55,6 +80,7 @@ public class Symbole
             s.ensVoisin.remove( this ) ;
         }
         this.ensVoisin.clear();
+
         return true ;
 
     }
@@ -64,10 +90,16 @@ public class Symbole
         return "Symbole : (" + this.coordonneeX + "," + this.coordonneeY + ")" ;
     }
 
-    /* TEST UNITAIRE */
+
+
+    /*----------------------------*/
+	/*  MAIN TEST                 */
+	/*----------------------------*/
     public static void main(String[] args)
     {
-        int x = 1;
+        int     x = 1;
+		Symbole s1;
+
         if (args.length > 0)
         {
             try
@@ -80,13 +112,13 @@ public class Symbole
             }
         }
 
-        Symbole s1 = new Symbole(1, 2) ;
+        s1 = new Symbole(1, 2) ;
         System.out.println(s1);
 
-        for (int i = 0 ; i < x; i++)
+        for (int cpt = 0 ; cpt < x; cpt++)
         {
-            s1.ajouterVoisin( new Symbole(i, i) );
-            System.out.println("Voisin " + i + " : " + s1.ensVoisin.get(i));
+            s1.ajouterVoisin( new Symbole(cpt, cpt) );
+            System.out.println("Voisin " + cpt + " : " + s1.ensVoisin.get(cpt));
         }
 
         System.out.println("Voisins : " + s1.ensVoisin);

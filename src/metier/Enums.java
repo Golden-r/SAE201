@@ -2,23 +2,32 @@ package metier;
 
 import java.awt.Color;
 
-public enum Enums {
-    BLEU("Bleu", Color.BLUE);
+/* SAE 2.01 | Développement d'une application 
+* Enums
+*
+* Date     : 02/06/2026
+* @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
+* Groupe   : 4
+*/
 
-    private final String libelle;
-    private final Color couleur;
+public enum Enums
+{
+    BLEU  ("Eau potable"           , Color.BLUE   ),
+	JAUNE ("Électricité"           , Color.YELLOW ),
+	ROUGE ("Gaz de ville"          , Color.RED    ),
+	VERT  ("Fibre optique"         , Color.GREEN  ),
+	MARRON("Égouts et eaux usées"  , new Color (137,81,41)),
+	NOIR  ("Ramassage des déchets" , Color.BLACK  );
 
-    Enums(String libelle, Color couleur) {
+    private String libelle;
+    private Color  couleur;
+
+    Enums ( String libelle, Color couleur )
+    {
         this.libelle = libelle;
         this.couleur = couleur;
     }
 
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public Color getCouleur() {
-        return couleur;
-    }
+    public String getLibelle(){ return this.libelle; }
+    public Color  getCouleur(){ return this.couleur; }
 }
-
