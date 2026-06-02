@@ -86,7 +86,7 @@ public class PanelConception extends JPanel implements ItemListener
 
 
 
-		this.lblNbCouleur = new JLabel("0" );
+		this.lblNbCouleur = new JLabel("0s" );
 		this.tabCbCouleur = new JCheckBox[ECouleur.values().length] ;
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabCbCouleur[cpt] = new JCheckBox( ECouleur.values()[cpt].getLibelle() ) ;
