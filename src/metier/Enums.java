@@ -2,19 +2,23 @@ package metier;
 
 import java.awt.Color;
 
-public enum Enums
-{
-    BLEU("Eau potable", Color.BLUE),
+public enum Enums {
+    BLEU("Bleu", Color.BLUE);
 
-    private String libelle;
-    private Color  couleur;
+    private final String libelle;
+    private final Color couleur;
 
-    Enums ( String libelle, Color couleur )
-    {
+    Enums(String libelle, Color couleur) {
         this.libelle = libelle;
         this.couleur = couleur;
     }
 
-    public String getLibelle(){ return this.libelle; }
-    public Color  getCouleur(){ return this.couleur; }
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public Color getCouleur() {
+        return couleur;
+    }
 }
+

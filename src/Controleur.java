@@ -1,4 +1,6 @@
 
+import ihm.FrameEditeur;
+
 public class Controleur
 {
     public static void main(String[] args)
@@ -13,9 +15,11 @@ public class Controleur
         {
             System.out.println("Lancement du jeu");
         }
-        else //if (args[0].equals("editeur"))
+        else // editeur
         {
-            System.out.println("Lancement de l'éditeur de niveau");
+            FrameEditeur frame = new FrameEditeur();
+            frame.setVisible(true);
         }
     }
 }
+
