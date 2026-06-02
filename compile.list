@@ -1,3 +1,11 @@
 ./src/Controleur.java
+<<<<<<< HEAD
 ./src/metier/*.java
 ./src/ihm/*.java
+=======
+
+./src/metier/Enums.java
+./src/metier/Plateau.java
+./src/metier/Symbole.java
+./src/metier/Zone.java
+>>>>>>> f650780 (E)

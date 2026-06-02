@@ -1,1 +1,0 @@
-javac @compile.list -d ./class
