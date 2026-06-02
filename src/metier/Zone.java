@@ -38,8 +38,8 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public ArrayList<Long> getCellules() { return this.cellules; }
-    public Color getCouleur() { return this.couleur; }
+	public ArrayList<Long> getCellules() { return this.cellules ; }
+    public Color           getCouleur () { return this.couleur  ; }
 
     /*----------------------------*/
 	/*  Modificateur              */
@@ -65,4 +65,13 @@ public class Zone
 
         return true ;
     }
+
+    public boolean contient(int x, int y)
+	{
+		for (Symbole s : this.ensSymbole)
+			if (s != null && s.getX() == x && s.getY() == y)
+				return true;
+
+		return false;
+	}
 }

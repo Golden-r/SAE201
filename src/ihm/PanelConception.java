@@ -40,6 +40,9 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 	private JButton btnAncien ; 
 	private JButton btnCopie ;
 
+	private JButton btnValider;
+	private JButton btnReinitialiser ;
+
 	private JTextField  txtTailleLongueur ; 
 	private JTextField  txtTailleLargeur ; 
 	private JLabel      lblNbCouleur ; 
@@ -57,7 +60,7 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		/* Création des composants       */
 		/* ----------------------------- */
 
-		this.panelCreation = new JPanel( new GridLayout( 4 , 1 ) );
+		this.panelCreation = new JPanel( new GridLayout( 5 , 1 ) );
 		this.panelCreation.setVisible(false);
 
 
@@ -77,12 +80,14 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.btnAncien .setForeground( Color.WHITE );
 		this.btnCopie  .setForeground( Color.WHITE );
 
+		this.btnValider       = new JButton("Valider");
+		this.btnReinitialiser = new JButton("Réinitialiser");
+
 
 
 		this.panelGestion = new JPanel( new FlowLayout(FlowLayout.CENTER, 30, 5) );
 		this.txtTailleLongueur = new JTextField("10" , 4) ;
 		this.txtTailleLargeur  = new JTextField("10" , 4) ;
-
 
 
 
@@ -101,9 +106,11 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.txtTailleCases = new JTextField("50");
 	
 		
-		this.tabPanelCreation = new JPanel[4]  ;
+		this.tabPanelCreation = new JPanel[5]  ;
 		for ( int cpt = 0 ; cpt < this.tabPanelCreation.length ; cpt++ ) 
 			this.tabPanelCreation[cpt] = new JPanel( new FlowLayout(FlowLayout.LEFT) );
+
+		//this.tabPanelCreation[5] = new JPanel();
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
@@ -135,6 +142,10 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.tabPanelCreation[3].add( new JLabel( "Taille des cases : " ) );
 		this.tabPanelCreation[3].add( this.txtTailleCases );
 
+		this.tabPanelCreation[4].add( this.btnValider );
+		this.tabPanelCreation[4].add( this.btnReinitialiser );
+
+
 
 
 
@@ -142,10 +153,11 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.panelCreation.add( this.tabPanelCreation[1] );
 		this.panelCreation.add( this.tabPanelCreation[2] );
 		this.panelCreation.add( this.tabPanelCreation[3] );
+		this.panelCreation.add( this.tabPanelCreation[4] );
 
 
 		this.add( this.panelGestion  , BorderLayout.NORTH  ) ;
-		this.add( this.panelCreation     , BorderLayout.CENTER ) ;
+		this.add( this.panelCreation , BorderLayout.CENTER ) ;
 
 		
 	

@@ -34,7 +34,15 @@ public class Plateau
     public int              getHauteur       ()              { return this.hauteur;    }
     public int              getTailleCase    ()              { return this.tailleCase; }
     public List<Zone>       getZones         ()              { return this.zones; }
-    public Zone             getZoneDeCellule (int x, int y)  { return null; }
+    public Zone             getZoneDeCellule (int x, int y)
+    { 
+		for (Zone zone : this.zones)
+			if (zone.contient(x, y))
+				return zone;
+
+		return null; 
+	}
+    
     public Symbole          getSymbole       (int x, int y) 
     {
         if (!dansGrille(x, y)) return null;
