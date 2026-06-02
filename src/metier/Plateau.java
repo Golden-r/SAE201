@@ -55,7 +55,8 @@ public class Plateau
 
     public void toggleBase(int x, int y, ECouleur couleur) 
     {
-        if (dansGrille(x, y) && grille[x][y] != null) {
+        if (dansGrille(x, y) && grille[x][y] != null) 
+        {
             grille[x][y].setBase(!grille[x][y].isBase(), couleur);
         }
     }
@@ -66,7 +67,8 @@ public class Plateau
 
     public void assignerCelluleAZone(int x, int y, Zone zone) {}
 
-    public void creerZoneSiInexistante(String nom, Color couleur) {
+    public void creerZoneSiInexistante(String nom, Color couleur) 
+    {
         // Implémentation basique pour éviter les crashs de l'IHM
         this.zones.add(new Zone()); 
     }
