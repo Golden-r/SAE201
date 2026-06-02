@@ -28,7 +28,6 @@ public class Symbole
 
     private ESymbole            symbole     ;
 
-    private boolean             estBase     ;
     private boolean             estVide     ;
     private ECouleur            couleurBase ;
 
@@ -46,10 +45,9 @@ public class Symbole
 
         this.symbole = symbole          ;
         
-        this.estBase = false            ;
         this.couleurBase = null         ;
 
-        if ( coordonneeX == null && coordonneeY == null && symbole == null  )
+        if (symbole == null  )
         {
             this.estVide = true ;
         }
@@ -59,48 +57,37 @@ public class Symbole
         }
     }
 
-    public Symbole () 
-    {
-        this.coordonneeX  = 0 ;
-        this.coordonneeY  = 0 ;
-
-        this.ensVoisin    = new ArrayList<Symbole>() ;
-
-        this.symbole = null          ;
-        
-        this.estBase = false            ;
-        this.couleurBase = null         ;
-    }
-
-
-
     /*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public int          getX            () { return this.coordonneeX ; }
-    public int          getY            () { return this.coordonneeY ; }
-    public ESymbole     getSymbole      () { return symbole ;          }
-    public ECouleur     getCouleurBase  () { return couleurBase ;      }
-    public boolean      getEstVide      () { return this.estVide     ; }
+    public int          getX            () { return this.coordonneeX         ; }
+    public int          getY            () { return this.coordonneeY         ; }
+    public ESymbole     getSymbole      () { return this.symbole             ; }
+    public ECouleur     getCouleurBase  () { return this.couleurBase         ; }
+    public boolean      getEstVide      () { return this.estVide             ; }
+    public boolean      estBase         () { return this.couleurBase != null ; }
 
 
     /*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
 
-    public void setX        ( int coordonneeX   )   { this.coordonneeX = coordonneeX ; }
-    public void setY        ( int coordonneeY   )   { this.coordonneeY = coordonneeY ; }
-    public void setSymbole  ( ESymbole symbole  )   { this.symbole     = symbole     ; }
-    public void setEstVide  ( boolean estVide   )   { this.estVide     = estVide     ; }
+    public void setX        ( int      coordonneeX )   { this.coordonneeX = coordonneeX ; }
+    public void setY        ( int      coordonneeY )   { this.coordonneeY = coordonneeY ; }
+    public void setEstVide  ( boolean  estVide     )   { this.estVide     = estVide     ; }
+    public void setBase     ( ECouleur couleurBase )   { this.couleurBase = couleurBase ; }
+    public void setSymbole  ( ESymbole symbole     )
+    {
+        this.symbole = symbole;
+        this.estVide = (symbole == null);
+    }
 
 
     /*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
 
-    public boolean isBase() { return estBase; }
-    
 	public boolean ajouterVoisin ( Symbole voisin )
     {
         this.ensVoisin.add( voisin ) ;
@@ -126,19 +113,11 @@ public class Symbole
         return true ;
     }
 
-    public void setBase(boolean estBase, ECouleur couleurBase)
-    {
-        this.estBase = estBase;
-        this.couleurBase = estBase ? Objects.requireNonNull(couleurBase, "couleurBase") : null;
-        this.estVide = false;
-    }
-    
+
     public String toString ()
     {
         return "Symbole : (" + this.coordonneeX + "," + this.coordonneeY + ")" ;
     }
-
-
 
     /*----------------------------*/
 	/*  MAIN TEST                 */

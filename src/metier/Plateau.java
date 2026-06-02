@@ -30,12 +30,12 @@ public class Plateau
         this.grille = new Symbole[largeur][hauteur];
     }
 
-    public int getLargeur       ()              { return this.largeur;    }
-    public int getHauteur       ()              { return this.hauteur;    }
-    public int getTailleCase    ()              { return this.tailleCase; }
-    public List<Zone> getZones  ()              { return this.zones; }
-    public Zone getZoneDeCellule(int x, int y)  { return null; }
-    public Symbole getSymbole   (int x, int y) 
+    public int              getLargeur       ()              { return this.largeur;    }
+    public int              getHauteur       ()              { return this.hauteur;    }
+    public int              getTailleCase    ()              { return this.tailleCase; }
+    public List<Zone>       getZones         ()              { return this.zones; }
+    public Zone             getZoneDeCellule (int x, int y)  { return null; }
+    public Symbole          getSymbole       (int x, int y) 
     {
         if (!dansGrille(x, y)) return null;
         return grille[x][y];
@@ -66,7 +66,7 @@ public class Plateau
     {
         if (dansGrille(x, y) && grille[x][y] != null) 
         {
-            grille[x][y].setBase(!grille[x][y].isBase(), couleur);
+            grille[x][y].setBase(couleur);
         }
     }
     public void creerZoneSiInexistante(String nom, Color couleur) 

@@ -22,7 +22,7 @@ public class FrameConception extends JFrame
     {
 
         this.setTitle("Application conception - Groupe 4");
-		this.setSize(1200, 400);
+		this.setSize(1200, 120);
 		this.setLocation(50, 100);
 
 		

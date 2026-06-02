@@ -12,9 +12,10 @@ import metier.Zone;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+import javax.swing.SwingUtilities;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -27,11 +28,11 @@ import java.awt.event.*;
 * Groupe   : 4
 */
 
-public class PanelConception extends JPanel implements ItemListener
+public class PanelConception extends JPanel implements ActionListener , ItemListener
 {
 
 	private JPanel panelGestion ;
-	private JPanel panelCreation ;
+	private JPanel panelCreation;
 
 	private JPanel[] tabPanelCreation ;
 
@@ -57,6 +58,8 @@ public class PanelConception extends JPanel implements ItemListener
 		/* ----------------------------- */
 
 		this.panelCreation = new JPanel( new GridLayout( 4 , 1 ) );
+		this.panelCreation.setVisible(false);
+
 
 		this.btnNouveau = new JButton("Nouveau") ;
 		this.btnAncien  = new JButton("Ancien" ) ;
@@ -77,16 +80,14 @@ public class PanelConception extends JPanel implements ItemListener
 
 
 		this.panelGestion = new JPanel( new FlowLayout(FlowLayout.CENTER, 30, 5) );
-		this.txtTailleLongueur = new JTextField(4) ;
-		this.txtTailleLongueur.setText("50");
-		this.txtTailleLargeur  = new JTextField(4) ;
-		this.txtTailleLongueur.setText("50");
+		this.txtTailleLongueur = new JTextField("10" , 4) ;
+		this.txtTailleLargeur  = new JTextField("10" , 4) ;
 
 
 
 
 
-		this.lblNbCouleur = new JLabel("0s" );
+		this.lblNbCouleur = new JLabel("0" );
 		this.tabCbCouleur = new JCheckBox[ECouleur.values().length] ;
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabCbCouleur[cpt] = new JCheckBox( ECouleur.values()[cpt].getLibelle() ) ;
@@ -144,7 +145,7 @@ public class PanelConception extends JPanel implements ItemListener
 
 
 		this.add( this.panelGestion  , BorderLayout.NORTH  ) ;
-		this.add( this.panelCreation , BorderLayout.CENTER ) ;
+		this.add( this.panelCreation     , BorderLayout.CENTER ) ;
 
 		
 	
@@ -152,6 +153,11 @@ public class PanelConception extends JPanel implements ItemListener
 		/*---------------------------*/
 		/* Activation des composants */
 		/*---------------------------*/
+
+		this.btnNouveau.addActionListener(this);
+		this.btnAncien .addActionListener(this);
+		this.btnCopie  .addActionListener(this);
+
 
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabCbCouleur[cpt].addItemListener(this);
@@ -174,8 +180,30 @@ public class PanelConception extends JPanel implements ItemListener
 		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ ) 
 			if ( this.tabCbSymbole[cpt].isSelected() ) 
 				this.lblNbSymbole.setText( "" + ( ++ nbSymbole ) );
-			
-	
+	}
+
+	public void actionPerformed(ActionEvent e) 
+	{
+		Window fenetrePrincipale;
+
+		if ( e.getSource() == this.btnNouveau ) 
+		{
+			this.panelCreation.setVisible(true);
+		}
+
+		if ( e.getSource() == this.btnAncien ) 
+		{
+			this.panelCreation.setVisible(false);
+		}
+
+		if ( e.getSource() == this.btnCopie ) 
+		{
+			this.panelCreation.setVisible(false);
+		}
+
+
+		fenetrePrincipale = SwingUtilities.getWindowAncestor(this);
+		if (fenetrePrincipale instanceof JFrame) { ( (JFrame) fenetrePrincipale).pack() ;}
 	}
 }
 
