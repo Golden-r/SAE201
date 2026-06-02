@@ -65,9 +65,4 @@ public class Zone
 
         return true ;
     }
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> aba016d (Co-authored-by: Rayan <Golden-r@users.noreply.github.com>)

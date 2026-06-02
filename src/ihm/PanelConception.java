@@ -106,9 +106,10 @@ public class PanelConception extends JPanel
 		this.tabPanelCreation[0].add( new JLabel(" X " )       );
 		this.tabPanelCreation[0].add( this.txtTailleLongueur );
 
-		this.tabPanelCreation[1].add( this.txtTailleLargeur );
+		this.tabPanelCreation[1].add( new JLabel("") );
 
-
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+			this.tabPanelCreation[1].add(this.tabCbCouleur[cpt] );
 
 
 
