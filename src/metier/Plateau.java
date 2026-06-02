@@ -79,7 +79,6 @@ public class Plateau
     }
     public void creerZoneSiInexistante(String nom, Color couleur) 
     {
-        // Implémentation basique pour éviter les crashs de l'IHM
         this.zones.add(new Zone()); 
     }
 }

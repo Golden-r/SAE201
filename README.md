@@ -1,47 +1,93 @@
-## Réseaux urbains
-8+ ANS — 15–30 MINUTES — 1-4 JOUEURS
+# Réseaux Urbains
 
-# Introduction
-Le cœur de la ville bat grâce aux réseaux : eau, électricité, fibre, etc. Dans Réseaux urbains, vous incarnez un gestionnaire qui tente de relier des bâtiments depuis ses points de départ pour créer des quartiers performants. À chaque manche, un type de réseau est à l’honneur : reliez, étendez, contrôlez  et marquez des points pour le quartier le plus connecté.
+**8+ ANS — 15–30 MINUTES — 1-4 JOUEURS**
 
-# Matériel
-- 1 plateau divisé en quartiers
-- Pions‑bâtiments (maison, hôpital, usine, école, cinéma…)
-- Marqueurs‑bases (points de départ pour chaque couleur de réseau)
-- Un jeu de cartes (pour chaque type de bâtiment : clair/foncé + jokers)
-- Feuillet de règles et piste de score
+## Introduction
 
-# Mise en place
-1. Posez le plateau au centre.
-2. Placez sur le plateau les bâtiments.
-3. Positionnez une base par couleur sur le plateau.
-4. Mélangez les cartes et placez la pioche ; laissez visible le mode de pioche (face visible ou face cachée).
+Le cœur de la ville bat grâce aux réseaux : eau, électricité, fibre, etc. Dans Réseaux urbains, vous incarnez un gestionnaire qui tente de relier des bâtiments depuis leur point de départ pour créer des quartiers performants. À chaque manche, un type de réseau est à l'honneur : reliez, étendez, contrôlez et marquez des points pour le quartier le plus connecté.
 
-# But du jeu
-A la fin de toutes les manches, le joueur qui a totalisé le plus de points gagne. On marque des points en rassemblant, pendant chaque manche, des bâtiments du type de réseau du tour pour former la plus grande chaîne dans un quartier.
+## Contenu de la boîte
 
-# Déroulement d’une manche
-1. Les joueurs jouent en même temps. Un joueur pioche une carte pour tous les joueurs.
-2. La carte indique un type de bâtiment et sa version (clair/foncé). Si possible, le joueur place ou relie ce bâtiment à partir d’une base, ou d’un bâtiment en extrémité, de la couleur de la manche en le connectant à un bâtiment adjacent.
-3. Si le joueur ne peut pas jouer ou choisit de ne pas jouer, il passe.
-4. Les jokers permettent de relier un bâtiment à n’importe quelle base ou extrémité.
-5. La manche se termine lorsque toutes les cartes foncées ont été tirées.
+* Plateau de jeu divisé en plusieurs quartiers.
 
-# Connexions (physique)
-- Deux bâtiments sont reliés quand ils sont placés sur des cases voisines (8 directions possibles).
-- Si un bâtiment est retiré, cela peut modifier les connexions visibles entre bâtiments : les joueurs ajustent simplement les pions sur le plateau.
 
-# Comptage des points (fin de manche)
-- Pour chaque quartier, identifiez la plus grande chaîne de bâtiments correspondant à la couleur de la manche.
-- Le quartier qui possède la plus grande chaîne rapporte : taille de la chaîne × poids du quartier (poids par défaut = 1).
-- Compter le nombre de quartier traversé par la couleur.
-- Notez les points sur la piste de score : taille de la chaîne × poids du quartier × nombre de quartier.
+* 150 Pions bases (25x Maisons, 25x Immeubles, 25x Hôtels, 25x Restaurants, 25x Écoles, 25x Usines).
 
- " Fin de la partie et égalité
-- Après toutes les manches, additionnez les scores : le plus haut total l’emporte.
-- En cas d’égalité, le joueur ayant obtenu le plus grand score sur une manche l’emporte. Si égalité encore, départagez par nombre total de bâtiments reliés.
 
-# Actions possibles (résumé pour le tour)
-- Piocher une carte
-- Jouer une carte pour relier un bâtiment
-- Passer (si on ne peut/veut pas jouer)
+* 24 Marqueurs réseau (points de départ pour chaque réseau).
+
+
+* 14 cartes bases (versions claires/foncées pour chaque type de bâtiment, + 2 cartes Joker).
+
+
+* 1 carnet calepin.
+
+
+* 1 Livret de règles.
+
+
+
+## But du jeu
+
+Le joueur qui totalise le plus de points à l'issue de toutes les manches est déclaré vainqueur. Les points s'obtiennent en rassemblant, lors de chaque manche, des bâtiments correspondant au type de réseau en cours pour former la plus grande chaîne continue au sein d'un même quartier.
+
+## Préparation du jeu
+
+1. Posez le plateau de jeu au centre de la table.
+
+
+2. Placez les différents pions bases sur les emplacements de votre choix.
+
+
+3. Positionnez un marqueur de base de chaque réseau sur le plateau.
+
+
+4. Mélangez les cartes bases pour former la pioche.
+
+
+
+## Déroulement d'une manche
+
+Tous les participants jouent en simultané sur un plateau identique. Chaque joueur choisit un type de base qu'il n'a pas encore joué et qui n'est pas déjà pris par un autre joueur pour cette manche.
+
+À chaque tour, un joueur est désigné pour piocher une seule carte, qui s'applique alors à tous les joueurs autour de la table. Chaque joueur doit alors effectuer l'une des actions suivantes :
+
+* **Étendre son réseau :** La carte tirée indique un type de bâtiment et sa version (clair ou foncé). Le joueur relie ce bâtiment spécifique en le connectant à un bâtiment adjacent. Cette connexion doit obligatoirement partir d'une base, ou d'un bâtiment situé à l'extrémité du réseau de la manche en cours. Deux bâtiments sont considérés comme valablement reliés s'ils sont situés sur des cases voisines (les 8 directions autour d'une case sont autorisées).
+
+
+* **Utiliser un Joker :** Si la carte tirée est un Joker, le joueur peut relier le bâtiment de son choix à l'extrémité de son réseau.
+
+
+* **Passer son tour :** Si un joueur ne peut pas (ou choisit de ne pas) placer de réseau ce tour-ci, il passe simplement son tour.
+
+
+
+La manche prend fin immédiatement lorsque toutes les cartes "foncées" ont été tirées de la pioche.
+
+## Décompte des points
+
+À la fin de la manche, évaluez les réseaux construits pour le réseau mis à l'honneur :
+
+* Identifiez la plus grande chaîne de bâtiments ininterrompue pour chaque quartier.
+
+
+* Comptez le nombre total de quartiers traversés par votre réseau.
+
+
+* Multipliez le résultat précédent par ce nombre de quartiers, puis notez le total obtenu sur la piste de score.
+
+
+
+**Exemple de comptage :**
+Si votre plus grande chaîne ininterrompue dans le quartier du Havre comporte 4 bâtiments (taille = 4) et que votre réseau traverse 2 quartiers distincts au total, vous marquez 8 points (4 x 2).
+
+## Fin du jeu et égalité
+
+Une fois toutes les manches terminées, additionnez les scores accumulés. Le joueur avec le plus haut total l'emporte !
+
+En cas d'égalité, le joueur ayant réalisé le plus grand score sur une seule et même manche gagne la partie. Si l'égalité persiste, les joueurs se partagent la victoire.
+
+## Crédits
+
+**Auteurs du jeu :** AZAANOUNE Rayan, BASSAM YOUSSIF Youssif, FERRIER Mathys, LARBI Timothe.
+**Institution :** IUT LE HAVRE.

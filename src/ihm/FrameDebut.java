@@ -1,6 +1,5 @@
 package ihm;
 
-import metier.Plateau;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,15 +14,19 @@ import java.awt.*;
 
 public class FrameDebut extends JFrame
 {
-
-    private Plateau plateau;
-
     public FrameDebut()
     {
         
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
+        this.setTitle("Application conception - Groupe 4");
+		this.setSize(1200, 120);
+		this.setLocation(50, 100);
+
+		
+		this.add(new PanelDebut());
+
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
     }
 
 

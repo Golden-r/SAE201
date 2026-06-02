@@ -1,12 +1,10 @@
 package ihm;
 
+import controleur.Controleur;
+
 import metier.ESymbole;
 import metier.ECouleur;
 import metier.Plateau;
-
-
-import metier.ECouleur;
-import metier.ESymbole;
 import metier.Zone;
 
 import javax.swing.JPanel;
@@ -30,6 +28,7 @@ import java.awt.event.*;
 
 public class PanelConception extends JPanel implements ActionListener , ItemListener
 {
+	private Controleur ctrl;
 
 	private JPanel panelGestion ;
 	private JPanel panelCreation;
@@ -51,9 +50,9 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 	private JCheckBox[] tabCbSymbole ;
 	private JTextField  txtTailleCases ;
 
-	public PanelConception() 
+	public PanelConception( Controleur ctrl ) 
 	{
-
+		this.ctrl = ctrl ;
 		this.setLayout( new BorderLayout() );
 
 		/* ----------------------------- */
@@ -62,6 +61,7 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 
 		this.panelCreation = new JPanel( new GridLayout( 5 , 1 ) );
 		this.panelCreation.setVisible(false);
+
 
 
 		this.btnNouveau = new JButton("Nouveau") ;
@@ -80,8 +80,12 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.btnAncien .setForeground( Color.WHITE );
 		this.btnCopie  .setForeground( Color.WHITE );
 
-		this.btnValider       = new JButton("Valider");
+
+		this.btnValider       = new JButton("Valider"      );
 		this.btnReinitialiser = new JButton("Réinitialiser");
+		this.btnValider      .setBackground( Color.GREEN  );
+		this.btnReinitialiser.setBackground( Color.YELLOW );
+
 
 
 
@@ -90,27 +94,26 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.txtTailleLargeur  = new JTextField("10" , 4) ;
 
 
-
-
 		this.lblNbCouleur = new JLabel("0" );
 		this.tabCbCouleur = new JCheckBox[ECouleur.values().length] ;
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabCbCouleur[cpt] = new JCheckBox( ECouleur.values()[cpt].getLibelle() ) ;
+
 
 		this.lblNbSymbole = new JLabel("0");
 		this.tabCbSymbole = new JCheckBox[ESymbole.values().length] ;
 		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ ) 
 			this.tabCbSymbole[cpt] = new JCheckBox( ESymbole.values()[cpt].getLibelle() ) ;
 		
-
-		this.txtTailleCases = new JTextField("50");
+		this.txtTailleCases = new JTextField("50" , 4);
 	
-		
 		this.tabPanelCreation = new JPanel[5]  ;
-		for ( int cpt = 0 ; cpt < this.tabPanelCreation.length ; cpt++ ) 
+		for ( int cpt = 0 ; cpt < this.tabPanelCreation.length-1 ; cpt++ ) 
 			this.tabPanelCreation[cpt] = new JPanel( new FlowLayout(FlowLayout.LEFT) );
 
-		//this.tabPanelCreation[5] = new JPanel();
+		this.tabPanelCreation[4] = new JPanel();
+		this.tabPanelCreation[4].setBackground( Color.LIGHT_GRAY );
+
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
@@ -170,6 +173,9 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		this.btnAncien .addActionListener(this);
 		this.btnCopie  .addActionListener(this);
 
+		this.btnValider      .addActionListener(this);
+		this.btnReinitialiser.addActionListener(this);
+
 
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabCbCouleur[cpt].addItemListener(this);
@@ -181,17 +187,10 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 
 	public void itemStateChanged(ItemEvent e) 
 	{
-		int nbCouleur = 0 ; 
-		int nbSymbole = 0 ;
 
-		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
-			if ( this.tabCbCouleur[cpt].isSelected() )
-				this.lblNbCouleur.setText( "" + ( ++ nbCouleur ) );
-			
+		this.lblNbCouleur.setText( this.nbCouleurSelectionner() + "" );
+		this.lblNbSymbole.setText( this.nbSymboleSelectionner() + "" );
 
-		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ ) 
-			if ( this.tabCbSymbole[cpt].isSelected() ) 
-				this.lblNbSymbole.setText( "" + ( ++ nbSymbole ) );
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -199,23 +198,115 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		Window fenetrePrincipale;
 
 		if ( e.getSource() == this.btnNouveau ) 
-		{
+		{ 
 			this.panelCreation.setVisible(true);
+
+			this.btnNouveau.setBackground( Color.DARK_GRAY );
+			this.btnAncien .setBackground( Color.BLACK     );
+			this.btnCopie  .setBackground( Color.BLACK     );
 		}
 
 		if ( e.getSource() == this.btnAncien ) 
 		{
 			this.panelCreation.setVisible(false);
+			this.reinitialiserCreation() ;
+
+			this.btnNouveau.setBackground( Color.BLACK     );
+			this.btnAncien .setBackground( Color.DARK_GRAY );
+			this.btnCopie  .setBackground( Color.BLACK     );
 		}
 
 		if ( e.getSource() == this.btnCopie ) 
 		{
 			this.panelCreation.setVisible(false);
+			this.reinitialiserCreation() ;
+
+			this.btnNouveau.setBackground( Color.BLACK     );
+			this.btnAncien .setBackground( Color.BLACK     );
+			this.btnCopie  .setBackground( Color.DARK_GRAY );
 		}
+
+
+		if ( e.getSource() == this.btnValider      ) { this.validerCreation()       ;}
+		if ( e.getSource() == this.btnReinitialiser) { this.reinitialiserCreation() ;}
+
 
 
 		fenetrePrincipale = SwingUtilities.getWindowAncestor(this);
 		if (fenetrePrincipale instanceof JFrame) { ( (JFrame) fenetrePrincipale).pack() ;}
+	}
+
+
+	/*----------------------------*/
+	/*  Méthodes                  */
+	/*----------------------------*/
+
+	public void validerCreation()
+	{
+		String tailleLargeur  = this.txtTailleLargeur .getText() ;
+		String tailleLongueur = this.txtTailleLongueur.getText() ;
+		String tailleCases    = this.txtTailleCases   .getText() ;
+
+		boolean reseauSelect   = this.nbCouleurSelectionner() >= 1 ;
+		boolean batimentSelect = this.nbSymboleSelectionner() >= 2 ;
+
+
+		if ( this.estEntier( tailleLargeur ) && this.estEntier(tailleLongueur) && this.estEntier(tailleCases) && reseauSelect && batimentSelect )
+		{
+			FrameDebut frameDebut = new FrameDebut() ;
+
+			Window fenetrePrincipale = SwingUtilities.getWindowAncestor(this);
+			if (fenetrePrincipale != null) { fenetrePrincipale.dispatchEvent(new WindowEvent(fenetrePrincipale, WindowEvent.WINDOW_CLOSING)) ;}
+		}
+
+		
+	}
+
+	public void reinitialiserCreation()
+	{
+		this.txtTailleLargeur .setText("");
+		this.txtTailleLongueur.setText("");
+		this.txtTailleCases   .setText("");
+
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ )
+			this.tabCbCouleur[cpt].setSelected( false );
+
+		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ )
+			this.tabCbSymbole[cpt].setSelected( false );
+
+		this.lblNbCouleur.setText( "0");
+		this.lblNbSymbole.setText( "0");
+	}
+
+	private boolean estEntier ( String val )
+	{
+		try { Integer.parseInt ( val )       ;}
+		catch ( Exception e ) { return false ;}
+
+		return true;
+	}
+
+	private int nbCouleurSelectionner ()
+	{
+		int nbCouleur = 0 ; 
+
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+			if ( this.tabCbCouleur[cpt].isSelected() )
+				nbCouleur ++ ;
+
+		return nbCouleur;
+	}
+
+	private int nbSymboleSelectionner ()
+	{
+		int nbSymbole = 0 ;
+
+		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ ) 
+			if ( this.tabCbSymbole[cpt].isSelected() ) 
+				nbSymbole ++ ;
+
+		return nbSymbole;
+
 	}
 }
 

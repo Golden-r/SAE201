@@ -1,10 +1,17 @@
 ./src/Controleur.java
 
+
+
 ./src/metier/ESymbole.java
 ./src/metier/ECouleur.java
+
 ./src/metier/Symbole.java
 ./src/metier/Plateau.java
 ./src/metier/Zone.java
 
+
+
 ./src/ihm/FrameConception.java
 ./src/ihm/PanelConception.java
+./src/ihm/FrameDebut.java
+./src/ihm/PanelDebut.java
