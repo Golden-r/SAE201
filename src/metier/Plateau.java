@@ -47,12 +47,14 @@ public class Plateau
 
     public void poserSymbole(int x, int y, ESymbole symbole) 
     {
-        if (dansGrille(x, y)) {
+        if (dansGrille(x, y)) 
+        {
             grille[x][y] = new Symbole(x, y, symbole);
         }
     }
 
-    public void toggleBase(int x, int y, ECouleur couleur) {
+    public void toggleBase(int x, int y, ECouleur couleur) 
+    {
         if (dansGrille(x, y) && grille[x][y] != null) {
             grille[x][y].setBase(!grille[x][y].isBase(), couleur);
         }
