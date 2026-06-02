@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package metier ;
 
 import java.util.ArrayList ;
@@ -60,4 +58,3 @@ public class Zone
     }
 
 }
->>>>>>> f650780 (E)
