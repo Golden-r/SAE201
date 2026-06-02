@@ -30,19 +30,29 @@ public class Plateau
         this.grille = new Symbole[largeur][hauteur];
     }
 
-    public int getLargeur()    { return this.largeur;    }
-    public int getHauteur()    { return this.hauteur;    }
-    public int getTailleCase() { return this.tailleCase; }
-    
-    public boolean dansGrille(int x, int y) 
-    {
-        return x >= 0 && x < largeur && y >= 0 && y < hauteur;
-    }
-
-    public Symbole getSymbole(int x, int y) 
+    public int getLargeur       ()              { return this.largeur;    }
+    public int getHauteur       ()              { return this.hauteur;    }
+    public int getTailleCase    ()              { return this.tailleCase; }
+    public List<Zone> getZones  ()              { return this.zones; }
+    public Zone getZoneDeCellule(int x, int y)  { return null; }
+    public Symbole getSymbole   (int x, int y) 
     {
         if (!dansGrille(x, y)) return null;
         return grille[x][y];
+    }
+    
+    public void assignerCelluleAZone(int x, int y, Zone zone , Symbole symbole) 
+    {
+        if ( this.dansGrille(x, y) && zone != null) 
+        {
+            zone.ajouterSymbole(symbole) ;
+        }
+
+    }
+
+    public boolean dansGrille(int x, int y) 
+    {
+        return x >= 0 && x < largeur && y >= 0 && y < hauteur;
     }
 
     public void poserSymbole(int x, int y, ESymbole symbole) 
@@ -52,7 +62,6 @@ public class Plateau
             grille[x][y] = new Symbole(x, y, symbole);
         }
     }
-
     public void toggleBase(int x, int y, ECouleur couleur) 
     {
         if (dansGrille(x, y) && grille[x][y] != null) 
@@ -60,13 +69,6 @@ public class Plateau
             grille[x][y].setBase(!grille[x][y].isBase(), couleur);
         }
     }
-
-    public List<Zone> getZones() { return this.zones; }
-
-    public Zone getZoneDeCellule(int x, int y) { return null; }
-
-    public void assignerCelluleAZone(int x, int y, Zone zone) {}
-
     public void creerZoneSiInexistante(String nom, Color couleur) 
     {
         // Implémentation basique pour éviter les crashs de l'IHM

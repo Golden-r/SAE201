@@ -29,6 +29,7 @@ public class Symbole
     private ESymbole            symbole     ;
 
     private boolean             estBase     ;
+    private boolean             estVide     ;
     private ECouleur            couleurBase ;
 
 
@@ -47,7 +48,30 @@ public class Symbole
         
         this.estBase = false            ;
         this.couleurBase = null         ;
+
+        if ( coordonneeX == null && coordonneeY == null && symbole == null  )
+        {
+            this.estVide = true ;
+        }
+        else 
+        {
+            this.estVide = false ;
+        }
     }
+
+    public Symbole () 
+    {
+        this.coordonneeX  = 0 ;
+        this.coordonneeY  = 0 ;
+
+        this.ensVoisin    = new ArrayList<Symbole>() ;
+
+        this.symbole = null          ;
+        
+        this.estBase = false            ;
+        this.couleurBase = null         ;
+    }
+
 
 
     /*----------------------------*/
@@ -56,8 +80,9 @@ public class Symbole
 
     public int          getX            () { return this.coordonneeX ; }
     public int          getY            () { return this.coordonneeY ; }
-    public ESymbole     getSymbole      () { return symbole          ; }
-    public ECouleur     getCouleurBase  () { return couleurBase      ; }
+    public ESymbole     getSymbole      () { return symbole ;          }
+    public ECouleur     getCouleurBase  () { return couleurBase ;      }
+    public boolean      getEstVide      () { return this.estVide     ; }
 
 
     /*----------------------------*/
@@ -66,7 +91,8 @@ public class Symbole
 
     public void setX        ( int coordonneeX   )   { this.coordonneeX = coordonneeX ; }
     public void setY        ( int coordonneeY   )   { this.coordonneeY = coordonneeY ; }
-    public void setSymbole  ( ESymbole symbole  )   { this.symbole = symbole;          }
+    public void setSymbole  ( ESymbole symbole  )   { this.symbole     = symbole     ; }
+    public void setEstVide  ( boolean estVide   )   { this.estVide     = estVide     ; }
 
 
     /*----------------------------*/
@@ -103,8 +129,8 @@ public class Symbole
     public void setBase(boolean estBase, ECouleur couleurBase)
     {
         this.estBase = estBase;
-        //TODO
         this.couleurBase = estBase ? Objects.requireNonNull(couleurBase, "couleurBase") : null;
+        this.estVide = false;
     }
     
     public String toString ()

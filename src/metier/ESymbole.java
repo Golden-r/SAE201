@@ -31,5 +31,5 @@ public enum ESymbole
     }
 
     public String getLibelle(){ return this.libelle ;}
-    public char   getNom()    { return this.nom     ;}
+    public char   getNom()    { return this.nom ;    }
 }

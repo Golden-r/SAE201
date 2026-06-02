@@ -22,8 +22,8 @@ public class FrameConception extends JFrame
     {
 
         this.setTitle("Application conception - Groupe 4");
-		this.setSize(500, 200);
-		this.setLocation(400, 400);
+		this.setSize(1200, 400);
+		this.setLocation(50, 100);
 
 		
 		this.add(new PanelConception());

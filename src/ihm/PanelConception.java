@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 
 import java.awt.*;
+import java.awt.event.*;
 
 /* SAE 2.01 | Développement d'une application 
 * PanelConception
@@ -26,7 +27,7 @@ import java.awt.*;
 * Groupe   : 4
 */
 
-public class PanelConception extends JPanel 
+public class PanelConception extends JPanel implements ItemListener
 {
 
 	private JPanel panelGestion ;
@@ -38,9 +39,9 @@ public class PanelConception extends JPanel
 	private JButton btnAncien ; 
 	private JButton btnCopie ;
 
-	private JTextField txtTailleLongueur ; 
-	private JTextField txtTailleLargeur  ; 
-	private JLabel     lblNbCouleur      ; 
+	private JTextField  txtTailleLongueur ; 
+	private JTextField  txtTailleLargeur ; 
+	private JLabel      lblNbCouleur ; 
 	private JCheckBox[] tabCbCouleur ;
 	private JLabel      lblNbSymbole ;
 	private JCheckBox[] tabCbSymbole ;
@@ -61,17 +62,31 @@ public class PanelConception extends JPanel
 		this.btnAncien  = new JButton("Ancien" ) ;
 		this.btnCopie   = new JButton("Copie"  ) ;
 
+		this.btnNouveau.setPreferredSize( new Dimension(350 , 75 ) );
+		this.btnAncien .setPreferredSize( new Dimension(350 , 75 ) );
+		this.btnCopie  .setPreferredSize( new Dimension(350 , 75 ) );
+
+		this.btnNouveau.setBackground( Color.BLACK );
+		this.btnAncien .setBackground( Color.BLACK );
+		this.btnCopie  .setBackground( Color.BLACK );
+ 
+		this.btnNouveau.setForeground( Color.WHITE );
+		this.btnAncien .setForeground( Color.WHITE );
+		this.btnCopie  .setForeground( Color.WHITE );
 
 
-		this.panelGestion  = new JPanel( new GridLayout( 1 , 3 ) );
-		this.txtTailleLongueur = new JTextField("10") ;
-		this.txtTailleLargeur  = new JTextField("10") ;
+
+		this.panelGestion = new JPanel( new FlowLayout(FlowLayout.CENTER, 30, 5) );
+		this.txtTailleLongueur = new JTextField(4) ;
+		this.txtTailleLongueur.setText("50");
+		this.txtTailleLargeur  = new JTextField(4) ;
+		this.txtTailleLongueur.setText("50");
 
 
 
 
 
-		this.lblNbCouleur = new JLabel("0");
+		this.lblNbCouleur = new JLabel("0" );
 		this.tabCbCouleur = new JCheckBox[ECouleur.values().length] ;
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabCbCouleur[cpt] = new JCheckBox( ECouleur.values()[cpt].getLibelle() ) ;
@@ -82,14 +97,12 @@ public class PanelConception extends JPanel
 			this.tabCbSymbole[cpt] = new JCheckBox( ESymbole.values()[cpt].getLibelle() ) ;
 		
 
-		
+		this.txtTailleCases = new JTextField("50");
+	
 		
 		this.tabPanelCreation = new JPanel[4]  ;
-		this.tabPanelCreation[0] = new JPanel();
-		this.tabPanelCreation[1] = new JPanel();
-		this.tabPanelCreation[2] = new JPanel();
-		this.tabPanelCreation[3] = new JPanel();
-
+		for ( int cpt = 0 ; cpt < this.tabPanelCreation.length ; cpt++ ) 
+			this.tabPanelCreation[cpt] = new JPanel( new FlowLayout(FlowLayout.LEFT) );
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
@@ -106,10 +119,21 @@ public class PanelConception extends JPanel
 		this.tabPanelCreation[0].add( new JLabel(" X " )       );
 		this.tabPanelCreation[0].add( this.txtTailleLongueur );
 
-		this.tabPanelCreation[1].add( new JLabel("") );
-
+		this.tabPanelCreation[1].add( new JLabel("Réseau    sélectionné [ ") );
+		this.tabPanelCreation[1].add ( this.lblNbCouleur );
+		this.tabPanelCreation[1].add( new JLabel(" ] :") );
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
 			this.tabPanelCreation[1].add(this.tabCbCouleur[cpt] );
+
+		this.tabPanelCreation[2].add( new JLabel("Bâtiment sélectionné [ ") );
+		this.tabPanelCreation[2].add ( this.lblNbSymbole );
+		this.tabPanelCreation[2].add( new JLabel(" ] :") );
+		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ )
+			this.tabPanelCreation[2].add(this.tabCbSymbole[cpt] );
+
+		this.tabPanelCreation[3].add( new JLabel( "Taille des cases : " ) );
+		this.tabPanelCreation[3].add( this.txtTailleCases );
+
 
 
 
@@ -123,15 +147,35 @@ public class PanelConception extends JPanel
 		this.add( this.panelCreation , BorderLayout.CENTER ) ;
 
 		
-		
-
-		
-
-
+	
 
 		/*---------------------------*/
 		/* Activation des composants */
 		/*---------------------------*/
+
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+			this.tabCbCouleur[cpt].addItemListener(this);
+
+		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ )
+			this.tabCbSymbole[cpt].addItemListener(this);
+	}
+
+
+	public void itemStateChanged(ItemEvent e) 
+	{
+		int nbCouleur = 0 ; 
+		int nbSymbole = 0 ;
+
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+			if ( this.tabCbCouleur[cpt].isSelected() )
+				this.lblNbCouleur.setText( "" + ( ++ nbCouleur ) );
+			
+
+		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ ) 
+			if ( this.tabCbSymbole[cpt].isSelected() ) 
+				this.lblNbSymbole.setText( "" + ( ++ nbSymbole ) );
+			
+	
 	}
 }
 
