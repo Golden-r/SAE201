@@ -29,7 +29,6 @@ public class PanelDebut extends JPanel
 {
 
 
-
 	public PanelDebut() 
 	{
         this.setLayout(new GridLayout(3, 2));

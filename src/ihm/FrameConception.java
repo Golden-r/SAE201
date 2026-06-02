@@ -19,18 +19,16 @@ import java.awt.*;
 
 public class FrameConception extends JFrame
 {
-	private Controleur ctrl;
 
     public FrameConception( Controleur ctrl )
     {
-		this.ctrl = ctrl;
 
         this.setTitle("Application conception - Groupe 4");
 		this.setSize(1200, 120);
 		this.setLocation(50, 100);
 
 		
-		this.add( new PanelConception( this.ctrl ) );
+		this.add( new PanelConception( ctrl ) );
 
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
