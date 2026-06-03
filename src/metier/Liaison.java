@@ -31,17 +31,17 @@ public class Liaison
 		this.depart  = depart;
 		this.arrivee = arrivee;
 		this.reseau  = reseau;
-		this.casesTraversees = new ArrayList<Symbole>();
+		this.casesTraversees = casesTraversees;
 	}
 	
 	/*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
 	
-	public Symbole            getDepart()       { return this.depart;          }
-	public Symbole            getArrivee()      { return this.arrivee;         }
-	public ECouleur           getReseau()       { return this.reseau;          }
-	public ArrayList<Symbole> getCaseTraversees { return this.casesTraversees; }
+	public Symbole            getDepart()         { return this.depart;          }
+	public Symbole            getArrivee()        { return this.arrivee;         }
+	public ECouleur           getReseau()         { return this.reseau;          }
+	public ArrayList<Symbole> getCaseTraversees() { return this.casesTraversees; }
 	
 	
 	/*----------------------------*/
@@ -55,8 +55,8 @@ public class Liaison
 			Symbole tmpSymbole = this.casesTraversees.get(cpt);
 			if(tmpSymbole != null && tmpSymbole.getX() == x && tmpSymbole.getY() == y)
 				return true;
-			
-			return false;
 		}
+		
+		return false;
 	}
 }
