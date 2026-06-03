@@ -1,10 +1,12 @@
-package metier;
+package metier ;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import metier.* ;
 
 /* SAE 2.01 | Développement d'une application 
 * GestionFichier
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 
 public class GestionFichier
 {
-    private static final String REPERTOIRE = "./";
+    private static final String REPERTOIRE = "../ressource/data";
     
     public static ArrayList<String> lireFichier(String nomFichier)
     {
@@ -66,8 +68,5 @@ public class GestionFichier
             System.out.println("Erreur d'écriture : " + e.getMessage());
             return false;
         }
-    
-        return true;
-        
     }
 }

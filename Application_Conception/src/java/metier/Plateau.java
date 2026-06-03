@@ -1,4 +1,3 @@
-
 package metier;
 
 import metier.Liaison;
@@ -25,30 +24,30 @@ public class Plateau
 	private int longueur;
 	private int tailleCase;
 
-	private Symbole[][] grille;
-	private List<Zone> zones;
+	private Symbole[][] plateau;
+	private List<Zone>  zones;
 	
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
-	private ArrayList<Liaison> liaisons;
+	private ArrayList<Liaison> ensLiaison;
 
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-	public Plateau(int largeur, int longueur, int tailleCase) 
+	public Plateau(int largeur, int longueur, int tailleCase , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
 	{
 		this.largeur    = largeur;
 		this.longueur   = longueur;
 		this.tailleCase = tailleCase;
 		
-		this.grille = new Symbole[largeur][longueur];
-		this.zones  = new ArrayList<>();
+		this.plateau    = new Symbole[largeur][longueur];
+		this.zones      = new ArrayList<>();
 		
-		this.lstCouleur = new ArrayList<Integer>();
-		this.lstSymbole = new ArrayList<Integer>();
-		this.liaisons   = new ArrayList<Liaison>();
+		this.lstCouleur = lstCouleur;
+		this.lstSymbole = lstSymbole;
+		this.ensLiaison   = new ArrayList<Liaison>();
 	}
 
 
@@ -61,8 +60,8 @@ public class Plateau
 	public int                 getTailleCase     ()     { return this.tailleCase; }
 	public Symbole             getSymbole        (int x, int y) 
 	{
-		if (!dansGrille(x, y)) return null;
-		return grille[x][y];
+		if (!estDansPlateau(x, y)) return null;
+		return plateau[x][y];
 	}
 	public List<Zone>          getZones          ()     { return this.zones     ; }
 	public Zone                getZoneDeCellule  (int x, int y)
@@ -74,40 +73,8 @@ public class Plateau
 	}
 	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur; }
 	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole; }
-	public ArrayList<Liaison>  getLiaison        ()     { return this.liaisons;   }
-	
-	
-	/*----------------------------*/
-	/*  Modificateur              */
-	/*----------------------------*/
-
-    public void                setTailleLargeur  ( int largeur)        { this.largeur = largeur ;    }
-	public void                setTailleLongueur ( int longueur)       { this.longueur = longueur;   }
-	public void                setTailleCase     ( int tailleCase)     { this.tailleCase = tailleCase; }
-	public void                setSymboleDansZone(int x, int y, Zone zone , Symbole symbole) 
-	{
-		if ( this.dansGrille(x, y) && zone != null) 
-		{
-			zone.ajouterSymbole(symbole) ;
-		}
-
-	}
-	public ArrayList<Integer>  setLstCouleur     ( ArrayList<Integer> lstCouleur )     { return this.lstCouleur = lstCouleur; }
-    public ArrayList<Integer>  setLstSymbole     ( ArrayList<Integer> lstSymbole )     { return this.lstSymbole = lstSymbole; }
-	
-
-	/*----------------------------*/
-	/*  Méthodes                  */
-	/*----------------------------*/
-
-	public boolean dansGrille(int x, int y) 
-    {
-        return x >= 0 && x < this.largeur && y >= 0 && y < this.longueur;
-    }
-
-    
-
-	public ArrayList<Symbole> getTrajet (Symbole depart, Symbole arrivee)
+	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison;   }
+	public ArrayList<Symbole>  getTrajet         (Symbole depart, Symbole arrivee)
 	{
 		ArrayList<Symbole> trajet = new ArrayList<Symbole>();
 
@@ -150,32 +117,43 @@ public class Plateau
 
 		return trajet;
 	}
+	
+	
+	/*----------------------------*/
+	/*  Modificateur              */
+	/*----------------------------*/
 
-	public boolean croiseAutreReseau(ArrayList<Symbole> trajet)
+    
+	public void setSymboleDansZone(int x, int y, Zone zone , Symbole symbole) 
+	{
+		if ( this.estDansPlateau(x, y) && zone != null) 
+		{
+			zone.ajouterSymbole(symbole) ;
+		}
+
+	}
+	//public void  setZone             ( Zone               zone )          { this.zones = zone          ; }
+	//public void  setEnsLiaisons      ( ArrayList<Liaison> ensLiaison )      { this.ensLiaison   = ensLiaison ; }
+    
+
+	/*----------------------------*/
+	/*  Méthodes                  */
+	/*----------------------------*/
+
+
+    public boolean estDansPlateau(int x, int y) 
+    {
+        return x >= 0 && x < largeur && y >= 0 && y < longueur;
+    }
+
+	public boolean estCroiser(ArrayList<Symbole> trajet)
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
-			for(int cptL = 0; cptL < this.liaisons.size(); cptL++)
-				if(this.liaisons.get(cptL).contientCase(trajet.get(cptS).getX(), trajet.get(cptS).getY()))
+			for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
+				if(this.ensLiaison.get(cptL).contientCase(trajet.get(cptS).getX(), trajet.get(cptS).getY()))
 					return true;
 
 		return false;
-	}
-
-
-	public boolean ajouterLiaison(Symbole depart, Symbole arrivee, ECouleur couleur)
-	{
-
-		if(this.existeChemin(depart, arrivee, couleur)) return false;
-
-		ArrayList<Symbole> trajet = this.getTrajet(depart, arrivee);
-
-		if(trajet == null)                 return false;
-		if(this.croiseAutreReseau(trajet)) return false;
-
-		this.liaisons.add(new Liaison(depart, arrivee, couleur, trajet));
-
-		return true;
-
 	}
 
 	public boolean existeChemin(Symbole depart, Symbole arrivee, ECouleur couleur)
@@ -193,13 +171,12 @@ public class Plateau
 			if(tmpSymbole == arrivee) return true;
 			visite.add(tmpSymbole);
 
-			for(Liaison l : this.liaisons)
+			for(Liaison l : this.ensLiaison)
 			{
 				if(l.getReseau() == couleur)
 				{
 					//depart du câble vers une destination non visité -> mise en attente
 
-					
 					//Vérification (sens : depart -> arrivee)
 					if(l.getDepart() == tmpSymbole && !visite.contains(l.getArrivee()) && !aVisite.contains(l.getArrivee()))
 					{
@@ -216,5 +193,120 @@ public class Plateau
 		return false;
 	}
 
-	
+	public boolean ajouterLiaison(Symbole depart, Symbole arrivee, ECouleur couleur)
+	{
+
+		if(this.existeChemin(depart, arrivee, couleur)) return false;
+
+		ArrayList<Symbole> trajet = this.getTrajet(depart, arrivee);
+
+		if(trajet == null)                 return false;
+		if(this.estCroiser(trajet)) return false;
+
+		this.ensLiaison.add(new Liaison(depart, arrivee, couleur, trajet));
+
+		return true;
+
+	}
+
+	public void retirerSymbole(int x, int y)
+	{
+		Symbole supprSymbole = this.getSymbole(x,y);
+
+		if(supprSymbole == null) return;
+		
+		ArrayList<Symbole> extremites = new ArrayList<Symbole>();
+		ECouleur reseau = null;
+
+		for(int cpt = this.ensLiaison.size()-1; cpt >= 0; cpt--)
+		{
+			Liaison tmpLiaison = this.ensLiaison.get(cpt);
+
+			//liaison réseau part du symbole supprimé
+			if(tmpLiaison.getDepart() == supprSymbole)
+			{
+				if(!extremites.contains(tmpLiaison.getArrivee()))
+					extremites.add(tmpLiaison.getArrivee());
+				reseau = tmpLiaison.getReseau();
+				this.ensLiaison.remove(cpt);
+			}
+
+			//liaison réseau arrive du symbole supprimé
+			else if (tmpLiaison.getArrivee() == supprSymbole)
+			{
+				if(!extremites.contains(tmpLiaison.getDepart()))
+					extremites.add(tmpLiaison.getDepart());
+				reseau = tmpLiaison.getReseau();
+				this.ensLiaison.remove(cpt);
+			}
+		}
+
+		this.plateau[x][y] = null;
+
+		if(reseau != null && extremites.size() >= 2)
+			for(int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
+				for(int cpt2 = cpt1 + 1; cpt2 < extremites.size(); cpt2++)
+					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
+
+	}
+
+	public int calculerScore(ECouleur reseau)
+	{
+		ArrayList<Zone> zoneTraversees = new ArrayList<Zone>();
+
+		for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
+		{
+			Liaison tmpLiaison = this.ensLiaison.get(cptL);
+			
+			if(tmpLiaison.getReseau() == reseau)
+			{
+				Zone zoneDep = this.getZoneDeCellule(tmpLiaison.getDepart().getX(), tmpLiaison.getDepart().getY());
+				if(zoneDep != null && !zoneTraversees.contains(zoneDep))
+					zoneTraversees.add(zoneDep);
+
+				Zone zoneArr = this.getZoneDeCellule(tmpLiaison.getArrivee().getX(), tmpLiaison.getArrivee().getY());
+				if(zoneArr != null && !zoneTraversees.contains(zoneArr))
+					zoneTraversees.add(zoneArr);
+				
+				for(int cptL2 = 0; cptL2 < tmpLiaison.getCaseTraversees().size(); cptL2++)
+				{
+					Symbole tmpSymbole = tmpLiaison.getCaseTraversees().get(cptL2);
+					Zone zoneCase = this.getZoneDeCellule(tmpSymbole.getX(),tmpSymbole.getY());
+
+					if(zoneCase != null && !zoneTraversees.contains(zoneCase))
+						zoneTraversees.add(zoneCase);
+				}
+			}
+		}
+
+		int nbZones    = zoneTraversees.size();
+		int maxSymbole = 0;
+
+		for(int cptZ = 0; cptZ < zoneTraversees.size(); cptZ++)
+		{
+			Zone tmpZone = zoneTraversees.get(cptZ);
+			ArrayList<Symbole> batimentConnectes = new ArrayList<Symbole>();
+
+			for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
+			{
+				Liaison tmpLiaison = this.ensLiaison.get(cptL);
+
+				if(tmpLiaison.getReseau() == reseau)
+				{
+					if(tmpZone.contient(tmpLiaison.getDepart().getX(), tmpLiaison.getDepart().getY()) 
+					   && !batimentConnectes.contains(tmpLiaison.getDepart()))
+						batimentConnectes.add(tmpLiaison.getDepart());
+					
+					if(tmpZone.contient(tmpLiaison.getArrivee().getX(), tmpLiaison.getArrivee().getY()) 
+					   && !batimentConnectes.contains(tmpLiaison.getArrivee()))
+						batimentConnectes.add(tmpLiaison.getArrivee());
+				}
+			}
+
+			if(batimentConnectes.size() > maxSymbole)
+				maxSymbole = batimentConnectes.size();
+		}
+		
+		return nbZones * maxSymbole;
+	}
 }

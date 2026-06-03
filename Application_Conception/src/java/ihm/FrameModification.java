@@ -20,13 +20,13 @@ public class FrameModification extends JFrame
     {
         
         this.setTitle("Application modification - Groupe 4");
-		this.setSize(1200, 120);
 		this.setLocation(50, 100);
 
 		
 		this.add( new PanelModification( ctrl ));
 
 
+		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
     }

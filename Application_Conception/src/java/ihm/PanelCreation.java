@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.BorderFactory;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -117,6 +119,12 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		this.tabPanelCreation[4] = new JPanel();
 		this.tabPanelCreation[4].setBackground( Color.LIGHT_GRAY );
+
+
+		this.tabPanelCreation[0].setBorder( BorderFactory.createEmptyBorder( 20 , 25,  0, 25));
+		this.tabPanelCreation[1].setBorder( BorderFactory.createEmptyBorder( 0  , 25,  0, 25));
+		this.tabPanelCreation[2].setBorder( BorderFactory.createEmptyBorder( 0  , 25,  0, 25));
+		this.tabPanelCreation[3].setBorder( BorderFactory.createEmptyBorder( 0  , 25, 10, 25));
 
 
 		/* ----------------------------- */
@@ -257,13 +265,11 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		if ( this.estEntier( tailleLargeur ) && this.estEntier(tailleLongueur) && this.estEntier(tailleCases) && reseauSelect && batimentSelect )
 		{
-			this.ctrl.lancerModification() ;
-			
 			this.ctrl.creePlateau ( Integer.parseInt(tailleLargeur) , Integer.parseInt(tailleLongueur) ,
 									Integer.parseInt(tailleCases)   , this.getEnsCouleur() , this.getEnsSymbole() ) ;
 
-
-
+			this.ctrl.lancerModification() ;
+	
 		}
 
 		
