@@ -27,8 +27,6 @@ public class Symbole
     private ArrayList<Symbole>  ensVoisin   ;
 
     private ESymbole            symbole     ;
-
-    private boolean             estVide     ;
     private ECouleur            couleurBase ;
 
 
@@ -46,15 +44,6 @@ public class Symbole
         this.symbole = symbole          ;
         
         this.couleurBase = null         ;
-
-        if (symbole == null  )
-        {
-            this.estVide = true ;
-        }
-        else 
-        {
-            this.estVide = false ;
-        }
     }
 
     /*----------------------------*/
@@ -65,7 +54,6 @@ public class Symbole
     public int          getY            () { return this.coordonneeY         ; }
     public ESymbole     getSymbole      () { return this.symbole             ; }
     public ECouleur     getCouleurBase  () { return this.couleurBase         ; }
-    public boolean      getEstVide      () { return this.estVide             ; }
     public boolean      estBase         () { return this.couleurBase != null ; }
 
 
@@ -75,13 +63,8 @@ public class Symbole
 
     public void setX        ( int      coordonneeX )   { this.coordonneeX = coordonneeX ; }
     public void setY        ( int      coordonneeY )   { this.coordonneeY = coordonneeY ; }
-    public void setEstVide  ( boolean  estVide     )   { this.estVide     = estVide     ; }
     public void setBase     ( ECouleur couleurBase )   { this.couleurBase = couleurBase ; }
-    public void setSymbole  ( ESymbole symbole     )
-    {
-        this.symbole = symbole;
-        this.estVide = (symbole == null);
-    }
+    public void setSymbole  ( ESymbole symbole     )   { this.symbole     = symbole;      }
 
 
     /*----------------------------*/
