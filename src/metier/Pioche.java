@@ -3,6 +3,8 @@ package metier ;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import metier.Carte;
+
 /* SAE 2.01 | Développement d'une application 
 * Pioche
 *

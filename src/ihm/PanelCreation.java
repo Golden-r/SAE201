@@ -1,6 +1,8 @@
 package ihm;
 
 import controleur.Controleur;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import metier.ESymbole;
 import metier.ECouleur;
@@ -17,16 +19,17 @@ import javax.swing.SwingUtilities;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /* SAE 2.01 | Développement d'une application 
-* PanelConception
+* PanelCreation
 *
 * Date     : 02/06/2026
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
 * Groupe   : 4
 */
 
-public class PanelConception extends JPanel implements ActionListener , ItemListener
+public class PanelCreation extends JPanel implements ActionListener , ItemListener
 {
 	private Controleur ctrl;
 
@@ -50,7 +53,8 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 	private JCheckBox[] tabCbSymbole ;
 	private JTextField  txtTailleCases ;
 
-	public PanelConception( Controleur ctrl ) 
+
+	public PanelCreation( Controleur ctrl ) 
 	{
 		this.ctrl = ctrl ;
 		this.setLayout( new BorderLayout() );
@@ -188,8 +192,8 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 	public void itemStateChanged(ItemEvent e) 
 	{
 
-		this.lblNbCouleur.setText( this.nbCouleurSelectionner() + "" );
-		this.lblNbSymbole.setText( this.nbSymboleSelectionner() + "" );
+		this.lblNbCouleur.setText( Collections.frequency(this.getEnsCouleur(), 1) + "" );
+		this.lblNbSymbole.setText( Collections.frequency(this.getEnsSymbole(), 1) + "" );
 
 	}
 
@@ -247,16 +251,19 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		String tailleLongueur = this.txtTailleLongueur.getText() ;
 		String tailleCases    = this.txtTailleCases   .getText() ;
 
-		boolean reseauSelect   = this.nbCouleurSelectionner() >= 1 ;
-		boolean batimentSelect = this.nbSymboleSelectionner() >= 2 ;
+		boolean reseauSelect   = Collections.frequency(this.getEnsCouleur(), 1) >= 1 ;
+		boolean batimentSelect = Collections.frequency(this.getEnsSymbole(), 1) >= 2 ;
 
 
 		if ( this.estEntier( tailleLargeur ) && this.estEntier(tailleLongueur) && this.estEntier(tailleCases) && reseauSelect && batimentSelect )
 		{
-			FrameDebut frameDebut = new FrameDebut() ;
+			this.ctrl.lancerModification() ;
+			
+			this.ctrl.creePlateau ( Integer.parseInt(tailleLargeur) , Integer.parseInt(tailleLongueur) ,
+									Integer.parseInt(tailleCases)   , this.getEnsCouleur() , this.getEnsSymbole() ) ;
 
-			Window fenetrePrincipale = SwingUtilities.getWindowAncestor(this);
-			if (fenetrePrincipale != null) { fenetrePrincipale.dispatchEvent(new WindowEvent(fenetrePrincipale, WindowEvent.WINDOW_CLOSING)) ;}
+
+
 		}
 
 		
@@ -286,27 +293,37 @@ public class PanelConception extends JPanel implements ActionListener , ItemList
 		return true;
 	}
 
-	private int nbCouleurSelectionner ()
+
+	private ArrayList<Integer> getEnsCouleur()
 	{
-		int nbCouleur = 0 ; 
+		ArrayList<Integer> lstCouleur = new ArrayList<>() ;
 
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
-			if ( this.tabCbCouleur[cpt].isSelected() )
-				nbCouleur ++ ;
+		{
+			if ( this.tabCbCouleur[cpt].isSelected() ) { lstCouleur.add(1) ;}
+			else                                       { lstCouleur.add(0) ;}
+		}
 
-		return nbCouleur;
+		return lstCouleur ;
+			
 	}
 
-	private int nbSymboleSelectionner ()
+	private ArrayList<Integer> getEnsSymbole()
 	{
-		int nbSymbole = 0 ;
+		ArrayList<Integer> lstSymbole = new ArrayList<>() ;
 
-		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ ) 
-			if ( this.tabCbSymbole[cpt].isSelected() ) 
-				nbSymbole ++ ;
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+		{
+			if ( this.tabCbSymbole[cpt].isSelected() ) { lstSymbole.add(1) ;}
+			else                                       { lstSymbole.add(0) ;}
+		}
 
-		return nbSymbole;
-
+		return lstSymbole ;
+			
 	}
+
+
+
+
 }
 

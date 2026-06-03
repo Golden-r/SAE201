@@ -8,10 +8,15 @@
 ./src/metier/Symbole.java
 ./src/metier/Plateau.java
 ./src/metier/Zone.java
+./src/metier/Liaison.java
+./src/metier/Pioche.java
+./src/metier/Carte.java
 
 
 
-./src/ihm/FrameConception.java
-./src/ihm/PanelConception.java
-./src/ihm/FrameDebut.java
-./src/ihm/PanelDebut.java
+./src/ihm/FrameCreation.java
+./src/ihm/PanelCreation.java
+./src/ihm/FrameModification.java
+./src/ihm/PanelModification.java
+./src/ihm/FrameJeu.java
+./src/ihm/PanelJeu.java
