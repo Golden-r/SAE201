@@ -3,7 +3,7 @@ package metier;
 import metier.* ;
 import java.util.ArrayList ;
 
-public class Case 
+public class Cellule 
 {
     /*----------------------------*/ 
 	/*  Attributs de la classe    */
@@ -20,7 +20,7 @@ public class Case
     /*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
-    public Case ( int coordonneeX , int coordonneeY ) 
+    public Cellule ( int coordonneeX , int coordonneeY ) 
     {
         this.coordonneeX  = coordonneeX ;
         this.coordonneeY  = coordonneeY ;

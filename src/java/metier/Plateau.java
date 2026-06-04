@@ -22,9 +22,9 @@ public class Plateau
 	
 	private int largeur;
 	private int longueur;
-	private int tailleCase;
+	private int tailleCellule;
 
-	private Case[][] plateau;
+	private Cellule[][] plateau;
 	
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
@@ -35,13 +35,13 @@ public class Plateau
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-	public Plateau(int largeur, int longueur, int tailleCase , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
+	public Plateau(int largeur, int longueur, int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
 	{
 		this.largeur    = largeur;
 		this.longueur   = longueur;
-		this.tailleCase = tailleCase;
+		this.tailleCellule = tailleCellule;
 		
-		this.plateau    = new Case[largeur][longueur];
+		this.plateau    = new Cellule[largeur][longueur];
 		
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
@@ -55,8 +55,8 @@ public class Plateau
 
 	public int     getTailleLargeur  ()     { return this.largeur;    }
 	public int     getTailleLongueur ()     { return this.longueur;   }
-	public int     getTailleCase     ()     { return this.tailleCase; }
-	public Case    getCase           (int x, int y) 
+	public int     getTailleCellule     ()     { return this.tailleCellule; }
+	public Cellule    getCellule           (int x, int y) 
 	{
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
@@ -66,9 +66,9 @@ public class Plateau
 	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole; }
 	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison; }
 
-	public ArrayList<Case>  getTrajet         ( Case depart, Case arrivee )
+	public ArrayList<Cellule>  getTrajet         ( Cellule depart, Cellule arrivee )
 	{
-		ArrayList<Case> trajet = new ArrayList<Case>();
+		ArrayList<Cellule> trajet = new ArrayList<Cellule>();
 
 		if ( depart == null || arrivee == null ) return null;
 
@@ -95,13 +95,13 @@ public class Plateau
 		while(curseurX != arrivee.getX() || curseurY != arrivee.getY())
 		{
 
-			Case tmpCase = this.getCase(curseurX, curseurY);
+			Cellule tmpCellule = this.getCellule(curseurX, curseurY);
 
 			//blocage si obstacle sur le chemin
-			if(tmpCase != null) return null;
+			if(tmpCellule != null) return null;
 
 			//coordonnée pour la liaison
-		    trajet.add( new Case(curseurX, curseurY ));
+		    trajet.add( new Cellule(curseurX, curseurY ));
 
 			curseurX += directionX;
 			curseurY += directionY;
@@ -116,20 +116,20 @@ public class Plateau
 	/*----------------------------*/
 
     
-	public void setSymboleDansCase(Case case, Symbole symbole) 
+	public void setSymboleDansCellule(Cellule Cellule, Symbole symbole) 
 	{
-		if ( this.estDansPlateau(case.getX(), case.getY()) && zone != null) 
+		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY()) )//&& zone != null) 
 		{
-			plateau[case.getX()][case.getY()].setSymbole(symbole);
+			plateau[Cellule.getX()][Cellule.getY()].setSymbole(symbole);
 		}
 
 	}
 
-	public void setZoneDansCase(Case case , Zone zone) 
+	public void setZoneDansCellule(Cellule Cellule , Zone zone) 
 	{
-		if ( this.estDansPlateau(case.getX(), case.getY()) && zone != null) 
+		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY()) && zone != null) 
 		{
-			plateau[case.getX()][case.getY()].setZone(zone);
+			plateau[Cellule.getX()][Cellule.getY()].setZone(zone);
 		}
 
 	}
@@ -154,7 +154,7 @@ public class Plateau
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
 			for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
-				if(this.ensLiaison.get(cptL).contientCase(trajet.get(cptS).getX(), trajet.get(cptS).getY()))
+				if(this.ensLiaison.get(cptL).contientCellule(trajet.get(cptS).getX(), trajet.get(cptS).getY()))
 					return true;
 
 		return false;
@@ -272,13 +272,13 @@ public class Plateau
 				if(zoneArr != null && !zoneTraversees.contains(zoneArr))
 					zoneTraversees.add(zoneArr);
 				
-				for(int cptL2 = 0; cptL2 < tmpLiaison.getCaseTraversees().size(); cptL2++)
+				for(int cptL2 = 0; cptL2 < tmpLiaison.getCelluleTraversees().size(); cptL2++)
 				{
-					Symbole tmpSymbole = tmpLiaison.getCaseTraversees().get(cptL2);
-					Zone zoneCase = this.getZoneDeCellule(tmpSymbole.getX(),tmpSymbole.getY());
+					Symbole tmpSymbole = tmpLiaison.getCelluleTraversees().get(cptL2);
+					Zone zoneCellule = this.getZoneDeCellule(tmpSymbole.getX(),tmpSymbole.getY());
 
-					if(zoneCase != null && !zoneTraversees.contains(zoneCase))
-						zoneTraversees.add(zoneCase);
+					if(zoneCellule != null && !zoneTraversees.contains(zoneCellule))
+						zoneTraversees.add(zoneCellule);
 				}
 			}
 		}

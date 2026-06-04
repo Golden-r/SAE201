@@ -19,19 +19,19 @@ public class Liaison
 	private Symbole            depart;
 	private Symbole            arrivee;
 	private ECouleur           reseau;
-	private ArrayList<Case>    casesTraversees;
+	private ArrayList<Cellule>    CelluleTraversees;
 	
 	
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 	
-	public Liaison(Symbole depart, Symbole arrivee, ECouleur reseau, ArrayList<Case> casesTraversees)
+	public Liaison(Symbole depart, Symbole arrivee, ECouleur reseau, ArrayList<Cellule> CelluleTraversees)
 	{
 		this.depart  = depart;
 		this.arrivee = arrivee;
 		this.reseau  = reseau;
-		this.casesTraversees = casesTraversees;
+		this.CelluleTraversees = CelluleTraversees;
 	}
 	
 	/*----------------------------*/
@@ -41,19 +41,19 @@ public class Liaison
 	public Symbole         getDepart()         { return this.depart;          }
 	public Symbole         getArrivee()        { return this.arrivee;         }
 	public ECouleur        getReseau()         { return this.reseau;          }
-	public ArrayList<Case> getCaseTraversees() { return this.casesTraversees; }
+	public ArrayList<Cellule> getCelluleTraversees() { return this.CelluleTraversees; }
 	
 	
 	/*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
 	
-	public boolean contientCase(int x, int y)
+	public boolean contientCellule(int x, int y)
 	{
-		for(int cpt = 0; cpt < this.casesTraversees.size(); cpt++)
+		for(int cpt = 0; cpt < this.CelluleTraversees.size(); cpt++)
 		{
-			Case tmpCase = this.casesTraversees.get(cpt);
-			if(tmpCase != null && tmpCase.getX() == x && tmpCase.getY() == y)
+			Cellule tmpCellule = this.CelluleTraversees.get(cpt);
+			if(tmpCellule != null && tmpCellule.getX() == x && tmpCellule.getY() == y)
 				return true;
 		}
 		
