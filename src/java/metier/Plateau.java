@@ -225,12 +225,11 @@ public class Plateau
 
 	public void retirerSymbole(int x, int y)
 	{
-		/*Cellule supprCellule = this.getCellule(x, y);
+		Cellule supprCellule = this.getCellule(x, y);
 
 		if (supprCellule == null || supprCellule.estVide())
 			return;
 
-		Symbole supprSymbole = supprCellule.getSymbole();
 		ArrayList<Cellule> extremites = new ArrayList<Cellule>();
 		ECouleur reseau = null;
 
@@ -239,19 +238,19 @@ public class Plateau
 			Liaison tmpLiaison = this.ensLiaison.get(cpt);
 
 			//liaison réseau part du symbole supprimé
-			if (tmpLiaison.getDepart().getSymbole() == supprSymbole)
+			if (tmpLiaison.getDepart() == supprCellule)
 			{
-				if (!extremites.contains(this.getSymboleDansCellule(tmpLiaison.getArrivee())))
-					extremites.add(this.getSymboleDansCellule(tmpLiaison.getArrivee()));
+				if (!extremites.contains(tmpLiaison.getArrivee()))
+					extremites.add(tmpLiaison.getArrivee());
 				reseau = tmpLiaison.getReseau();
 				this.ensLiaison.remove(cpt);
 			}
 
 			//liaison réseau arrive du symbole supprimé
-			else if (tmpLiaison.getArrivee().getSymbole() == supprSymbole)
+			else if (tmpLiaison.getArrivee() == supprCellule)
 			{
-				if (!extremites.contains(this.getSymboleDansCellule(tmpLiaison.getDepart())))
-					extremites.add(this.getSymboleDansCellule(tmpLiaison.getDepart()));
+				if (!extremites.contains(tmpLiaison.getDepart()))
+					extremites.add(tmpLiaison.getDepart());
 				reseau = tmpLiaison.getReseau();
 				this.ensLiaison.remove(cpt);
 			}
@@ -264,67 +263,6 @@ public class Plateau
 			for (int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
 				for (int cpt2 = cpt1 + 1; cpt2 < extremites.size(); cpt2++)
 					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
-		*/
+	
 	}
-/*
-	public int calculerScore(ECouleur reseau)
-	{
-		ArrayList<Zone> zoneTraversees = new ArrayList<Zone>();
-
-		for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
-		{
-			Liaison tmpLiaison = this.ensLiaison.get(cptL);
-			
-			if(tmpLiaison.getReseau() == reseau)
-			{
-				Zone zoneDep = this.getZoneDeCellule(tmpLiaison.getDepart().getX(), tmpLiaison.getDepart().getY());
-				if(zoneDep != null && !zoneTraversees.contains(zoneDep))
-					zoneTraversees.add(zoneDep);
-
-				Zone zoneArr = this.getZoneDeCellule(tmpLiaison.getArrivee().getX(), tmpLiaison.getArrivee().getY());
-				if(zoneArr != null && !zoneTraversees.contains(zoneArr))
-					zoneTraversees.add(zoneArr);
-				
-				for(int cptL2 = 0; cptL2 < tmpLiaison.getCelluleTraversees().size(); cptL2++)
-				{
-					Symbole tmpCellule = tmpLiaison.getCelluleTraversees().get(cptL2);
-					Zone zoneCellule = this.getZoneDeCellule(tmpCellule.getX(),tmpCellule.getY());
-
-					if(zoneCellule != null && !zoneTraversees.contains(zoneCellule))
-						zoneTraversees.add(zoneCellule);
-				}
-			}
-		}
-
-		int nbZones    = zoneTraversees.size();
-		int maxSymbole = 0;
-
-		for(int cptZ = 0; cptZ < zoneTraversees.size(); cptZ++)
-		{
-			Zone tmpZone = zoneTraversees.get(cptZ);
-			ArrayList<Symbole> batimentConnectes = new ArrayList<Symbole>();
-
-			for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
-			{
-				Liaison tmpLiaison = this.ensLiaison.get(cptL);
-
-				if(tmpLiaison.getReseau() == reseau)
-				{
-					if(tmpZone.contient(tmpLiaison.getDepart().getX(), tmpLiaison.getDepart().getY()) 
-					   && !batimentConnectes.contains(tmpLiaison.getDepart()))
-						batimentConnectes.add(tmpLiaison.getDepart());
-					
-					if(tmpZone.contient(tmpLiaison.getArrivee().getX(), tmpLiaison.getArrivee().getY()) 
-					   && !batimentConnectes.contains(tmpLiaison.getArrivee()))
-						batimentConnectes.add(tmpLiaison.getArrivee());
-				}
-			}
-
-			if(batimentConnectes.size() > maxSymbole)
-				maxSymbole = batimentConnectes.size();
-		}
-		
-		return nbZones * maxSymbole;
-	}
-	*/
 }

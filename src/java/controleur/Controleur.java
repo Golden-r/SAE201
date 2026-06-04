@@ -49,7 +49,7 @@ public class Controleur
 
 	public int                getTailleLargeur()  { return this.metierPlateau.getTailleLargeur()  ;}
 	public int                getTailleLongueur() { return this.metierPlateau.getTailleLongueur() ;}
-	public int                getTailleCellule   ()  { return this.metierPlateau.getTailleCellule()     ;}
+	public int                getTailleCellule()  { return this.metierPlateau.getTailleCellule()  ;}
 	public ArrayList<Integer> getLstCouleur   ()  { return this.metierPlateau.getLstCouleur()     ;}
 	public ArrayList<Integer> getLstSymbole   ()  { return this.metierPlateau.getLstSymbole()     ;}
 

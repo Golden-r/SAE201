@@ -21,3 +21,4 @@
 ./src/java/ihm/PanelModification.java
 
 ./src/java/ihm/PanelPlateau.java
+./src/java/ihm/PanelPlateauOuest.java
