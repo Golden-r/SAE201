@@ -50,7 +50,7 @@ public class Controleur
 	public int                getTailleLongueur() { return this.metierPlateau.getTailleLongueur() ;}
 	public int                getTailleCase   ()  { return this.metierPlateau.getTailleCase()     ;}
 	public ArrayList<Integer> getLstCouleur   ()  { return this.metierPlateau.getLstCouleur()     ;}
-	public ArrayList<Integer> getLstSymbole   ()  { return this.metierPlateau.getLstCouleur()     ;}
+	public ArrayList<Integer> getLstSymbole   ()  { return this.metierPlateau.getLstSymbole()     ;}
 
 	/*----------------------------*/
 	/*  Modificateur              */
