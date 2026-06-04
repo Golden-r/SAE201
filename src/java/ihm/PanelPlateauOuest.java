@@ -45,8 +45,7 @@ public class PanelPlateauOuest extends JPanel
 		JPanel panelChoix   = new JPanel( new GridLayout( 2 , 1) ) ;
 		JPanel panelEdition = new JPanel( new GridLayout( 2 , 1) ) ;
 
-		String[] tabFormes = {}; 
-		this.jcbZone = new JComboBox<String>(tabFormes);
+		this.jcbZone = new JComboBox<String>( this.ctrl.getZones() );
 
 
 		this.btgRadio   = new ButtonGroup();

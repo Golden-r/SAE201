@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 import ihm.FrameCreation;
 import ihm.FrameModification;
+import metier.EZone;
 import metier.GestionFichier;
 import metier.Plateau;
+import metier.Zone;
 import metier.PlateauData;
 
 /* SAE 2.01 | Développement d'une application 
@@ -48,11 +50,13 @@ public class Controleur
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int                getTailleLargeur()  { return this.metierPlateau.getTailleLargeur()  ;}
+	public int                getTailleLargeur()  { return this.metierPlateau.getTailleLargeur () ;}
 	public int                getTailleLongueur() { return this.metierPlateau.getTailleLongueur() ;}
-	public int                getTailleCellule()  { return this.metierPlateau.getTailleCellule()  ;}
-	public ArrayList<Integer> getLstCouleur   ()  { return this.metierPlateau.getLstCouleur()     ;}
-	public ArrayList<Integer> getLstSymbole   ()  { return this.metierPlateau.getLstSymbole()     ;}
+	public int                getTailleCellule()  { return this.metierPlateau.getTailleCellule () ;}
+	public ArrayList<Integer> getLstCouleur   ()  { return this.metierPlateau.getLstCouleur    () ;}
+	public ArrayList<Integer> getLstSymbole   ()  { return this.metierPlateau.getLstSymbole    () ;}
+	public ArrayList<Zone   > getLibelleZone  ()  { return this.metierPlateau.getEnsZones      () ;}
+	public String[]           getZones        ()  { return EZone.getZonesLibelles              () ;}
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -82,9 +86,9 @@ public class Controleur
 
  
 
-	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
+	public void creerPlateau( int tailleLargeur , int tailleLongueur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{
-		metierPlateau = new Plateau( tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole ) ;
+		this.metierPlateau = new Plateau( tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole ) ;
 	}
 
 	public void chargerPlateau ( File fichier )
@@ -100,7 +104,7 @@ public class Controleur
 		ArrayList<Integer> lstCouleur  = proprietes.lstCouleur;
 		ArrayList<Integer> lstSymbole  = proprietes.lstSymbole;
 
-		this.creePlateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole);
+		this.creerPlateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole);
 		this.lancerModification();
 	}
 

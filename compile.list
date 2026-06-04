@@ -4,6 +4,7 @@
 
 ./src/java/metier/ESymbole.java
 ./src/java/metier/ECouleur.java
+./src/java/metier/EZone.java
 
 ./src/java/metier/Plateau.java
 ./src/java/metier/PlateauData.java

@@ -54,8 +54,8 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public Color  getCouleur () { return this.couleur  ;}
-	public String[]
+    public        Color    getCouleur ()    { return this.couleur          ;}
+	public static String[] getLibelleZone (){ return Zone.TAB_LIBELLE_ZONE ;}
 
     /*----------------------------*/
 	/*  Modificateur              */

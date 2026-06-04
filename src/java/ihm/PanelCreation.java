@@ -271,8 +271,8 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		if ( this.estEntier( tailleLargeur ) && this.estEntier(tailleLongueur) && this.estEntier(tailleCases) && reseauSelect && batimentSelect )
 		{
-			this.ctrl.creePlateau ( Integer.parseInt(tailleLargeur) , Integer.parseInt(tailleLongueur) ,
-									Integer.parseInt(tailleCases)   , this.getEnsCouleur() , this.getEnsSymbole() ) ;
+			this.ctrl.creerPlateau ( Integer.parseInt(tailleLargeur) , Integer.parseInt(tailleLongueur) ,
+									 Integer.parseInt(tailleCases)   , this.getEnsCouleur() , this.getEnsSymbole() ) ;
 
 			this.ctrl.lancerModification() ;
 	

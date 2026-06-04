@@ -29,6 +29,7 @@ public class Plateau
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
 	private ArrayList<Liaison> ensLiaison ; 
+	private ArrayList<Zone>    ensZones ; 
 
 
 	/*----------------------------*/
@@ -51,6 +52,7 @@ public class Plateau
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
 		this.ensLiaison = new ArrayList<Liaison>();
+		this.ensZones   = new ArrayList<Zone>   ();
 	}
 
 
@@ -61,7 +63,7 @@ public class Plateau
 	public int     getTailleLargeur  ()     { return this.largeur;    }
 	public int     getTailleLongueur ()     { return this.longueur;   }
 	public int     getTailleCellule  ()     { return this.tailleCellule; }
-	public Cellule getCellule           (int x, int y) 
+	public Cellule getCellule        (int x, int y) 
 	{
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
@@ -79,6 +81,7 @@ public class Plateau
 	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur; }
 	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole; }
 	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison; }
+	public ArrayList<Zone   >  getEnsZones       ()     { return this.ensZones  ; }
 
 	public ArrayList<Cellule>  getTrajet         ( Cellule depart, Cellule arrivee )
 	{
