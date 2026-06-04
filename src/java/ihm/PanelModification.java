@@ -66,7 +66,7 @@ public class PanelModification extends JPanel
 		this.panelOuest.setBackground( Color.DARK_GRAY );
 
 
-		ImageIcon imageVide = new ImageIcon("./src/ihm/images/vide.png");
+		ImageIcon imageVide = new ImageIcon("./src/ressource/images/h.png");
 		Image     imageNonRedim = imageVide.getImage() ;
 		Image     imageRedim    = imageNonRedim.getScaledInstance( this.ctrl.getTailleCase(), this.ctrl.getTailleCase(), Image.SCALE_SMOOTH) ; //Image.SCALE_SMOOTH evite la pixelisation
 		imageVide = new ImageIcon( imageRedim ) ;
