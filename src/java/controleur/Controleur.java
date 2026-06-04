@@ -86,7 +86,7 @@ public class Controleur
 		metierPlateau = new Plateau( tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole ) ;
 	}
 
-public void chargerPlateau ( File fichier )
+	public void chargerPlateau ( File fichier )
 	{
 		ArrayList<Object> proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
 
