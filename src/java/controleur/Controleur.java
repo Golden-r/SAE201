@@ -48,7 +48,7 @@ public class Controleur
 
 	public int                getTailleLargeur()  { return this.metierPlateau.getTailleLargeur()  ;}
 	public int                getTailleLongueur() { return this.metierPlateau.getTailleLongueur() ;}
-	public int                getTailleCase   ()  { return this.metierPlateau.getTailleCase()     ;}
+	public int                getTailleCellule   ()  { return this.metierPlateau.getTailleCellule()     ;}
 	public ArrayList<Integer> getLstCouleur   ()  { return this.metierPlateau.getLstCouleur()     ;}
 	public ArrayList<Integer> getLstSymbole   ()  { return this.metierPlateau.getLstSymbole()     ;}
 
@@ -79,9 +79,9 @@ public class Controleur
 
 
 
-	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCases , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
+	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{
-		metierPlateau = new Plateau(tailleLargeur, tailleLongueur, tailleCases, lstCouleur, lstSymbole) ;
+		metierPlateau = new Plateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole) ;
 	}
 
 
