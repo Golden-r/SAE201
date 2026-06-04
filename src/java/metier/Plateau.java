@@ -146,7 +146,7 @@ public class Plateau
 
 //  pour le moment pas modifier 
 
-	public boolean estCroiser(ArrayList<Symbole> trajet)
+	public boolean estCroiser(ArrayList<Cellule> trajet)
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
 			for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
@@ -156,20 +156,20 @@ public class Plateau
 		return false;
 	}
 
-	public boolean existeChemin(Case depart, Case arrivee, ECouleur couleur)
+	public boolean existeChemin(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
-		ArrayList<Case> visite  = new ArrayList<Case>();
-		ArrayList<Case> aVisite = new ArrayList<Case>();
+		ArrayList<Cellule> visite  = new ArrayList<Cellule>();
+		ArrayList<Cellule> aVisite = new ArrayList<Cellule>();
 
 		aVisite.add(depart);
 
 		while(!aVisite.isEmpty())
 		{
-			Case tmpCase = aVisite.remove(0);
+			Cellule tmpCellule = aVisite.remove(0);
 
 
-			if(tmpCase == arrivee) return true;
-			visite.add(tmpCase);
+			if(tmpCellule == arrivee) return true;
+			visite.add(tmpCellule);
 
 			for(Liaison l : this.ensLiaison)
 			{
@@ -178,12 +178,12 @@ public class Plateau
 					//depart du câble vers une destination non visité -> mise en attente
 
 					//Vérification (sens : depart -> arrivee)
-					if(l.getDepart() == tmpSymbole && !visite.contains(l.getArrivee()) && !aVisite.contains(l.getArrivee()))
+					if(l.getDepart() == tmpCellule && !visite.contains(l.getArrivee()) && !aVisite.contains(l.getArrivee()))
 					{
 						aVisite.add(l.getArrivee());
 					}
 					//Vérification (sens : arrivee -> depart)
-					if(l.getArrivee() == tmpSymbole && !visite.contains(l.getDepart()) && !aVisite.contains(l.getDepart()))
+					if(l.getArrivee() == tmpCellule && !visite.contains(l.getDepart()) && !aVisite.contains(l.getDepart()))
 					{
 						aVisite.add(l.getDepart());
 					}
@@ -193,12 +193,12 @@ public class Plateau
 		return false;
 	}
 
-	public boolean ajouterLiaison(Case depart, Case arrivee, ECouleur couleur)
+	public boolean ajouterLiaison(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
 
 		if(this.existeChemin(depart, arrivee, couleur)) return false;
 
-		ArrayList<Case> trajet = this.getTrajet(depart, arrivee);
+		ArrayList<Cellule> trajet = this.getTrajet(depart, arrivee);
 
 		if(trajet == null)                 return false;
 		if(this.estCroiser(trajet)) return false;
@@ -215,7 +215,7 @@ public class Plateau
 
 		if(supprSymbole == null) return;
 		
-		ArrayList<Symbole> extremites = new ArrayList<Symbole>();
+		ArrayList<Cellule> extremites = new ArrayList<Cellule>();
 		ECouleur reseau = null;
 
 		for(int cpt = this.ensLiaison.size()-1; cpt >= 0; cpt--)
@@ -270,8 +270,8 @@ public class Plateau
 				
 				for(int cptL2 = 0; cptL2 < tmpLiaison.getCelluleTraversees().size(); cptL2++)
 				{
-					Symbole tmpSymbole = tmpLiaison.getCelluleTraversees().get(cptL2);
-					Zone zoneCellule = this.getZoneDeCellule(tmpSymbole.getX(),tmpSymbole.getY());
+					Symbole tmpCellule = tmpLiaison.getCelluleTraversees().get(cptL2);
+					Zone zoneCellule = this.getZoneDeCellule(tmpCellule.getX(),tmpCellule.getY());
 
 					if(zoneCellule != null && !zoneTraversees.contains(zoneCellule))
 						zoneTraversees.add(zoneCellule);
