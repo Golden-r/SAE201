@@ -1,6 +1,6 @@
 package metier;
 
-import metier.Liaison;
+import metier.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class Plateau
 	
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
-	private ArrayList<Liaison> ensLiaison ; // ?
+	private ArrayList<Liaison> ensLiaison ; 
 
 
 	/*----------------------------*/
@@ -125,7 +125,7 @@ public class Plateau
 
 	}
 
-	public void setZoneDansCase(Case case , Zone zone) 
+	public void setZoneDansCase(Case case, Zone zone) 
 	{
 		if ( this.estDansPlateau(case.getX(), case.getY()) && zone != null) 
 		{
@@ -133,11 +133,6 @@ public class Plateau
 		}
 
 	}
-
-
-	//public void  setZone             ( Zone               zone )          { this.zones = zone          ; }
-	//public void  setEnsLiaisons      ( ArrayList<Liaison> ensLiaison )      { this.ensLiaison   = ensLiaison ; }
-    
 
 	/*----------------------------*/
 	/*  Méthodes                  */
@@ -150,6 +145,7 @@ public class Plateau
     }
 
 //  pour le moment pas modifier 
+
 	public boolean estCroiser(ArrayList<Symbole> trajet)
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
@@ -160,20 +156,20 @@ public class Plateau
 		return false;
 	}
 
-	public boolean existeChemin(Symbole depart, Symbole arrivee, ECouleur couleur)
+	public boolean existeChemin(Case depart, Case arrivee, ECouleur couleur)
 	{
-		ArrayList<Symbole> visite  = new ArrayList<Symbole>();
-		ArrayList<Symbole> aVisite = new ArrayList<Symbole>();
+		ArrayList<Case> visite  = new ArrayList<Case>();
+		ArrayList<Case> aVisite = new ArrayList<Case>();
 
 		aVisite.add(depart);
 
 		while(!aVisite.isEmpty())
 		{
-			Symbole tmpSymbole = aVisite.remove(0);
+			Case tmpCase = aVisite.remove(0);
 
 
-			if(tmpSymbole == arrivee) return true;
-			visite.add(tmpSymbole);
+			if(tmpCase == arrivee) return true;
+			visite.add(tmpCase);
 
 			for(Liaison l : this.ensLiaison)
 			{
@@ -197,12 +193,12 @@ public class Plateau
 		return false;
 	}
 
-	public boolean ajouterLiaison(Symbole depart, Symbole arrivee, ECouleur couleur)
+	public boolean ajouterLiaison(Case depart, Case arrivee, ECouleur couleur)
 	{
 
 		if(this.existeChemin(depart, arrivee, couleur)) return false;
 
-		ArrayList<Symbole> trajet = this.getTrajet(depart, arrivee);
+		ArrayList<Case> trajet = this.getTrajet(depart, arrivee);
 
 		if(trajet == null)                 return false;
 		if(this.estCroiser(trajet)) return false;
@@ -215,7 +211,7 @@ public class Plateau
 
 	public void retirerSymbole(int x, int y)
 	{
-		Symbole supprSymbole = this.getSymbole(x,y);
+		Symbole supprSymbole = getSymbole(x,y);
 
 		if(supprSymbole == null) return;
 		
@@ -253,7 +249,7 @@ public class Plateau
 					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
 
 	}
-
+/*
 	public int calculerScore(ECouleur reseau)
 	{
 		ArrayList<Zone> zoneTraversees = new ArrayList<Zone>();
@@ -313,4 +309,5 @@ public class Plateau
 		
 		return nbZones * maxSymbole;
 	}
+	*/
 }
