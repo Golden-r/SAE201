@@ -24,10 +24,7 @@ public class Plateau
 	private int longueur;
 	private int tailleCase;
 
-	private ArrayList<Case> ensCases;
-
-	//private Symbole[][] plateau;
-	//private List<Zone>  zones;
+	private Case[][] ensCases;
 	
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ; 
@@ -44,8 +41,7 @@ public class Plateau
 		this.longueur   = longueur;
 		this.tailleCase = tailleCase;
 		
-		this.plateau    = new Symbole[largeur][longueur];
-		this.zones      = new ArrayList<>();
+		this.ensCases   = new Case[largeur][longueur];
 		
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;

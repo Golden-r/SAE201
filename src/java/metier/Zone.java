@@ -17,10 +17,7 @@ public class Zone
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-    //private ArrayList<Symbole> ensSymbole ;
-	//private ArrayList<Long>    cellules;
     private Color couleur;
-
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -28,9 +25,7 @@ public class Zone
 
     public Zone () 
     {
-        //this.ensSymbole = new ArrayList<Symbole>() ;
-		//this.cellules   = new ArrayList<Long>();
-        this.couleur    = new Color(200, 200, 200);
+        this.couleur = new Color(200, 200, 200);
     }
 
 
@@ -38,42 +33,16 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	//public ArrayList<Long> getCellules() { return this.cellules ; }
-    public Color           getCouleur () { return this.couleur  ; }
+    public Color getCouleur () { return this.couleur  ; }
 
     /*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
 
+	public void setCouleur ( Color couleur ) {  this.couleur = couleur ; }
 
 	/*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
-/* 
-    public boolean ajouterSymbole ( Symbole symbole )
-    {
-        this.ensSymbole.add( symbole ) ;
 
-        return true ;
-    }
-
-    public boolean supprimerSymbole ( Symbole symbole )
-    {
-        if ( symbole == null ) { return false; }
-        
-        this.ensSymbole.remove( symbole ) ;
-
-        return true ;
-    }
-
-    public boolean contient(int x, int y)
-	{
-		for (Symbole s : this.ensSymbole)
-			if (s != null && s.getX() == x && s.getY() == y)
-				return true;
-
-		return false;
-	}
-
-*/
 }

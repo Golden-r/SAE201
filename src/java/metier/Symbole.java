@@ -21,11 +21,6 @@ public class Symbole
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-    //private int                 coordonneeX ;
-    //private int                 coordonneeY ;
-
-    //private ArrayList<Symbole>  ensVoisin   ;
-
     private ESymbole            symbole     ;
     private ECouleur            couleurBase ;
 
@@ -34,69 +29,38 @@ public class Symbole
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-    public Symbole ( int coordonneeX , int coordonneeY , ESymbole symbole ) 
+    public Symbole ( ESymbole symbole ) 
     {
-        //this.coordonneeX  = coordonneeX ;
-        //this.coordonneeY  = coordonneeY ;
 
-        //this.ensVoisin    = new ArrayList<Symbole>() ;
+        this.symbole     = symbole ;
+        this.couleurBase = null    ;
 
-        this.symbole = symbole          ;
-        
-        this.couleurBase = null         ;
     }
 
     /*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    //public int          getX            () { return this.coordonneeX         ; }
-    //public int          getY            () { return this.coordonneeY         ; }
-    public ESymbole     getSymbole      () { return this.symbole             ; }
-    public ECouleur     getCouleurBase  () { return this.couleurBase         ; }
-    public boolean      estBase         () { return this.couleurBase != null ; }
-
-
+    public ESymbole getSymbole      () { return this.symbole     ; }
+    public ECouleur getCouleurBase  () { return this.couleurBase ; }
+  
     /*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
 
-    //public void setX        ( int      coordonneeX )   { this.coordonneeX = coordonneeX ; }
-    //public void setY        ( int      coordonneeY )   { this.coordonneeY = coordonneeY ; }
-    public void setBase     ( ECouleur couleurBase )   { this.couleurBase = couleurBase ; }
-    public void setSymbole  ( ESymbole symbole     )   { this.symbole     = symbole;      }
+    public void setBase    ( ECouleur couleurBase ) { this.couleurBase = couleurBase ; }
+    public void setSymbole ( ESymbole symbole     ) { this.symbole     = symbole;      }
 
+    /*----------------------------*/
+	/*  Test                      */
+	/*----------------------------*/
 
+    public boolean estBase () { return this.couleurBase != null ; }
+    
     /*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
-/*
-	public boolean ajouterVoisin ( Symbole voisin )
-    {
-        this.ensVoisin.add( voisin ) ;
-        voisin.ensVoisin.add( this ) ;
 
-        return true ;
-    }
-
-    public boolean supprimerVoisin( Symbole voisin )
-    {
-        if (voisin == null){ return false;}
-        
-        this.ensVoisin  .remove ( voisin ) ;
-        voisin.ensVoisin.remove ( this   ) ;
-
-        return true ;
-    }
-
-    public boolean supprimerEnsVoisin ( )
-    {
-        this.ensVoisin.clear();
-
-        return true ;
-    }
-
-*/
     public String toString ()
     {
         return "Symbole : (" + this.symbole + ")" ;
