@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import ihm.FrameCreation;
 import ihm.FrameModification;
-import ihm.FrameJeu;
 
 import metier.Plateau;
 
@@ -28,7 +27,6 @@ public class Controleur
 
 	private FrameCreation     frameCreation;
 	private FrameModification frameModification;
-	private FrameJeu          frameJeu ;
 
 	
 	private Plateau           metierPlateau;
@@ -79,11 +77,6 @@ public class Controleur
 		this.frameModification = new FrameModification( this ) ;
 	}
 
-	public void lancerJeu()
-	{
-		System.out.println("Lancement du jeu");
-		this.frameJeu = new FrameJeu( this );
-	}
 
 
 	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCases , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )

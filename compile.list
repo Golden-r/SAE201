@@ -4,12 +4,12 @@
 
 ./src/java/metier/ESymbole.java
 ./src/java/metier/ECouleur.java
+
 ./src/java/metier/Symbole.java
 ./src/java/metier/Plateau.java
 ./src/java/metier/Zone.java
 ./src/java/metier/Liaison.java
-./src/java/metier/Pioche.java
-./src/java/metier/Carte.java
+
 ./src/java/metier/GestionFichier.java
 
 
