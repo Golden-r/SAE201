@@ -15,20 +15,10 @@ import metier.Carte;
 
 public class Pioche
 {
-
-	/*----------------------------*/ 
-	/*  Attributs de la classe    */
-	/*----------------------------*/
-
 	private ArrayList<Carte> paquet;
 	private ArrayList<Carte> cartesTirees;
 	private int              nbCarteSombre;
 	
-
-	/*----------------------------*/
-	/*  Constructeur de la classe */
-	/*----------------------------*/
-
 	public Pioche(ArrayList<ESymbole> symbolesEnJeu)
 	{
 		this.paquet        = new ArrayList<Carte>();
@@ -37,25 +27,10 @@ public class Pioche
 		
 		this.initialiserPaquet(symbolesEnJeu);
 	}
-
-	/*----------------------------*/
-	/*  Accesseur                 */
-	/*----------------------------*/
-
-	public ArrayList<Carte> getPaquet       () { return this.paquet       ; }
-	public ArrayList<Carte> getCartesTirees () { return this.cartesTirees ; }
-	public int              getNbCarteSombre() { return this.nbCarteSombre; }
 	
-
-	/*----------------------------*/
-	/*  Modificateur              */
-	/*----------------------------*/
-
-	/*----------------------------*/
-	/*  Méthodes                  */
-	/*----------------------------*/
-
-	public boolean isMancheTerminee()
+	public ArrayList<Carte> getCartesTirees() { return this.cartesTirees; }
+	
+	public boolean estMancheTerminee()
 	{
 		return this.nbCarteSombre <= 0;
 	}
@@ -85,7 +60,7 @@ public class Pioche
 		Carte carteTiree = this.paquet.remove(0);
 		this.cartesTirees.add(carteTiree);
 		
-		if(carteTiree.isSombre()) this.nbCarteSombre--;
+		if(carteTiree.estSombre()) this.nbCarteSombre--;
 		
 		return carteTiree;
 	}

@@ -21,7 +21,7 @@ public class Carte
 		this.estJoker  = estJoker;
 	}
 	
-	public ESymbole getSymbole() { return this.symbole;   }
-	public boolean  isSombre()   { return this.estSombre; }
-	public boolean  isJoker()    { return this.estJoker;  }
+	public ESymbole getSymbole() { return this.symbole  ; }
+	public boolean  estSombre () { return this.estSombre; }
+	public boolean  estJoker  () { return this.estJoker ; }
 }

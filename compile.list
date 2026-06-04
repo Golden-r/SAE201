@@ -19,6 +19,3 @@
 
 ./src/java/ihm/FrameModification.java
 ./src/java/ihm/PanelModification.java
-
-./src/java/ihm/FrameJeu.java
-./src/java/ihm/PanelJeu.java
