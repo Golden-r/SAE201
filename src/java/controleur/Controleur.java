@@ -86,12 +86,26 @@ public class Controleur
 		metierPlateau = new Plateau( tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole ) ;
 	}
 
-	public void chargerPlateau ( File fichier )
+public void chargerPlateau ( File fichier )
 	{
 		ArrayList<Object> proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
-		this.creePlateau((int) proprietes.get(0), (int) proprietes.get(1), (int) proprietes.get(2), (ArrayList<Integer>) proprietes.get(3), (ArrayList<Integer>)proprietes.get(4));
+
+		// TODO : faire une classe ou on stocke les propriétés du plateau pour éviter les erreurs de cast et les warnings
+		// EX   : PlateauConfiguration config = this.metierGestionFichier.lireFichier( fichier ) ;
+		int tailleLargeur  = (Integer) proprietes.get(0);
+		int tailleLongueur = (Integer) proprietes.get(1);
+		int tailleCellule  = (Integer) proprietes.get(2);
+
+		//on a des erreurs de cast, on est obligé pour cacher le warning
+		@SuppressWarnings("unchecked")
+		ArrayList<Integer> lstCouleur  = (ArrayList<Integer>) proprietes.get(3);
+		@SuppressWarnings("unchecked")
+		ArrayList<Integer> lstSymbole  = (ArrayList<Integer>) proprietes.get(4);
+
+		this.creePlateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole);
 		this.lancerModification();
 	}
+
 
 
 	/*----------------------------*/
