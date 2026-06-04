@@ -24,10 +24,10 @@ public class Plateau
 	private int longueur;
 	private int tailleCase;
 
-	private Case[][] ensCases;
+	private Case[][] plateau;
 	
 	private ArrayList<Integer> lstCouleur ;
-	private ArrayList<Integer> lstSymbole ; 
+	private ArrayList<Integer> lstSymbole ;
 	private ArrayList<Liaison> ensLiaison ; // ?
 
 
@@ -41,11 +41,11 @@ public class Plateau
 		this.longueur   = longueur;
 		this.tailleCase = tailleCase;
 		
-		this.ensCases   = new Case[largeur][longueur];
+		this.plateau    = new Case[largeur][longueur];
 		
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
-		this.ensLiaison   = new ArrayList<Liaison>();
+		this.ensLiaison = new ArrayList<Liaison>();
 	}
 
 
@@ -53,28 +53,22 @@ public class Plateau
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int                 getTailleLargeur  ()     { return this.largeur;    }
-	public int                 getTailleLongueur ()     { return this.longueur;   }
-	public int                 getTailleCase     ()     { return this.tailleCase; }
-	public Symbole             getSymbole        (int x, int y) 
+	public int     getTailleLargeur  ()     { return this.largeur;    }
+	public int     getTailleLongueur ()     { return this.longueur;   }
+	public int     getTailleCase     ()     { return this.tailleCase; }
+	public Case    getCase           (int x, int y) 
 	{
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
 	}
-	public List<Zone>          getZones          ()     { return this.zones     ; }
-	public Zone                getZoneDeCellule  (int x, int y)
-	{ 
-		for (Zone zone : this.zones)
-			if (zone.contient(x, y))
-				return zone ;
-		return null; 
-	}
+
 	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur; }
 	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole; }
-	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison;   }
-	public ArrayList<Symbole>  getTrajet         (Symbole depart, Symbole arrivee)
+	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison; }
+
+	public ArrayList<Case>  getTrajet         ( Case depart, Case arrivee )
 	{
-		ArrayList<Symbole> trajet = new ArrayList<Symbole>();
+		ArrayList<Case> trajet = new ArrayList<Case>();
 
 		if ( depart == null || arrivee == null ) return null;
 
@@ -101,13 +95,13 @@ public class Plateau
 		while(curseurX != arrivee.getX() || curseurY != arrivee.getY())
 		{
 
-			Symbole tmpSymbole = this.getSymbole(curseurX, curseurY);
+			Case tmpCase = this.getCase(curseurX, curseurY);
 
 			//blocage si obstacle sur le chemin
-			if(tmpSymbole != null) return null;
+			if(tmpCase != null) return null;
 
 			//coordonnée pour la liaison
-			trajet.add(new Symbole(curseurX, curseurY, null));
+		    trajet.add( new Case(curseurX, curseurY ));
 
 			curseurX += directionX;
 			curseurY += directionY;
@@ -122,14 +116,25 @@ public class Plateau
 	/*----------------------------*/
 
     
-	public void setSymboleDansZone(int x, int y, Zone zone , Symbole symbole) 
+	public void setSymboleDansCase(Case case, Symbole symbole) 
 	{
-		if ( this.estDansPlateau(x, y) && zone != null) 
+		if ( this.estDansPlateau(case.getX(), case.getY()) && zone != null) 
 		{
-			zone.ajouterSymbole(symbole) ;
+			plateau[case.getX()][case.getY()].setSymbole(symbole);
 		}
 
 	}
+
+	public void setZoneDansCase(Case case , Zone zone) 
+	{
+		if ( this.estDansPlateau(case.getX(), case.getY()) && zone != null) 
+		{
+			plateau[case.getX()][case.getY()].setZone(zone);
+		}
+
+	}
+
+
 	//public void  setZone             ( Zone               zone )          { this.zones = zone          ; }
 	//public void  setEnsLiaisons      ( ArrayList<Liaison> ensLiaison )      { this.ensLiaison   = ensLiaison ; }
     
@@ -139,11 +144,12 @@ public class Plateau
 	/*----------------------------*/
 
 
-    public boolean estDansPlateau(int x, int y) 
+    public boolean estDansPlateau( int x, int y ) 
     {
         return x >= 0 && x < largeur && y >= 0 && y < longueur;
     }
 
+//  pour le moment pas modifier 
 	public boolean estCroiser(ArrayList<Symbole> trajet)
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
