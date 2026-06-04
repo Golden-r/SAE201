@@ -220,7 +220,7 @@ public class Plateau
 
 	public void retirerSymbole(int x, int y)
 	{
-		Cellule supprCellule = this.getCellule(x, y);
+		/*Cellule supprCellule = this.getCellule(x, y);
 
 		if (supprCellule == null || supprCellule.estVide())
 			return;
@@ -234,7 +234,7 @@ public class Plateau
 			Liaison tmpLiaison = this.ensLiaison.get(cpt);
 
 			//liaison réseau part du symbole supprimé
-			if (tmpLiaison.getDepart() == supprSymbole)
+			if (tmpLiaison.getDepart().getSymbole() == supprSymbole)
 			{
 				if (!extremites.contains(this.getCelluleDe(tmpLiaison.getArrivee())))
 					extremites.add(this.getCelluleDe(tmpLiaison.getArrivee()));
@@ -243,7 +243,7 @@ public class Plateau
 			}
 
 			//liaison réseau arrive du symbole supprimé
-			else if (tmpLiaison.getArrivee() == supprSymbole)
+			else if (tmpLiaison.getArrivee().getSymbole() == supprSymbole)
 			{
 				if (!extremites.contains(this.getCelluleDe(tmpLiaison.getDepart())))
 					extremites.add(this.getCelluleDe(tmpLiaison.getDepart()));
@@ -259,6 +259,7 @@ public class Plateau
 			for (int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
 				for (int cpt2 = cpt1 + 1; cpt2 < extremites.size(); cpt2++)
 					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
+		*/
 	}
 /*
 	public int calculerScore(ECouleur reseau)

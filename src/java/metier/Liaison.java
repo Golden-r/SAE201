@@ -16,8 +16,8 @@ public class Liaison
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 	
-	private Symbole            depart;
-	private Symbole            arrivee;
+	private Cellule            depart;
+	private Cellule            arrivee;
 	private ECouleur           reseau;
 	private ArrayList<Cellule>    CelluleTraversees;
 	
@@ -26,7 +26,7 @@ public class Liaison
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 	
-	public Liaison(Symbole depart, Symbole arrivee, ECouleur reseau, ArrayList<Cellule> CelluleTraversees)
+	public Liaison(Cellule depart, Cellule arrivee, ECouleur reseau, ArrayList<Cellule> CelluleTraversees)
 	{
 		this.depart  = depart;
 		this.arrivee = arrivee;
@@ -38,8 +38,8 @@ public class Liaison
 	/*  Accesseur                 */
 	/*----------------------------*/
 	
-	public Symbole         getDepart()         { return this.depart;          }
-	public Symbole         getArrivee()        { return this.arrivee;         }
+	public Cellule         getDepart()         { return this.depart;          }
+	public Cellule         getArrivee()        { return this.arrivee;         }
 	public ECouleur        getReseau()         { return this.reseau;          }
 	public ArrayList<Cellule> getCelluleTraversees() { return this.CelluleTraversees; }
 	
