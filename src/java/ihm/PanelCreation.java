@@ -127,6 +127,14 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		this.tabPanelCreation[3].setBorder( BorderFactory.createEmptyBorder( 0  , 25, 10, 25));
 
 
+		//TODO
+		//(A supprimer , laisser pour debug)
+		for ( int cpt = 0 ; cpt < 5; cpt++ ) 
+		{
+			this.tabCbCouleur[cpt].setSelected(true );
+			this.tabCbSymbole[cpt].setSelected(true );
+		}
+
 		/* ----------------------------- */
 		/* Positionnement des composants */
 		/* ----------------------------- */
