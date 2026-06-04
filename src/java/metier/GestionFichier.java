@@ -69,4 +69,25 @@ public class GestionFichier
             return false;
         }
     }
+
+    public static boolean supprimerFichier(String nomFichier)
+    {
+        if (!nomFichier.endsWith(".data"))
+		    nomFichier += ".data";
+
+        try
+        {
+            File fichier = new File(REPERTOIRE + nomFichier);
+
+            if(!fichier.exists())
+                return false;
+
+            return fichier.delete();
+        }
+        catch
+        {
+            System.out.println("Erreur de suppression : " + e.getMessage());
+            return false;
+        }
+    }
 }
