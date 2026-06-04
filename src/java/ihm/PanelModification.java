@@ -1,24 +1,12 @@
 package ihm;
 
-import metier.ESymbole;
-import metier.ECouleur;
-import metier.Plateau;
 import controleur.Controleur;
 
 
-import metier.ECouleur;
-import metier.Zone;
+import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import javax.swing.ImageIcon;
 import java.awt.Image;
 
 
@@ -36,7 +24,7 @@ public class PanelModification extends JPanel
 {
 	private Controleur ctrl ;
 
-	private JPanel panelPlateau ;
+	private PanelPlateau panelPlateau ;
 	private JPanel panelNord ;
 	private JPanel panelSud ;
 	private JPanel panelEst ;
@@ -52,7 +40,7 @@ public class PanelModification extends JPanel
 		/* Création des composants       */
 		/* ----------------------------- */
 
-		this.panelPlateau = new JPanel( new GridLayout ( this.ctrl.getTailleLargeur() , this.ctrl.getTailleLongueur() )) ;
+		this.panelPlateau = new PanelPlateau( this.ctrl );
 
 
 		this.panelNord  = new JPanel() ;
@@ -65,25 +53,9 @@ public class PanelModification extends JPanel
 		this.panelEst  .setBackground( Color.DARK_GRAY );
 		this.panelOuest.setBackground( Color.DARK_GRAY );
 
-
-		ImageIcon imageVide = new ImageIcon("./src/ressource/images/h.png");
-		Image     imageNonRedim = imageVide.getImage() ;
-		Image     imageRedim    = imageNonRedim.getScaledInstance( this.ctrl.getTailleCellule(), this.ctrl.getTailleCellule(), Image.SCALE_SMOOTH) ; //Image.SCALE_SMOOTH evite la pixelisation
-		imageVide = new ImageIcon( imageRedim ) ;
-		
 		/* ----------------------------- */
 		/* Positionnement des composants */
 		/* ----------------------------- */
-
-	
-		for ( int lig = 0 ; lig < this.ctrl.getTailleLargeur() ; lig ++ )
-			for ( int col = 0 ; col < this.ctrl.getTailleLongueur() ; col ++ )
-			{
-				JLabel lblCase = new JLabel( imageVide );
-				this.panelPlateau.add( lblCase ) ;
-			}
-
-
 
 		this.add( this.panelPlateau , BorderLayout.CENTER );	
 
