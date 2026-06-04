@@ -115,7 +115,7 @@ public class Plateau
 			if(tmpCellule != null && !tmpCellule.estVide()) return null;
 
 			//coordonnée pour la liaison
-		    trajet.add( new Cellule(curseurX, curseurY ));
+		    trajet.add(tmpCellule);
 
 			curseurX += directionX;
 			curseurY += directionY;
