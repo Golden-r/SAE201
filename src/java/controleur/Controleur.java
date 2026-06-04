@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import ihm.FrameCreation;
 import ihm.FrameModification;
-
+import metier.GestionFichier;
 import metier.Plateau;
 
 /* SAE 2.01 | Développement d'une application 
@@ -30,6 +30,7 @@ public class Controleur
 
 	
 	private Plateau           metierPlateau;
+	private GestionFichier    metierGestionFichier;
 
 
 	/*----------------------------*/
@@ -74,6 +75,7 @@ public class Controleur
 	public void lancerModification(  )
 	{
 		System.out.println("Lancement du mode modification");
+		this.frameCreation.dispose();
 		this.frameModification = new FrameModification( this ) ;
 	}
 
@@ -82,6 +84,12 @@ public class Controleur
 	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{
 		metierPlateau = new Plateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole) ;
+	}
+
+	public void chargerPlateau ( String cheminFichier )
+	{
+		this.metierGestionFichier.lireFichier( cheminFichier ) ;
+		this.lancerModification();
 	}
 
 

@@ -6,17 +6,13 @@ import java.util.Collections;
 
 import metier.ESymbole;
 import metier.ECouleur;
-import metier.Plateau;
-import metier.Zone;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.BorderFactory;
+
+import javax.swing.*;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 
 
 import java.awt.*;
@@ -234,6 +230,8 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 			this.btnNouveau.setBackground( Color.BLACK     );
 			this.btnAncien .setBackground( Color.DARK_GRAY );
 			this.btnCopie  .setBackground( Color.BLACK     );
+
+			this.choisirFichier () ;
 		}
 
 		if ( e.getSource() == this.btnCopie ) 
@@ -307,7 +305,6 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		return true;
 	}
 
-
 	private ArrayList<Integer> getEnsCouleur()
 	{
 		ArrayList<Integer> lstCouleur = new ArrayList<>() ;
@@ -336,7 +333,40 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 			
 	}
 
+	private void choisirFichier()
+	{
+		/*----------------*/
+		/*  Données       */
+		/*----------------*/
 
+		JFileChooser            fileChooser ;
+		FileNameExtensionFilter filtre ;
+		File   fichierChoisi ;
+		String cheminFichier ;
+
+		int reponse ;
+
+		/*----------------*/
+		/*  Instructions  */
+		/*----------------*/
+
+		fileChooser = new JFileChooser( new File("./src/ressource/data") );
+		
+		filtre = new FileNameExtensionFilter("Fichiers de sauvegarde (.data)", "data"); //filtre que les .data
+		fileChooser.setFileFilter(filtre);
+
+
+		reponse = fileChooser.showOpenDialog(this);
+
+		if ( reponse == JFileChooser.APPROVE_OPTION )
+		{
+			fichierChoisi = fileChooser  .getSelectedFile();
+			cheminFichier = fichierChoisi.getAbsolutePath();
+			
+			this.ctrl.chargerPlateau( cheminFichier );
+		}
+	}
+	
 
 
 }
