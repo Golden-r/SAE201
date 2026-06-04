@@ -70,12 +70,12 @@ public class PanelModification extends JPanel
 		Image     imageNonRedim = imageVide.getImage() ;
 		Image     imageRedim    = imageNonRedim.getScaledInstance( this.ctrl.getTailleCellule(), this.ctrl.getTailleCellule(), Image.SCALE_SMOOTH) ; //Image.SCALE_SMOOTH evite la pixelisation
 		imageVide = new ImageIcon( imageRedim ) ;
+		
 		/* ----------------------------- */
 		/* Positionnement des composants */
 		/* ----------------------------- */
 
-		
-
+	
 		for ( int lig = 0 ; lig < this.ctrl.getTailleLargeur() ; lig ++ )
 			for ( int col = 0 ; col < this.ctrl.getTailleLongueur() ; col ++ )
 			{

@@ -77,7 +77,7 @@ public class Controleur
 		this.frameModification = new FrameModification( this ) ;
 	}
 
-
+ 
 
 	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{
