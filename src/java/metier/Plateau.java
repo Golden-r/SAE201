@@ -42,6 +42,11 @@ public class Plateau
 		this.tailleCellule = tailleCellule;
 		
 		this.plateau    = new Cellule[largeur][longueur];
+
+		for (int x = 0; x < largeur; x++)
+			for (int y = 0; y < longueur; y++)
+				this.plateau[x][y] = new Cellule(x, y);
+
 		
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
@@ -55,14 +60,14 @@ public class Plateau
 
 	public int     getTailleLargeur  ()     { return this.largeur;    }
 	public int     getTailleLongueur ()     { return this.longueur;   }
-	public int     getTailleCellule     ()     { return this.tailleCellule; }
-	public Cellule    getCellule           (int x, int y) 
+	public int     getTailleCellule  ()     { return this.tailleCellule; }
+	public Cellule getCellule           (int x, int y) 
 	{
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
 	}
 	// Dans Plateau.java — section Accesseur
-	public Cellule getCelluleDe(Symbole symbole)
+	public Cellule getSymboleDansCellule(Symbole symbole)
 	{
 		for (int x = 0; x < this.largeur; x++)
 			for (int y = 0; y < this.longueur; y++)
@@ -107,7 +112,7 @@ public class Plateau
 			Cellule tmpCellule = this.getCellule(curseurX, curseurY);
 
 			//blocage si obstacle sur le chemin
-			if(tmpCellule != null) return null;
+			if(tmpCellule != null && !tmpCellule.estVide()) return null;
 
 			//coordonnée pour la liaison
 		    trajet.add( new Cellule(curseurX, curseurY ));
@@ -236,8 +241,8 @@ public class Plateau
 			//liaison réseau part du symbole supprimé
 			if (tmpLiaison.getDepart().getSymbole() == supprSymbole)
 			{
-				if (!extremites.contains(this.getCelluleDe(tmpLiaison.getArrivee())))
-					extremites.add(this.getCelluleDe(tmpLiaison.getArrivee()));
+				if (!extremites.contains(this.getSymboleDansCellule(tmpLiaison.getArrivee())))
+					extremites.add(this.getSymboleDansCellule(tmpLiaison.getArrivee()));
 				reseau = tmpLiaison.getReseau();
 				this.ensLiaison.remove(cpt);
 			}
@@ -245,8 +250,8 @@ public class Plateau
 			//liaison réseau arrive du symbole supprimé
 			else if (tmpLiaison.getArrivee().getSymbole() == supprSymbole)
 			{
-				if (!extremites.contains(this.getCelluleDe(tmpLiaison.getDepart())))
-					extremites.add(this.getCelluleDe(tmpLiaison.getDepart()));
+				if (!extremites.contains(this.getSymboleDansCellule(tmpLiaison.getDepart())))
+					extremites.add(this.getSymboleDansCellule(tmpLiaison.getDepart()));
 				reseau = tmpLiaison.getReseau();
 				this.ensLiaison.remove(cpt);
 			}

@@ -1,7 +1,7 @@
 package controleur;
 
 import java.awt.Frame;
-
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -83,12 +83,13 @@ public class Controleur
 
 	public void creePlateau( int tailleLargeur , int tailleLongueur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{
-		metierPlateau = new Plateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole) ;
+		metierPlateau = new Plateau( tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole ) ;
 	}
 
-	public void chargerPlateau ( String cheminFichier )
+	public void chargerPlateau ( File fichier )
 	{
-		this.metierGestionFichier.lireFichier( cheminFichier ) ;
+		ArrayList<Object> proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
+		this.creePlateau((int) proprietes.get(0), (int) proprietes.get(1), (int) proprietes.get(2), (ArrayList<Integer>) proprietes.get(3), (ArrayList<Integer>)proprietes.get(4));
 		this.lancerModification();
 	}
 

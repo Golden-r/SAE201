@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.FileNotFoundException;
 import metier.* ;
 
 /* SAE 2.01 | Développement d'une application 
@@ -17,45 +18,96 @@ import metier.* ;
 */
 
 public class GestionFichier
-{
-    private static final String REPERTOIRE = "../ressource/data";
-    
-    public static ArrayList<String> lireFichier(String nomFichier)
+{    
+    public static ArrayList<Object> lireFichier ( File fichier )
     {
-        ArrayList<String> lignes = new ArrayList<String>();
 
-        if(!nomFichier.endsWith(".data"))
-			nomFichier += ".data";
-        
-        try
-        {
-            Scanner sc = new Scanner(new File(REPERTOIRE + nomFichier));
+		/*----------------*/
+		/*  Données       */
+		/*----------------*/
 
-            while(sc.hasNextLine())
-                lignes.add(sc.nextLine());
+		ArrayList<Object> lignes = new ArrayList<Object>();
+
+
+		int tailleLargeur  ;
+		int tailleLongueur ;
+		int tailleCellule  ;
+
+		String ligneCouleurs ;
+		String ligneSymboles ;
+
+		ArrayList<Integer> lstCouleur ;
+		ArrayList<Integer> lstSymbole ;
+
+
+		/*----------------*/
+		/*  Instructions  */
+		/*----------------*/
+
+        try 
+		{
+            Scanner sc = new Scanner(fichier);
+
+            tailleLargeur  = Integer.parseInt(sc.nextLine().trim());
+            tailleLongueur = Integer.parseInt(sc.nextLine().trim());
+            tailleCellule  = Integer.parseInt(sc.nextLine().trim());
+
+            ligneCouleurs = sc.nextLine();
+            lstCouleur    = convertirDataEnList(ligneCouleurs);
+
+            ligneSymboles = sc.nextLine();
+            lstSymbole    = convertirDataEnList(ligneSymboles);
+
+            lignes.add(tailleLargeur);
+            lignes.add(tailleLongueur);
+            lignes.add(tailleCellule);
+            lignes.add(lstCouleur);
+            lignes.add(lstSymbole);
 
             sc.close();
+
         }
-        catch(Exception e)
-        {
-            System.out.println("Erreur de lecture : " + e.getMessage());
-        }
+		catch (FileNotFoundException e) { System.out.println("Erreur: Le fichier est introuvable.")             ;} 
+		catch (Exception e)             { System.out.println("Erreur de lecture ou de format : " + e.getMessage()) ;}
 
         return lignes;
     }
 
-    public static boolean ecrireFichier(String nomFichier, ArrayList<String> donnees )
-    {
-        if(!nomFichier.endsWith(".data"))
-			nomFichier += ".data";
+
+	private static ArrayList<Integer> convertirDataEnList(String ligne) 
+	{
+		/*----------------*/
+		/*  Données       */
+		/*----------------*/
+
+        ArrayList<Integer> liste   ;
+        String[]           valeurs ;
         
+		/*----------------*/
+		/*  Instructions  */
+		/*----------------*/
+
+		liste   = new ArrayList<>();
+		valeurs = ligne.split(",");
+
+        for (String val : valeurs) 
+            liste.add(Integer.parseInt(val.trim()));
+    
+
+        return liste;
+    }
+
+	
+	/*
+    public static boolean ecrireFichier(File fichier, ArrayList<String> donnees )
+    {
         try
         {
             File dossier = new File(REPERTOIRE);
 			if(!dossier.exists())
-				dossier.mkdirs();
+				dossier.mkdir();
             
-            PrintWriter pw = new PrintWriter(new File(REPERTOIRE + nomFichier));
+            PrintWriter pw = new PrintWriter(fichier);
 
             for(int cpt = 0; cpt < donnees.size(); cpt++)
                 pw.println(donnees.get(cpt));
@@ -90,4 +142,9 @@ public class GestionFichier
             return false;
         }
     }
+	*/
+
+
+
+
 }

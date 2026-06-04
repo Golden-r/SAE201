@@ -341,10 +341,9 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		JFileChooser            fileChooser ;
 		FileNameExtensionFilter filtre ;
-		File   fichierChoisi ;
-		String cheminFichier ;
-
-		int reponse ;
+		File                    fichierChoisi ;
+		String                  cheminFichier ;
+		int                     reponse ;
 
 		/*----------------*/
 		/*  Instructions  */
@@ -361,9 +360,8 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		if ( reponse == JFileChooser.APPROVE_OPTION )
 		{
 			fichierChoisi = fileChooser  .getSelectedFile();
-			cheminFichier = fichierChoisi.getAbsolutePath();
 			
-			this.ctrl.chargerPlateau( cheminFichier );
+			this.ctrl.chargerPlateau( fichierChoisi );
 		}
 	}
 	
