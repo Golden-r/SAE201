@@ -61,6 +61,15 @@ public class Plateau
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
 	}
+	// Dans Plateau.java — section Accesseur
+	public Cellule getCelluleDe(Symbole symbole)
+	{
+		for (int x = 0; x < this.largeur; x++)
+			for (int y = 0; y < this.longueur; y++)
+				if (this.plateau[x][y] != null && this.plateau[x][y].getSymbole() == symbole)
+					return this.plateau[x][y];
+		return null;
+	}
 
 	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur; }
 	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole; }
@@ -156,20 +165,20 @@ public class Plateau
 		return false;
 	}
 
-	public boolean existeChemin(Case depart, Case arrivee, ECouleur couleur)
+	public boolean existeChemin(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
-		ArrayList<Case> visite  = new ArrayList<Case>();
-		ArrayList<Case> aVisite = new ArrayList<Case>();
+		ArrayList<Cellule> visite  = new ArrayList<Cellule>();
+		ArrayList<Cellule> aVisite = new ArrayList<Cellule>();
 
 		aVisite.add(depart);
 
 		while(!aVisite.isEmpty())
 		{
-			Case tmpCase = aVisite.remove(0);
+			Cellule tmpCellule = aVisite.remove(0);
 
 
-			if(tmpCase == arrivee) return true;
-			visite.add(tmpCase);
+			if(tmpCellule == arrivee) return true;
+			visite.add(tmpCellule);
 
 			for(Liaison l : this.ensLiaison)
 			{
@@ -193,12 +202,12 @@ public class Plateau
 		return false;
 	}
 
-	public boolean ajouterLiaison(Case depart, Case arrivee, ECouleur couleur)
+	public boolean ajouterLiaison(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
 
 		if(this.existeChemin(depart, arrivee, couleur)) return false;
 
-		ArrayList<Case> trajet = this.getTrajet(depart, arrivee);
+		ArrayList<Cellule> trajet = this.getTrajet(depart, arrivee);
 
 		if(trajet == null)                 return false;
 		if(this.estCroiser(trajet)) return false;
@@ -211,22 +220,24 @@ public class Plateau
 
 	public void retirerSymbole(int x, int y)
 	{
-		Symbole supprSymbole = getSymbole(x,y);
+		Cellule supprCellule = this.getCellule(x, y);
 
-		if(supprSymbole == null) return;
-		
-		ArrayList<Symbole> extremites = new ArrayList<Symbole>();
+		if (supprCellule == null || supprCellule.estVide())
+			return;
+
+		Symbole supprSymbole = supprCellule.getSymbole();
+		ArrayList<Cellule> extremites = new ArrayList<Cellule>();
 		ECouleur reseau = null;
 
-		for(int cpt = this.ensLiaison.size()-1; cpt >= 0; cpt--)
+		for (int cpt = this.ensLiaison.size()-1; cpt >= 0; cpt--)
 		{
 			Liaison tmpLiaison = this.ensLiaison.get(cpt);
 
 			//liaison réseau part du symbole supprimé
-			if(tmpLiaison.getDepart() == supprSymbole)
+			if (tmpLiaison.getDepart() == supprSymbole)
 			{
-				if(!extremites.contains(tmpLiaison.getArrivee()))
-					extremites.add(tmpLiaison.getArrivee());
+				if (!extremites.contains(this.getCelluleDe(tmpLiaison.getArrivee())))
+					extremites.add(this.getCelluleDe(tmpLiaison.getArrivee()));
 				reseau = tmpLiaison.getReseau();
 				this.ensLiaison.remove(cpt);
 			}
@@ -234,20 +245,20 @@ public class Plateau
 			//liaison réseau arrive du symbole supprimé
 			else if (tmpLiaison.getArrivee() == supprSymbole)
 			{
-				if(!extremites.contains(tmpLiaison.getDepart()))
-					extremites.add(tmpLiaison.getDepart());
+				if (!extremites.contains(this.getCelluleDe(tmpLiaison.getDepart())))
+					extremites.add(this.getCelluleDe(tmpLiaison.getDepart()));
 				reseau = tmpLiaison.getReseau();
 				this.ensLiaison.remove(cpt);
 			}
 		}
 
-		this.plateau[x][y] = null;
+		supprCellule.setSymbole(null);
+		supprCellule.setEstVide(true);
 
-		if(reseau != null && extremites.size() >= 2)
-			for(int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
-				for(int cpt2 = cpt1 + 1; cpt2 < extremites.size(); cpt2++)
+		if (reseau != null && extremites.size() >= 2)
+			for (int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
+				for (int cpt2 = cpt1 + 1; cpt2 < extremites.size(); cpt2++)
 					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
-
 	}
 /*
 	public int calculerScore(ECouleur reseau)
