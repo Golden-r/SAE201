@@ -1,4 +1,4 @@
 #!/bin/bash
 
-javac -d  class @compile.list
-java  -cp class controleur.Controleur "$1"
+javac @compile.list  -d  class
+java  -cp class controleur.Controleur

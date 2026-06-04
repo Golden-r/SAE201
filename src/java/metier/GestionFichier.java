@@ -19,26 +19,17 @@ import metier.* ;
 
 public class GestionFichier
 {    
-    public static ArrayList<Object> lireFichier ( File fichier )
+    public static PlateauData lireFichier ( File fichier )
     {
 
 		/*----------------*/
 		/*  Données       */
 		/*----------------*/
-
-		ArrayList<Object> lignes = new ArrayList<Object>();
-
-
-		int tailleLargeur  ;
-		int tailleLongueur ;
-		int tailleCellule  ;
+        
+        PlateauData proprietes = new PlateauData() ;
 
 		String ligneCouleurs ;
 		String ligneSymboles ;
-
-		ArrayList<Integer> lstCouleur ;
-		ArrayList<Integer> lstSymbole ;
-
 
 		/*----------------*/
 		/*  Instructions  */
@@ -48,29 +39,22 @@ public class GestionFichier
 		{
             Scanner sc = new Scanner(fichier);
 
-            tailleLargeur  = Integer.parseInt(sc.nextLine().trim());
-            tailleLongueur = Integer.parseInt(sc.nextLine().trim());
-            tailleCellule  = Integer.parseInt(sc.nextLine().trim());
+            proprietes.tailleLargeur  = Integer.parseInt(sc.nextLine().trim());
+            proprietes.tailleLongueur = Integer.parseInt(sc.nextLine().trim());
+            proprietes.tailleCellule  = Integer.parseInt(sc.nextLine().trim());
 
             ligneCouleurs = sc.nextLine();
-            lstCouleur    = convertirDataEnList(ligneCouleurs);
+            proprietes.lstCouleur    = convertirDataEnList(ligneCouleurs);
 
             ligneSymboles = sc.nextLine();
-            lstSymbole    = convertirDataEnList(ligneSymboles);
-
-            lignes.add(tailleLargeur);
-            lignes.add(tailleLongueur);
-            lignes.add(tailleCellule);
-            lignes.add(lstCouleur);
-            lignes.add(lstSymbole);
+            proprietes.lstSymbole    = convertirDataEnList(ligneSymboles);
 
             sc.close();
-
         }
 		catch (FileNotFoundException e) { System.out.println("Erreur: Le fichier est introuvable.")             ;} 
 		catch (Exception e)             { System.out.println("Erreur de lecture ou de format : " + e.getMessage()) ;}
 
-        return lignes;
+        return proprietes;
     }
 
 
