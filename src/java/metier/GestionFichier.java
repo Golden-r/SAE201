@@ -84,7 +84,7 @@ public class GestionFichier
 
             return fichier.delete();
         }
-        catch
+        catch(Exception e)
         {
             System.out.println("Erreur de suppression : " + e.getMessage());
             return false;
