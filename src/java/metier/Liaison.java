@@ -19,14 +19,14 @@ public class Liaison
 	private Symbole            depart;
 	private Symbole            arrivee;
 	private ECouleur           reseau;
-	private ArrayList<Symbole> casesTraversees;
+	private ArrayList<Case>    casesTraversees;
 	
 	
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 	
-	public Liaison(Symbole depart, Symbole arrivee, ECouleur reseau, ArrayList<Symbole> casesTraversees)
+	public Liaison(Symbole depart, Symbole arrivee, ECouleur reseau, ArrayList<Case> casesTraversees)
 	{
 		this.depart  = depart;
 		this.arrivee = arrivee;
@@ -38,10 +38,10 @@ public class Liaison
 	/*  Accesseur                 */
 	/*----------------------------*/
 	
-	public Symbole            getDepart()         { return this.depart;          }
-	public Symbole            getArrivee()        { return this.arrivee;         }
-	public ECouleur           getReseau()         { return this.reseau;          }
-	public ArrayList<Symbole> getCaseTraversees() { return this.casesTraversees; }
+	public Symbole         getDepart()         { return this.depart;          }
+	public Symbole         getArrivee()        { return this.arrivee;         }
+	public ECouleur        getReseau()         { return this.reseau;          }
+	public ArrayList<Case> getCaseTraversees() { return this.casesTraversees; }
 	
 	
 	/*----------------------------*/
@@ -52,8 +52,8 @@ public class Liaison
 	{
 		for(int cpt = 0; cpt < this.casesTraversees.size(); cpt++)
 		{
-			Symbole tmpSymbole = this.casesTraversees.get(cpt);
-			if(tmpSymbole != null && tmpSymbole.getX() == x && tmpSymbole.getY() == y)
+			Case tmpCase = this.casesTraversees.get(cpt);
+			if(tmpCase != null && tmpCase.getX() == x && tmpCase.getY() == y)
 				return true;
 		}
 		
