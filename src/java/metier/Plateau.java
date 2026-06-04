@@ -135,6 +135,7 @@ public class Plateau
 		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY()) )//&& zone != null) 
 		{
 			plateau[Cellule.getX()][Cellule.getY()].setSymbole(symbole);
+			Cellule.setEstVide(false);
 		}
 
 	}

@@ -24,20 +24,27 @@ public class PanelPlateauOuest extends JPanel
 {
 	private Controleur ctrl;
 
+	private ButtonGroup  btgRadio ;
+	private JRadioButton cbZone ;
+	
+
 	public PanelPlateauOuest( Controleur ctrl ) 
 	{
 		this.ctrl = ctrl ;
-		
+		this.setLayout( new GridLayout( 3 , 1 ));
+
 		/* ----------------------------- */
 		/* Création des composants       */
 		/* ----------------------------- */
 
 		this.setBackground( Color.red );
-		this.add ( new JLabel( "test") ) ;
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
 		/* ----------------------------- */
+
+		this.add ( new JLabel( "test") ) ;
+
 
 
 		/*---------------------------*/

@@ -27,8 +27,8 @@ public class PanelModification extends JPanel
 	private PanelPlateau panelPlateau ;
 	private JPanel panelNord ;
 	private JPanel panelSud ;
-	private PanelPlateauOuest panelEst ;
-	private JPanel panelOuest ; 
+	private JPanel panelEst ;
+	private PanelPlateauOuest panelOuest ; 
 
 
 
@@ -46,12 +46,12 @@ public class PanelModification extends JPanel
 
 		this.panelNord  = new JPanel() ;
 		this.panelSud   = new JPanel() ;
-		this.panelEst   = new PanelPlateauOuest( this.ctrl ) ;
-		this.panelOuest = new JPanel() ;
+		this.panelEst   = new JPanel() ;
+		this.panelOuest = new PanelPlateauOuest( this.ctrl ) ;
         
-		this.panelNord .setBackground( Color.LIGHT_GRAY );
+		this.panelNord .setBackground( Color.BLUE );
 		this.panelSud  .setBackground( Color.LIGHT_GRAY  );
-		this.panelOuest.setBackground( Color.LIGHT_GRAY  );
+		this.panelEst  .setBackground( Color.LIGHT_GRAY  );
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
