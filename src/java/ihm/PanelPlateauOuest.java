@@ -24,20 +24,29 @@ public class PanelPlateauOuest extends JPanel
 {
 	private Controleur ctrl;
 
+	private JComboBox<String> jcbZone;
+
 	private ButtonGroup  btgRadio ;
-	private JRadioButton cbZone ;
+	private JRadioButton cbSelecion ;
+	private JRadioButton cbGomme ;
 	
 
 	public PanelPlateauOuest( Controleur ctrl ) 
 	{
 		this.ctrl = ctrl ;
-		this.setLayout( new GridLayout( 3 , 1 ));
+		this.setLayout( new GridLayout( 2 , 1 ));
 
 		/* ----------------------------- */
 		/* Création des composants       */
 		/* ----------------------------- */
 
 		this.setBackground( Color.red );
+
+
+		this.btgRadio = new ButtonGroup();
+		this.cbSelecion = new JRadioButton("Selecion", true);
+		this.cbGomme = new JRadioButton("cbGomme");
+
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
