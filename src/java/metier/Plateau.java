@@ -155,14 +155,32 @@ public class Plateau
 	/*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
+	public void relierToutLesSymbole ( ECouleur couleur )
+	{
+		ArrayList<Cellule> batiments = new ArrayList<>();
 
+		for ( int cpt = 0 ; cpt < this.plateau.length ; cpt ++ ) {
+			for ( int cpt2 = 0 ; cpt2 < this.plateau[cpt].length ; cpt2++ ) {
+				Cellule c = this.plateau[cpt][cpt2];
+				if ( c != null && !c.estVide() && c.getSymbole() != null ) {
+					batiments.add ( c );
+				}
+			}
+		}
+
+		for ( int i = 0 ; i < batiments.size() ; i++ ) {
+			for ( int j = i + 1 ; j < batiments.size() ; j++ ) {
+				
+				this.ajouterLiaison(batiments.get(i), batiments.get(j), couleur) ;
+			}
+		}
+	}
 
     public boolean estDansPlateau( int x, int y ) 
     {
         return x >= 0 && x < largeur && y >= 0 && y < longueur;
     }
 
-//  pour le moment pas modifier 
 
 	public boolean estCroiser(ArrayList<Cellule> trajet)
 	{
