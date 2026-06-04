@@ -24,12 +24,14 @@ public class Plateau
 	private int longueur;
 	private int tailleCase;
 
-	private Symbole[][] plateau;
-	private List<Zone>  zones;
+	private ArrayList<Case> ensCases;
+
+	//private Symbole[][] plateau;
+	//private List<Zone>  zones;
 	
 	private ArrayList<Integer> lstCouleur ;
-	private ArrayList<Integer> lstSymbole ;
-	private ArrayList<Liaison> ensLiaison;
+	private ArrayList<Integer> lstSymbole ; 
+	private ArrayList<Liaison> ensLiaison ; // ?
 
 
 	/*----------------------------*/

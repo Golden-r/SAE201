@@ -21,10 +21,10 @@ public class Symbole
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-    private int                 coordonneeX ;
-    private int                 coordonneeY ;
+    //private int                 coordonneeX ;
+    //private int                 coordonneeY ;
 
-    private ArrayList<Symbole>  ensVoisin   ;
+    //private ArrayList<Symbole>  ensVoisin   ;
 
     private ESymbole            symbole     ;
     private ECouleur            couleurBase ;
@@ -36,10 +36,10 @@ public class Symbole
 
     public Symbole ( int coordonneeX , int coordonneeY , ESymbole symbole ) 
     {
-        this.coordonneeX  = coordonneeX ;
-        this.coordonneeY  = coordonneeY ;
+        //this.coordonneeX  = coordonneeX ;
+        //this.coordonneeY  = coordonneeY ;
 
-        this.ensVoisin    = new ArrayList<Symbole>() ;
+        //this.ensVoisin    = new ArrayList<Symbole>() ;
 
         this.symbole = symbole          ;
         
@@ -50,8 +50,8 @@ public class Symbole
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public int          getX            () { return this.coordonneeX         ; }
-    public int          getY            () { return this.coordonneeY         ; }
+    //public int          getX            () { return this.coordonneeX         ; }
+    //public int          getY            () { return this.coordonneeY         ; }
     public ESymbole     getSymbole      () { return this.symbole             ; }
     public ECouleur     getCouleurBase  () { return this.couleurBase         ; }
     public boolean      estBase         () { return this.couleurBase != null ; }
@@ -61,8 +61,8 @@ public class Symbole
 	/*  Modificateur              */
 	/*----------------------------*/
 
-    public void setX        ( int      coordonneeX )   { this.coordonneeX = coordonneeX ; }
-    public void setY        ( int      coordonneeY )   { this.coordonneeY = coordonneeY ; }
+    //public void setX        ( int      coordonneeX )   { this.coordonneeX = coordonneeX ; }
+    //public void setY        ( int      coordonneeY )   { this.coordonneeY = coordonneeY ; }
     public void setBase     ( ECouleur couleurBase )   { this.couleurBase = couleurBase ; }
     public void setSymbole  ( ESymbole symbole     )   { this.symbole     = symbole;      }
 
@@ -70,7 +70,7 @@ public class Symbole
     /*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
-
+/*
 	public boolean ajouterVoisin ( Symbole voisin )
     {
         this.ensVoisin.add( voisin ) ;
@@ -96,41 +96,11 @@ public class Symbole
         return true ;
     }
 
-
+*/
     public String toString ()
     {
-        return "Symbole : (" + this.coordonneeX + "," + this.coordonneeY + ")" ;
+        return "Symbole : (" + this.symbole + ")" ;
     }
 
-    /*----------------------------*/
-	/*  MAIN TEST                 */
-	/*----------------------------*/
-    public static void main(String[] args)
-    {
-        int     x = 1;
-		Symbole s1;
 
-        if (args.length > 0)
-        {
-            try
-            {
-                x = Integer.parseInt(args[0]) ;
-            } catch (NumberFormatException e)
-            {
-                System.out.println("l'argument n'est pas un entier : " + args[0]) ;
-                return;
-            }
-        }
-
-        s1 = new Symbole(1, 2, ESymbole.MAISONS) ;
-        System.out.println(s1);
-
-        for (int cpt = 0 ; cpt < x; cpt++)
-        {
-            s1.ajouterVoisin( new Symbole(cpt, cpt, ESymbole.MAISONS) );
-            System.out.println("Voisin " + cpt + " : " + s1.ensVoisin.get(cpt));
-        }
-
-        System.out.println("Voisins : " + s1.ensVoisin);
-    }
 }

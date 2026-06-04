@@ -17,8 +17,8 @@ public class Zone
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-    private ArrayList<Symbole> ensSymbole ;
-	private ArrayList<Long> cellules;
+    //private ArrayList<Symbole> ensSymbole ;
+	//private ArrayList<Long>    cellules;
     private Color couleur;
 
 
@@ -28,8 +28,8 @@ public class Zone
 
     public Zone () 
     {
-        this.ensSymbole = new ArrayList<Symbole>() ;
-		this.cellules   = new ArrayList<Long>();
+        //this.ensSymbole = new ArrayList<Symbole>() ;
+		//this.cellules   = new ArrayList<Long>();
         this.couleur    = new Color(200, 200, 200);
     }
 
@@ -38,7 +38,7 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public ArrayList<Long> getCellules() { return this.cellules ; }
+	//public ArrayList<Long> getCellules() { return this.cellules ; }
     public Color           getCouleur () { return this.couleur  ; }
 
     /*----------------------------*/
@@ -49,7 +49,7 @@ public class Zone
 	/*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
-
+/* 
     public boolean ajouterSymbole ( Symbole symbole )
     {
         this.ensSymbole.add( symbole ) ;
@@ -74,4 +74,6 @@ public class Zone
 
 		return false;
 	}
+
+*/
 }
