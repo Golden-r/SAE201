@@ -9,6 +9,7 @@ import ihm.FrameCreation;
 import ihm.FrameModification;
 import metier.GestionFichier;
 import metier.Plateau;
+import metier.PlateauData;
 
 /* SAE 2.01 | Développement d'une application 
 * Controleur
@@ -88,19 +89,16 @@ public class Controleur
 
 	public void chargerPlateau ( File fichier )
 	{
-		ArrayList<Object> proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
+		PlateauData proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
 
-		// TODO : faire une classe ou on stocke les propriétés du plateau pour éviter les erreurs de cast et les warnings
-		// EX   : PlateauConfiguration config = this.metierGestionFichier.lireFichier( fichier ) ;
-		int tailleLargeur  = (Integer) proprietes.get(0);
-		int tailleLongueur = (Integer) proprietes.get(1);
-		int tailleCellule  = (Integer) proprietes.get(2);
+		System.out.println("Données lues depuis le fichier : \n" + proprietes);
 
-		//on a des erreurs de cast, on est obligé pour cacher le warning
-		@SuppressWarnings("unchecked")
-		ArrayList<Integer> lstCouleur  = (ArrayList<Integer>) proprietes.get(3);
-		@SuppressWarnings("unchecked")
-		ArrayList<Integer> lstSymbole  = (ArrayList<Integer>) proprietes.get(4);
+		int tailleLargeur  = proprietes.tailleLargeur;
+		int tailleLongueur = proprietes.tailleLongueur;
+		int tailleCellule  = proprietes.tailleCellule;
+
+		ArrayList<Integer> lstCouleur  = proprietes.lstCouleur;
+		ArrayList<Integer> lstSymbole  = proprietes.lstSymbole;
 
 		this.creePlateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole);
 		this.lancerModification();
