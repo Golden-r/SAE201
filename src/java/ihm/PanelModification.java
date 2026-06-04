@@ -49,9 +49,9 @@ public class PanelModification extends JPanel
 		this.panelEst   = new PanelPlateauOuest( this.ctrl ) ;
 		this.panelOuest = new JPanel() ;
         
-		this.panelNord .setBackground( Color.DARK_GRAY );
-		this.panelSud  .setBackground( Color.DARK_GRAY );
-		this.panelOuest.setBackground( Color.DARK_GRAY );
+		this.panelNord .setBackground( Color.LIGHT_GRAY );
+		this.panelSud  .setBackground( Color.LIGHT_GRAY  );
+		this.panelOuest.setBackground( Color.LIGHT_GRAY  );
 
 		/* ----------------------------- */
 		/* Positionnement des composants */
