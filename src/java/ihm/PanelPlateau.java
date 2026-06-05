@@ -127,11 +127,10 @@ public class PanelPlateau extends JPanel
 				
 
 
-				metier.Cellule cell = this.ctrl.getCellule(col, lig);
                 
-                if (cell != null && cell.getZone() != null) 
+                if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getZone() != null) 
                 {
-                    g.setColor(cell.getZone().getCouleur());
+                    g.setColor(this.ctrl.getCellule(col, lig).getZone().getCouleur());
                     g.fillRect(x, y, taille, taille);
                 }
 

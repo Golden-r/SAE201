@@ -37,9 +37,9 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public        Color    getCouleur     (){ return this.couleur          ;}
-	public        EZone    getTypeZone    (){ return this.typeZone         ;}
-	public        int      getId          (){ return this.id               ;}
+    public        Color    getCouleur     (){ return this.couleur  ;}
+	public        EZone    getTypeZone    (){ return this.typeZone ;}
+	public        int      getId          (){ return this.id       ;}
 	
 
     /*----------------------------*/
@@ -50,7 +50,6 @@ public class Zone
 	{
 		this.couleur = couleur ;
 
-		
 	}
 
 	/*----------------------------*/

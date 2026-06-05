@@ -116,13 +116,11 @@ public class Controleur
 	public void clicSurCase(int x, int y) 
 	{
 		Cellule cell = this.getCellule(x, y);
-		if (cell == null) return;
 
 
 		Zone nvZone = new Zone();
 		nvZone.setCouleur(EZone.values()[5].getCouleur());
 		
-		// On l'enregistre dans la case
 		this.metierPlateau.setZoneDansCellule(cell, nvZone);
 		
 	}
