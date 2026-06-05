@@ -44,10 +44,10 @@ public class Plateau
 
 		System.out.println( largeur + "|" + longueur );
 		
-		this.plateau    = new Cellule[largeur][longueur];
+		this.plateau    = new Cellule[longueur][largeur];
 
-		for (int x = 0; x < largeur; x++)
-			for (int y = 0; y < longueur; y++) 
+		for (int x = 0; x < longueur; x++)
+			for (int y = 0; y < largeur; y++) 
 			
 			{
 				this.plateau[x][y] = new Cellule(x, y);

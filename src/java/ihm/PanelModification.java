@@ -24,13 +24,12 @@ public class PanelModification extends JPanel
 {
 	private Controleur ctrl ;
 
-	private PanelPlateau panelPlateau ;
-	private JPanel panelNord ;
+	private PanelPlateau     panelPlateau ;
+	private PanelPlateauNord panelNord ;
+	private PanelPlateauOuest panelOuest ; 
 	private JPanel panelSud ;
 	private JPanel panelEst ;
-	private PanelPlateauOuest panelOuest ; 
-
-
+	
 
 	public PanelModification( Controleur ctrl ) 
 	{
@@ -44,12 +43,12 @@ public class PanelModification extends JPanel
 
 		this.panelPlateau = new PanelPlateau( this.ctrl );
 
-		this.panelNord  = new JPanel() ;
+		this.panelNord  = new PanelPlateauNord( this.ctrl ) ;
 		this.panelSud   = new JPanel() ;
 		this.panelEst   = new JPanel() ;
 		this.panelOuest = new PanelPlateauOuest( this.ctrl ) ;
         
-		this.panelNord .setBackground( Color.BLUE );
+		this.panelNord .setBackground( Color.LIGHT_GRAY );
 		this.panelSud  .setBackground( Color.LIGHT_GRAY  );
 		this.panelEst  .setBackground( Color.LIGHT_GRAY  );
 

@@ -94,6 +94,7 @@ public class Controleur
 		this.metierPlateau = new Plateau( tailleLongueur, tailleLargeur , tailleCellule, lstCouleur, lstSymbole ) ;
 	}
 
+	
 	public void chargerPlateau ( File fichier )
 	{
 		PlateauData proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
