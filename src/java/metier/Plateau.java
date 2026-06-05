@@ -48,7 +48,6 @@ public class Plateau
 
 		for (int x = 0; x < longueur; x++)
 			for (int y = 0; y < largeur; y++) 
-			
 			{
 				this.plateau[x][y] = new Cellule(x, y);
 				System.out.println(this.plateau[x][y]);
@@ -77,8 +76,8 @@ public class Plateau
 	// Dans Plateau.java — section Accesseur
 	public Cellule getSymboleDansCellule(Symbole symbole)
 	{
-		for (int x = 0; x < this.largeur; x++)
-			for (int y = 0; y < this.longueur; y++)
+		for (int x = 0; x < this.longueur; x++) //inverser ?
+			for (int y = 0; y < this.largeur; y++)
 				if (this.plateau[x][y] != null && this.plateau[x][y].getSymbole() == symbole)
 					return this.plateau[x][y];
 		return null;
@@ -184,7 +183,7 @@ public class Plateau
 
     public boolean estDansPlateau( int x, int y ) 
     {
-        return x >= 0 && x < largeur && y >= 0 && y < longueur;
+        return x >= 0 && x < longueur && y >= 0 && y < largeur;
     }
 
 
