@@ -31,11 +31,14 @@ public enum EZone
 	ZONE19 ("Le Val de l'Eau"          ),
 	ZONE20 ("Le Grand Parc Urbain"     );
 
-	private String libelle;
+	private String libelle     ;
+	private String nomImage ;
 
 	EZone ( String libelle )
 	{
 		this.libelle = libelle;
+
+		this.nomImage = libelle.toLowerCase().replace(" ", "_") + ".png";
 	}
 
 	public static String[] getZonesLibelles()
@@ -49,5 +52,6 @@ public enum EZone
 		return zones;
 	}
 	
-	public String getLibelle(){ return this.libelle; }
+	public String getLibelle (){ return this.libelle ; }
+	public String getNomImage(){ return this.nomImage; }
 }

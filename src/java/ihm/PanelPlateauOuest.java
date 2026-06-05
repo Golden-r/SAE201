@@ -42,8 +42,8 @@ public class PanelPlateauOuest extends JPanel
 		/* Création des composants       */
 		/* ----------------------------- */
 
-		JPanel panelChoix   = new JPanel( new GridLayout( 2 , 1) ) ;
-		JPanel panelEdition = new JPanel( new GridLayout( 2 , 1) ) ;
+		JPanel panelChoix        = new JPanel( new GridLayout( 2 , 1) ) ;
+		JPanel panelEdition      = new JPanel( new GridLayout( 6 , 1) ) ;
 
 		this.jcbZone = new JComboBox<String>( this.ctrl.getZones() );
 
@@ -58,13 +58,19 @@ public class PanelPlateauOuest extends JPanel
 		/* ----------------------------- */
 
 		this.add( panelChoix   );
-		this.add( panelEdition );
 
 		panelChoix.add( this.jcbZone ) ;
-		//panelChoix.add( )
+		panelChoix.add( new JLabel("Image previsualiation") ) ;
+
+
 
 		this.btgRadio.add( this.cbSelecion );
 		this.btgRadio.add( this.cbGomme    );
+
+		this.add( panelEdition );
+
+		panelEdition.add( this.cbSelecion );
+		panelEdition.add( this.cbGomme    );
 
 
 
