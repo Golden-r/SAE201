@@ -61,7 +61,12 @@ public class Zone
 	/*  Modificateur              */
 	/*----------------------------*/
 
-	public void setCouleur ( Color couleur ) {  this.couleur = couleur ;}
+	public void setCouleur ( Color couleur ) 
+	{
+		this.couleur = couleur ;
+
+		
+	}
 
 	/*----------------------------*/
 	/*  Méthodes                  */
