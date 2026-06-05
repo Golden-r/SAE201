@@ -13,49 +13,34 @@ import java.awt.Color;
 
 public class Zone 
 {
-	private static final String[] TAB_LIBELLE_ZONE = new String[] { "Le Pôle Industriel"        , 
-																	"Les Docks Marchands"       , 
-																	"Le Hub Logistique"         , 
-																	"Le Centre de Données"      ,
-																	"L'Écoquartier"             , 
-																	"Le Centre Historique"      , 
-																	"Les Coteaux Résidentiels"  , 
-																	"Le Quartier Ouvrier"       ,
-																	"Le Nouveau Lotissement"    , 
-																	"Le Centre d'Affaires"      , 
-																	"Les Halles Marchandes"     , 
-																	"Le Technopôle"             ,
-																	"La Promenade des Arts"     , 
-																	"Le Pôle Hospitalier"       , 
-																	"Le Campus Universitaire"   , 
-																	"Le Pôle Multimodal"        ,
-																	"Le Quartier Administratif" , 
-																	"Le Complexe Énergétique"   , 
-																	"Le Val de l'Eau"           , 
-																	"Le Grand Parc Urbain"        };
-
 	/*----------------------------*/ 
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
     private Color couleur;
+	private EZone typeZone;
+	private int   id;
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-    public Zone () 
+    public Zone ( ) 
     {
-        this.couleur = new Color(200, 200, 200);
-    }
+        this.couleur  = new Color(200,200,200);
+		this.typeZone = null;
+		this.id       = 0;
+	}
 
 
 	/*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public        Color    getCouleur ()    { return this.couleur          ;}
-	public static String[] getLibelleZone (){ return Zone.TAB_LIBELLE_ZONE ;}
+    public        Color    getCouleur     (){ return this.couleur          ;}
+	public        EZone    getTypeZone    (){ return this.typeZone         ;}
+	public        int      getId          (){ return this.id               ;}
+	
 
     /*----------------------------*/
 	/*  Modificateur              */

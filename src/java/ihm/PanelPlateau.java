@@ -20,39 +20,39 @@ import java.awt.event.MouseEvent;
 
 public class PanelPlateau extends JPanel
 {
-    private Controleur ctrl;
+	private Controleur ctrl;
 
-    private int hoveredLig = -1;
-    private int hoveredCol = -1;
+	private int hoveredLig = -1;
+	private int hoveredCol = -1;
 
 
-    public PanelPlateau( Controleur ctrl ) 
-    {
-        this.ctrl  = ctrl ;
+	public PanelPlateau( Controleur ctrl ) 
+	{
+		this.ctrl  = ctrl ;
 
-        /* ----------------------------- */
-        /* Création des composants       */
-        /* ----------------------------- */
+		/* ----------------------------- */
+		/* Création des composants       */
+		/* ----------------------------- */
 
-        int largeurTotal = this.ctrl.getTailleLongueur() * this.ctrl.getTailleCellule();
-        int hauteurTotal = this.ctrl.getTailleLargeur () * this.ctrl.getTailleCellule();
+		int largeurTotal = this.ctrl.getTailleLongueur() * this.ctrl.getTailleCellule();
+		int hauteurTotal = this.ctrl.getTailleLargeur () * this.ctrl.getTailleCellule();
 
-        this.setPreferredSize( new Dimension( largeurTotal, hauteurTotal ) );
-        this.setBackground( Color.WHITE );
-        
-        /* ----------------------------- */
-        /* Positionnement des composants */
-        /* ----------------------------- */
+		this.setPreferredSize( new Dimension( largeurTotal, hauteurTotal ) );
+		this.setBackground( Color.WHITE );
+		
+		/* ----------------------------- */
+		/* Positionnement des composants */
+		/* ----------------------------- */
 
-        /*---------------------------*/
-        /* Activation des composants */
-        /*---------------------------*/
-    
+		/*---------------------------*/
+		/* Activation des composants */
+		/*---------------------------*/
+	
 
 		GereSouris gereSouris = new GereSouris();
-        this.addMouseMotionListener(gereSouris);
-        this.addMouseListener(gereSouris);
-    }
+		this.addMouseMotionListener(gereSouris);
+		this.addMouseListener(gereSouris);
+	}
 
 
 	/*-----------------------------------------*/
@@ -66,20 +66,22 @@ public class PanelPlateau extends JPanel
 			int col = e.getX() / taille;
 			int lig = e.getY() / taille;
 
-			//System.out.println("Clic en col:" + col+ " lig:" + lig);
-
 			if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
-				System.out.println(ctrl.getCellule(col, lig));
+			{
+				ctrl.clicSurCase(col, lig);
+				repaint();
+			}
+				
 
 
 		}
+
 		public void mouseMoved(MouseEvent e) 
 		{
 			int taille = ctrl.getTailleCellule();
 			int col = e.getX() / taille;
 			int lig = e.getY() / taille;
 
-			//System.out.println("col:" + col+ " lig:" + lig);
 
 			if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
 			{
@@ -103,34 +105,50 @@ public class PanelPlateau extends JPanel
 
 		public void mouseExited(MouseEvent e) 
 		{
-			// Quand la souris sort complètement du Panel, on annule le survol
 			hoveredLig = -1;
 			hoveredCol = -1;
 			repaint();
 		}
 	}
-    public void paintComponent(Graphics g) 
-    {
-        super.paintComponent(g);
-        
-        int taille = this.ctrl.getTailleCellule(); 
 
-        for (int lig = 0; lig < this.ctrl.getTailleLargeur(); lig++) 
-            for (int col = 0; col < this.ctrl.getTailleLongueur(); col++) 
-            {
-                int x = col * taille;
-                int y = lig * taille;
+
+
+	public void paintComponent(Graphics g) 
+	{
+		super.paintComponent(g);
+		
+		int taille = this.ctrl.getTailleCellule(); 
+
+		for (int lig = 0; lig < this.ctrl.getTailleLargeur(); lig++) 
+			for (int col = 0; col < this.ctrl.getTailleLongueur(); col++) 
+			{
+				int x = col * taille;
+				int y = lig * taille;
+				
+
+
+				metier.Cellule cell = this.ctrl.getCellule(col, lig);
                 
-                if (lig == this.hoveredLig && col == this.hoveredCol) 
+                if (cell != null && cell.getZone() != null) 
                 {
-                    g.setColor(new Color(100, 150, 255, 120)); 
+                    g.setColor(cell.getZone().getCouleur());
                     g.fillRect(x, y, taille, taille);
                 }
 
-                g.setColor(Color.BLACK);
-                g.drawRect(x, y, taille, taille); 
-            }
 
-    }
-	
+
+				if (lig == this.hoveredLig && col == this.hoveredCol) 
+				{
+					g.setColor(new Color(100, 150, 255, 120)); 
+					g.fillRect(x, y, taille, taille);
+				}
+
+
+
+				g.setColor(Color.BLACK);
+				g.drawRect(x, y, taille, taille); 
+			}
+
+	}
+
 }

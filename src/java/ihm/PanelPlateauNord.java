@@ -34,6 +34,8 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.btnRetour  = new JButton("Retour") ;
 		this.btnSuivant = new JButton("Suivant") ;
 
+		this.btnSuivant.setEnabled(false );
+
 		
 
 		/* ----------------------------- */ 
