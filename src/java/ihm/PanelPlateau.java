@@ -77,19 +77,13 @@ public class PanelPlateau extends JPanel
 						PanelPlateau.this.zoneCourante = ctrl.clicSurCase(col, lig, (PanelPlateau.this.zoneCourante == null ? null : PanelPlateau.this.zoneCourante));
 					else
 						ctrl.reinitialiserCellule(col, lig);
-						//ctrl.clicSurCase(col, lig, null);
 
 					repaint();
 				}
-			};
+			}
 			
 			if (e.getButton() == MouseEvent.BUTTON3)
-			{
 				PanelPlateau.this.zoneCourante = null;
-			}
-
-				
-
 
 		}
 

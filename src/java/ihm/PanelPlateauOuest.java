@@ -2,9 +2,9 @@ package ihm;
 
 import controleur.Controleur;
 
-import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 
+import java.awt.event.* ;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Dimension;
@@ -20,7 +20,7 @@ import java.awt.Color;
 * Groupe   : 4
 */
 
-public class PanelPlateauOuest extends JPanel
+public class PanelPlateauOuest extends JPanel 
 {
 	private Controleur ctrl;
 
@@ -72,20 +72,16 @@ public class PanelPlateauOuest extends JPanel
 		panelEdition.add( this.cbSelecion );
 		panelEdition.add( this.cbGomme    );
 
-
-
-
 		/*---------------------------*/
 		/* Activation des composants */
 		/*---------------------------*/
 
 
-
-
 	}
 
-	
-	public boolean getModeSelection(){ return this.cbSelecion.isSelected() ;}
+
+	public boolean getModeSelection()   { return this.cbSelecion.isSelected()    ;}
+	public int     getZoneSelectioner() { return this.jcbZone.getSelectedIndex() ;}
 
 }
 

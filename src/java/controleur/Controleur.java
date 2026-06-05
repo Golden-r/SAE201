@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import ihm.FrameCreation;
 import ihm.FrameModification;
+import ihm.PanelPlateauOuest;
 import metier.Cellule;
 import metier.EZone;
 import metier.GestionFichier;
@@ -33,10 +34,12 @@ public class Controleur
 
 	private FrameCreation     frameCreation;
 	private FrameModification frameModification;
-
+	//private PanelPlateauOuest panelPlateauOuest ;
 	
 	private Plateau           metierPlateau;
 	private GestionFichier    metierGestionFichier;
+
+	private int indiceZone ;
 
 
 	/*----------------------------*/
@@ -65,6 +68,8 @@ public class Controleur
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
+
+	public void setIndiceZoneSelectionnee ( int indice ) { this.indiceZone = indice ;}
 	
 
 
@@ -111,7 +116,7 @@ public class Controleur
 		this.lancerModification();
 	}
 
-
+/* 
 	public Zone clicSurCase(int x, int y, Zone zone) 
 	{
 		Cellule cell = this.getCellule(x, y);
@@ -124,12 +129,44 @@ public class Controleur
 			zone = new Zone( ); //zone.getTypeZone() 
 			zone.setCouleur(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));//EZone.values()[5].getCouleur());
 			//zone.setCouleur( zone.getTypeZone() , zone.getId() , )
-			*/
-			EZone typeSelectionne = EZone.values()[5];
-			Zone nvZone = new Zone(typeSelectionne);
-			nvZone.setCouleur(typeSelectionne, 0, 0);
 			
+			System.out.println( this.indiceZone );
+			EZone typeSelectionne = EZone.values()[ this.indiceZone ];
+			Zone nvZone = new Zone(typeSelectionne); //typeSelectionne
+			nvZone.setCouleur(typeSelectionne, 0, 0);
+			zone = nvZone;
+			
+ 
+		}
+		
+		this.metierPlateau.setZoneDansCellule(cell, zone);
 
+		return zone;
+	}
+*/
+	// TODO
+	// code IA
+	public Zone clicSurCase(int x, int y, Zone zone) 
+	{
+		Cellule cell = this.getCellule(x, y);
+
+		if (cell.getZone() != null) 
+			return cell.getZone();
+
+		if (zone == null)
+		{
+			//System.out.println(this.indiceZone);
+			EZone typeSelectionne = EZone.values()[this.indiceZone];
+			Zone  nvZone          = new Zone(typeSelectionne);
+			
+			int occurrence = 0;
+			for (int cptX = 0; cptX < this.getTailleLongueur(); cptX++)
+				for (int cptY = 0; cptY < this.getTailleLargeur(); cptY++)
+					if (this.getCellule(cptX, cptY) != null && this.getCellule(cptX, cptY).getZone() != null && this.getCellule(cptX, cptY).getZone().getTypeZone() == typeSelectionne)
+						occurrence++;
+
+			nvZone.setCouleur(typeSelectionne, 0, occurrence);
+			zone = nvZone;
 		}
 		
 		this.metierPlateau.setZoneDansCellule(cell, zone);

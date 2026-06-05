@@ -25,7 +25,7 @@ public class Zone
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-    public Zone ()// EZone typeZone  )
+    public Zone ( EZone typeZone  )
     {
         this.couleur  = new Color(200,200,200);
 		this.typeZone = typeZone;

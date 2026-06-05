@@ -75,5 +75,10 @@ public class PanelModification extends JPanel
 		return this.panelOuest.getModeSelection();
 	}
 
+	public int getZoneSelectioner()
+	{
+		return this.panelOuest.getZoneSelectioner();
+	}
+
 }
 
