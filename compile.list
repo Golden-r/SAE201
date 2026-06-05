@@ -14,6 +14,8 @@
 ./src/java/metier/Liaison.java
 ./src/java/metier/GestionFichier.java
 
+./src/java/metier/TestSimulation.java
+
 
 
 ./src/java/ihm/FrameCreation.java

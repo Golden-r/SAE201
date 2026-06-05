@@ -232,12 +232,12 @@ public class Plateau
 	public boolean ajouterLiaison(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
 
-		if(this.existeChemin(depart, arrivee, couleur)) return false;
+		//if(this.existeChemin(depart, arrivee, couleur)) return false;
 
 		ArrayList<Cellule> trajet = this.getTrajet(depart, arrivee);
 
 		if(trajet == null)                 return false;
-		if(this.estCroiser(trajet)) return false;
+		//if(this.estCroiser(trajet)) return false;
 
 		this.ensLiaison.add(new Liaison(depart, arrivee, couleur, trajet));
 
