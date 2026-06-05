@@ -25,10 +25,10 @@ public class Zone
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-    public Zone ( ) 
+    public Zone ()// EZone typeZone  )
     {
         this.couleur  = new Color(200,200,200);
-		this.typeZone = null;
+		this.typeZone = typeZone;
 		this.id       = 0;
 	}
 
@@ -50,6 +50,21 @@ public class Zone
 	{
 		this.couleur = couleur ;
 
+	}
+
+	public void setCouleur ( EZone typeZone, int id, int occurrence )
+	{
+		this.typeZone = typeZone;
+		this.id       = id;
+
+		Color base = typeZone.getCouleur();
+		int variation = occurrence * 25;
+
+		int r = Math.max(0, Math.min(255, base.getRed()   + variation));
+		int g = Math.max(0, Math.min(255, base.getGreen() + variation));
+		int b = Math.max(0, Math.min(255, base.getBlue()  + variation));
+
+		this.couleur = new Color(r, g, b);
 	}
 
 	/*----------------------------*/

@@ -1,6 +1,7 @@
 package ihm;
 
 import controleur.Controleur;
+import metier.Zone;
 
 import javax.swing.*;
 
@@ -21,15 +22,17 @@ import java.awt.event.MouseEvent;
 public class PanelPlateau extends JPanel
 {
 	private Controleur ctrl;
+	private PanelModification panelModification;
 
 	private int hoveredLig = -1;
 	private int hoveredCol = -1;
 
+	private Zone zoneCourante;
 
-	public PanelPlateau( Controleur ctrl ) 
+	public PanelPlateau( Controleur ctrl, PanelModification panelModification ) 
 	{
 		this.ctrl  = ctrl ;
-
+		this.panelModification = panelModification;
 		/* ----------------------------- */
 		/* Création des composants       */
 		/* ----------------------------- */
@@ -62,15 +65,29 @@ public class PanelPlateau extends JPanel
 	{
 		public void mouseClicked(MouseEvent e)
 		{
-			int taille = ctrl.getTailleCellule();
-			int col = e.getX() / taille;
-			int lig = e.getY() / taille;
-
-			if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+			if (e.getButton() == MouseEvent.BUTTON1)
 			{
-				ctrl.clicSurCase(col, lig);
-				repaint();
+				int taille = ctrl.getTailleCellule();
+				int col = e.getX() / taille;
+				int lig = e.getY() / taille;
+
+				if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+				{
+					if (PanelPlateau.this.panelModification.getModeSelection())
+						PanelPlateau.this.zoneCourante = ctrl.clicSurCase(col, lig, (PanelPlateau.this.zoneCourante == null ? null : PanelPlateau.this.zoneCourante));
+					else
+						ctrl.reinitialiserCellule(col, lig);
+						//ctrl.clicSurCase(col, lig, null);
+
+					repaint();
+				}
+			};
+			
+			if (e.getButton() == MouseEvent.BUTTON3)
+			{
+				PanelPlateau.this.zoneCourante = null;
 			}
+
 				
 
 

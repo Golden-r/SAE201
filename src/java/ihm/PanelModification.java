@@ -41,7 +41,7 @@ public class PanelModification extends JPanel
 		/* Création des composants       */
 		/* ----------------------------- */
 
-		this.panelPlateau = new PanelPlateau( this.ctrl );
+		this.panelPlateau = new PanelPlateau( this.ctrl, this );
 
 		this.panelNord  = new PanelPlateauNord( this.ctrl ) ;
 		this.panelSud   = new JPanel() ;
@@ -70,7 +70,10 @@ public class PanelModification extends JPanel
         
 	}
 
-
+	public boolean getModeSelection()
+	{
+		return this.panelOuest.getModeSelection();
+	}
 
 }
 

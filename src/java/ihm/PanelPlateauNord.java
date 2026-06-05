@@ -58,7 +58,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		if ( e.getSource() == this.btnRetour ){ System.out.println("btn retour");}
+		if ( e.getSource() == this.btnRetour ){ System.out.println("btn retour") ;}
 		if ( e.getSource() == this.btnSuivant){ System.out.println("btn suivant");}
 	}
 }

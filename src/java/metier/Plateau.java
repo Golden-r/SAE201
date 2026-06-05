@@ -150,7 +150,7 @@ public class Plateau
 
 	public void setZoneDansCellule(Cellule Cellule , Zone zone) 
 	{
-		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY()) && zone != null) 
+		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY())) 
 		{
 			plateau[Cellule.getX()][Cellule.getY()].setZone(zone);
 		}
@@ -292,5 +292,73 @@ public class Plateau
 					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
 	
 	}
+
+
+
+	public void supprimerZone(int lig, int col)
+	{
+		Cellule cellCible = this.getCellule(lig,col);
+		
+		if(cellCible == null || cellCible.getZone() == null)
+			return;
+			
+		Zone zoneCible = cellCible.getZone();
+			
+		int totalCellulesZone = 0;
+		int ligDepart         = -1;
+		int colDepart         = -1;
+		
+		for (int cptX = 0; cptX < this.longueur; cptX++)
+			for (int cptY = 0; cptY < this.largeur; cptY++)
+				if (this.plateau[cptX][cptY].getZone() == zoneCible && this.plateau[cptX][cptY] != null)
+				{
+					totalCellulesZone++;
+					if (cptX != lig || cptY != col)
+					{
+						ligDepart = cptX;
+						colDepart = cptY;
+					}
+				}
+				
+		if (totalCellulesZone <= 1)
+		{
+			cellCible.setZone(null);
+			return;
+		}
+		
+		cellCible.setZone(null);
+		
+		boolean[][] visite             = new boolean[this.longueur][this.largeur];
+		int         cellulesConnectees = this.compterCellulesConnectees(ligDepart, colDepart, zoneCible, visite);
+		
+		if (cellulesConnectees < totalCellulesZone - 1)
+			cellCible.setZone(zoneCible);
+		}
+
+	private int compterCellulesConnectees(int longueur, int largeur, Zone zoneCible, boolean[][] visite)
+	{
+		if (!this.estDansPlateau(longueur,largeur))
+			return 0;
+			
+		if (visite[longueur][largeur] || this.plateau[longueur][largeur] == null || this.plateau[longueur][largeur].getZone() != zoneCible )
+			return 0;
+			
+		visite[longueur][largeur] = true;
+		int nb = 1;
+		
+		nb += this.compterCellulesConnectees(longueur - 1, largeur, zoneCible, visite);
+		nb += this.compterCellulesConnectees(longueur + 1, largeur, zoneCible, visite);
+		nb += this.compterCellulesConnectees(longueur, largeur - 1, zoneCible, visite);
+		nb += this.compterCellulesConnectees(longueur, largeur + 1, zoneCible, visite);
+		
+		return nb;
+	}
+
+
+	
+
+
+
+	
 	
 }

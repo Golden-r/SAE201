@@ -2,7 +2,7 @@ package ihm;
 
 import controleur.Controleur;
 
-
+import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 
 import java.awt.BorderLayout;
@@ -79,10 +79,13 @@ public class PanelPlateauOuest extends JPanel
 		/* Activation des composants */
 		/*---------------------------*/
 
+
+
+
 	}
 
 	
-	
+	public boolean getModeSelection(){ return this.cbSelecion.isSelected() ;}
 
 }
 

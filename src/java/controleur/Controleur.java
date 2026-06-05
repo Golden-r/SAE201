@@ -1,5 +1,6 @@
 package controleur;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.io.File;
 import java.util.ArrayList;
@@ -87,8 +88,6 @@ public class Controleur
 		this.frameModification = new FrameModification( this ) ;
 	}
 
- 
-
 	public void creerPlateau( int tailleLongueur , int tailleLargeur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{
 		this.metierPlateau = new Plateau( tailleLongueur, tailleLargeur , tailleCellule, lstCouleur, lstSymbole ) ;
@@ -113,19 +112,32 @@ public class Controleur
 	}
 
 
-	public void clicSurCase(int x, int y) 
+	public Zone clicSurCase(int x, int y, Zone zone) 
 	{
 		Cellule cell = this.getCellule(x, y);
 
+		if (cell.getZone() != null) { return cell.getZone() ;}
 
-		Zone nvZone = new Zone();
-		nvZone.setCouleur(EZone.values()[5].getCouleur());
+		if (zone == null)
+		{
+			/*
+			zone = new Zone( ); //zone.getTypeZone() 
+			zone.setCouleur(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));//EZone.values()[5].getCouleur());
+			//zone.setCouleur( zone.getTypeZone() , zone.getId() , )
+			*/
+			EZone typeSelectionne = EZone.values()[5];
+			Zone nvZone = new Zone(typeSelectionne);
+			nvZone.setCouleur(typeSelectionne, 0, 0);
+			
+
+		}
 		
-		this.metierPlateau.setZoneDansCellule(cell, nvZone);
-		
+		this.metierPlateau.setZoneDansCellule(cell, zone);
+
+		return zone;
 	}
 
-
+	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone(x , y) ;}
 
 	/*----------------------------*/
 	/*   Main                     */
