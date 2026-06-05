@@ -25,7 +25,7 @@ import metier.PlateauData;
 
 public class Controleur
 {
-	
+
 	/*----------------------------*/
 	/*  Attributs de la classe    */
 	/*----------------------------*/
@@ -107,7 +107,7 @@ public class Controleur
 		ArrayList<Integer> lstCouleur  = proprietes.lstCouleur;
 		ArrayList<Integer> lstSymbole  = proprietes.lstSymbole;
 
-		this.creerPlateau(tailleLargeur, tailleLongueur, tailleCellule, lstCouleur, lstSymbole);
+		this.creerPlateau( tailleLongueur , tailleLargeur, tailleCellule, lstCouleur, lstSymbole);
 		this.lancerModification();
 	}
 
