@@ -64,5 +64,10 @@ public class Cellule
 	/*----------------------------*/
 
     
-
+    public String toString()
+    {
+        return "Cellule (" + this.coordonneeX + "," + this.coordonneeY + ") : " ;
+    }
+    
+	
 }

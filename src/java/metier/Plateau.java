@@ -36,19 +36,25 @@ public class Plateau
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-	public Plateau(int largeur, int longueur, int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
+	public Plateau(int longueur, int largeur, int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
 	{
 		this.largeur    = largeur;
 		this.longueur   = longueur;
 		this.tailleCellule = tailleCellule;
+
+		System.out.println( largeur + "|" + longueur );
 		
 		this.plateau    = new Cellule[largeur][longueur];
 
 		for (int x = 0; x < largeur; x++)
-			for (int y = 0; y < longueur; y++)
+			for (int y = 0; y < longueur; y++) 
+			
+			{
 				this.plateau[x][y] = new Cellule(x, y);
+				System.out.println(this.plateau[x][y]);
+			}
 
-		
+	
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
 		this.ensLiaison = new ArrayList<Liaison>();
@@ -287,4 +293,5 @@ public class Plateau
 					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
 	
 	}
+	
 }

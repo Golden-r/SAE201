@@ -62,7 +62,15 @@ public class PanelPlateau extends JPanel
 	{
 		public void mouseClicked(MouseEvent e)
 		{
-			
+			int taille = ctrl.getTailleCellule();
+			int col = e.getX() / taille;
+			int lig = e.getY() / taille;
+
+			//System.out.println("Clic en col:" + col+ " lig:" + lig);
+
+			if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+				System.out.println(ctrl.getCellule(col, lig));
+
 
 		}
 		public void mouseMoved(MouseEvent e) 
@@ -71,7 +79,7 @@ public class PanelPlateau extends JPanel
 			int col = e.getX() / taille;
 			int lig = e.getY() / taille;
 
-			System.out.println("col:" + col+ " lig:" + lig);
+			//System.out.println("col:" + col+ " lig:" + lig);
 
 			if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
 			{
@@ -124,4 +132,5 @@ public class PanelPlateau extends JPanel
             }
 
     }
+	
 }
