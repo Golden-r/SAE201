@@ -20,7 +20,7 @@ import java.awt.Color;
 * Groupe   : 4
 */
 
-public class PanelPlateauOuest extends JPanel 
+public class PanelPlateauOuest extends JPanel implements ActionListener
 {
 	private Controleur ctrl;
 
@@ -76,12 +76,20 @@ public class PanelPlateauOuest extends JPanel
 		/* Activation des composants */
 		/*---------------------------*/
 
+		this.jcbZone.addActionListener(this);
+
 
 	}
 
 
 	public boolean getModeSelection()   { return this.cbSelecion.isSelected()    ;}
 	public int     getZoneSelectioner() { return this.jcbZone.getSelectedIndex() ;}
+
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == this.jcbZone)
+			this.ctrl.setIndiceZoneSelectionnee(this.jcbZone.getSelectedIndex());
+	}
 
 }
 
