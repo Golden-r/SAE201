@@ -15,6 +15,10 @@ import metier.GestionFichier;
 import metier.Plateau;
 import metier.Zone;
 import metier.PlateauData;
+//
+import metier.* ;
+import ihm.* ;
+//
 
 /* SAE 2.01 | Développement d'une application 
 * Controleur
@@ -56,14 +60,14 @@ public class Controleur
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int                getTailleLargeur()              { return this.metierPlateau.getTailleLargeur () ;}
-	public int                getTailleLongueur()             { return this.metierPlateau.getTailleLongueur() ;}
-	public int                getTailleCellule()              { return this.metierPlateau.getTailleCellule () ;}
-	public ArrayList<Integer> getLstCouleur   ()              { return this.metierPlateau.getLstCouleur    () ;}
-	public ArrayList<Integer> getLstSymbole   ()              { return this.metierPlateau.getLstSymbole    () ;}
-	public ArrayList<Zone   > getLibelleZone  ()              { return this.metierPlateau.getEnsZones      () ;}
-	public String[]           getZones        ()              { return EZone.getZonesLibelles              () ;}
-	public Cellule            getCellule      (int x, int y)  { return this.metierPlateau.getCellule(x,y);     }
+	public int                getTailleLargeur()              { return this.metierPlateau.getTailleLargeur ()   ;}
+	public int                getTailleLongueur()             { return this.metierPlateau.getTailleLongueur() 	;}
+	public int                getTailleCellule()              { return this.metierPlateau.getTailleCellule () 	;}
+	public ArrayList<Integer> getLstCouleur   ()              { return this.metierPlateau.getLstCouleur    () 	;}
+	public ArrayList<Integer> getLstSymbole   ()              { return this.metierPlateau.getLstSymbole    () 	;}
+	public ArrayList<Zone   > getLibelleZone  ()              { return this.metierPlateau.getEnsZones      () 	;}
+	public String[]           getZones        ()              { return EZone.getZonesLibelles              () 	;}
+	public Cellule            getCellule      (int x, int y)  { return this.metierPlateau.getCellule       (x,y);}
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -229,8 +233,24 @@ public class Controleur
 		return zone;
 	}
 */
+	//
+	public void clicSurCaseSymbole(int x, int y, ESymbole esymbole) 
+	{
+		Cellule cell = this.getCellule(x, y);
+		
+		if (cell != null) 
+		{
+			// On crée un nouvel objet Symbole métier à partir de l'énumération
+			metier.Symbole nouveauSymbole = new metier.Symbole(esymbole);
+			this.metierPlateau.setSymboleDansCellule(cell, nouveauSymbole);
+		}
+	}
+	//
 
 	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone(x , y) ;}
+	//
+	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y) ;}
+	//
 
 	/*----------------------------*/
 	/*   Main                     */

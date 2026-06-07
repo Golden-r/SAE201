@@ -16,12 +16,16 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 {
 	private Controleur ctrl;
 
+	private PanelModification panelModification;
+
 	private JButton btnRetour  ;
 	private JButton btnSuivant ;
 	
-	public PanelPlateauNord( Controleur ctrl ) 
+	public PanelPlateauNord( Controleur ctrl , PanelModification panelModif ) 
 	{
 		this.ctrl = ctrl ;
+
+		this.panelModification = panelModif;
 
 		this.setLayout( new GridLayout( 1 , 4 , 20 , 20 ));
 		this.setBorder( BorderFactory.createEmptyBorder( 20 , 35,  20, 35));
@@ -34,7 +38,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.btnRetour  = new JButton("Retour") ;
 		this.btnSuivant = new JButton("Suivant") ;
 
-		this.btnSuivant.setEnabled(false );
+		this.btnSuivant.setEnabled(true );
 
 		
 
@@ -59,6 +63,11 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		if ( e.getSource() == this.btnRetour ){ System.out.println("btn retour") ;}
-		if ( e.getSource() == this.btnSuivant){ System.out.println("btn suivant");}
+		if ( e.getSource() == this.btnSuivant)
+		{ 
+			System.out.println("btn suivant");
+			this.panelModification.passerEtapeSymbole();
+		
+		}
 	}
 }

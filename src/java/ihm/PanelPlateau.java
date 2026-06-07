@@ -1,7 +1,11 @@
 package ihm;
 
 import controleur.Controleur;
+
+//
 import metier.Zone;
+import metier.ESymbole;
+//
 
 import javax.swing.*;
 
@@ -65,21 +69,45 @@ public class PanelPlateau extends JPanel
 	{
 		public void mouseClicked(MouseEvent e)
 		{
+			
 			if (e.getButton() == MouseEvent.BUTTON1)
 			{
 				int taille = ctrl.getTailleCellule();
 				int col = e.getX() / taille;
 				int lig = e.getY() / taille;
-
-				if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+				//
+				if (PanelPlateau.this.panelModification.estEtapeZone()) 
+				//
 				{
-					if (PanelPlateau.this.panelModification.getModeSelection())
-						PanelPlateau.this.zoneCourante = ctrl.clicSurCase(col, lig, (PanelPlateau.this.zoneCourante == null ? null : PanelPlateau.this.zoneCourante));
-					else
-						ctrl.reinitialiserCellule(col, lig);
 
-					repaint();
+					if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+					{
+						if (PanelPlateau.this.panelModification.getModeSelection())
+							PanelPlateau.this.zoneCourante = ctrl.clicSurCase(col, lig, (PanelPlateau.this.zoneCourante == null ? null : PanelPlateau.this.zoneCourante));
+						else
+							ctrl.reinitialiserCellule(col, lig);
+
+						
+					}
 				}
+				else 
+				{
+					//
+					if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
+					{
+						ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionner();
+						if (sym != null) 
+						{
+							ctrl.clicSurCaseSymbole(col, lig, sym);
+						}
+					} 
+					else 
+					{
+						ctrl.retirerSymbole(col, lig);
+					}
+					//
+				}
+				repaint();
 			}
 			
 			if (e.getButton() == MouseEvent.BUTTON3)
@@ -136,15 +164,21 @@ public class PanelPlateau extends JPanel
 				int x = col * taille;
 				int y = lig * taille;
 				
-
-
-                
                 if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getZone() != null) 
                 {
                     g.setColor(this.ctrl.getCellule(col, lig).getZone().getCouleur());
                     g.fillRect(x, y, taille, taille);
                 }
 
+				// 
+				if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getSymbole() != null) 
+				{
+					g.setColor(Color.BLACK); 
+					g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, taille / 2));
+					String lettre = String.valueOf(this.ctrl.getCellule(col, lig).getSymbole().getSymbole().getNom());
+					g.drawString(lettre, x + (taille / 3), y + (taille / 2) + (taille / 6));
+				}
+				//
 
 
 				if (lig == this.hoveredLig && col == this.hoveredCol) 
