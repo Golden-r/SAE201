@@ -155,85 +155,7 @@ public class Controleur
 		return zone;
 	}
 
-	// TODO
-	// code IA (la zone s'étend a 1 cellule de distance sinon créé une nouvelle zone)
-/* 
-	public Zone clicSurCase(int x, int y, Zone zone) 
-	{
-		Cellule cell = this.getCellule(x, y);
 
-		if (cell.getZone() != null) 
-			return cell.getZone();
-
-		EZone typeSelectionne = EZone.values()[this.indiceZone];
-		boolean creerNouvelleZone = false;
-
-		// Si le pinceau est vide ou qu'on a changé de type dans la liste
-		if (zone == null || zone.getTypeZone() != typeSelectionne)
-		{
-			creerNouvelleZone = true;
-		}
-		else
-		{
-			// Vérification de l'adjacence dans les 4 directions
-			boolean estAdjacent = false;
-			
-			if (x > 0 && this.getCellule(x - 1, y) != null && this.getCellule(x - 1, y).getZone() == zone)
-				estAdjacent = true;
-				
-			if (x < this.getTailleLongueur() - 1 && this.getCellule(x + 1, y) != null && this.getCellule(x + 1, y).getZone() == zone)
-				estAdjacent = true;
-				
-			if (y > 0 && this.getCellule(x, y - 1) != null && this.getCellule(x, y - 1).getZone() == zone)
-				estAdjacent = true;
-				
-			if (y < this.getTailleLargeur() - 1 && this.getCellule(x, y + 1) != null && this.getCellule(x, y + 1).getZone() == zone)
-				estAdjacent = true;
-
-			// Si on clique loin de la zone actuelle, on force un nouveau tracé
-			if (!estAdjacent)
-				creerNouvelleZone = true;
-		}
-
-		if (creerNouvelleZone)
-		{
-			Zone nvZone = new Zone(typeSelectionne);
-			
-			Zone[] zonesDuMemeType = new Zone[this.getTailleLongueur() * this.getTailleLargeur()];
-			int nbZonesUniques = 0;
-
-			for (int cptX = 0; cptX < this.getTailleLongueur(); cptX++)
-			{
-				for (int cptY = 0; cptY < this.getTailleLargeur(); cptY++)
-				{
-					Cellule c = this.getCellule(cptX, cptY);
-					
-					if (c != null && c.getZone() != null && c.getZone().getTypeZone() == typeSelectionne)
-					{
-						boolean existeDeja = false;
-						for (int i = 0; i < nbZonesUniques; i++)
-							if (zonesDuMemeType[i] == c.getZone())
-								existeDeja = true;
-								
-						if (!existeDeja)
-						{
-							zonesDuMemeType[nbZonesUniques] = c.getZone();
-							nbZonesUniques++;
-						}
-					}
-				}
-			}
-
-			nvZone.setCouleur(typeSelectionne, 0, nbZonesUniques);
-			zone = nvZone;
-		}
-		
-		this.metierPlateau.setZoneDansCellule(cell, zone);
-
-		return zone;
-	}
-*/
-	//
 	public void clicSurCaseSymbole(int x, int y, ESymbole esymbole) 
 	{
 		Cellule cell = this.getCellule(x, y);
@@ -245,12 +167,10 @@ public class Controleur
 			this.metierPlateau.setSymboleDansCellule(cell, nouveauSymbole);
 		}
 	}
-	//
+	
 
 	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone(x , y) ;}
-	//
 	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y) ;}
-	//
 
 	/*----------------------------*/
 	/*   Main                     */
