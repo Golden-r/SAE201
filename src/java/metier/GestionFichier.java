@@ -39,8 +39,8 @@ public class GestionFichier
 		{
             Scanner sc = new Scanner(fichier);
 
-            proprietes.tailleLongueur = Integer.parseInt(sc.nextLine().trim());
             proprietes.tailleLargeur  = Integer.parseInt(sc.nextLine().trim());
+            proprietes.tailleLongueur = Integer.parseInt(sc.nextLine().trim());
             proprietes.tailleCellule  = Integer.parseInt(sc.nextLine().trim());
 
             ligneCouleurs = sc.nextLine();

@@ -54,7 +54,7 @@ public class PanelPlateauOuestBase extends JPanel implements ActionListener
 		ArrayList<Integer> lstActifs    = this.ctrl.getLstCouleur();
 		ArrayList<String> symbolesDispo = new ArrayList<>();
 
-		for (int cpt = 0; cpt < ECouleur.values().length; cpt++) 
+		for (int cpt = 0; cpt < ECouleur.values().length-1; cpt++) 
 		{
 			if (lstActifs.get(cpt) == 1  ) 
 			{

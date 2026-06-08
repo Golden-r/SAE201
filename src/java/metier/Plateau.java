@@ -23,11 +23,12 @@ public class Plateau
 	private int longueur;
 	private int tailleCellule;
 
+	private ArrayList<Integer> lstCouleur ;
+	private ArrayList<Integer> lstSymbole ;
+
 	private Cellule[][] plateau;
 
 	private ArrayList<Cellule> ensBases   ;
-	private ArrayList<Integer> lstCouleur ;
-	private ArrayList<Integer> lstSymbole ;
 	private ArrayList<Liaison> ensLiaison ;
 	private ArrayList<Zone>    ensZones   ;
 

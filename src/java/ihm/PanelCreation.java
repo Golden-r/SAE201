@@ -309,7 +309,7 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 	{
 		ArrayList<Integer> lstCouleur = new ArrayList<>() ;
 
-		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length-1 ; cpt++ ) 
 		{
 			if ( this.tabCbCouleur[cpt].isSelected() ) { lstCouleur.add(1) ;}
 			else                                       { lstCouleur.add(0) ;}

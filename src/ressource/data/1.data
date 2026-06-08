@@ -1,15 +1,8 @@
-// private int largeur;
 10
-// private int longueur;
 2
-// private int tailleCellule;
 25
-
+0 , 0 , 1 , 1 , 0 , 0
+0 , 1 , 0 , 0 , 1 , 1
 // private Cellule[][] plateau;
 X , Y , indice_Esymbole , indice_Ecouleur , couleur , typeZone , id , estVide , estBase
 
-// private ArrayList<Integer> lstCouleur ;
-0 , 0 , 1 , 1 , 0 , 0
-
-// private ArrayList<Integer> lstSymbole ;
-0 , 1 , 0 , 0 , 1 , 1
