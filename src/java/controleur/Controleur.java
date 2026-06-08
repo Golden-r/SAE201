@@ -20,6 +20,7 @@ import metier.*;
 * Groupe   : 4
 */
 
+// TODO : changer les noms des IHM's
 
 public class Controleur
 {

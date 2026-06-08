@@ -41,7 +41,7 @@ public class Symbole
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public ESymbole getSymbole      () { return this.symbole     ; }
+    public ESymbole getTypeSymbole  () { return this.symbole     ; }
     public ECouleur getCouleurBase  () { return this.couleurBase ; }
   
     /*----------------------------*/

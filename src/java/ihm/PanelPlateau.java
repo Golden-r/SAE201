@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -181,7 +182,7 @@ public class PanelPlateau extends JPanel
 			{
 				int x = col * taille;
 				int y = lig * taille;
-				
+
                 if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getZone() != null) 
                 {
                     g.setColor(this.ctrl.getCellule(col, lig).getZone().getCouleur());
@@ -193,8 +194,17 @@ public class PanelPlateau extends JPanel
 				{
 					g.setColor(Color.BLACK); 
 					g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, taille / 2));
-					String lettre = String.valueOf(this.ctrl.getCellule(col, lig).getSymbole().getSymbole().getNom());
-					g.drawString(lettre, x + (taille / 3), y + (taille / 2) + (taille / 6));
+					
+					
+					String nomFichier = this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getNom() + ".png" ;
+					String chemin     = "./src/ressource/images/" + nomFichier;
+
+					Image image = new ImageIcon(chemin).getImage();
+					
+					g.drawImage(image, x , y,this.ctrl.getTailleCellule() , this.ctrl.getTailleCellule() , null);
+					
+					//g.drawImage()					String lettre = String.valueOf(this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getNom());
+					//g.drawString(lettre, x + (taille / 3), y + (taille / 2) + (taille / 6));
 				}
 				
 
