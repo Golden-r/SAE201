@@ -86,6 +86,8 @@ public class PanelModification extends JPanel
 
 		this.ctrl.setEtapeConception( 1 );
 		this.add(this.panelPlateauOuestZone, BorderLayout.WEST);
+
+		this.panelPlateauNord.setTextBtnSuivant() ;
 		
 
 		this.revalidate();
@@ -100,6 +102,8 @@ public class PanelModification extends JPanel
 		
 		this.ctrl.setEtapeConception( 2 );
 		this.add(this.panelPlateauOuestSymbole, BorderLayout.WEST);
+
+		this.panelPlateauNord.setTextBtnSuivant() ;
 		
 		this.revalidate();
 		this.repaint();

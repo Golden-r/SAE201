@@ -165,4 +165,9 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 	{
 		this.btnSuivant.setText("Enregistrer sous");
 	}
+
+	public void setTextBtnSuivant()
+	{
+		this.btnSuivant.setText("Suivant");
+	}
 }
