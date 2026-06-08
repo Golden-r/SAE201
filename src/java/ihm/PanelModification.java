@@ -114,6 +114,7 @@ public class PanelModification extends JPanel
 		this.ctrl.setEtapeConception( 3 );
 		this.add(this.panelPlateauOuestBase, BorderLayout.WEST);
 
+		this.panelPlateauNord.setTextBtnEnregistrer() ;
 		this.ctrl.afficherLiasons();
 		
 		this.revalidate();

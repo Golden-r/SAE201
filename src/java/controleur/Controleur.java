@@ -132,6 +132,8 @@ public class Controleur
 		this.lancerModification();
 	}
 
+	public void enregistrerFichier( File fichier ) { this.metierPlateau.enregistrerFichier( fichier ) ;}
+
 
 	public Zone clicSurCase(int x, int y, Zone zone) 
 	{

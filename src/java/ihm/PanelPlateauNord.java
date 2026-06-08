@@ -112,7 +112,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 					break;
 
 				case 3:
-					//Ouvrir menu enregistrer sous.
+					this.enregistrerSous();
 					break; 
 
 				default:
@@ -123,5 +123,46 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 			
 		
 		}
+	}
+
+	private void enregistrerSous()
+	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
+
+		JFileChooser            fileChooser   ;
+		javax.swing.filechooser.FileNameExtensionFilter filtre ;
+		java.io.File            fichierChoisi ;
+		int                     reponse       ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
+
+		fileChooser = new JFileChooser( new java.io.File( "./src/ressource/data" ) ) ;
+		filtre      = new javax.swing.filechooser.FileNameExtensionFilter( "Fichiers de sauvegarde (.data)", "data" ) ;
+		
+		fileChooser.setFileFilter( filtre ) ;
+
+		reponse = fileChooser.showSaveDialog( this ) ;
+
+
+		if ( reponse == JFileChooser.APPROVE_OPTION )
+		{
+			fichierChoisi = fileChooser.getSelectedFile() ;
+
+			if ( !fichierChoisi.getName().endsWith( ".data" ) )
+			{
+				fichierChoisi = new java.io.File( fichierChoisi.getAbsolutePath() + ".data" ) ;
+			}
+
+			this.ctrl.enregistrerFichier( fichierChoisi ) ;
+		}
+	}
+
+	public void setTextBtnEnregistrer()
+	{
+		this.btnSuivant.setText("Enregistrer sous");
 	}
 }
