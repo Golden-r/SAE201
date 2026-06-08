@@ -60,8 +60,13 @@ public class Cellule
 	/*  Test                      */
 	/*----------------------------*/
 
-    public boolean estVide() { return this.symbole == null ; }
-    public boolean estBase() { return this.estBase == true ; }
+    public boolean estVide() { return this.symbole == null && this.zone == null ;}
+    public boolean estBase() 
+	{ 
+		if ( this.symbole != null ) { return this.symbole.estBase() ; }
+
+		return false ; 
+	}
 
     /*----------------------------*/
 	/*  Méthodes                  */

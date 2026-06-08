@@ -3,7 +3,7 @@
 50
 1, 0, 0, 1, 1, 1
 1, 1, 0, 0, 1, 1
-0,0,null,null,-2346446,ZONE1,0,true,false
+0,0,null,null,null,null,null,true,false
 0,1,null,null,-2346446,ZONE1,0,true,false
 0,2,null,null,null,null,null,true,false
 0,3,null,null,null,null,null,true,false
@@ -14,7 +14,7 @@
 0,8,null,null,null,null,null,true,false
 0,9,null,null,null,null,null,true,false
 1,0,null,null,-2346446,ZONE1,0,true,false
-1,1,MAISONS,BLEU,-2346446,ZONE1,0,true,false
+1,1,MAISONS,null,-2346446,ZONE1,0,true,false
 1,2,null,null,null,null,null,true,false
 1,3,null,null,null,null,null,true,false
 1,4,null,null,null,null,null,true,false
@@ -26,7 +26,7 @@
 2,0,USINES,null,-2346446,ZONE1,0,true,false
 2,1,null,null,-2346446,ZONE1,0,true,false
 2,2,null,null,null,null,null,true,false
-2,3,ECOLES,MARRON,null,null,null,true,false
+2,3,ECOLES,NOIR,null,null,null,true,false
 2,4,null,null,null,null,null,true,false
 2,5,null,null,null,null,null,true,false
 2,6,USINES,VERT,-7581656,ZONE8,2,true,false
@@ -36,15 +36,15 @@
 3,0,null,null,null,null,null,true,false
 3,1,null,null,null,null,null,true,false
 3,2,null,null,null,null,null,true,false
-3,3,null,null,null,null,null,true,false
-3,4,null,null,null,null,null,true,false
+3,3,null,null,-701621,ZONE1,4,true,false
+3,4,null,null,-701621,ZONE1,4,true,false
 3,5,null,null,null,null,null,true,false
 3,6,null,null,null,null,null,true,false
 3,7,null,null,null,null,null,true,false
 3,8,null,null,null,null,null,true,false
 3,9,null,null,null,null,null,true,false
 4,0,null,null,null,null,null,true,false
-4,1,IMMEUBLES,null,null,null,null,true,false
+4,1,IMMEUBLES,BLEU,null,null,null,true,false
 4,2,null,null,null,null,null,true,false
 4,3,null,null,null,null,null,true,false
 4,4,null,null,null,null,null,true,false
@@ -76,7 +76,7 @@
 7,0,null,null,null,null,null,true,false
 7,1,null,null,null,null,null,true,false
 7,2,null,null,-1668086,ZONE4,1,true,false
-7,3,USINES,NOIR,-1668086,ZONE4,1,true,false
+7,3,USINES,MARRON,-1668086,ZONE4,1,true,false
 7,4,null,null,-1668086,ZONE4,1,true,false
 7,5,null,null,null,null,null,true,false
 7,6,null,null,null,null,null,true,false

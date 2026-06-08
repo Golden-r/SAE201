@@ -91,6 +91,11 @@ public class GestionFichier
                         ESymbole symbole = ESymbole.valueOf(symboleNom);
 
                         c.setSymbole(new Symbole(symbole));
+
+                        if ( !reseaux.equals("null") )
+                        {
+                            c.getSymbole().setBase(ECouleur.valueOf(reseaux)) ;
+                        }
                     }
 
                     // -------- ZONE --------
@@ -121,10 +126,7 @@ public class GestionFichier
 
                         c.setZone(z);
                     }
-                    if (estBase)
-                    {
-                        c.getSymbole().setBase(ECouleur.valueOf(reseaux));
-                    }
+
 
                     proprietes.lstCellules.add(c);
                 }
