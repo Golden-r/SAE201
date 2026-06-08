@@ -216,7 +216,7 @@ public class PanelPlateau extends JPanel
 					ImageIcon icon = new ImageIcon(chemin);
 					Image rawImg = icon.getImage();
 
-					// Convert to BufferedImage at required size
+					// on converti en bufferedimage
 					BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 
 					Graphics2D tg = img.createGraphics();
@@ -230,28 +230,27 @@ public class PanelPlateau extends JPanel
 					}
 
 					if (baseColor != null) {
-						// Create a temporary image specifically for blending the highlight
 						BufferedImage tintedImg = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 						Graphics2D gTint = tintedImg.createGraphics();
 						
-						// 1) Draw the original image onto the temp canvas
+						// 1) dessiner l'image originale
 						gTint.drawImage(img, 0, 0, null);
 						
-						// 2) Change composite to SrcAtop so the rectangle ONLY colors the existing pixels
+						// 2) Changer le composite Change pour colorier que les pixels non transparents
 						gTint.setComposite(AlphaComposite.SrcAtop);
 						
-						// Set your highlight color with transparency (120 out of 255)
+						// on set la transparence aussi
 						Color highlightColor = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 255);
 						gTint.setColor(highlightColor);
 						gTint.fillRect(0, 0, size, size);
 						gTint.dispose();
 
-						// 3) Draw the final tinted image onto the main graphics context
+						// 3) ON dessine l'image tintée finale
 						g.drawImage(tintedImg, x, y, null);
 					} 
 					else
 					{
-						// No base color: just draw the original image
+						// pas de couleur de base, juste l'image
 						g.drawImage(img, x, y, null);
 					}
 				}
@@ -261,8 +260,6 @@ public class PanelPlateau extends JPanel
 					g.setColor(new Color(100, 150, 255, 120)); 
 					g.fillRect(x, y, taille, taille);
 				}
-
-
 
 				g.setColor(Color.BLACK);
 				g.drawRect(x, y, taille, taille); 
