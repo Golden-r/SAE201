@@ -462,28 +462,29 @@ public class Plateau
 		}
 	}
 
-/* 
-	public void enregistrerFichier ( File fichier )
+	public void chargerDonnees( ArrayList<Cellule> lstCellules )
 	{
-		ArrayList<String> lstEnregistrelent =  new ArrayList<String>() ;
+		/*----------------*/
+		/* Instructions   */
+		/*----------------*/
 
-		lstEnregistrelent.add ( "" + this.largeur       ) ;
-		lstEnregistrelent.add ( "" + this.longueur      ) ;
-		lstEnregistrelent.add ( "" + this.tailleCellule ) ;
-				
-		lstEnregistrelent.add ( this.getLstCouleur().toString().replace("[", "").replace("]", "")) ;
-		lstEnregistrelent.add ( this.getLstSymbole().toString().replace("[", "").replace("]", "") ) ;
+		if ( lstCellules == null ) { return ; }
 
-		for ( int lig = 0 ; lig < plateau.length ; lig ++ )
-			for ( int col = 0 ; col < plateau[lig].length ; col++ )
-				if ( this.plateau[lig][col].getZone() != null || this.plateau[lig][col].getSymbole() != null ) 
-				{ 
-					lstEnregistrelent.add( "" + this.plateau[lig][col] ) ;
-				}
+		for ( int cptC = 0 ; cptC < lstCellules.size() ; cptC++ )
+		{
+			Cellule c = lstCellules.get( cptC ) ;
 
-		GestionFichier.ecrireFichier( fichier, lstEnregistrelent ) ;
+			if ( c != null && this.estDansPlateau( c.getX(), c.getY() ) )
+			{
+				this.plateau[c.getX()][c.getY()] = c ;
+
+				if ( c.getZone() != null && !this.ensZones.contains( c.getZone() ) ){ this.ensZones.add( c.getZone() ) ;}
+
+				if ( c.estBase() && !this.ensBases.contains( c ) ){ this.ensBases.add( c ) ;}
+			}
+		}
 	}
-	*/
+
 
 	// TODO
 	public void enregistrerFichier(File fichier)

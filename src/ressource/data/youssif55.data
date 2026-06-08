@@ -1,11 +1,8 @@
 10
 10
 50
-1, 1, 0, 1, 1, 1
-1, 1, 0, 1, 1, 1
-
-X , Y , symbole , reseau , couleur , typeZone , id , estVide , estBase
-
+1, 1, 1, 1, 1, 1
+1, 1, 1, 1, 1, 1
 0,0,null,null,null,null,null,true,false
 0,1,null,null,null,null,null,true,false
 0,2,null,null,null,null,null,true,false
@@ -38,7 +35,7 @@ X , Y , symbole , reseau , couleur , typeZone , id , estVide , estBase
 2,9,null,null,null,null,null,true,false
 3,0,null,null,null,null,null,true,false
 3,1,null,null,null,null,null,true,false
-3,2,null,null,null,null,null,true,false
+3,2,MAISONS,BLEU,-14775196,ZONE5,1,true,false
 3,3,null,null,null,null,null,true,false
 3,4,null,null,null,null,null,true,false
 3,5,null,null,null,null,null,true,false
@@ -47,7 +44,7 @@ X , Y , symbole , reseau , couleur , typeZone , id , estVide , estBase
 3,8,null,null,null,null,null,true,false
 3,9,null,null,null,null,null,true,false
 4,0,null,null,null,null,null,true,false
-4,1,MAISONS,null,java.awt.Color[r=220,g=50,b=50],ZONE1,0,true,false
+4,1,null,null,null,null,null,true,false
 4,2,null,null,null,null,null,true,false
 4,3,null,null,null,null,null,true,false
 4,4,null,null,null,null,null,true,false
@@ -68,7 +65,7 @@ X , Y , symbole , reseau , couleur , typeZone , id , estVide , estBase
 5,9,null,null,null,null,null,true,false
 6,0,null,null,null,null,null,true,false
 6,1,null,null,null,null,null,true,false
-6,2,null,null,null,null,null,true,false
+6,2,RESTAURANTS,null,-2346446,ZONE1,0,true,false
 6,3,null,null,null,null,null,true,false
 6,4,null,null,null,null,null,true,false
 6,5,null,null,null,null,null,true,false
@@ -77,11 +74,11 @@ X , Y , symbole , reseau , couleur , typeZone , id , estVide , estBase
 6,8,null,null,null,null,null,true,false
 6,9,null,null,null,null,null,true,false
 7,0,null,null,null,null,null,true,false
-7,1,MAISONS,BLEU,java.awt.Color[r=230,g=140,b=10],ZONE4,0,true,false
+7,1,null,null,null,null,null,true,false
 7,2,null,null,null,null,null,true,false
 7,3,null,null,null,null,null,true,false
 7,4,null,null,null,null,null,true,false
-7,5,USINES,MARRON,null,null,null,true,false
+7,5,null,null,null,null,null,true,false
 7,6,null,null,null,null,null,true,false
 7,7,null,null,null,null,null,true,false
 7,8,null,null,null,null,null,true,false

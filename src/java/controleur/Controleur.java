@@ -129,6 +129,9 @@ public class Controleur
 		ArrayList<Integer> lstSymbole  = proprietes.lstSymbole;
 
 		this.creerPlateau( tailleLongueur , tailleLargeur, tailleCellule, lstCouleur, lstSymbole);
+		
+		if ( proprietes.lstCellules != null ){ this.metierPlateau.chargerDonnees( proprietes.lstCellules ) ;}
+
 		this.lancerModification();
 	}
 
