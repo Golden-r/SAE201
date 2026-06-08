@@ -107,7 +107,7 @@ public class GestionFichier
                             if (!zoneColor.equals("null"))
                                 color = new Color(Integer.parseInt(zoneColor));
 
-                            z = new Zone(EZone.valueOf(typeZone));
+                            z = new Zone(EZone.valueOf(typeZone), id);
 
                             zonesDejaCrees.put(id, z);
                         }

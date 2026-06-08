@@ -160,7 +160,7 @@ public class Plateau
 		occurrence = ensZoneMemeType.size() ;
 
 		nvZone = new Zone( typeZone ) ;
-		nvZone.setCouleur( typeZone, 0, occurrence ) ;
+		nvZone.setCouleur( typeZone, occurrence ) ;
 
 		return nvZone.getCouleur() ;
 	}

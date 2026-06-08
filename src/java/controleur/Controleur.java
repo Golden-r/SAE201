@@ -135,9 +135,14 @@ public class Controleur
 	public void enregistrerFichier( File fichier ) { this.metierPlateau.enregistrerFichier( fichier ) ;}
 
 
-	public Zone clicSurCase(int x, int y, Zone zone) 
+	/*public Zone clicSurCase(int x, int y, Zone zone) 
 	{
-		Cellule cell = this.getCellule(x, y);
+		Cellule cell     = this.getCellule(x, y);
+		Zone    zoneCell = cell.getZone();
+		if (zoneCell != null)
+		{
+			return zoneCell;
+		}
 
 		if (cell.getZone() != null) { return cell.getZone() ;}
 
@@ -159,7 +164,7 @@ public class Controleur
 
 			int occurrence = ensZoneMemeType.size();
 
-			nvZone.setCouleur(typeSelectionne, 0, occurrence);
+			nvZone.setCouleur(typeSelectionne, occurrence);
 			zone = nvZone;
 
 			this.metierPlateau.setZoneDansCellule(cell, zone);
@@ -176,6 +181,74 @@ public class Controleur
 		}
 		
 		return zone;
+	}*/
+
+	public Zone clicSurCase(int x, int y, Zone zoneCourante)
+	{
+		Cellule cell = this.getCellule(x, y);
+		Zone zoneCell = cell.getZone();
+
+		EZone typeSelectionne = EZone.values()[this.indiceZone];
+
+		// Already assigned → do nothing
+		if (zoneCell != null)
+			return zoneCell;
+
+		// Create new zone if needed
+		if (zoneCourante == null || zoneCourante.getTypeZone() != typeSelectionne)
+		{
+			ArrayList<Zone> ensZoneMemeType = new ArrayList<>();
+
+			for (int cptX = 0; cptX < this.getTailleLongueur(); cptX++)
+			{
+				for (int cptY = 0; cptY < this.getTailleLargeur(); cptY++)
+				{
+					Cellule tmp = this.getCellule(cptX, cptY);
+
+					if (tmp != null && tmp.getZone() != null &&
+						tmp.getZone().getTypeZone() == typeSelectionne)
+					{
+						if (!ensZoneMemeType.contains(tmp.getZone()))
+							ensZoneMemeType.add(tmp.getZone());
+					}
+				}
+			}
+
+			int occurrence = ensZoneMemeType.size();
+
+			Zone nvZone = new Zone(typeSelectionne);
+			nvZone.setCouleur(typeSelectionne, occurrence);
+
+			this.metierPlateau.setZoneDansCellule(cell, nvZone);
+
+			return nvZone;
+		}
+
+		// Extend existing zone (adjacency)
+		boolean estAdjacent = false;
+
+		for (int dx = -1; dx <= 1; dx++)
+		{
+			for (int dy = -1; dy <= 1; dy++)
+			{
+				if (Math.abs(dx) + Math.abs(dy) == 1)
+				{
+					Cellule voisin = this.getCellule(x + dx, y + dy);
+
+					if (voisin != null && voisin.getZone() == zoneCourante)
+					{
+						estAdjacent = true;
+					}
+				}
+			}
+		}
+
+		if (estAdjacent)
+		{
+			this.metierPlateau.setZoneDansCellule(cell, zoneCourante);
+		}
+
+		return zoneCourante;
 	}
 
 	public void afficherLiasons()
