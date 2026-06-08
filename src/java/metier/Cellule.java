@@ -69,16 +69,32 @@ public class Cellule
 
     
     public String toString()
-    {
-        return ""         + this.coordonneeX 
-                    + "," + this.coordonneeY 
-                    + "," + this.symbole.getTypeSymbole() 
-                    + "," + this.symbole.getCouleurBase() 
-                    + "," + this.zone.getCouleur()
-                    + "," + this.zone.getTypeZone()
-                    + "," + this.zone.getId()
-                    + "," + this.estVide
-                    + "," + this.estBase ;
-    }
+	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
+
+		String sRet ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
+
+		sRet = this.coordonneeX + "," + this.coordonneeY ;
+
+		if ( this.symbole != null ){ sRet += "," + this.symbole.getTypeSymbole() + "," + this.symbole.getCouleurBase() ;}
+		else                       { sRet += ",null,null" ;}
+
+		if ( this.estBase() && this.zone != null )
+		{ sRet += "," + this.zone.getCouleur() + "," + this.zone.getTypeZone() + "," + this.zone.getId() ;}
+		else
+		{
+			sRet += ",null,null,null" ;
+		}
+
+		sRet += "," + this.estVide + "," + this.estBase ;
+
+		return sRet ;
+	}
 
 }

@@ -404,7 +404,7 @@ public class Plateau
 		}
 	}
 
-
+/* 
 	public void enregistrerFichier ( File fichier )
 	{
 		ArrayList<String> lstEnregistrelent =  new ArrayList<String>() ;
@@ -418,10 +418,53 @@ public class Plateau
 
 		for ( int lig = 0 ; lig < plateau.length ; lig ++ )
 			for ( int col = 0 ; col < plateau[lig].length ; col++ )
-				if ( this.plateau[lig][col].estBase() ) { lstEnregistrelent.add( "" + this.plateau[lig][col] ) ;}
+				if ( this.plateau[lig][col].getZone() != null || this.plateau[lig][col].getSymbole() != null ) 
+				{ 
+					lstEnregistrelent.add( "" + this.plateau[lig][col] ) ;
+				}
 
 		GestionFichier.ecrireFichier( fichier, lstEnregistrelent ) ;
 	}
-	
+	*/
+
+	public void enregistrerFichier(File fichier)
+	{
+		/*----------------*/
+		/* Données        */
+		/*----------------*/
+
+		ArrayList<String> lstEnregistrement;
+
+		/*----------------*/
+		/* Instructions   */
+		/*----------------*/
+
+		lstEnregistrement = new ArrayList<String>();
+
+		lstEnregistrement.add("" + this.largeur);
+		lstEnregistrement.add("" + this.longueur);
+		lstEnregistrement.add("" + this.tailleCellule);
+				
+		lstEnregistrement.add(this.getLstCouleur().toString().replace("[", "").replace("]", ""));
+		lstEnregistrement.add(this.getLstSymbole().toString().replace("[", "").replace("]", ""));
+
+		for (int x = 0; x < this.plateau.length; x++)
+			for (int y = 0; y < this.plateau[x].length; y++)
+			{
+				Cellule c = this.plateau[x][y];
+				
+				if (c.getZone() != null || c.getSymbole() != null) 
+				{ 
+					// On récupère le nom de l'enum sous forme de texte (ou "null" si vide)
+					String nomZone    = (c.getZone()    != null) ? c.getZone().getTypeZone().name()   : "null";
+					String nomSymbole = (c.getSymbole() != null) ? c.getSymbole().getSymbole().name() : "null";
+					
+					// Format de sauvegarde : X,Y,Zone,Symbole (ex: 5,10,ZONE1,MAISONS)
+					lstEnregistrement.add(x + "," + y + "," + nomZone + "," + nomSymbole);
+				}
+			}
+
+		GestionFichier.ecrireFichier(fichier, lstEnregistrement);
+	}
 }
 
