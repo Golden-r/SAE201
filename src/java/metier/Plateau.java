@@ -139,9 +139,19 @@ public class Plateau
 
 	public Color getCouleurProchaineZone( EZone typeZone )
 	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
+
 		ArrayList<Zone> ensZoneMemeType ;
-		Zone            nvZone          ;
 		int             occurrence      ;
+		Color           base            ;
+		int             variation       ;
+		int             r, g, b         ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
 
 		ensZoneMemeType = new ArrayList<>() ;
 
@@ -152,17 +162,36 @@ public class Plateau
 				Cellule tmpCell = this.plateau[cptX][cptY] ;
 
 				if(tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone)
+				{
 					if(!ensZoneMemeType.contains(tmpCell.getZone()))
+					{
 						ensZoneMemeType.add(tmpCell.getZone()) ;
+					}
+				}
 			}
 		}
 
 		occurrence = ensZoneMemeType.size() ;
 
-		nvZone = new Zone( typeZone ) ;
-		nvZone.setCouleur( typeZone, occurrence ) ;
+		base      = typeZone.getCouleur() ;
+		variation = occurrence * 25 ;
 
-		return nvZone.getCouleur() ;
+		r = base.getRed()   + variation ;
+		g = base.getGreen() + variation ;
+		b = base.getBlue()  + variation ;
+
+		while (r > 255 || g > 255 || b > 255 || r + g + b > 650)
+		{
+			r -= 85 ;
+			g -= 85 ;
+			b -= 85 ;
+		}
+
+		r = Math.max(0, r) ;
+		g = Math.max(0, g) ;
+		b = Math.max(0, b) ;
+
+		return new Color(r, g, b) ;
 	}
 	
 	public int getNbZonesDistinctes()

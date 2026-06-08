@@ -38,8 +38,14 @@ public class Zone
 
     public Zone ( EZone typeZone, int id  )
     {
-        this ( typeZone );
-		this.id       = id;
+        this.couleur  = new Color(200,200,200) ;
+		this.typeZone = typeZone ;
+		this.id       = id ;
+
+		if ( id >= Zone.NB_ZONES )
+		{
+			Zone.NB_ZONES = id + 1 ;
+		}
 	}
 
 	/*----------------------------*/
