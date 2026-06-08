@@ -170,6 +170,10 @@ public class Controleur
 		return zone;
 	}
 
+	public void afficherLiasons()
+	{
+		this.metierPlateau.relierToutLesSymbole(ECouleur.TEST);
+	}
 
 	public void clicSurCaseSymbole(int x, int y, ESymbole esymbole) 
 	{

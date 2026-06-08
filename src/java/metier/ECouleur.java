@@ -12,6 +12,9 @@ import java.awt.Color;
 
 public enum ECouleur
 {
+    TEST  ("LIAISON" , Color.GRAY  ),
+
+
     BLEU  ("Eau potable"           , Color.BLUE   ),
 	JAUNE ("Électricité"           , Color.YELLOW ),
 	ROUGE ("Gaz de ville"          , Color.RED    ),
