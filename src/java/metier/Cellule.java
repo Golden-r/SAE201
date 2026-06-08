@@ -86,7 +86,7 @@ public class Cellule
 		else                       { sRet += ",null,null" ;}
 
 		if ( this.zone != null )
-		{ sRet += "," + this.zone.getCouleur() + "," + this.zone.getTypeZone() + "," + this.zone.getId() ;}
+		{ sRet += "," + this.zone.getCouleur().getRGB() + "," + this.zone.getTypeZone() + "," + this.zone.getId() ;}
 		else
 		{
 			sRet += ",null,null,null" ;

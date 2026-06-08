@@ -13,6 +13,8 @@ import java.awt.Color;
 
 public class Zone 
 {
+	private static int NB_ZONES = 0;
+
 	/*----------------------------*/ 
 	/*  Attributs de la classe    */
 	/*----------------------------*/
@@ -29,9 +31,14 @@ public class Zone
     {
         this.couleur  = new Color(200,200,200);
 		this.typeZone = typeZone;
-		this.id       = 0;
+		this.id       = Zone.NB_ZONES++;
 	}
 
+    public Zone ( EZone typeZone, int id  )
+    {
+        this ( typeZone );
+		this.id       = id;
+	}
 
 	/*----------------------------*/
 	/*  Accesseur                 */

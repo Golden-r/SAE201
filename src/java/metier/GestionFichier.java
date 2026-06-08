@@ -1,11 +1,12 @@
 package metier ;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.io.FileNotFoundException;
 import metier.* ;
 
@@ -26,7 +27,8 @@ public class GestionFichier
 		/*  Données       */
 		/*----------------*/
         
-        ArrayList<Zone> zonesDejaCrees = new ArrayList<Zone>();
+        // pour relier une zone à l'id
+        HashMap<Integer, Zone> zonesDejaCrees = new HashMap<>();
 
         PlateauData proprietes = new PlateauData() ;
 
@@ -96,10 +98,21 @@ public class GestionFichier
                     {
                         int id = idStr.equals("null") ? -1 : Integer.parseInt(idStr);
 
-                        if (zonesDejaCrees.get(id) == null) { zonesDejaCrees.add(id, new Zone(EZone.valueOf(typeZone))) ;}
-                        
-                        
-                        c.setZone( zonesDejaCrees.get(id) );
+                        Zone z = zonesDejaCrees.get(id);
+
+                        if (z == null)
+                        {
+                            Color color = null;
+
+                            if (!zoneColor.equals("null"))
+                                color = new Color(Integer.parseInt(zoneColor));
+
+                            z = new Zone(EZone.valueOf(typeZone));
+
+                            zonesDejaCrees.put(id, z);
+                        }
+
+                        c.setZone(z);
                     }
 
                     if (estBase)
