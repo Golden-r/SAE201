@@ -83,12 +83,13 @@ public class Plateau
 		return null;
 	}
 
-	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur      ;}
-	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole      ;}
-	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison      ;}
-	public ArrayList<Zone   >  getEnsZones       ()     { return this.ensZones        ;}
-	public int                 getEtapeConception()     { return this.etapeConception ;}
-	public Zone                getZoneCourante   ()     { return this.zoneCourante    ;}
+	public ArrayList<Integer>  getLstCouleur     ()          { return this.lstCouleur                                 ;}
+	public ArrayList<Integer>  getLstSymbole     ()          { return this.lstSymbole                                 ;}
+	public ArrayList<Liaison>  getEnsLiaison     ()          { return this.ensLiaison                                 ;}
+	public ArrayList<Zone   >  getEnsZones       ()          { return this.ensZones                                   ;}
+	public int                 getEtapeConception()          { return this.etapeConception                            ;}
+	public Zone                getZoneCourante   ()          { return this.zoneCourante                               ;}
+	public int[][]             getCheminLiaison( int indice ){ return this.ensLiaison.get( indice ).getCoordsChemin() ;}
 
 	public ArrayList<Cellule>  getTrajet         ( Cellule depart, Cellule arrivee )
 	{

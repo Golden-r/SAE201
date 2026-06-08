@@ -52,18 +52,30 @@ public class Controleur
 	/*----------------------------*/
 
 	public int                getTailleLargeur ()                   { return this.metierPlateau.getTailleLargeur ()                               ;}
-	public int                getTailleLongueur()                   { return this.metierPlateau.getTailleLongueur() 	                             ;}
-	public int                getTailleCellule ()                   { return this.metierPlateau.getTailleCellule () 	                             ;}
-	public ArrayList<Integer> getLstCouleur    ()                   { return this.metierPlateau.getLstCouleur    () 	                             ;}
-	public ArrayList<Integer> getLstSymbole    ()                   { return this.metierPlateau.getLstSymbole    () 	                             ;}
+	public int                getTailleLongueur()                   { return this.metierPlateau.getTailleLongueur() 	                          ;}
+	public int                getTailleCellule ()                   { return this.metierPlateau.getTailleCellule () 	                          ;}
+	public ArrayList<Integer> getLstCouleur    ()                   { return this.metierPlateau.getLstCouleur    () 	                          ;}
+	public ArrayList<Integer> getLstSymbole    ()                   { return this.metierPlateau.getLstSymbole    () 	                          ;}
 	public ArrayList<Liaison> getEnsLiaisons   ()                   { return this.metierPlateau.getEnsLiaison    ()                               ;}
-	public ArrayList<Zone   > getLibelleZone   ()                   { return this.metierPlateau.getEnsZones      () 	                             ;}
-	public String[]           getZones         ()                   { return EZone.getZonesLibelles              () 	                             ;}
+	public ArrayList<Zone   > getLibelleZone   ()                   { return this.metierPlateau.getEnsZones      () 	                          ;}
+	public String[]           getZones         ()                   { return EZone.getZonesLibelles              () 	                          ;}
 	public Cellule            getCellule      (int x, int y)        { return this.metierPlateau.getCellule       (x,y)                            ;}
 	public Color              getCouleurProchaineZone( int indice ) { return this.metierPlateau.getCouleurProchaineZone( EZone.values()[indice] ) ;}
-	public int                getEtapeConception()                  { return this.metierPlateau.getEtapeConception() ;}
-	public Zone               getZoneCourante   ()                  { return this.metierPlateau.getZoneCourante   () ;}
-	public int                getNbZonesDistinctes()                { return this.metierPlateau.getNbZonesDistinctes() ;}
+	public int                getEtapeConception()                  { return this.metierPlateau.getEtapeConception()                              ;}
+	public Zone               getZoneCourante   ()                  { return this.metierPlateau.getZoneCourante   ()                              ;}
+	public int                getNbZonesDistinctes()                { return this.metierPlateau.getNbZonesDistinctes()                            ;}
+    public int                getNbLiaisons()                       { return this.metierPlateau.getEnsLiaison().size()                            ;}
+	public int[][]            getCheminLiaison ( int indice )       { return this.metierPlateau.getCheminLiaison( indice )                        ;}
+	public Color              getCouleurLiaison( int indice )
+	{
+		metier.Liaison l = this.metierPlateau.getEnsLiaison().get( indice ) ;
+
+		if ( l.getReseau() != null ){ return l.getReseau().getCouleur() ;}
+
+		return Color.BLACK ;
+	}
+
+	
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -80,11 +92,7 @@ public class Controleur
 	/*  Méthodes                  */
 	/*----------------------------*/
 
-	public void lancerCreation()
-	{
-		System.out.println("Lancement du mode creation");
-		this.frameCreation = new FrameCreation( this ); 
-	}
+	public void lancerCreation(){ this.frameCreation = new FrameCreation( this ) ;}
 
 	public void retourCreation()
 	{
@@ -95,7 +103,6 @@ public class Controleur
 
 	public void lancerModification(  )
 	{
-		System.out.println("Lancement du mode modification");
 		this.frameCreation.dispose();
 		this.frameModification = new FrameModification( this ) ;
 	}
@@ -143,8 +150,7 @@ public class Controleur
 					Cellule tmpCell = this.getCellule(cptX, cptY);
 					
 					if (tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeSelectionne)
-						if(!ensZoneMemeType.contains(tmpCell.getZone()))
-							ensZoneMemeType.add(tmpCell.getZone());
+						if( !ensZoneMemeType.contains( tmpCell.getZone() ) ) { ensZoneMemeType.add( tmpCell.getZone() ) ;}
 				}
 
 			int occurrence = ensZoneMemeType.size();
@@ -160,11 +166,9 @@ public class Controleur
 
 			for(int cpt1 = -1; cpt1 <= 1; cpt1++)
 				for(int cpt2 = -1; cpt2 <= 1; cpt2++)
-					if(Math.abs(cpt1) + Math.abs(cpt2) == 1 && this.getCellule(x + cpt1, y + cpt2) != null && this.getCellule(x + cpt1, y + cpt2).getZone() == zone)
-						estAdjacent = true;
+					if( Math.abs(cpt1) + Math.abs(cpt2) == 1 && this.getCellule(x + cpt1, y + cpt2) != null && this.getCellule(x + cpt1, y + cpt2).getZone() == zone) { estAdjacent = true ;}
 			
-			if(estAdjacent)
-				this.metierPlateau.setZoneDansCellule(cell,zone);
+			if (estAdjacent) { this.metierPlateau.setZoneDansCellule(cell,zone) ;}
 		}
 		
 		return zone;
@@ -181,19 +185,15 @@ public class Controleur
 		
 		if (cell != null) 
 		{
-			// On crée un nouvel objet Symbole métier à partir de l'énumération
 			metier.Symbole nouveauSymbole = new metier.Symbole(esymbole);
 			this.metierPlateau.setSymboleDansCellule(cell, nouveauSymbole);
 		}
 	}
 	
 
-	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone(x , y) ;}
-	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y) ;}
-	public void renitialiserLiaison ()             
-	{ 
-		this.metierPlateau.setEnsLiaison( new ArrayList<Liaison>() ) ; 
-	}
+	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone (x , y)                     ;}
+	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y)                     ;}
+	public void renitialiserLiaison ()             { this.metierPlateau.setEnsLiaison( new ArrayList<Liaison>() ) ;}
 	
 	/*----------------------------*/
 	/*   Main                     */

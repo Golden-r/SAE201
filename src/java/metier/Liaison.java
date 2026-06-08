@@ -59,4 +59,34 @@ public class Liaison
 		
 		return false;
 	}
+
+	public int[][] getCoordsChemin()
+	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
+
+		ArrayList<Cellule> lstToutesLesCells ;
+		int[][]            coords            ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
+
+		lstToutesLesCells = new ArrayList<>() ;
+
+		if ( this.depart            != null ) { lstToutesLesCells.add( this.depart )                ;}
+		if ( this.CelluleTraversees != null ) { lstToutesLesCells.addAll( this.CelluleTraversees )  ;}
+		if ( this.arrivee           != null ) { lstToutesLesCells.add( this.arrivee )               ;}
+
+		coords = new int[lstToutesLesCells.size()][2] ;
+
+		for ( int cptP = 0 ; cptP < lstToutesLesCells.size() ; cptP++ )
+		{
+			coords[cptP][0] = lstToutesLesCells.get( cptP ).getX() ;
+			coords[cptP][1] = lstToutesLesCells.get( cptP ).getY() ;
+		}
+
+		return coords ;
+	}
 }

@@ -214,45 +214,23 @@ public class PanelPlateau extends JPanel
 
 		// Dessin des liaisons (trajets)
 	
-		for ( metier.Liaison l : this.ctrl.getEnsLiaisons() )
+		for ( int cptL = 0 ; cptL < this.ctrl.getNbLiaisons() ; cptL++ )
 		{
-			if ( l.getReseau() != null ) { g.setColor( l.getReseau().getCouleur() ) ;}
-			else                         { g.setColor( Color.BLACK )                ;}
+			g.setColor( this.ctrl.getCouleurLiaison( cptL ) ) ;
 
-			metier.Cellule prec = l.getDepart();
-			java.util.ArrayList<metier.Cellule> traversees = l.getCelluleTraversees();
+			int[][] chemin = this.ctrl.getCheminLiaison( cptL ) ;
 
-			if ( traversees != null )
+			if ( chemin != null && chemin.length > 1 )
 			{
-				for ( int i = 0 ; i < traversees.size() ; i++ )
+				for ( int cptP = 0 ; cptP < chemin.length - 1 ; cptP++ )
 				{
-					metier.Cellule courante = traversees.get(i);
-					
-					if ( courante != null && prec != null )
-					{
-						int x1 = prec.getX()    * taille + (taille / 2) ;
-						int y1 = prec.getY()    * taille + (taille / 2) ;
-						int x2 = courante.getX() * taille + (taille / 2) ;
-						int y2 = courante.getY() * taille + (taille / 2) ;
-						
-						g.drawLine( x1, y1, x2, y2 );
-					}
-					
-					prec = courante;
+					int x1 = chemin[cptP][0]     * taille + ( taille / 2 ) ;
+					int y1 = chemin[cptP][1]     * taille + ( taille / 2 ) ;
+					int x2 = chemin[cptP + 1][0] * taille + ( taille / 2 ) ;
+					int y2 = chemin[cptP + 1][1] * taille + ( taille / 2 ) ;
+
+					g.drawLine( x1, y1, x2, y2 ) ;
 				}
-			}
-
-
-			metier.Cellule arrivee = l.getArrivee();
-			
-			if ( prec != null && arrivee != null )
-			{
-				int x1 = prec.getX()    * taille + (taille / 2) ;
-				int y1 = prec.getY()    * taille + (taille / 2) ;
-				int x2 = arrivee.getX() * taille + (taille / 2) ;
-				int y2 = arrivee.getY() * taille + (taille / 2) ;
-				
-				g.drawLine( x1, y1, x2, y2 );
 			}
 		}
 		
