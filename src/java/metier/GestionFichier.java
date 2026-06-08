@@ -105,16 +105,22 @@ public class GestionFichier
                             Color color = null;
 
                             if (!zoneColor.equals("null"))
+                            {
                                 color = new Color(Integer.parseInt(zoneColor));
+                            }
 
                             z = new Zone(EZone.valueOf(typeZone), id);
+                            
+                            if ( color != null )
+                            {
+                                z.setCouleur( color ) ;
+                            }
 
                             zonesDejaCrees.put(id, z);
                         }
 
                         c.setZone(z);
                     }
-
                     if (estBase)
                     {
                         c.getSymbole().setBase(ECouleur.valueOf(reseaux));
