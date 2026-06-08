@@ -137,6 +137,11 @@ public class PanelModification extends JPanel
 	{
 		this.panelPlateauNord.majBtnEnregistrer() ;
 	}
+
+	public void majBtnSuivant()
+	{
+		this.panelPlateauNord.majBtnSuivant() ;
+	}
 	
 	
 

@@ -108,7 +108,6 @@ public class PanelPlateau extends JPanel
 				
 			if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 )
 			{
-			
 				if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
 				{
 					ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionne();
@@ -122,6 +121,7 @@ public class PanelPlateau extends JPanel
 					ctrl.retirerSymbole(col, lig);
 				}
 				
+				PanelPlateau.this.panelModification.majBtnSuivant() ;
 			}
 
 			if ( PanelPlateau.this.ctrl.getEtapeConception() == 3 ) //etape selection base
@@ -130,7 +130,6 @@ public class PanelPlateau extends JPanel
 				{
 					ECouleur base = PanelPlateau.this.panelModification.getBaseSelectione();
 
-					System.out.println(base);
 					if (base != null) 
 					{
 						ctrl.clicSurCaseBase(col, lig, base);
@@ -141,7 +140,7 @@ public class PanelPlateau extends JPanel
 					ctrl.retirerBase(col, lig);
 				}
 				
-				PanelPlateau.this.panelModification.majBtnEnregistrer() ;
+				PanelPlateau.this.panelModification.majBtnSuivant() ;
 			}
 			
 				

@@ -156,8 +156,30 @@ public class Controleur
 		return this.metierPlateau.getEnsBases().size() == nbBasesRequises ;
 	}
 
+	public boolean assezDeBatimentsPourBases()
+	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
 
-	
+		int nbBasesRequises = 0 ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
+
+		for ( Integer i : this.getLstCouleur() )
+		{
+			if ( i == 1 ) 
+			{ 
+				nbBasesRequises++ ; 
+			}
+		}
+
+		return this.metierPlateau.getNbBatiments() >= nbBasesRequises ;
+	}
+
+
 	public Zone clicSurCase(int x, int y, Zone zoneCourante)
 	{
 		Cellule cell = this.getCellule(x, y);

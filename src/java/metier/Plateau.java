@@ -209,6 +209,30 @@ public class Plateau
 		return zonesUniques.size() ;
 	}
 	
+	public int getNbBatiments()
+	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
+
+		int nbBatiments ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
+
+		nbBatiments = 0 ;
+
+		for ( int x = 0 ; x < this.longueur ; x++ )
+		{
+			for ( int y = 0 ; y < this.largeur ; y++ )
+			{
+				if ( this.plateau[x][y] != null && this.plateau[x][y].getSymbole() != null ){ nbBatiments++ ;}
+			}
+		}
+
+		return nbBatiments ;
+	}
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/

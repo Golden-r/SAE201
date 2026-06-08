@@ -169,12 +169,30 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 	public void setTextBtnEnregistrer()
 	{
 		this.btnSuivant.setText("Enregistrer sous");
-		this.majBtnEnregistrer() ;
+		this.majBtnSuivant() ;
 	}
 
 	public void setTextBtnSuivant()
 	{
 		this.btnSuivant.setText("Suivant");
-		this.btnSuivant.setEnabled(true);
+		this.majBtnSuivant() ;
+	}
+
+	public void majBtnSuivant()
+	{
+		if ( this.ctrl.getEtapeConception() == 1 )
+		{
+			this.btnSuivant.setEnabled( true ) ;
+		}
+
+		if ( this.ctrl.getEtapeConception() == 2 )
+		{
+			this.btnSuivant.setEnabled( this.ctrl.assezDeBatimentsPourBases() ) ;
+		}
+		
+		if ( this.ctrl.getEtapeConception() == 3 )
+		{
+			this.btnSuivant.setEnabled( this.ctrl.toutesLesBasesPlacees() ) ;
+		}
 	}
 }
