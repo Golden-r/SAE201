@@ -11,14 +11,13 @@ import ihm.FrameModification;
 import ihm.PanelPlateauOuest;
 import metier.Cellule;
 import metier.EZone;
+import metier.ESymbole ;
 import metier.GestionFichier;
 import metier.Plateau;
 import metier.Zone;
 import metier.PlateauData;
-//
-import metier.* ;
-import ihm.* ;
-//
+
+
 
 /* SAE 2.01 | Développement d'une application 
 * Controleur
@@ -60,14 +59,15 @@ public class Controleur
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int                getTailleLargeur()              { return this.metierPlateau.getTailleLargeur ()   ;}
-	public int                getTailleLongueur()             { return this.metierPlateau.getTailleLongueur() 	;}
-	public int                getTailleCellule()              { return this.metierPlateau.getTailleCellule () 	;}
-	public ArrayList<Integer> getLstCouleur   ()              { return this.metierPlateau.getLstCouleur    () 	;}
-	public ArrayList<Integer> getLstSymbole   ()              { return this.metierPlateau.getLstSymbole    () 	;}
-	public ArrayList<Zone   > getLibelleZone  ()              { return this.metierPlateau.getEnsZones      () 	;}
-	public String[]           getZones        ()              { return EZone.getZonesLibelles              () 	;}
-	public Cellule            getCellule      (int x, int y)  { return this.metierPlateau.getCellule       (x,y);}
+	public int                getTailleLargeur()                   { return this.metierPlateau.getTailleLargeur ()                               ;}
+	public int                getTailleLongueur()                  { return this.metierPlateau.getTailleLongueur() 	                             ;}
+	public int                getTailleCellule()                   { return this.metierPlateau.getTailleCellule () 	                             ;}
+	public ArrayList<Integer> getLstCouleur   ()                   { return this.metierPlateau.getLstCouleur    () 	                             ;}
+	public ArrayList<Integer> getLstSymbole   ()                   { return this.metierPlateau.getLstSymbole    () 	                             ;}
+	public ArrayList<Zone   > getLibelleZone  ()                   { return this.metierPlateau.getEnsZones      () 	                             ;}
+	public String[]           getZones        ()                   { return EZone.getZonesLibelles              () 	                             ;}
+	public Cellule            getCellule      (int x, int y)       { return this.metierPlateau.getCellule       (x,y)                            ;}
+	public Color              getCouleurProchaineZone( int indice ){ return this.metierPlateau.getCouleurProchaineZone( EZone.values()[indice] ) ;}
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -125,8 +125,7 @@ public class Controleur
 	{
 		Cellule cell = this.getCellule(x, y);
 
-		if (cell.getZone() != null) 
-			return cell.getZone();
+		if (cell.getZone() != null) { return cell.getZone() ;}
 
 		EZone typeSelectionne = EZone.values()[this.indiceZone];
 

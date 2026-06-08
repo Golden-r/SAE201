@@ -27,5 +27,6 @@
 ./src/java/ihm/PanelPlateau.java
 ./src/java/ihm/PanelPlateauOuest.java
 ./src/java/ihm/PanelPlateauNord.java
+./src/java/ihm/PanelPlateauSud.java
 
 ./src/java/ihm/PanelPlateauOuestSymbole.java

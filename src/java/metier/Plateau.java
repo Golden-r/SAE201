@@ -76,7 +76,7 @@ public class Plateau
 	// Dans Plateau.java — section Accesseur
 	public Cellule getSymboleDansCellule(Symbole symbole)
 	{
-		for (int x = 0; x < this.longueur; x++) //inverser ?
+		for (int x = 0; x < this.longueur; x++)
 			for (int y = 0; y < this.largeur; y++)
 				if (this.plateau[x][y] != null && this.plateau[x][y].getSymbole() == symbole)
 					return this.plateau[x][y];
@@ -131,6 +131,47 @@ public class Plateau
 
 		return trajet;
 	}
+
+	public Color getCouleurProchaineZone( EZone typeZone )
+	{
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
+
+		ArrayList<Zone> ensZoneMemeType ;
+		Zone            nvZone          ;
+		int             occurrence      ;
+
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
+
+		ensZoneMemeType = new ArrayList<>() ;
+
+		for ( int cptX = 0 ; cptX < this.longueur ; cptX++ )
+		{
+			for ( int cptY = 0 ; cptY < this.largeur ; cptY++ )
+			{
+				Cellule tmpCell = this.plateau[cptX][cptY] ;
+
+				if ( tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone )
+				{
+					if ( !ensZoneMemeType.contains( tmpCell.getZone() ) )
+					{
+						ensZoneMemeType.add( tmpCell.getZone() ) ;
+					}
+				}
+			}
+		}
+
+		occurrence = ensZoneMemeType.size() ;
+
+
+		nvZone = new Zone( typeZone ) ;
+		nvZone.setCouleur( typeZone, 0, occurrence ) ;
+
+		return nvZone.getCouleur() ;
+	}
 	
 	
 	/*----------------------------*/
@@ -138,21 +179,21 @@ public class Plateau
 	/*----------------------------*/
 
     
-	public void setSymboleDansCellule(Cellule Cellule, Symbole symbole) 
+	public void setSymboleDansCellule(Cellule cellule, Symbole symbole) 
 	{
-		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY()) )//&& zone != null) 
+		if ( this.estDansPlateau(cellule.getX(), cellule.getY()) )//&& zone != null) 
 		{
-			plateau[Cellule.getX()][Cellule.getY()].setSymbole(symbole);
-			Cellule.setEstVide(false);
+			plateau[cellule.getX()][cellule.getY()].setSymbole(symbole);
+			cellule.setEstVide(false);
 		}
 
 	}
 
-	public void setZoneDansCellule(Cellule Cellule , Zone zone) 
+	public void setZoneDansCellule(Cellule cellule , Zone zone) 
 	{
-		if ( this.estDansPlateau(Cellule.getX(), Cellule.getY())) 
+		if ( this.estDansPlateau(cellule.getX(), cellule.getY())) 
 		{
-			plateau[Cellule.getX()][Cellule.getY()].setZone(zone);
+			plateau[cellule.getX()][cellule.getY()].setZone(zone);
 		}
 
 	}

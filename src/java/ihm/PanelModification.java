@@ -9,9 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 
-//
 import metier.ESymbole;
-//
+
 
 
 /* SAE 2.01 | Développement d'une application 
@@ -30,7 +29,7 @@ public class PanelModification extends JPanel
 	private PanelPlateauNord  			panelNord ;
 	private PanelPlateauOuest 			panelOuest ; 
 	private PanelPlateauOuestSymbole 	panelOuestSymbole ;
-	private JPanel 			  			panelSud ;
+	private PanelPlateauSud 			panelSud ;
 	private JPanel 			  			panelEst ;
 
 	
@@ -48,8 +47,8 @@ public class PanelModification extends JPanel
 
 		this.panelPlateau 		= new PanelPlateau( this.ctrl, this );
 
-		this.panelNord  		= new PanelPlateauNord( this.ctrl , this ) ;
-		this.panelSud   		= new JPanel() ;
+		this.panelSud   		= new PanelPlateauSud( this.ctrl ) ;
+		this.panelNord  		= new PanelPlateauNord( this.ctrl , this , this.panelSud ) ;
 		this.panelEst   		= new JPanel() ;
 		this.panelOuest 		= new PanelPlateauOuest( this.ctrl ) ;
 		this.panelOuestSymbole 	= new PanelPlateauOuestSymbole	( this.ctrl ) ;
@@ -75,7 +74,7 @@ public class PanelModification extends JPanel
 
         
 	}
-	//
+	
 	public boolean estEtapeZone() { return this.etapeZone; }
 
 	public void passerEtapeSymbole()
@@ -86,8 +85,20 @@ public class PanelModification extends JPanel
 		
 		this.revalidate();
 		this.repaint();
+
+		
 	}
-	//
+
+	public void passerEtapeZone()
+	{
+		this.etapeZone = true;
+		this.remove(this.panelOuestSymbole);
+		this.add(this.panelOuest, BorderLayout.WEST);
+
+		this.revalidate();
+		this.repaint();
+	}
+	
 
 	public boolean getModeSelection()
 	{
@@ -98,10 +109,10 @@ public class PanelModification extends JPanel
 	{
 		return this.panelOuest.getZoneSelectioner();
 	}
-	//
+	
 	public boolean  getModePlacementSymbole()  { return this.panelOuestSymbole.getModePlacement(); }
 	public ESymbole getSymboleSelectionner()   { return this.panelOuestSymbole.getSymboleSelectionne(); }
-	//
+	
 
 }
 

@@ -17,15 +17,17 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 	private Controleur ctrl;
 
 	private PanelModification panelModification;
+	private PanelPlateauSud   panelSud ;
 
 	private JButton btnRetour  ;
 	private JButton btnSuivant ;
 	
-	public PanelPlateauNord( Controleur ctrl , PanelModification panelModif ) 
+	public PanelPlateauNord( Controleur ctrl , PanelModification panelModif , PanelPlateauSud panelSud ) 
 	{
 		this.ctrl = ctrl ;
 
-		this.panelModification = panelModif;
+		this.panelModification = panelModif ;
+		this.panelSud          = panelSud ;
 
 		this.setLayout( new GridLayout( 1 , 4 , 20 , 20 ));
 		this.setBorder( BorderFactory.createEmptyBorder( 20 , 35,  20, 35));
@@ -39,6 +41,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.btnSuivant = new JButton("Suivant") ;
 
 		this.btnSuivant.setEnabled(true );
+		this.btnRetour .setEnabled(false );
 
 		
 
@@ -47,7 +50,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		/* ----------------------------- */
 
 		this.add( this.btnRetour ) ;
-		this.add( new JLabel("ETAPE : Selection zone") );
+		this.add( new JLabel("") );
 		this.add( this.btnSuivant ) ;
 		this.add( new JLabel("") );
 
@@ -62,11 +65,23 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		if ( e.getSource() == this.btnRetour ){ System.out.println("btn retour") ;}
+		if ( e.getSource() == this.btnRetour )
+		{ 
+			System.out.println("btn retour") ;
+			this.panelModification.passerEtapeZone();
+			this.panelSud.afficherMsgZone() ;
+			this.btnSuivant.setEnabled(true );
+			this.btnRetour .setEnabled(false );
+		}
+
+		
 		if ( e.getSource() == this.btnSuivant)
 		{ 
 			System.out.println("btn suivant");
 			this.panelModification.passerEtapeSymbole();
+			this.panelSud.afficherMsgSymbole() ;
+			this.btnSuivant.setEnabled(false );
+			this.btnRetour .setEnabled(true );
 		
 		}
 	}

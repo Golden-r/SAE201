@@ -14,12 +14,12 @@ import java.awt.Color;
 public enum ESymbole
 
 {
-	MAISONS     ("Maisons"     , 'M' ),
-	IMMEUBLES   ("Immeubles"   , 'I' ),
-	HOTELS      ("Hôtels"      , 'H' ),
-	RESTAURANTS ("Restaurants" , 'R' ),
-	ECOLES      ("Écoles"      , 'E' ),
-	USINES      ("Usines"      , 'U' );
+	MAISONS     ("Maisons"     , 'm' ),
+	IMMEUBLES   ("Immeubles"   , 'i' ),
+	HOTELS      ("Hôtels"      , 'h' ),
+	RESTAURANTS ("Restaurants" , 'r' ),
+	ECOLES      ("Écoles"      , 'e' ),
+	USINES      ("Usines"      , 'u' );
 
     private String libelle;
     private char   nom ;

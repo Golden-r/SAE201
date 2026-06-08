@@ -29,6 +29,9 @@ public class PanelPlateauOuest extends JPanel implements ActionListener
 	private ButtonGroup  btgRadio ;
 	private JRadioButton cbSelecion ;
 	private JRadioButton cbGomme ;
+
+	private JPanel panelCouleurPrevisu ;
+	private Color  couleurCourante ;
 	
 
 	public PanelPlateauOuest( Controleur ctrl ) 
@@ -37,6 +40,7 @@ public class PanelPlateauOuest extends JPanel implements ActionListener
 
 		this.setLayout( new GridLayout( 2 , 1 ));
 		this.setBackground( Color.LIGHT_GRAY );
+		this.setBorder( BorderFactory.createEmptyBorder( 10 , 10,  10, 10));
 
 		/* ----------------------------- */
 		/* Création des composants       */
@@ -44,6 +48,9 @@ public class PanelPlateauOuest extends JPanel implements ActionListener
 
 		JPanel panelChoix        = new JPanel( new GridLayout( 2 , 1) ) ;
 		JPanel panelEdition      = new JPanel( new GridLayout( 6 , 1) ) ;
+
+		panelChoix  .setBorder( BorderFactory.createEmptyBorder( 10 , 25,  10, 10));
+		panelEdition.setBorder( BorderFactory.createEmptyBorder( 10 , 25,  10, 10));
 
 		this.jcbZone = new JComboBox<String>( this.ctrl.getZones() );
 
@@ -53,6 +60,14 @@ public class PanelPlateauOuest extends JPanel implements ActionListener
 		this.cbGomme    = new JRadioButton("cbGomme"                 );
 
 
+
+		this.couleurCourante = this.ctrl.getCouleurProchaineZone( 0 ) ;
+		this.panelCouleurPrevisu = new PanelCouleur() ;
+		this.panelCouleurPrevisu.setPreferredSize( new Dimension(60, 60) );
+
+		
+
+
 		/* ----------------------------- */ 
 		/* Positionnement des composants */
 		/* ----------------------------- */
@@ -60,7 +75,7 @@ public class PanelPlateauOuest extends JPanel implements ActionListener
 		this.add( panelChoix   );
 
 		panelChoix.add( this.jcbZone ) ;
-		panelChoix.add( new JLabel("Image previsualiation") ) ;
+		panelChoix.add( this.panelCouleurPrevisu ) ;
 
 
 
@@ -87,8 +102,35 @@ public class PanelPlateauOuest extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (e.getSource() == this.jcbZone)
-			this.ctrl.setIndiceZoneSelectionnee(this.jcbZone.getSelectedIndex());
+		if (e.getSource() == this.jcbZone) 
+		{ 
+			this.ctrl.setIndiceZoneSelectionnee(this.jcbZone.getSelectedIndex()) ;
+			this.mettreAJourPrevisu();
+		}
+	}
+
+	public void mettreAJourPrevisu()
+	{
+		int indice = this.jcbZone.getSelectedIndex() ;
+		
+		this.couleurCourante = this.ctrl.getCouleurProchaineZone( indice ) ;
+		this.panelCouleurPrevisu.repaint() ;
+	}
+
+
+
+	private class PanelCouleur extends JPanel
+	{
+		public void paintComponent(Graphics g) 
+		{
+			super.paintComponent(g);
+			
+			g.setColor( PanelPlateauOuest.this.couleurCourante );
+			g.fillRect( 10, 5, 40, 40 ); 
+			
+			g.setColor( Color.BLACK );
+			g.drawRect( 10, 5, 40, 40 ); 
+		}
 	}
 
 }
