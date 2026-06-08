@@ -98,7 +98,7 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		this.lblNbCouleur = new JLabel("0" );
 		this.tabCbCouleur = new JCheckBox[ECouleur.values().length] ;
-		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length-1 ; cpt++ ) 
 			this.tabCbCouleur[cpt] = new JCheckBox( ECouleur.values()[cpt].getLibelle() ) ;
 
 
@@ -125,7 +125,7 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		//TODO
 		//(A supprimer , laisser pour debug)
-		for ( int cpt = 0 ; cpt < 5; cpt++ ) 
+		for ( int cpt = 0 ; cpt < 6; cpt++ ) 
 		{
 			this.tabCbCouleur[cpt].setSelected(true );
 			this.tabCbSymbole[cpt].setSelected(true );
@@ -149,7 +149,7 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		this.tabPanelCreation[1].add( new JLabel("Réseau    sélectionné [ ") );
 		this.tabPanelCreation[1].add ( this.lblNbCouleur );
 		this.tabPanelCreation[1].add( new JLabel(" ] :") );
-		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length-1 ; cpt++ ) 
 			this.tabPanelCreation[1].add(this.tabCbCouleur[cpt] );
 
 		this.tabPanelCreation[2].add( new JLabel("Bâtiment sélectionné [ ") );
@@ -193,7 +193,7 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		this.btnReinitialiser.addActionListener(this);
 
 
-		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ ) 
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length-1 ; cpt++ ) 
 			this.tabCbCouleur[cpt].addItemListener(this);
 
 		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ )

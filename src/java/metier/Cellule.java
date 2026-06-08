@@ -17,6 +17,8 @@ public class Cellule
 
     private boolean estVide ;
 
+    private boolean estBase ;
+
     /*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
@@ -29,6 +31,7 @@ public class Cellule
         this.zone         = null         ;
 
         this.estVide      = true         ;
+        this.estBase      = false        ;
     }
 
     /*----------------------------*/
@@ -58,6 +61,7 @@ public class Cellule
 	/*----------------------------*/
 
     public boolean estVide() { return this.symbole == null ; }
+    public boolean estBase() { return this.estBase == true ; }
 
     /*----------------------------*/
 	/*  Méthodes                  */
@@ -66,8 +70,15 @@ public class Cellule
     
     public String toString()
     {
-        return "Cellule (" + this.coordonneeX + "," + this.coordonneeY + ") : " ;
+        return ""         + this.coordonneeX 
+                    + "," + this.coordonneeY 
+                    + "," + this.symbole.getTypeSymbole() 
+                    + "," + this.symbole.getCouleurBase() 
+                    + "," + this.zone.getCouleur()
+                    + "," + this.zone.getTypeZone()
+                    + "," + this.zone.getId()
+                    + "," + this.estVide
+                    + "," + this.estBase ;
     }
-    
-	
+
 }

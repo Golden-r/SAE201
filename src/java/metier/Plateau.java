@@ -24,13 +24,14 @@ public class Plateau
 	private int tailleCellule;
 
 	private Cellule[][] plateau;
-	
+
+	private ArrayList<Cellule> ensBases   ;
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
 	private ArrayList<Liaison> ensLiaison ;
 	private ArrayList<Zone>    ensZones   ;
 
-	private int  etapeConception ;
+	private int  etapeConception ; // 1 = zone , 2 = symbole , 3 = base
 	private Zone zoneCourante;
 
 
@@ -54,6 +55,7 @@ public class Plateau
 	
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
+		this.ensBases   = new ArrayList<Cellule>();
 		this.ensLiaison = new ArrayList<Liaison>();
 		this.ensZones   = new ArrayList<Zone>   ();
 
@@ -65,9 +67,9 @@ public class Plateau
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int     getTailleLargeur  ()     { return this.largeur;    }
-	public int     getTailleLongueur ()     { return this.longueur;   }
-	public int     getTailleCellule  ()     { return this.tailleCellule; }
+	public int     getTailleLargeur  ()             { return this.largeur       ;}
+	public int     getTailleLongueur ()             { return this.longueur      ;}
+	public int     getTailleCellule  ()             { return this.tailleCellule ;}
 	public Cellule getCellule        (int x, int y) 
 	{
 		if (!estDansPlateau(x, y)) return null;
@@ -195,6 +197,11 @@ public class Plateau
 
 	}
 
+	public void setBaseDansCellule(Cellule cellule, ECouleur base)
+	{
+		
+	} 
+
 	public void setEtapeConception( int etape  )                   { this.etapeConception = etape ;}
 	public void setZoneCourante   ( Zone zone  )                   { this.zoneCourante    = zone  ;}
 	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison  ;}
@@ -219,7 +226,6 @@ public class Plateau
 		for ( int i = 0 ; i < batiments.size() ; i++ ) 
 			for ( int j = i + 1 ; j < batiments.size() ; j++ ) 
 				this.ajouterLiaison(batiments.get(i), batiments.get(j), couleur) ;
-
 	}
 
     public boolean estDansPlateau( int x, int y )            { return x >= 0 && x < longueur && y >= 0 && y < largeur; }
@@ -381,4 +387,19 @@ public class Plateau
 
 		return nb;
 	}
+
+	public void initialiserEnsBases ()
+	{
+		for ( int cpt1 = 0 ; cpt1 < plateau.length ; cpt1 ++ )
+		{
+			for ( int cpt2 = 0 ; cpt2 < plateau[cpt1].length ; cpt2++ )
+			{
+				if ( this.plateau[cpt1][cpt2].estBase() )
+				{
+					this.ensBases.add( this.plateau[cpt1][cpt2] ) ;
+				}
+			}
+		}
+	}
+	
 }

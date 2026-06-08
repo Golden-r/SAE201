@@ -73,101 +73,106 @@ public class PanelPlateau extends JPanel
 	{
 		public void mouseClicked(MouseEvent e)
 		{
-			
-			if (e.getButton() == MouseEvent.BUTTON1)
-			{
-				int taille = ctrl.getTailleCellule();
-				int col = e.getX() / taille;
-				int lig = e.getY() / taille;
-				
-
-				if ( PanelPlateau.this.ctrl.getEtapeConception() == 1 )  
-				{
-
-					if (PanelPlateau.this.estDansPlateau(col, lig)) 
-					{
-
-						if ( PanelPlateau.this.panelModification.getModeSelection() )
-						{
-							PanelPlateau.this.ctrl.setZoneCourante( ctrl.clicSurCase(col, lig, (PanelPlateau.this.ctrl.getZoneCourante() == null ? null : PanelPlateau.this.ctrl.getZoneCourante()))) ;
-						}
-						else
-						{
-							ctrl.reinitialiserCellule(col, lig);
-						}
-							
-						PanelPlateau.this.panelModification.mettreAJourNbZones();
-						
-					}
-				}
-				else 
-				{
-					if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 )
-					{
-					
-						if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
-						{
-							ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionner();
-							if (sym != null) 
-							{
-								ctrl.clicSurCaseSymbole(col, lig, sym);
-							}
-						} 
-						else
-						{
-							ctrl.retirerSymbole(col, lig);
-						}
-						
-					}
-					else
-					{
-
-					}
-				}
-
-
-
-				repaint();
-			}
-			
-			if (e.getButton() == MouseEvent.BUTTON3) { ctrl.setZoneCourante(null) ;}
-
-		}
-
-		public void mouseMoved(MouseEvent e) 
-		{
 			int taille = ctrl.getTailleCellule();
 			int col = e.getX() / taille;
 			int lig = e.getY() / taille;
+			
+			
+			if (!PanelPlateau.this.estDansPlateau(col, lig)) return; // si c'est pas dans le plateau
 
-
-			if (PanelPlateau.this.estDansPlateau(col, lig)) 
+			if ( PanelPlateau.this.ctrl.getEtapeConception() == 1 ) //etape selection zone 
 			{
-				if (hoveredLig != lig || hoveredCol != col) 
+				
+				if (e.getButton() == MouseEvent.BUTTON1)
 				{
-					hoveredLig = lig;
-					hoveredCol = col;
+					if ( PanelPlateau.this.panelModification.getModeSelection() )
+					{
+						PanelPlateau.this.ctrl.setZoneCourante( ctrl.clicSurCase(col, lig, (PanelPlateau.this.ctrl.getZoneCourante() == null ? null : PanelPlateau.this.ctrl.getZoneCourante()))) ;
+					}
+					else
+					{
+						ctrl.reinitialiserCellule(col, lig);
+					}
+						
+					PanelPlateau.this.panelModification.mettreAJourNbZones();
 				}
-			} 
-			else 
+
+				if (e.getButton() == MouseEvent.BUTTON3) { ctrl.setZoneCourante(null) ;}
+				
+			}				
+				
+			if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 )
 			{
-				if (hoveredLig != -1 || hoveredCol != -1) 
+			
+				if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
 				{
-					hoveredLig = -1;
-					hoveredCol = -1;
+					ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionne();
+					if (sym != null) 
+					{
+						ctrl.clicSurCaseSymbole(col, lig, sym);
+					}
+				} 
+				else
+				{
+					ctrl.retirerSymbole(col, lig);
+				}
+				
+			}
+
+			if ( PanelPlateau.this.ctrl.getEtapeConception() == 3 ) //etape selection base
+			{
+				if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
+				{
+					ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionne();
+
+				}
+				else
+				{
+					//ctrl.retirerSymbole(col, lig);
 				}
 			}
-			repaint();
-		}
-
-
-		public void mouseExited(MouseEvent e) 
-		{
-			hoveredLig = -1;
-			hoveredCol = -1;
+				
+			
 			repaint();
 		}
 	}
+
+
+	public void mouseMoved(MouseEvent e) 
+	{
+		int taille = ctrl.getTailleCellule();
+		int col = e.getX() / taille;
+		int lig = e.getY() / taille;
+
+
+		if (PanelPlateau.this.estDansPlateau(col, lig)) 
+		{
+			if (hoveredLig != lig || hoveredCol != col) 
+			{
+				hoveredLig = lig;
+				hoveredCol = col;
+			}
+		} 
+		else 
+		{
+			if (hoveredLig != -1 || hoveredCol != -1) 
+			{
+				hoveredLig = -1;
+				hoveredCol = -1;
+			}
+		}
+		
+		repaint();
+	}
+
+
+	public void mouseExited(MouseEvent e) 
+	{
+		hoveredLig = -1;
+		hoveredCol = -1;
+		repaint();
+	}
+	
 
 
 
@@ -196,15 +201,14 @@ public class PanelPlateau extends JPanel
 					g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, taille / 2));
 					
 					
-					String nomFichier = this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getNom() + ".png" ;
-					String chemin     = "./src/ressource/images/" + nomFichier;
+					String nomFichier = this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getLibelle() + ".png" ;
+					String chemin     = "./src/ressource/images/Symboles/" + nomFichier ; //"./src/ressource/images" + nomFichier;
+
 
 					Image image = new ImageIcon(chemin).getImage();
 					
 					g.drawImage(image, x , y,this.ctrl.getTailleCellule() , this.ctrl.getTailleCellule() , null);
 					
-					//g.drawImage()					String lettre = String.valueOf(this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getNom());
-					//g.drawString(lettre, x + (taille / 3), y + (taille / 2) + (taille / 6));
 				}
 				
 

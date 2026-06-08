@@ -12,15 +12,14 @@ import java.awt.Color;
 
 public enum ECouleur
 {
-    TEST  ("LIAISON" , Color.GRAY  ),
+    BLEU    ("Eau potable"           , Color.BLUE           ),
+	JAUNE   ("Électricité"           , Color.YELLOW         ),
+	ROUGE   ("Gaz de ville"          , Color.RED            ),
+	VERT    ("Fibre optique"         , Color.GREEN          ),
+	MARRON  ("Égouts et eaux usées"  , new Color (137,81,41)),
+	NOIR    ("Ramassage des déchets" , Color.BLACK          ),
 
-
-    BLEU  ("Eau potable"           , Color.BLUE   ),
-	JAUNE ("Électricité"           , Color.YELLOW ),
-	ROUGE ("Gaz de ville"          , Color.RED    ),
-	VERT  ("Fibre optique"         , Color.GREEN  ),
-	MARRON("Égouts et eaux usées"  , new Color (137,81,41)),
-	NOIR  ("Ramassage des déchets" , Color.BLACK  );
+    LIAISON ("LIAISON"               , Color.GRAY           );
 
     private String libelle;
     private Color  couleur;

@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 
 import metier.ESymbole;
+import metier.ECouleur;
 
  
 /* SAE 2.01 | Développement d'une application 
@@ -129,8 +130,9 @@ public class PanelModification extends JPanel
 	
 	
 
-	public boolean  getModeSelection()        { return this.panelPlateauOuestZone.getModeSelection()         ;}
-	public int      getZoneSelectioner()      { return this.panelPlateauOuestZone.getZoneSelectioner()       ;}
-	public boolean  getModePlacementSymbole() { return this.panelPlateauOuestSymbole.getModePlacement()      ;}
-	public ESymbole getSymboleSelectionner()  { return this.panelPlateauOuestSymbole.getSymboleSelectionne() ;}
+	public boolean  getModeSelection()        { return this.panelPlateauOuestZone   .getModeSelection  ()         ;}
+	public int      getZoneSelectioner()      { return this.panelPlateauOuestZone   .getZoneSelectioner()       ;}
+	public boolean  getModePlacementSymbole() { return this.panelPlateauOuestSymbole.getModePlacement  ()      ;}
+	public ESymbole getSymboleSelectionne ()  { return this.panelPlateauOuestSymbole.getSymboleSelectionne() ;}
+	public ECouleur getBaseSelectione      () { return this.panelPlateauOuestBase   .getBaseSelectionne() ;}
 	}

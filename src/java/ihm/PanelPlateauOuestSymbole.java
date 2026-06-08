@@ -2,6 +2,7 @@ package ihm;
 
 import controleur.Controleur;
 import metier.ESymbole;
+import metier.ECouleur;
 
 import javax.swing.*;
 import java.awt.GridLayout;
@@ -54,7 +55,7 @@ public class PanelPlateauOuestSymbole extends JPanel  implements ActionListener
 
 		for (int cpt = 0; cpt < ESymbole.values().length; cpt++) 
 		{
-			if (lstActifs.get(cpt) == 1) 
+			if (lstActifs.get(cpt) == 1 ) 
 			{
 				symbolesDispo.add( ESymbole.values()[cpt].getLibelle() );
 			}
@@ -110,18 +111,19 @@ public class PanelPlateauOuestSymbole extends JPanel  implements ActionListener
 		return null;
 	}
 
+
 	private void mettreAJourImage()
 	{
 		ESymbole sym = this.getSymboleSelectionne();
 		
 		if (sym != null)
 		{
-			String nomFichier = sym.getNom() + ".png";
-			String chemin     = "./src/ressource/images/" + nomFichier;
-			
-			ImageIcon iconeOriginale = new ImageIcon(chemin);
-			
-			Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+			String nomFichier = sym.getLibelle() + ".png";
+			String chemin     = "./src/ressource/images/Symboles/" + nomFichier;
+
+
+			ImageIcon iconeOriginale    = new ImageIcon(chemin);
+			Image     imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
 			
 			this.lblImagePrevisu.setIcon(new ImageIcon(imgRedimensionnee));
 		}

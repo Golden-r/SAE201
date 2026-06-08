@@ -51,7 +51,7 @@ public class GestionFichier
 
             sc.close();
         }
-		catch (FileNotFoundException e) { System.out.println("Erreur: Le fichier est introuvable.")             ;} 
+		catch (FileNotFoundException e) { System.out.println("Erreur: Le fichier est introuvable.")                ;} 
 		catch (Exception e)             { System.out.println("Erreur de lecture ou de format : " + e.getMessage()) ;}
 
         return proprietes;

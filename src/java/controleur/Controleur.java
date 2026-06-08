@@ -52,26 +52,27 @@ public class Controleur
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int                getTailleLargeur ()                   { return this.metierPlateau.getTailleLargeur ()                               ;}
-	public int                getTailleLongueur()                   { return this.metierPlateau.getTailleLongueur() 	                          ;}
-	public int                getTailleCellule ()                   { return this.metierPlateau.getTailleCellule () 	                          ;}
-	public ArrayList<Integer> getLstCouleur    ()                   { return this.metierPlateau.getLstCouleur    () 	                          ;}
-	public ArrayList<Integer> getLstSymbole    ()                   { return this.metierPlateau.getLstSymbole    () 	                          ;}
-	public ArrayList<Liaison> getEnsLiaisons   ()                   { return this.metierPlateau.getEnsLiaison    ()                               ;}
-	public ArrayList<Zone   > getLibelleZone   ()                   { return this.metierPlateau.getEnsZones      () 	                          ;}
-	public String[]           getZones         ()                   { return EZone.getZonesLibelles              () 	                          ;}
-	public Cellule            getCellule      (int x, int y)        { return this.metierPlateau.getCellule       (x,y)                            ;}
+	public int                getTailleLargeur       ()             { return this.metierPlateau.getTailleLargeur ()                               ;}
+	public int                getTailleLongueur      ()             { return this.metierPlateau.getTailleLongueur() 	                          ;}
+	public int                getTailleCellule       ()             { return this.metierPlateau.getTailleCellule () 	                          ;}
+	public ArrayList<Integer> getLstCouleur          ()             { return this.metierPlateau.getLstCouleur    () 	                          ;}
+	public ArrayList<Integer> getLstSymbole          ()             { return this.metierPlateau.getLstSymbole    () 	                          ;}
+	public ArrayList<Liaison> getEnsLiaisons         ()             { return this.metierPlateau.getEnsLiaison    ()                               ;}
+	public ArrayList<Zone   > getLibelleZone         ()             { return this.metierPlateau.getEnsZones      () 	                          ;}
+	public String[]           getZones               ()             { return EZone.getZonesLibelles              () 	                          ;}
+	public Cellule            getCellule             (int x, int y) { return this.metierPlateau.getCellule       (x,y)                            ;}
 	public Color              getCouleurProchaineZone( int indice ) { return this.metierPlateau.getCouleurProchaineZone( EZone.values()[indice] ) ;}
-	public int                getEtapeConception()                  { return this.metierPlateau.getEtapeConception()                              ;}
-	public Zone               getZoneCourante   ()                  { return this.metierPlateau.getZoneCourante   ()                              ;}
-	public int                getNbZonesDistinctes()                { return this.metierPlateau.getNbZonesDistinctes()                            ;}
-    public int                getNbLiaisons()                       { return this.metierPlateau.getEnsLiaison().size()                            ;}
-	public int[][]            getCheminLiaison ( int indice )       { return this.metierPlateau.getCheminLiaison( indice )                        ;}
-	public Color              getCouleurLiaison( int indice )
+	public int                getEtapeConception     ()             { return this.metierPlateau.getEtapeConception()                              ;}
+	public Zone               getZoneCourante        ()             { return this.metierPlateau.getZoneCourante   ()                              ;}
+	public int                getNbZonesDistinctes   ()             { return this.metierPlateau.getNbZonesDistinctes()                            ;}
+    public int                getNbLiaisons          ()             { return this.metierPlateau.getEnsLiaison().size()                            ;}
+	public int[][]            getCheminLiaison       ( int indice ) { return this.metierPlateau.getCheminLiaison( indice )                        ;}
+	public Color              getCouleurLiaison      ( int indice )
 	{
 		metier.Liaison l = this.metierPlateau.getEnsLiaison().get( indice ) ;
 
-		if ( l.getReseau() != null ){ return l.getReseau().getCouleur() ;}
+		if ( l.getReseau() != null )
+			return l.getReseau().getCouleur();
 
 		return Color.BLACK ;
 	}
@@ -82,10 +83,10 @@ public class Controleur
 	/*  Modificateur              */
 	/*----------------------------*/
 
-	public void setIndiceZoneSelectionnee ( int  indice) { this.indiceZone = indice ;}
-	public void setEtapeConception        ( int  etape ) { this.metierPlateau.setEtapeConception(etape) ;}
-	public void setZoneCourante           ( Zone zone  ) { this.metierPlateau.setZoneCourante   (zone ) ;}
-
+	public void setIndiceZoneSelectionnee ( int  indice  )                  { this.indiceZone = indice                             ;}
+	public void setEtapeConception        ( int  etape   )                  { this.metierPlateau.setEtapeConception(etape)         ;}
+	public void setZoneCourante           ( Zone zone    )                  { this.metierPlateau.setZoneCourante   (zone )         ;}
+	public void setCelluleBase            ( Cellule cellule, ECouleur base) { this.metierPlateau.setBaseDansCellule(cellule, base) ;}
 
 	
 
@@ -177,7 +178,7 @@ public class Controleur
 
 	public void afficherLiasons()
 	{
-		this.metierPlateau.relierToutLesSymbole(ECouleur.TEST);
+		this.metierPlateau.relierToutLesSymbole(ECouleur.LIAISON);
 	}
 
 	public void clicSurCaseSymbole(int x, int y, ESymbole esymbole) 

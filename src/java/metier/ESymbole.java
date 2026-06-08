@@ -23,13 +23,16 @@ public enum ESymbole
 
     private String libelle;
     private char   nom ;
+    private String nomImage;
 
     ESymbole ( String libelle, char nom )
     {
-        this.libelle = libelle;
-        this.nom     = nom    ;
+        this.libelle  = libelle;
+        this.nom      = nom    ;
+        this.nomImage = libelle;
     }
 
-    public String getLibelle(){ return this.libelle ;}
-    public char   getNom()    { return this.nom ;    }
+    public String getLibelle()  { return this.libelle  ;}
+    public char   getNom()      { return this.nom      ;}
+    public String getNomImage() { return this.nomImage ;}
 }

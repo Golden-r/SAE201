@@ -1,5 +1,6 @@
 package metier;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /* SAE 2.01 | Développement d'une application 
@@ -30,7 +31,7 @@ public class Liaison
 	{
 		this.depart  = depart;
 		this.arrivee = arrivee;
-		this.reseau  = reseau;
+		this.reseau = reseau;
 		this.CelluleTraversees = CelluleTraversees;
 	}
 	
@@ -40,7 +41,7 @@ public class Liaison
 	
 	public Cellule         		getDepart			() { return this.depart;          }
 	public Cellule         		getArrivee			() { return this.arrivee;         }
-	public ECouleur        		getReseau			() { return this.reseau;          }
+	public ECouleur        		getReseau			() { return this.reseau;         }
 	public ArrayList<Cellule> 	getCelluleTraversees() { return this.CelluleTraversees; }
 	
 	
