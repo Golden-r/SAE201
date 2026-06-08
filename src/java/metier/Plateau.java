@@ -40,8 +40,8 @@ public class Plateau
 
 	public Plateau(int longueur, int largeur, int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
 	{
-		this.largeur    = largeur;
-		this.longueur   = longueur;
+		this.largeur       = largeur;
+		this.longueur      = longueur;
 		this.tailleCellule = tailleCellule;
 
 		System.out.println( largeur + "|" + longueur );
@@ -50,11 +50,7 @@ public class Plateau
 
 		for (int x = 0; x < longueur; x++)
 			for (int y = 0; y < largeur; y++) 
-			{
 				this.plateau[x][y] = new Cellule(x, y);
-				System.out.println(this.plateau[x][y]);
-			}
-
 	
 		this.lstCouleur = lstCouleur;
 		this.lstSymbole = lstSymbole;
@@ -83,6 +79,7 @@ public class Plateau
 			for (int y = 0; y < this.largeur; y++)
 				if (this.plateau[x][y] != null && this.plateau[x][y].getSymbole() == symbole)
 					return this.plateau[x][y];
+		
 		return null;
 	}
 
@@ -104,12 +101,10 @@ public class Plateau
 
 		//vérifie que le mouvement est une ligne droite ou une diagonale
 		if ( distX != 0 && distY != 0 && Math.abs(distX) != Math.abs(distY) ) return null;
-
 	
 		int directionX = 0;
 		if(distX > 0) directionX =  1;
 		if(distX < 0) directionX = -1;
-
 
 		int directionY = 0;
 		if(distY > 0) directionY =  1;
@@ -117,7 +112,6 @@ public class Plateau
 
 		int curseurX = depart.getX() + directionX;
 		int curseurY = depart.getY() + directionY;
-
 
 		while(curseurX != arrivee.getX() || curseurY != arrivee.getY())
 		{
@@ -139,38 +133,25 @@ public class Plateau
 
 	public Color getCouleurProchaineZone( EZone typeZone )
 	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
 		ArrayList<Zone> ensZoneMemeType ;
 		Zone            nvZone          ;
 		int             occurrence      ;
 
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
-
 		ensZoneMemeType = new ArrayList<>() ;
 
-		for ( int cptX = 0 ; cptX < this.longueur ; cptX++ )
+		for(int cptX = 0; cptX < this.longueur; cptX++)
 		{
-			for ( int cptY = 0 ; cptY < this.largeur ; cptY++ )
+			for(int cptY = 0; cptY < this.largeur; cptY++)
 			{
 				Cellule tmpCell = this.plateau[cptX][cptY] ;
 
-				if ( tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone )
-				{
-					if ( !ensZoneMemeType.contains( tmpCell.getZone() ) )
-					{
-						ensZoneMemeType.add( tmpCell.getZone() ) ;
-					}
-				}
+				if(tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone)
+					if(!ensZoneMemeType.contains(tmpCell.getZone()))
+						ensZoneMemeType.add(tmpCell.getZone()) ;
 			}
 		}
 
 		occurrence = ensZoneMemeType.size() ;
-
 
 		nvZone = new Zone( typeZone ) ;
 		nvZone.setCouleur( typeZone, 0, occurrence ) ;
@@ -182,18 +163,15 @@ public class Plateau
 	{
 		ArrayList<Zone> zonesUniques = new ArrayList<Zone>() ;
 
-
 		for ( int cptX = 0 ; cptX < this.longueur ; cptX++ )
 			for ( int cptY = 0 ; cptY < this.largeur ; cptY++ )
 			{
 				Cellule tmpCell = this.plateau[cptX][cptY] ;
 
 				if ( tmpCell != null && tmpCell.getZone() != null )
-				{
-					if ( !zonesUniques.contains( tmpCell.getZone() ) )  { zonesUniques.add( tmpCell.getZone() ) ;}
-				}
+					if ( !zonesUniques.contains( tmpCell.getZone() ) )
+						zonesUniques.add( tmpCell.getZone() ) ;
 			}
-
 
 		return zonesUniques.size() ;
 	}
@@ -205,25 +183,19 @@ public class Plateau
     
 	public void setSymboleDansCellule(Cellule cellule, Symbole symbole) 
 	{
-		if ( this.estDansPlateau(cellule.getX(), cellule.getY()) )//&& zone != null) 
-		{
+		if ( this.estDansPlateau(cellule.getX(), cellule.getY()) )
 			plateau[cellule.getX()][cellule.getY()].setSymbole(symbole);
-			//cellule.setEstVide(false);
-		}
-
 	}
 
 	public void setZoneDansCellule(Cellule cellule , Zone zone) 
 	{
 		if ( this.estDansPlateau(cellule.getX(), cellule.getY())) 
-		{
 			plateau[cellule.getX()][cellule.getY()].setZone(zone);
-		}
 
 	}
 
-	public void setEtapeConception( int etape  ) { this.etapeConception = etape ;}
-	public void setZoneCourante   ( Zone zone  ) { this.zoneCourante    = zone  ;}
+	public void setEtapeConception( int etape  )                   { this.etapeConception = etape ;}
+	public void setZoneCourante   ( Zone zone  )                   { this.zoneCourante    = zone  ;}
 	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison  ;}
 
 	/*----------------------------*/
@@ -243,21 +215,14 @@ public class Plateau
 			}
 		}
 
-		for ( int i = 0 ; i < batiments.size() ; i++ ) {
-			for ( int j = i + 1 ; j < batiments.size() ; j++ ) {
-				
+		for ( int i = 0 ; i < batiments.size() ; i++ ) 
+			for ( int j = i + 1 ; j < batiments.size() ; j++ ) 
 				this.ajouterLiaison(batiments.get(i), batiments.get(j), couleur) ;
-			}
-		}
+
 	}
 
-    public boolean estDansPlateau( int x, int y ) 
-    {
-        return x >= 0 && x < longueur && y >= 0 && y < largeur;
-    }
-
-
-	public boolean estCroiser(ArrayList<Cellule> trajet)
+    public boolean estDansPlateau( int x, int y )            { return x >= 0 && x < longueur && y >= 0 && y < largeur; }
+	public boolean estCroiser    (ArrayList<Cellule> trajet)
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
 			for(int cptL = 0; cptL < this.ensLiaison.size(); cptL++)
@@ -267,7 +232,7 @@ public class Plateau
 		return false;
 	}
 
-	public boolean existeChemin(Cellule depart, Cellule arrivee, ECouleur couleur)
+	public boolean existeChemin  (Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
 		ArrayList<Cellule> visite  = new ArrayList<Cellule>();
 		ArrayList<Cellule> aVisite = new ArrayList<Cellule>();
@@ -278,7 +243,6 @@ public class Plateau
 		{
 			Cellule tmpCellule = aVisite.remove(0);
 
-
 			if(tmpCellule == arrivee) return true;
 			visite.add(tmpCellule);
 
@@ -286,18 +250,15 @@ public class Plateau
 			{
 				if(l.getReseau() == couleur)
 				{
-					//depart du câble vers une destination non visité -> mise en attente
+					//depart du câble vers une destination non visité
 
 					//Vérification (sens : depart -> arrivee)
 					if(l.getDepart() == tmpCellule && !visite.contains(l.getArrivee()) && !aVisite.contains(l.getArrivee()))
-					{
 						aVisite.add(l.getArrivee());
-					}
+					
 					//Vérification (sens : arrivee -> depart)
 					if(l.getArrivee() == tmpCellule && !visite.contains(l.getDepart()) && !aVisite.contains(l.getDepart()))
-					{
 						aVisite.add(l.getDepart());
-					}
 				}
 			}
 		}
@@ -317,7 +278,6 @@ public class Plateau
 		this.ensLiaison.add(new Liaison(depart, arrivee, couleur, trajet));
 
 		return true;
-
 	}
 
 	public void retirerSymbole(int x, int y)
@@ -354,7 +314,6 @@ public class Plateau
 		}
 
 		tmpCellule.setSymbole(null);
-		//tmpCellule.setEstVide(true);
 
 		if (reseau != null && extremites.size() >= 2)
 			for (int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
@@ -421,6 +380,4 @@ public class Plateau
 
 		return nb;
 	}
-
-
 }

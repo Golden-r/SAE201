@@ -126,10 +126,6 @@ public class PanelModification extends JPanel
 
 		if ( this.panelPlateauOuestZone != null ){ this.panelPlateauOuestZone.mettreAJourPrevisu() ;}
 	}
-
-
-
-	public boolean estEtapeZone(){ return this.ctrl.getEtapeConception() == 1 ;}
 	
 	
 

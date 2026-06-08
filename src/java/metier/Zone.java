@@ -57,18 +57,24 @@ public class Zone
 		this.typeZone = typeZone;
 		this.id       = id;
 
-		Color base = typeZone.getCouleur();
-		int variation = occurrence * 25;
+		Color base      = typeZone.getCouleur();
+		int   variation = occurrence * 25;
 
-		int r = Math.max(0, Math.min(255, base.getRed()   + variation));
-		int g = Math.max(0, Math.min(255, base.getGreen() + variation));
-		int b = Math.max(0, Math.min(255, base.getBlue()  + variation));
+		int r = base.getRed()   + variation;
+		int g = base.getGreen() + variation;
+		int b = base.getBlue()  + variation;
+
+		while (r > 255 || g > 255 || b > 255 || r + g + b > 650)
+		{
+			r -= 85;
+			g -= 85;
+			b -= 85;
+		}
+
+		r = Math.max(0, r);
+		g = Math.max(0, g);
+		b = Math.max(0, b);
 
 		this.couleur = new Color(r, g, b);
 	}
-
-	/*----------------------------*/
-	/*  Méthodes                  */
-	/*----------------------------*/
-
 }

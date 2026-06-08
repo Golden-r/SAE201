@@ -63,7 +63,7 @@ public class Controleur
 	public Color              getCouleurProchaineZone( int indice ) { return this.metierPlateau.getCouleurProchaineZone( EZone.values()[indice] ) ;}
 	public int                getEtapeConception()                  { return this.metierPlateau.getEtapeConception() ;}
 	public Zone               getZoneCourante   ()                  { return this.metierPlateau.getZoneCourante   () ;}
-	public int getNbZonesDistinctes()                               { return this.metierPlateau.getNbZonesDistinctes() ;}
+	public int                getNbZonesDistinctes()                { return this.metierPlateau.getNbZonesDistinctes() ;}
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -189,9 +189,12 @@ public class Controleur
 	
 
 	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone(x , y) ;}
-	public void renitialiserLiaison ()             { this.metierPlateau.setEnsLiaison( new ArrayList<Liaison>() ) ; }
 	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y) ;}
-
+	public void renitialiserLiaison ()             
+	{ 
+		this.metierPlateau.setEnsLiaison( new ArrayList<Liaison>() ) ; 
+	}
+	
 	/*----------------------------*/
 	/*   Main                     */
 	/*----------------------------*/

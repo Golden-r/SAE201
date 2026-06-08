@@ -78,9 +78,9 @@ public class PanelPlateau extends JPanel
 				int taille = ctrl.getTailleCellule();
 				int col = e.getX() / taille;
 				int lig = e.getY() / taille;
-				//
-				// TODO : recoder la logique pour verifier si on est dans l'etape placement des zones.
-				if (PanelPlateau.this.panelModification.estEtapeZone()) 
+				
+
+				if ( PanelPlateau.this.ctrl.getEtapeConception() == 1 )  
 				{
 
 					if (PanelPlateau.this.estDansPlateau(col, lig)) 
@@ -101,26 +101,35 @@ public class PanelPlateau extends JPanel
 				}
 				else 
 				{
-					//
-					if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
+					if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 )
 					{
-						ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionner();
-						if (sym != null) 
+					
+						if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
 						{
-							ctrl.clicSurCaseSymbole(col, lig, sym);
+							ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionner();
+							if (sym != null) 
+							{
+								ctrl.clicSurCaseSymbole(col, lig, sym);
+							}
+						} 
+						else
+						{
+							ctrl.retirerSymbole(col, lig);
 						}
-					} 
+						
+					}
 					else
 					{
-						ctrl.retirerSymbole(col, lig);
+
 					}
-					//
 				}
+
+
+
 				repaint();
 			}
 			
-			if (e.getButton() == MouseEvent.BUTTON3)
-				ctrl.setZoneCourante(null);
+			if (e.getButton() == MouseEvent.BUTTON3) { ctrl.setZoneCourante(null) ;}
 
 		}
 
@@ -179,7 +188,7 @@ public class PanelPlateau extends JPanel
                     g.fillRect(x, y, taille, taille);
                 }
 
-				// 
+				
 				if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getSymbole() != null) 
 				{
 					g.setColor(Color.BLACK); 
@@ -187,7 +196,7 @@ public class PanelPlateau extends JPanel
 					String lettre = String.valueOf(this.ctrl.getCellule(col, lig).getSymbole().getSymbole().getNom());
 					g.drawString(lettre, x + (taille / 3), y + (taille / 2) + (taille / 6));
 				}
-				//
+				
 
 
 				if (lig == this.hoveredLig && col == this.hoveredCol) 
@@ -204,32 +213,48 @@ public class PanelPlateau extends JPanel
 
 
 		// Dessin des liaisons (trajets)
-
-		// TODO : Apres le symbole on initialize les bases
-		
-		for (metier.Liaison l : this.ctrl.getEnsLiaisons())
+	
+		for ( metier.Liaison l : this.ctrl.getEnsLiaisons() )
 		{
-			g.setColor(new Color(0, 0, 0, 120));
-			g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, Math.max(10, taille / 4)));
+			if ( l.getReseau() != null ) { g.setColor( l.getReseau().getCouleur() ) ;}
+			else                         { g.setColor( Color.BLACK )                ;}
 
+			metier.Cellule prec = l.getDepart();
 			java.util.ArrayList<metier.Cellule> traversees = l.getCelluleTraversees();
-			if (traversees == null || traversees.isEmpty()) continue;
 
-			for (int i = 0; i < traversees.size(); i++)
+			if ( traversees != null )
 			{
-				metier.Cellule c = traversees.get(i);
-				if (c == null) continue;
-				int cx = c.getX() * taille;
-				int cy = c.getY() * taille;
-				g.setColor(new Color(0, 0, 0, 120));
+				for ( int i = 0 ; i < traversees.size() ; i++ )
+				{
+					metier.Cellule courante = traversees.get(i);
+					
+					if ( courante != null && prec != null )
+					{
+						int x1 = prec.getX()    * taille + (taille / 2) ;
+						int y1 = prec.getY()    * taille + (taille / 2) ;
+						int x2 = courante.getX() * taille + (taille / 2) ;
+						int y2 = courante.getY() * taille + (taille / 2) ;
+						
+						g.drawLine( x1, y1, x2, y2 );
+					}
+					
+					prec = courante;
+				}
+			}
+
+
+			metier.Cellule arrivee = l.getArrivee();
+			
+			if ( prec != null && arrivee != null )
+			{
+				int x1 = prec.getX()    * taille + (taille / 2) ;
+				int y1 = prec.getY()    * taille + (taille / 2) ;
+				int x2 = arrivee.getX() * taille + (taille / 2) ;
+				int y2 = arrivee.getY() * taille + (taille / 2) ;
 				
-				// Petit rectangle “câble” centré dans la cellule
-				int pad = Math.max(3, taille / 8);
-				int w = taille - 2 * pad;
-				g.fillRect(cx + pad, cy + pad, w, w);
+				g.drawLine( x1, y1, x2, y2 );
 			}
 		}
-			//
 		
 	}
 
