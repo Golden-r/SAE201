@@ -487,7 +487,7 @@ public class Plateau
 				{ 
 					// On récupère le nom de l'enum sous forme de texte (ou "null" si vide)
 					String nomZone    = (c.getZone()    != null) ? c.getZone().getTypeZone().name()   : "null";
-					String nomSymbole = (c.getSymbole() != null) ? c.getSymbole().getSymbole().name() : "null";
+					String nomSymbole = (c.getSymbole() != null) ? c.getSymbole().getTypeSymbole().name() : "null";
 					
 					// Format de sauvegarde : X,Y,Zone,Symbole (ex: 5,10,ZONE1,MAISONS)
 					lstEnregistrement.add(x + "," + y + "," + nomZone + "," + nomSymbole);
