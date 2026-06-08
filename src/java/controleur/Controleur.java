@@ -190,11 +190,9 @@ public class Controleur
 
 		EZone typeSelectionne = EZone.values()[this.indiceZone];
 
-		// Already assigned → do nothing
 		if (zoneCell != null)
 			return zoneCell;
 
-		// Create new zone if needed
 		if (zoneCourante == null || zoneCourante.getTypeZone() != typeSelectionne)
 		{
 			ArrayList<Zone> ensZoneMemeType = new ArrayList<>();
@@ -224,7 +222,6 @@ public class Controleur
 			return nvZone;
 		}
 
-		// Extend existing zone (adjacency)
 		boolean estAdjacent = false;
 
 		for (int dx = -1; dx <= 1; dx++)
