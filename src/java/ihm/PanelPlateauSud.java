@@ -17,7 +17,7 @@ public class PanelPlateauSud extends JPanel
 {
 	private Controleur ctrl;
 
-    private JLabel lblMessage ;
+	private JLabel lblMessage ;
 
 
 	public PanelPlateauSud( Controleur ctrl ) 
@@ -49,15 +49,20 @@ public class PanelPlateauSud extends JPanel
 		
 	}
 
-    public void afficherMsgSymbole()
-    {
-        this.lblMessage.setText( "Veuillez sélectionner les symboles et enregistrer." );
-    }
+	public void afficherMsgZone()
+	{
+		this.lblMessage.setText( "Veuillez sélectionner les zones et passer à l'étape suivante." ); 
+	}
 
-    public void afficherMsgZone()
-    {
-       this.lblMessage.setText( "Veuillez sélectionner les zones et passer à l'étape suivante." ); 
-    }
+	public void afficherMsgSymbole()
+	{
+		this.lblMessage.setText( "Veuillez sélectionner les symboles et passer à l'étape suivante." );
+	}
+
+	public void afficherMsgBase()
+	{
+		this.lblMessage.setText( "Veuillez sélectionner les bases de départ (marqueurs bases) et enregistrer." ); 
+	}
 
 
 }

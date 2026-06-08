@@ -40,8 +40,6 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.btnRetour  = new JButton("Retour") ;
 		this.btnSuivant = new JButton("Suivant") ;
 
-		this.btnSuivant.setEnabled(true );
-		this.btnRetour .setEnabled(false );
 
 		
 
@@ -66,22 +64,56 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		if ( e.getSource() == this.btnRetour )
-		{ 
-			System.out.println("btn retour") ;
-			this.panelModification.passerEtapeZone();
-			this.panelSud.afficherMsgZone() ;
-			this.btnSuivant.setEnabled(true );
-			this.btnRetour .setEnabled(false );
+		{
+			switch ( this.ctrl.getEtapeConception() ) 
+			{
+				case 1:
+					this.ctrl.retourCreation() ;
+					break;
+			
+				case 2:
+					this.panelModification.passerEtapeZone();
+					this.panelSud.afficherMsgZone() ;
+					break;
+
+				case 3:
+					this.panelModification.passerEtapeSymbole();
+					this.panelSud.afficherMsgSymbole();
+					break; 
+
+				default:
+					break;
+			}
+
+			
 		}
 
 		
-		if ( e.getSource() == this.btnSuivant)
-		{ 
-			System.out.println("btn suivant");
-			this.panelModification.passerEtapeSymbole();
-			this.panelSud.afficherMsgSymbole() ;
-			this.btnSuivant.setEnabled(false );
-			this.btnRetour .setEnabled(true );
+		else if ( e.getSource() == this.btnSuivant)
+		{
+
+			switch ( this.ctrl.getEtapeConception() ) 
+			{
+				case 1:
+					this.panelModification.passerEtapeSymbole();
+					this.panelSud.afficherMsgSymbole();
+					break;
+			
+				case 2:
+					this.panelModification.passerEtapeBase();
+					this.panelSud.afficherMsgBase();
+					break;
+
+				case 3:
+					//Ouvrir menu enregistrer sous.
+					break; 
+
+				default:
+					break;
+			}
+
+
+			
 		
 		}
 	}

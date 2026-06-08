@@ -59,7 +59,7 @@ public class TestSimulation {
         Cellule c = p.getCellule(x, y);
         if (c != null) {
             p.setSymboleDansCellule(c, s);
-            c.setEstVide(false); 
+            //c.setEstVide(false); 
         }
     }
 

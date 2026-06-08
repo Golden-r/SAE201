@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import metier.ESymbole;
 
-
-
+ 
 /* SAE 2.01 | Développement d'une application 
 * PanelModification
 *
@@ -26,14 +26,13 @@ public class PanelModification extends JPanel
 	private Controleur ctrl ;
 
 	private PanelPlateau      			panelPlateau ;
-	private PanelPlateauNord  			panelNord ;
-	private PanelPlateauOuest 			panelOuest ; 
-	private PanelPlateauOuestSymbole 	panelOuestSymbole ;
+	private PanelPlateauNord  			panelPlateauNord ;
+	private PanelPlateauOuest 			panelPlateauOuestZone ; 
+	private PanelPlateauOuestSymbole 	panelPlateauOuestSymbole ;
+	private PanelPlateauOuestBase       panelPlateauOuestBase;
 	private PanelPlateauSud 			panelSud ;
 	private JPanel 			  			panelEst ;
 
-	
-	private boolean etapeZone = true;
 
 	public PanelModification( Controleur ctrl ) 
 	{
@@ -48,12 +47,13 @@ public class PanelModification extends JPanel
 		this.panelPlateau 		= new PanelPlateau( this.ctrl, this );
 
 		this.panelSud   		= new PanelPlateauSud( this.ctrl ) ;
-		this.panelNord  		= new PanelPlateauNord( this.ctrl , this , this.panelSud ) ;
+		this.panelPlateauNord   = new PanelPlateauNord( this.ctrl , this , this.panelSud ) ;
 		this.panelEst   		= new JPanel() ;
-		this.panelOuest 		= new PanelPlateauOuest( this.ctrl ) ;
-		this.panelOuestSymbole 	= new PanelPlateauOuestSymbole	( this.ctrl ) ;
+		this.panelPlateauOuestZone 		= new PanelPlateauOuest( this.ctrl ) ;
+		this.panelPlateauOuestSymbole 	= new PanelPlateauOuestSymbole	( this.ctrl ) ;
+		this.panelPlateauOuestBase      = new PanelPlateauOuestBase( this.ctrl );
         
-		this.panelNord .setBackground( Color.LIGHT_GRAY );
+		this.panelPlateauNord .setBackground( Color.LIGHT_GRAY );
 		this.panelSud  .setBackground( Color.LIGHT_GRAY  );
 		this.panelEst  .setBackground( Color.LIGHT_GRAY  );
 
@@ -63,10 +63,10 @@ public class PanelModification extends JPanel
 
 		this.add( this.panelPlateau , BorderLayout.CENTER );	
 
-		this.add( this.panelNord  , BorderLayout.NORTH );
+		this.add( this.panelPlateauNord  , BorderLayout.NORTH );
 		this.add( this.panelSud   , BorderLayout.SOUTH );
 		this.add( this.panelEst   , BorderLayout.EAST  );
-		this.add( this.panelOuest , BorderLayout.WEST  );
+		this.add( this.panelPlateauOuestZone , BorderLayout.WEST  );
 
 		/*---------------------------*/
 		/* Activation des composants */
@@ -75,43 +75,68 @@ public class PanelModification extends JPanel
         
 	}
 	
-	public boolean estEtapeZone() { return this.etapeZone; }
 
 	public void passerEtapeSymbole()
 	{
-		this.etapeZone = false;
-		this.remove(this.panelOuest);
-		this.add(this.panelOuestSymbole, BorderLayout.WEST);
+		if      ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
+		else if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		else if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+		
+		this.ctrl.setEtapeConception( 2 );
+		this.add(this.panelPlateauOuestSymbole, BorderLayout.WEST);
 		
 		this.revalidate();
 		this.repaint();
-
-		
 	}
 
 	public void passerEtapeZone()
 	{
-		this.etapeZone = true;
-		this.remove(this.panelOuestSymbole);
-		this.add(this.panelOuest, BorderLayout.WEST);
+		if      ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
+		else if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		else if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+
+		this.ctrl.setEtapeConception( 1 );
+		this.add(this.panelPlateauOuestZone, BorderLayout.WEST);
+		
 
 		this.revalidate();
 		this.repaint();
 	}
+
+	public void passerEtapeBase()
+	{
+		if      ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
+		else if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		else if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+
+		this.ctrl.setEtapeConception( 3 );
+		this.add(this.panelPlateauOuestBase, BorderLayout.WEST);
+
+		this.revalidate();
+		this.repaint();
+	}
+
+	public boolean estEtapeZone()
+	{
+		if ( this.ctrl.getEtapeConception() == 1 ){ return true ;}
+		
+		return false ;
+	}
+	
 	
 
 	public boolean getModeSelection()
 	{
-		return this.panelOuest.getModeSelection();
+		return this.panelPlateauOuestZone.getModeSelection();
 	}
 
 	public int getZoneSelectioner()
 	{
-		return this.panelOuest.getZoneSelectioner();
+		return this.panelPlateauOuestZone.getZoneSelectioner();
 	}
 	
-	public boolean  getModePlacementSymbole()  { return this.panelOuestSymbole.getModePlacement(); }
-	public ESymbole getSymboleSelectionner()   { return this.panelOuestSymbole.getSymboleSelectionne(); }
+	public boolean  getModePlacementSymbole()  { return this.panelPlateauOuestSymbole.getModePlacement(); }
+	public ESymbole getSymboleSelectionner()   { return this.panelPlateauOuestSymbole.getSymboleSelectionne(); }
 	
 
 }

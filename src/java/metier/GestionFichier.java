@@ -80,17 +80,11 @@ public class GestionFichier
 
         return liste;
     }
-
 	
-	/*
     public static boolean ecrireFichier(File fichier, ArrayList<String> donnees )
     {
         try
         {
-            File dossier = new File(REPERTOIRE);
-			if(!dossier.exists())
-				dossier.mkdir();
-            
             PrintWriter pw = new PrintWriter(fichier);
 
             for(int cpt = 0; cpt < donnees.size(); cpt++)
@@ -106,16 +100,11 @@ public class GestionFichier
         }
     }
 
-    public static boolean supprimerFichier(String nomFichier)
+    public static boolean supprimerFichier(File fichier)
     {
-        if (!nomFichier.endsWith(".data"))
-		    nomFichier += ".data";
-
         try
         {
-            File fichier = new File(REPERTOIRE + nomFichier);
-
-            if(!fichier.exists())
+            if(fichier == null || !fichier.exists())
                 return false;
 
             return fichier.delete();
@@ -126,9 +115,4 @@ public class GestionFichier
             return false;
         }
     }
-	*/
-
-
-
-
 }

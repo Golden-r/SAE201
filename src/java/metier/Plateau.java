@@ -28,8 +28,11 @@ public class Plateau
 	
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
-	private ArrayList<Liaison> ensLiaison ; 
-	private ArrayList<Zone>    ensZones ; 
+	private ArrayList<Liaison> ensLiaison ;
+	private ArrayList<Zone>    ensZones   ;
+
+	private int  etapeConception ;
+	private Zone zoneCourante;
 
 
 	/*----------------------------*/
@@ -58,6 +61,8 @@ public class Plateau
 		this.lstSymbole = lstSymbole;
 		this.ensLiaison = new ArrayList<Liaison>();
 		this.ensZones   = new ArrayList<Zone>   ();
+
+		this.etapeConception = 1 ;
 	}
 
 
@@ -73,7 +78,6 @@ public class Plateau
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
 	}
-	// Dans Plateau.java — section Accesseur
 	public Cellule getSymboleDansCellule(Symbole symbole)
 	{
 		for (int x = 0; x < this.longueur; x++)
@@ -83,10 +87,12 @@ public class Plateau
 		return null;
 	}
 
-	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur; }
-	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole; }
-	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison; }
-	public ArrayList<Zone   >  getEnsZones       ()     { return this.ensZones  ; }
+	public ArrayList<Integer>  getLstCouleur     ()     { return this.lstCouleur      ;}
+	public ArrayList<Integer>  getLstSymbole     ()     { return this.lstSymbole      ;}
+	public ArrayList<Liaison>  getEnsLiaison     ()     { return this.ensLiaison      ;}
+	public ArrayList<Zone   >  getEnsZones       ()     { return this.ensZones        ;}
+	public int                 getEtapeConception()     { return this.etapeConception ;}
+	public Zone                getZoneCourante   ()     { return this.zoneCourante    ;}
 
 	public ArrayList<Cellule>  getTrajet         ( Cellule depart, Cellule arrivee )
 	{
@@ -184,7 +190,7 @@ public class Plateau
 		if ( this.estDansPlateau(cellule.getX(), cellule.getY()) )//&& zone != null) 
 		{
 			plateau[cellule.getX()][cellule.getY()].setSymbole(symbole);
-			cellule.setEstVide(false);
+			//cellule.setEstVide(false);
 		}
 
 	}
@@ -198,6 +204,9 @@ public class Plateau
 
 	}
 
+	public void setEtapeConception( int etape  ) { this.etapeConception = etape ;}
+	public void setZoneCourante   ( Zone zone  ) { this.zoneCourante    = zone  ;}
+
 	/*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
@@ -206,11 +215,12 @@ public class Plateau
 		ArrayList<Cellule> batiments = new ArrayList<>();
 
 		for ( int cpt = 0 ; cpt < this.plateau.length ; cpt ++ ) {
-			for ( int cpt2 = 0 ; cpt2 < this.plateau[cpt].length ; cpt2++ ) {
+			for ( int cpt2 = 0 ; cpt2 < this.plateau[cpt].length ; cpt2++ )
+			{
 				Cellule c = this.plateau[cpt][cpt2];
-				if ( c != null && !c.estVide() && c.getSymbole() != null ) {
-					batiments.add ( c );
-				}
+
+				if ( c != null && !c.estVide() && c.getSymbole() != null )
+					batiments.add ( c );	
 			}
 		}
 
@@ -325,7 +335,7 @@ public class Plateau
 		}
 
 		tmpCellule.setSymbole(null);
-		tmpCellule.setEstVide(true);
+		//tmpCellule.setEstVide(true);
 
 		if (reseau != null && extremites.size() >= 2)
 			for (int cpt1 = 0; cpt1 < extremites.size(); cpt1++)

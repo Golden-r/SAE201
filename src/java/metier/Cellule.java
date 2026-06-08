@@ -51,13 +51,13 @@ public class Cellule
     public void setSymbole  ( Symbole symbole      ) { this.symbole      = symbole     ; }
     public void setZone     ( Zone    zone         ) { this.zone         = zone        ; }
 
-    public void setEstVide  ( boolean estVide      ) { this.estVide      = estVide     ; }
+    //public void setEstVide  ( boolean estVide      ) { this.estVide      = estVide     ; }
 
     /*----------------------------*/
 	/*  Test                      */
 	/*----------------------------*/
 
-    public boolean estVide() { return this.estVide ; }
+    public boolean estVide() { return this.symbole == null ; }
 
     /*----------------------------*/
 	/*  Méthodes                  */

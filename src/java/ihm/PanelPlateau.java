@@ -31,8 +31,6 @@ public class PanelPlateau extends JPanel
 	private int hoveredLig = -1;
 	private int hoveredCol = -1;
 
-	private Zone zoneCourante;
-
 	public PanelPlateau( Controleur ctrl, PanelModification panelModification ) 
 	{
 		this.ctrl  = ctrl ;
@@ -62,6 +60,11 @@ public class PanelPlateau extends JPanel
 	}
 
 
+	private boolean estDansPlateau(int col, int lig) 
+	{
+		return col >= 0 && col < this.ctrl.getTailleLongueur() && lig >= 0 && lig < this.ctrl.getTailleLargeur();
+	}
+
 	/*-----------------------------------------*/
 	/* Définition de la classe interne Adapter */
 	/*-----------------------------------------*/
@@ -76,14 +79,15 @@ public class PanelPlateau extends JPanel
 				int col = e.getX() / taille;
 				int lig = e.getY() / taille;
 				//
+				// TODO : recoder la logique pour verifier si on est dans l'etape placement des zones.
 				if (PanelPlateau.this.panelModification.estEtapeZone()) 
 				//
 				{
 
-					if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+					if (PanelPlateau.this.estDansPlateau(col, lig)) 
 					{
 						if (PanelPlateau.this.panelModification.getModeSelection())
-							PanelPlateau.this.zoneCourante = ctrl.clicSurCase(col, lig, (PanelPlateau.this.zoneCourante == null ? null : PanelPlateau.this.zoneCourante));
+							PanelPlateau.this.ctrl.setZoneCourante( ctrl.clicSurCase(col, lig, (PanelPlateau.this.ctrl.getZoneCourante() == null ? null : PanelPlateau.this.ctrl.getZoneCourante()))) ;
 						else
 							ctrl.reinitialiserCellule(col, lig);
 
@@ -111,7 +115,7 @@ public class PanelPlateau extends JPanel
 			}
 			
 			if (e.getButton() == MouseEvent.BUTTON3)
-				PanelPlateau.this.zoneCourante = null;
+				ctrl.setZoneCourante(null);
 
 		}
 
@@ -122,7 +126,7 @@ public class PanelPlateau extends JPanel
 			int lig = e.getY() / taille;
 
 
-			if (lig >= 0 && lig < ctrl.getTailleLargeur() && col >= 0 && col < ctrl.getTailleLongueur()) 
+			if (PanelPlateau.this.estDansPlateau(col, lig)) 
 			{
 				if (hoveredLig != lig || hoveredCol != col) 
 				{
@@ -193,6 +197,13 @@ public class PanelPlateau extends JPanel
 				g.drawRect(x, y, taille, taille); 
 			}
 
+			//
+				for (int i = 0; i < this.ctrl.getEnsLiaisons().size(); i++)
+				{
+					
+				}
+			//
+		
 	}
 
 }

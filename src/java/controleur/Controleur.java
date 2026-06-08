@@ -8,15 +8,8 @@ import java.util.ArrayList;
 
 import ihm.FrameCreation;
 import ihm.FrameModification;
-import ihm.PanelPlateauOuest;
-import metier.Cellule;
-import metier.EZone;
-import metier.ESymbole ;
-import metier.GestionFichier;
-import metier.Plateau;
-import metier.Zone;
-import metier.PlateauData;
 
+import metier.*;
 
 
 /* SAE 2.01 | Développement d'une application 
@@ -37,7 +30,6 @@ public class Controleur
 
 	private FrameCreation     frameCreation;
 	private FrameModification frameModification;
-	//private PanelPlateauOuest panelPlateauOuest ;
 	
 	private Plateau           metierPlateau;
 	private GestionFichier    metierGestionFichier;
@@ -59,23 +51,27 @@ public class Controleur
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int                getTailleLargeur()                   { return this.metierPlateau.getTailleLargeur ()                               ;}
-	public int                getTailleLongueur()                  { return this.metierPlateau.getTailleLongueur() 	                             ;}
-	public int                getTailleCellule()                   { return this.metierPlateau.getTailleCellule () 	                             ;}
-	public ArrayList<Integer> getLstCouleur   ()                   { return this.metierPlateau.getLstCouleur    () 	                             ;}
-	public ArrayList<Integer> getLstSymbole   ()                   { return this.metierPlateau.getLstSymbole    () 	                             ;}
-	public ArrayList<Zone   > getLibelleZone  ()                   { return this.metierPlateau.getEnsZones      () 	                             ;}
-	public String[]           getZones        ()                   { return EZone.getZonesLibelles              () 	                             ;}
-	public Cellule            getCellule      (int x, int y)       { return this.metierPlateau.getCellule       (x,y)                            ;}
-	public Color              getCouleurProchaineZone( int indice ){ return this.metierPlateau.getCouleurProchaineZone( EZone.values()[indice] ) ;}
+	public int                getTailleLargeur ()                   { return this.metierPlateau.getTailleLargeur ()                               ;}
+	public int                getTailleLongueur()                   { return this.metierPlateau.getTailleLongueur() 	                             ;}
+	public int                getTailleCellule ()                   { return this.metierPlateau.getTailleCellule () 	                             ;}
+	public ArrayList<Integer> getLstCouleur    ()                   { return this.metierPlateau.getLstCouleur    () 	                             ;}
+	public ArrayList<Integer> getLstSymbole    ()                   { return this.metierPlateau.getLstSymbole    () 	                             ;}
+	public ArrayList<Liaison> getEnsLiaisons   ()                   { return this.metierPlateau.getEnsLiaison    ()                               ;}
+	public ArrayList<Zone   > getLibelleZone   ()                   { return this.metierPlateau.getEnsZones      () 	                             ;}
+	public String[]           getZones         ()                   { return EZone.getZonesLibelles              () 	                             ;}
+	public Cellule            getCellule      (int x, int y)        { return this.metierPlateau.getCellule       (x,y)                            ;}
+	public Color              getCouleurProchaineZone( int indice ) { return this.metierPlateau.getCouleurProchaineZone( EZone.values()[indice] ) ;}
+	public int                getEtapeConception()                  { return this.metierPlateau.getEtapeConception() ;}
+	public Zone               getZoneCourante   ()                  { return this.metierPlateau.getZoneCourante   () ;}
+
 
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
 
-	public void setIndiceZoneSelectionnee ( int indice ) { this.indiceZone = indice ;}
-	
-
+	public void setIndiceZoneSelectionnee ( int  indice) { this.indiceZone = indice ;}
+	public void setEtapeConception        ( int  etape ) { this.metierPlateau.setEtapeConception(etape) ;}
+	public void setZoneCourante           ( Zone zone  ) { this.metierPlateau.setZoneCourante   (zone ) ;}
 
 
 	
@@ -88,6 +84,13 @@ public class Controleur
 	{
 		System.out.println("Lancement du mode creation");
 		this.frameCreation = new FrameCreation( this ); 
+	}
+
+	public void retourCreation()
+	{
+		if ( this.frameModification != null ){ this.frameModification.dispose() ;}
+
+		this.lancerCreation() ;
 	}
 
 	public void lancerModification(  )
@@ -148,9 +151,22 @@ public class Controleur
 
 			nvZone.setCouleur(typeSelectionne, 0, occurrence);
 			zone = nvZone;
-		}
-		this.metierPlateau.setZoneDansCellule(cell, zone);
 
+			this.metierPlateau.setZoneDansCellule(cell, zone);
+		}
+		else
+		{
+			boolean estAdjacent = false;
+
+			for(int cpt1 = -1; cpt1 <= 1; cpt1++)
+				for(int cpt2 = -1; cpt2 <= 1; cpt2++)
+					if(Math.abs(cpt1) + Math.abs(cpt2) == 1 && this.getCellule(x + cpt1, y + cpt2) != null && this.getCellule(x + cpt1, y + cpt2).getZone() == zone)
+						estAdjacent = true;
+			
+			if(estAdjacent)
+				this.metierPlateau.setZoneDansCellule(cell,zone);
+		}
+		
 		return zone;
 	}
 

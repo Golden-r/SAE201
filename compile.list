@@ -30,3 +30,4 @@
 ./src/java/ihm/PanelPlateauSud.java
 
 ./src/java/ihm/PanelPlateauOuestSymbole.java
+./src/java/ihm/PanelPlateauOuestBase.java

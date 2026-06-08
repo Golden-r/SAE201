@@ -38,10 +38,10 @@ public class Liaison
 	/*  Accesseur                 */
 	/*----------------------------*/
 	
-	public Cellule         getDepart()         { return this.depart;          }
-	public Cellule         getArrivee()        { return this.arrivee;         }
-	public ECouleur        getReseau()         { return this.reseau;          }
-	public ArrayList<Cellule> getCelluleTraversees() { return this.CelluleTraversees; }
+	public Cellule         		getDepart			() { return this.depart;          }
+	public Cellule         		getArrivee			() { return this.arrivee;         }
+	public ECouleur        		getReseau			() { return this.reseau;          }
+	public ArrayList<Cellule> 	getCelluleTraversees() { return this.CelluleTraversees; }
 	
 	
 	/*----------------------------*/
