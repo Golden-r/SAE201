@@ -3,6 +3,7 @@
 25
 0 , 0 , 1 , 1 , 0 , 0
 0 , 1 , 0 , 0 , 1 , 1
-// private Cellule[][] plateau;
-X , Y , indice_Esymbole , indice_Ecouleur , couleur , typeZone , id , estVide , estBase
+
+
+X , Y , symbole , Ecouleur , couleur , typeZone , id , estVide , estBase
 

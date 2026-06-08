@@ -5,6 +5,8 @@ import metier.*;
 import java.util.ArrayList;
 import java.awt.Color;
 
+import java.io.File;
+
 /* SAE 2.01 | Développement d'une application 
 * Plateau
 *
@@ -85,7 +87,6 @@ public class Plateau
 		
 		return null;
 	}
-
 	public ArrayList<Integer>  getLstCouleur     ()          { return this.lstCouleur                                 ;}
 	public ArrayList<Integer>  getLstSymbole     ()          { return this.lstSymbole                                 ;}
 	public ArrayList<Liaison>  getEnsLiaison     ()          { return this.ensLiaison                                 ;}
@@ -215,9 +216,9 @@ public class Plateau
 		ArrayList<Cellule> batiments = new ArrayList<>();
 
 		for ( int cpt = 0 ; cpt < this.plateau.length ; cpt ++ ) {
-			for ( int cpt2 = 0 ; cpt2 < this.plateau[cpt].length ; cpt2++ )
+			for ( int col = 0 ; col < this.plateau[cpt].length ; col++ )
 			{
-				Cellule c = this.plateau[cpt][cpt2];
+				Cellule c = this.plateau[cpt][col];
 
 				if ( c != null && !c.estVide() && c.getSymbole() != null )
 					batiments.add ( c );	
@@ -324,9 +325,9 @@ public class Plateau
 		tmpCellule.setSymbole(null);
 
 		if (reseau != null && extremites.size() >= 2)
-			for (int cpt1 = 0; cpt1 < extremites.size(); cpt1++)
-				for (int cpt2 = cpt1 + 1; cpt2 < extremites.size(); cpt2++)
-					this.ajouterLiaison(extremites.get(cpt1), extremites.get(cpt2), reseau);
+			for (int lig = 0; lig < extremites.size(); lig++)
+				for (int col = lig + 1; col < extremites.size(); col++)
+					this.ajouterLiaison(extremites.get(lig), extremites.get(col), reseau);
 	
 	}
 
@@ -391,16 +392,34 @@ public class Plateau
 
 	public void initialiserEnsBases ()
 	{
-		for ( int cpt1 = 0 ; cpt1 < plateau.length ; cpt1 ++ )
+		for ( int lig = 0 ; lig < plateau.length ; lig ++ )
 		{
-			for ( int cpt2 = 0 ; cpt2 < plateau[cpt1].length ; cpt2++ )
+			for ( int col = 0 ; col < plateau[lig].length ; col++ )
 			{
-				if ( this.plateau[cpt1][cpt2].estBase() )
+				if ( this.plateau[lig][col].estBase() )
 				{
-					this.ensBases.add( this.plateau[cpt1][cpt2] ) ;
+					this.ensBases.add( this.plateau[lig][col] ) ;
 				}
 			}
 		}
+	}
+
+
+	public void enregistrerFichier ( File fichier )
+	{
+		ArrayList<String> lstEnregistrelent =  new ArrayList<String>() ;
+
+		lstEnregistrelent.add ( "" + this.largeur       ) ;
+		lstEnregistrelent.add ( "" + this.longueur      ) ;
+		lstEnregistrelent.add ( "" + this.tailleCellule ) ;
+		lstEnregistrelent.add ( "" + this.getLstCouleur() ) ;
+		lstEnregistrelent.add ( "" + this.getLstSymbole() ) ;
+
+		for ( int lig = 0 ; lig < plateau.length ; lig ++ )
+			for ( int col = 0 ; col < plateau[lig].length ; col++ )
+				if ( this.plateau[lig][col].estBase() ) { lstEnregistrelent.add( "" + this.plateau[lig][col] ) ;}
+
+		GestionFichier.ecrireFichier( fichier, lstEnregistrelent ) ;
 	}
 	
 }

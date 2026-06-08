@@ -287,7 +287,7 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		this.txtTailleLongueur.setText("");
 		this.txtTailleCases   .setText("");
 
-		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length ; cpt++ )
+		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length-1 ; cpt++ )
 			this.tabCbCouleur[cpt].setSelected( false );
 
 		for ( int cpt = 0 ; cpt < this.tabCbSymbole.length ; cpt++ )

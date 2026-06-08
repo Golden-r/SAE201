@@ -87,8 +87,8 @@ public class GestionFichier
         {
             PrintWriter pw = new PrintWriter(fichier);
 
-            for(int cpt = 0; cpt < donnees.size(); cpt++)
-                pw.println(donnees.get(cpt));
+            for( int cpt = 0; cpt < donnees.size(); cpt++)
+                pw.println( donnees.get(cpt));
 
             pw.close();
             return true;
