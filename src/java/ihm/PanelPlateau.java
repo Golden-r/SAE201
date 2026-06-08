@@ -81,16 +81,21 @@ public class PanelPlateau extends JPanel
 				//
 				// TODO : recoder la logique pour verifier si on est dans l'etape placement des zones.
 				if (PanelPlateau.this.panelModification.estEtapeZone()) 
-				//
 				{
 
 					if (PanelPlateau.this.estDansPlateau(col, lig)) 
 					{
-						if (PanelPlateau.this.panelModification.getModeSelection())
-							PanelPlateau.this.ctrl.setZoneCourante( ctrl.clicSurCase(col, lig, (PanelPlateau.this.ctrl.getZoneCourante() == null ? null : PanelPlateau.this.ctrl.getZoneCourante()))) ;
-						else
-							ctrl.reinitialiserCellule(col, lig);
 
+						if ( PanelPlateau.this.panelModification.getModeSelection() )
+						{
+							PanelPlateau.this.ctrl.setZoneCourante( ctrl.clicSurCase(col, lig, (PanelPlateau.this.ctrl.getZoneCourante() == null ? null : PanelPlateau.this.ctrl.getZoneCourante()))) ;
+						}
+						else
+						{
+							ctrl.reinitialiserCellule(col, lig);
+						}
+							
+						PanelPlateau.this.panelModification.mettreAJourNbZones();
 						
 					}
 				}

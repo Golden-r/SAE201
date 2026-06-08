@@ -3,7 +3,6 @@ package metier;
 import metier.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.awt.Color;
 
 /* SAE 2.01 | Développement d'une application 
@@ -179,6 +178,25 @@ public class Plateau
 		return nvZone.getCouleur() ;
 	}
 	
+	public int getNbZonesDistinctes()
+	{
+		ArrayList<Zone> zonesUniques = new ArrayList<Zone>() ;
+
+
+		for ( int cptX = 0 ; cptX < this.longueur ; cptX++ )
+			for ( int cptY = 0 ; cptY < this.largeur ; cptY++ )
+			{
+				Cellule tmpCell = this.plateau[cptX][cptY] ;
+
+				if ( tmpCell != null && tmpCell.getZone() != null )
+				{
+					if ( !zonesUniques.contains( tmpCell.getZone() ) )  { zonesUniques.add( tmpCell.getZone() ) ;}
+				}
+			}
+
+
+		return zonesUniques.size() ;
+	}
 	
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -206,6 +224,7 @@ public class Plateau
 
 	public void setEtapeConception( int etape  ) { this.etapeConception = etape ;}
 	public void setZoneCourante   ( Zone zone  ) { this.zoneCourante    = zone  ;}
+	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison  ;}
 
 	/*----------------------------*/
 	/*  Méthodes                  */
@@ -344,72 +363,64 @@ public class Plateau
 	
 	}
 
-
-
-	public void supprimerZone(int lig, int col)
+	public void supprimerZone(int x, int y)
 	{
-		Cellule cellCible = this.getCellule(lig,col);
-		
-		if(cellCible == null || cellCible.getZone() == null)
+		Cellule cellCible = this.getCellule(x, y);
+
+		if (cellCible == null || cellCible.getZone() == null)
 			return;
-			
-		Zone zoneCible = cellCible.getZone();
-			
-		int totalCellulesZone = 0;
-		int ligDepart         = -1;
-		int colDepart         = -1;
-		
+
+		Zone zoneCible         = cellCible.getZone();
+		int  totalCellulesZone = 0;
+		int  ligDepart         = -1;
+		int  colDepart         = -1;
+
 		for (int cptX = 0; cptX < this.longueur; cptX++)
 			for (int cptY = 0; cptY < this.largeur; cptY++)
-				if (this.plateau[cptX][cptY].getZone() == zoneCible && this.plateau[cptX][cptY] != null)
+				if (this.plateau[cptX][cptY] != null && this.plateau[cptX][cptY].getZone() == zoneCible)
 				{
 					totalCellulesZone++;
-					if (cptX != lig || cptY != col)
+					if (cptX != x || cptY != y)
 					{
 						ligDepart = cptX;
 						colDepart = cptY;
 					}
 				}
-				
+
 		if (totalCellulesZone <= 1)
 		{
 			cellCible.setZone(null);
+			this.ensZones.remove(zoneCible);
 			return;
 		}
-		
+
 		cellCible.setZone(null);
-		
+
 		boolean[][] visite             = new boolean[this.longueur][this.largeur];
 		int         cellulesConnectees = this.compterCellulesConnectees(ligDepart, colDepart, zoneCible, visite);
-		
+
 		if (cellulesConnectees < totalCellulesZone - 1)
 			cellCible.setZone(zoneCible);
-		}
+	}
 
-	private int compterCellulesConnectees(int longueur, int largeur, Zone zoneCible, boolean[][] visite)
+	private int compterCellulesConnectees(int lig, int col, Zone zoneCible, boolean[][] visite)
 	{
-		if (!this.estDansPlateau(longueur,largeur))
+		if (!this.estDansPlateau(lig, col))
 			return 0;
-			
-		if (visite[longueur][largeur] || this.plateau[longueur][largeur] == null || this.plateau[longueur][largeur].getZone() != zoneCible )
+
+		if (visite[lig][col] || this.plateau[lig][col] == null || this.plateau[lig][col].getZone() != zoneCible)
 			return 0;
-			
-		visite[longueur][largeur] = true;
+
+		visite[lig][col] = true;
 		int nb = 1;
-		
-		nb += this.compterCellulesConnectees(longueur - 1, largeur, zoneCible, visite);
-		nb += this.compterCellulesConnectees(longueur + 1, largeur, zoneCible, visite);
-		nb += this.compterCellulesConnectees(longueur, largeur - 1, zoneCible, visite);
-		nb += this.compterCellulesConnectees(longueur, largeur + 1, zoneCible, visite);
-		
+
+		nb += this.compterCellulesConnectees(lig - 1, col, zoneCible, visite);
+		nb += this.compterCellulesConnectees(lig + 1, col, zoneCible, visite);
+		nb += this.compterCellulesConnectees(lig, col - 1, zoneCible, visite);
+		nb += this.compterCellulesConnectees(lig, col + 1, zoneCible, visite);
+
 		return nb;
 	}
 
 
-	
-
-
-
-	
-	
 }

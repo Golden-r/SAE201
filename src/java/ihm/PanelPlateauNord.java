@@ -7,6 +7,7 @@ import javax.swing.* ;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 
@@ -21,6 +22,8 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 
 	private JButton btnRetour  ;
 	private JButton btnSuivant ;
+
+	private JLabel lblNbZone ;
 	
 	public PanelPlateauNord( Controleur ctrl , PanelModification panelModif , PanelPlateauSud panelSud ) 
 	{
@@ -29,7 +32,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.panelModification = panelModif ;
 		this.panelSud          = panelSud ;
 
-		this.setLayout( new GridLayout( 1 , 4 , 20 , 20 ));
+		this.setLayout( new BorderLayout( 20 , 20 ));
 		this.setBorder( BorderFactory.createEmptyBorder( 20 , 35,  20, 35));
 		this.setBackground( Color.LIGHT_GRAY );
 
@@ -40,6 +43,8 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.btnRetour  = new JButton("Retour") ;
 		this.btnSuivant = new JButton("Suivant") ;
 
+		this.lblNbZone = new JLabel( "Nombre de zone total : ") ;
+
 
 		
 
@@ -47,10 +52,9 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		/* Positionnement des composants */
 		/* ----------------------------- */
 
-		this.add( this.btnRetour ) ;
-		this.add( new JLabel("") );
-		this.add( this.btnSuivant ) ;
-		this.add( new JLabel("") );
+		this.add( this.btnRetour  , BorderLayout.WEST   );
+		this.add( this.lblNbZone  , BorderLayout.CENTER );
+		this.add( this.btnSuivant , BorderLayout.EAST   );
 
 		/*---------------------------*/
 		/* Activation des composants */
@@ -60,6 +64,8 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		this.btnSuivant.addActionListener(this);
 
 	}
+
+	public void setNbZone( int nbzone ) { this.lblNbZone.setText( "Nombre de zone total : " + nbzone ) ;}
 
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -79,6 +85,7 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 				case 3:
 					this.panelModification.passerEtapeSymbole();
 					this.panelSud.afficherMsgSymbole();
+					this.ctrl.renitialiserLiaison() ;
 					break; 
 
 				default:

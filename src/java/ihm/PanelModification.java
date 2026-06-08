@@ -76,20 +76,6 @@ public class PanelModification extends JPanel
         
 	}
 	
-
-	public void passerEtapeSymbole()
-	{
-		if ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
-		if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
-		if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
-		
-		this.ctrl.setEtapeConception( 2 );
-		this.add(this.panelPlateauOuestSymbole, BorderLayout.WEST);
-		
-		this.revalidate();
-		this.repaint();
-	}
-
 	public void passerEtapeZone()
 	{
 
@@ -101,6 +87,19 @@ public class PanelModification extends JPanel
 		this.add(this.panelPlateauOuestZone, BorderLayout.WEST);
 		
 
+		this.revalidate();
+		this.repaint();
+	}
+
+	public void passerEtapeSymbole()
+	{
+		if ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
+		if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+		
+		this.ctrl.setEtapeConception( 2 );
+		this.add(this.panelPlateauOuestSymbole, BorderLayout.WEST);
+		
 		this.revalidate();
 		this.repaint();
 	}
@@ -120,28 +119,22 @@ public class PanelModification extends JPanel
 		this.repaint();
 	}
 
-	public boolean estEtapeZone()
-	{
-		if ( this.ctrl.getEtapeConception() == 1 ){ return true ;}
-		
-		return false ;
-	}
-	
-	
 
-	public boolean getModeSelection()
-	{
-		return this.panelPlateauOuestZone.getModeSelection();
+	public void mettreAJourNbZones()
+	{	
+		this.panelPlateauNord.setNbZone( this.ctrl.getNbZonesDistinctes() ) ;
+
+		if ( this.panelPlateauOuestZone != null ){ this.panelPlateauOuestZone.mettreAJourPrevisu() ;}
 	}
 
-	public int getZoneSelectioner()
-	{
-		return this.panelPlateauOuestZone.getZoneSelectioner();
+
+
+	public boolean estEtapeZone(){ return this.ctrl.getEtapeConception() == 1 ;}
+	
+	
+
+	public boolean  getModeSelection()        { return this.panelPlateauOuestZone.getModeSelection()         ;}
+	public int      getZoneSelectioner()      { return this.panelPlateauOuestZone.getZoneSelectioner()       ;}
+	public boolean  getModePlacementSymbole() { return this.panelPlateauOuestSymbole.getModePlacement()      ;}
+	public ESymbole getSymboleSelectionner()  { return this.panelPlateauOuestSymbole.getSymboleSelectionne() ;}
 	}
-	
-	public boolean  getModePlacementSymbole()  { return this.panelPlateauOuestSymbole.getModePlacement(); }
-	public ESymbole getSymboleSelectionner()   { return this.panelPlateauOuestSymbole.getSymboleSelectionne(); }
-	
-
-}
-
