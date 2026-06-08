@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.Rectangle;
 
@@ -78,9 +79,9 @@ public class PanelModification extends JPanel
 
 	public void passerEtapeSymbole()
 	{
-		if      ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
-		else if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
-		else if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+		if ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
+		if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
 		
 		this.ctrl.setEtapeConception( 2 );
 		this.add(this.panelPlateauOuestSymbole, BorderLayout.WEST);
@@ -91,9 +92,10 @@ public class PanelModification extends JPanel
 
 	public void passerEtapeZone()
 	{
-		if      ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
-		else if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
-		else if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+
+		if ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone);  }
+		if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
 
 		this.ctrl.setEtapeConception( 1 );
 		this.add(this.panelPlateauOuestZone, BorderLayout.WEST);
@@ -105,9 +107,9 @@ public class PanelModification extends JPanel
 
 	public void passerEtapeBase()
 	{
-		if      ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
-		else if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
-		else if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
+		if ( this.panelPlateauOuestZone    != null){ this.remove(this.panelPlateauOuestZone)    ;}
+		if ( this.panelPlateauOuestSymbole != null){ this.remove(this.panelPlateauOuestSymbole) ;}
+		if ( this.panelPlateauOuestBase    != null){ this.remove(this.panelPlateauOuestBase)    ;}
 
 		this.ctrl.setEtapeConception( 3 );
 		this.add(this.panelPlateauOuestBase, BorderLayout.WEST);
