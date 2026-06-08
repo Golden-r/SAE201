@@ -192,6 +192,15 @@ public class Controleur
 		}
 	}
 	
+	public void clicSurCaseBase(int x, int y, ECouleur ecouleur) 
+	{
+		Cellule cell = this.getCellule(x, y);
+		
+		if (cell != null) 
+		{
+			this.metierPlateau.setBaseDansCellule(cell, ecouleur);
+		}
+	}
 
 	public void reinitialiserCellule(int x, int y) { this.metierPlateau.supprimerZone (x , y)                     ;}
 	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y)                     ;}

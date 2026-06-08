@@ -43,7 +43,7 @@ public class Symbole
 
     public ESymbole getTypeSymbole  () { return this.symbole     ; }
     public ECouleur getCouleurBase  () { return this.couleurBase ; }
-  
+
     /*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/

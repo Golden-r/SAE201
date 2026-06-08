@@ -70,15 +70,20 @@ public class Cellule
     
     public String toString()
     {
-        return ""         + this.coordonneeX 
+        String sRet =  ""         + this.coordonneeX 
                     + "," + this.coordonneeY 
                     + "," + this.symbole.getTypeSymbole() 
-                    + "," + this.symbole.getCouleurBase() 
-                    + "," + this.zone.getCouleur()
+                    + "," + this.symbole.getCouleurBase();
+
+        if (this.estBase())
+            sRet +=   "," + this.zone.getCouleur ()
                     + "," + this.zone.getTypeZone()
-                    + "," + this.zone.getId()
-                    + "," + this.estVide
-                    + "," + this.estBase ;
+                    + "," + this.zone.getId      ();
+    
+        sRet +=   "," + this.estVide
+                + "," + this.estBase ;
+
+        return sRet;
     }
 
 }

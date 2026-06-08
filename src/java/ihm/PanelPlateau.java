@@ -4,6 +4,7 @@ import controleur.Controleur;
 
 //
 import metier.Zone;
+import metier.ECouleur;
 import metier.ESymbole;
 //
 
@@ -11,10 +12,14 @@ import javax.swing.*;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 /* SAE 2.01 | Développement d'une application 
 * PanelPlateau
@@ -123,8 +128,13 @@ public class PanelPlateau extends JPanel
 			{
 				if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
 				{
-					ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionne();
+					ECouleur base = PanelPlateau.this.panelModification.getBaseSelectione();
 
+					System.out.println(base);
+					if (base != null) 
+					{
+						ctrl.clicSurCaseBase(col, lig, base);
+					}
 				}
 				else
 				{
@@ -194,24 +204,57 @@ public class PanelPlateau extends JPanel
                     g.fillRect(x, y, taille, taille);
                 }
 
-				
-				if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getSymbole() != null) 
+				if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getSymbole() != null)
 				{
-					g.setColor(Color.BLACK); 
+					g.setColor(Color.BLACK);
 					g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, taille / 2));
-					
-					
-					String nomFichier = this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getLibelle() + ".png" ;
-					String chemin     = "./src/ressource/images/Symboles/" + nomFichier ; //"./src/ressource/images" + nomFichier;
 
+					String nomFichier = this.ctrl.getCellule(col, lig).getSymbole().getTypeSymbole().getLibelle() + ".png";
+					String chemin = "./src/ressource/images/Symboles/" + nomFichier;
 
-					Image image = new ImageIcon(chemin).getImage();
-					
-					g.drawImage(image, x , y,this.ctrl.getTailleCellule() , this.ctrl.getTailleCellule() , null);
-					
+					int size = this.ctrl.getTailleCellule();
+					ImageIcon icon = new ImageIcon(chemin);
+					Image rawImg = icon.getImage();
+
+					// Convert to BufferedImage at required size
+					BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+
+					Graphics2D tg = img.createGraphics();
+					tg.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+					tg.drawImage(rawImg, 0, 0, size, size, null);
+					tg.dispose();
+
+					Color baseColor = null;
+					if (this.ctrl.getCellule(col, lig).getSymbole().getCouleurBase() != null) {
+						baseColor = this.ctrl.getCellule(col, lig).getSymbole().getCouleurBase().getCouleur();
+					}
+
+					if (baseColor != null) {
+						// Create a temporary image specifically for blending the highlight
+						BufferedImage tintedImg = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+						Graphics2D gTint = tintedImg.createGraphics();
+						
+						// 1) Draw the original image onto the temp canvas
+						gTint.drawImage(img, 0, 0, null);
+						
+						// 2) Change composite to SrcAtop so the rectangle ONLY colors the existing pixels
+						gTint.setComposite(AlphaComposite.SrcAtop);
+						
+						// Set your highlight color with transparency (120 out of 255)
+						Color highlightColor = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 255);
+						gTint.setColor(highlightColor);
+						gTint.fillRect(0, 0, size, size);
+						gTint.dispose();
+
+						// 3) Draw the final tinted image onto the main graphics context
+						g.drawImage(tintedImg, x, y, null);
+					} 
+					else
+					{
+						// No base color: just draw the original image
+						g.drawImage(img, x, y, null);
+					}
 				}
-				
-
 
 				if (lig == this.hoveredLig && col == this.hoveredCol) 
 				{
