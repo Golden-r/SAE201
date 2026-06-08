@@ -482,16 +482,17 @@ public class Plateau
 			for (int y = 0; y < this.plateau[x].length; y++)
 			{
 				Cellule c = this.plateau[x][y];
+				// On récupère le nom de l'enum sous forme de texte (ou "null" si vide)
+				//String nomZone    = (c.getZone()    != null) ? c.getZone().getTypeZone().name()   : "null";
+				//String nomSymbole = (c.getSymbole() != null) ? c.getSymbole().getTypeSymbole().name() : "null";
 				
-				if (c.getZone() != null || c.getSymbole() != null) 
-				{ 
-					// On récupère le nom de l'enum sous forme de texte (ou "null" si vide)
-					String nomZone    = (c.getZone()    != null) ? c.getZone().getTypeZone().name()   : "null";
-					String nomSymbole = (c.getSymbole() != null) ? c.getSymbole().getTypeSymbole().name() : "null";
-					
-					// Format de sauvegarde : X,Y,Zone,Symbole (ex: 5,10,ZONE1,MAISONS)
-					lstEnregistrement.add(x + "," + y + "," + nomZone + "," + nomSymbole);
-				}
+				String   celluleData = (c.toString());
+
+
+				// Format de sauvegarde : X,Y,Zone,Symbole (ex: 5,10,ZONE1,MAISONS)
+				//lstEnregistrement.add(x + "," + y + "," + nomZone + "," + nomSymbole);
+				lstEnregistrement.add( celluleData );
+
 			}
 
 		GestionFichier.ecrireFichier(fichier, lstEnregistrement);

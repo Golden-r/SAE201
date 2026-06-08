@@ -26,6 +26,8 @@ public class GestionFichier
 		/*  Données       */
 		/*----------------*/
         
+        ArrayList<Zone> zonesDejaCrees = new ArrayList<Zone>();
+
         PlateauData proprietes = new PlateauData() ;
 
 		String ligneCouleurs ;
@@ -49,9 +51,75 @@ public class GestionFichier
             ligneSymboles = sc.nextLine();
             proprietes.lstSymbole    = convertirDataEnList(ligneSymboles);
 
+            if (sc.hasNextLine()) sc.nextLine();
+
+            while (sc.hasNextLine())
+            {
+                String ligne = sc.nextLine().trim();
+                if (ligne.isEmpty()) continue;
+
+                String[] parties = ligne.split(",");
+
+                if (parties.length < 9)
+                {
+                    System.out.println("Ligne invalide : " + ligne);
+                    continue;
+                }
+
+                try
+                {
+                    int x = Integer.parseInt(parties[0].trim());
+                    int y = Integer.parseInt(parties[1].trim());
+
+                    String symboleNom   = parties[2].trim();
+                    String reseaux      = parties[3].trim();
+
+                    String zoneColor    = parties[4].trim();
+                    String typeZone     = parties[5].trim();
+                    String idStr        = parties[6].trim();
+
+                    boolean estVide = Boolean.parseBoolean(parties[7].trim());
+                    boolean estBase = Boolean.parseBoolean(parties[8].trim());
+
+                    Cellule c = new Cellule(x, y);
+
+                    // -------- SYMBOLE --------
+                    if (!symboleNom.equals("null"))
+                    {
+                        ESymbole symbole = ESymbole.valueOf(symboleNom);
+
+                        c.setSymbole(new Symbole(symbole));
+                    }
+
+                    // -------- ZONE --------
+                    if (!typeZone.equals("null"))
+                    {
+                        int id = idStr.equals("null") ? -1 : Integer.parseInt(idStr);
+
+                        if (zonesDejaCrees.get(id) == null) { zonesDejaCrees.add(id, new Zone(EZone.valueOf(typeZone))) ;}
+                        
+                        
+                        c.setZone( zonesDejaCrees.get(id) );
+                    }
+
+                    if (estBase)
+                    {
+                        c.getSymbole().setBase(ECouleur.valueOf(reseaux));
+                    }
+
+                    proprietes.lstCellules.add(c);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Erreur ligne: " + ligne);
+                    e.printStackTrace();
+                }
+            }
+
             sc.close();
         }
-		catch (FileNotFoundException e) { System.out.println("Erreur: Le fichier est introuvable.")                ;} 
+		
+		catch (FileNotFoundException e) { System.out.println("Erreur: Le fichier est introuvable.")              ;} 
 		catch (Exception e)             { System.out.println("Erreur de lecture ou de format : " + e.getMessage()) ;}
 
         return proprietes;

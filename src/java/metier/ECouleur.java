@@ -30,6 +30,7 @@ public enum ECouleur
         this.couleur = couleur;
     }
 
+
     public String getLibelle(){ return this.libelle; }
     public Color  getCouleur(){ return this.couleur; }
 }

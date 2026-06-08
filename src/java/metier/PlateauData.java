@@ -10,11 +10,13 @@ public class PlateauData
     
     public ArrayList<Integer> lstCouleur    ;
     public ArrayList<Integer> lstSymbole    ;
+    public ArrayList<Cellule> lstCellules   ;
 
     public PlateauData()
-    {
-        this.lstCouleur = new ArrayList<Integer>();
-        this.lstSymbole = new ArrayList<Integer>();
+    { 
+        this.lstCouleur  = new ArrayList<Integer>();
+        this.lstSymbole  = new ArrayList<Integer>();
+        this.lstCellules = new ArrayList<Cellule>();
     }
 
     public String toString()
