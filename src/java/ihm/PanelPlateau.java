@@ -197,11 +197,29 @@ public class PanelPlateau extends JPanel
 				g.drawRect(x, y, taille, taille); 
 			}
 
-			//
-				for (int i = 0; i < this.ctrl.getEnsLiaisons().size(); i++)
+
+			// Dessin des liaisons (trajets)
+			for (metier.Liaison l : this.ctrl.getEnsLiaisons())
+			{
+				g.setColor(new Color(0, 0, 0, 120));
+				g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, Math.max(10, taille / 4)));
+
+				java.util.ArrayList<metier.Cellule> traversees = l.getCelluleTraversees();
+				if (traversees == null || traversees.isEmpty()) continue;
+
+				for (int i = 0; i < traversees.size(); i++)
 				{
-					
+					metier.Cellule c = traversees.get(i);
+					if (c == null) continue;
+					int cx = c.getX() * taille;
+					int cy = c.getY() * taille;
+					g.setColor(new Color(0, 0, 0, 120));
+					// Petit rectangle “câble” centré dans la cellule
+					int pad = Math.max(3, taille / 8);
+					int w = taille - 2 * pad;
+					g.fillRect(cx + pad, cy + pad, w, w);
 				}
+			}
 			//
 		
 	}
