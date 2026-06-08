@@ -138,54 +138,26 @@ public class Controleur
 	public void enregistrerFichier( File fichier ) { this.metierPlateau.enregistrerFichier( fichier ) ;}
 
 
-	/*public Zone clicSurCase(int x, int y, Zone zone) 
+	public boolean toutesLesBasesPlacees()
 	{
-		Cellule cell     = this.getCellule(x, y);
-		Zone    zoneCell = cell.getZone();
-		if (zoneCell != null)
-		{
-			return zoneCell;
-		}
+		/*----------------*/
+		/* Données       */
+		/*----------------*/
 
-		if (cell.getZone() != null) { return cell.getZone() ;}
+		int nbBasesRequises = 0 ;
 
-		EZone typeSelectionne = EZone.values()[this.indiceZone];
+		/*----------------*/
+		/* Instructions  */
+		/*----------------*/
 
-		if (zone == null || zone.getTypeZone() != typeSelectionne)
-		{
-			ArrayList<Zone> ensZoneMemeType = new ArrayList<>();
-			Zone nvZone                     = new Zone(typeSelectionne);
-			
-			for (int cptX = 0; cptX < this.getTailleLongueur(); cptX++)
-				for (int cptY = 0; cptY < this.getTailleLargeur(); cptY++)
-				{
-					Cellule tmpCell = this.getCellule(cptX, cptY);
-					
-					if (tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeSelectionne)
-						if( !ensZoneMemeType.contains( tmpCell.getZone() ) ) { ensZoneMemeType.add( tmpCell.getZone() ) ;}
-				}
+		for ( Integer i : this.getLstCouleur() )
+			if ( i == 1 ) { nbBasesRequises++ ; }
 
-			int occurrence = ensZoneMemeType.size();
+		return this.metierPlateau.getEnsBases().size() == nbBasesRequises ;
+	}
 
-			nvZone.setCouleur(typeSelectionne, occurrence);
-			zone = nvZone;
 
-			this.metierPlateau.setZoneDansCellule(cell, zone);
-		}
-		else
-		{
-			boolean estAdjacent = false;
-
-			for(int cpt1 = -1; cpt1 <= 1; cpt1++)
-				for(int cpt2 = -1; cpt2 <= 1; cpt2++)
-					if( Math.abs(cpt1) + Math.abs(cpt2) == 1 && this.getCellule(x + cpt1, y + cpt2) != null && this.getCellule(x + cpt1, y + cpt2).getZone() == zone) { estAdjacent = true ;}
-			
-			if (estAdjacent) { this.metierPlateau.setZoneDansCellule(cell,zone) ;}
-		}
-		
-		return zone;
-	}*/
-
+	
 	public Zone clicSurCase(int x, int y, Zone zoneCourante)
 	{
 		Cellule cell = this.getCellule(x, y);
@@ -281,6 +253,13 @@ public class Controleur
 	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y)                     ;}
 	public void renitialiserLiaison ()             { this.metierPlateau.setEnsLiaison( new ArrayList<Liaison>() ) ;}
 	
+	public void retirerBase( int x, int y )
+	{
+		Cellule cell = this.getCellule( x, y ) ;
+		
+		if ( cell != null ) { this.metierPlateau.retirerBaseDansCellule( cell ) ;}
+	}
+
 	/*----------------------------*/
 	/*   Main                     */
 	/*----------------------------*/

@@ -32,8 +32,6 @@ public class Zone
         this.couleur  = new Color(200,200,200);
 		this.typeZone = typeZone;
 		this.id       = Zone.NB_ZONES++;
-
-		System.out.println("Nouvelle zone de id : " + this.id);
 	}
 
     public Zone ( EZone typeZone, int id  )
@@ -69,7 +67,7 @@ public class Zone
 
 	public void setCouleur ( EZone typeZone, int occurrence )
 	{
-		this.typeZone = typeZone;
+		this.id       = id;
 
 		Color base      = typeZone.getCouleur();
 		int   variation = occurrence * 25;

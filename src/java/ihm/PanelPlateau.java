@@ -126,7 +126,7 @@ public class PanelPlateau extends JPanel
 
 			if ( PanelPlateau.this.ctrl.getEtapeConception() == 3 ) //etape selection base
 			{
-				if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
+				if ( PanelPlateau.this.panelModification.getModePlacementBase() ) 
 				{
 					ECouleur base = PanelPlateau.this.panelModification.getBaseSelectione();
 
@@ -138,9 +138,12 @@ public class PanelPlateau extends JPanel
 				}
 				else
 				{
-					//ctrl.retirerSymbole(col, lig);
+					ctrl.retirerBase(col, lig);
 				}
+				
+				PanelPlateau.this.panelModification.majBtnEnregistrer() ;
 			}
+			
 				
 			
 			repaint();

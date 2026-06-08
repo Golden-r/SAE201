@@ -110,6 +110,8 @@ public class PanelPlateauOuestBase extends JPanel implements ActionListener
 		return null;
 	}
 
+	public boolean getModePlacement() { return this.cbPlacer.isSelected() ; }
+
 	private void mettreAJourImage()
 	{
 		ECouleur sym = this.getBaseSelectionne();

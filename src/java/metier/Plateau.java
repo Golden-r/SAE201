@@ -47,8 +47,6 @@ public class Plateau
 		this.largeur       = largeur;
 		this.longueur      = longueur;
 		this.tailleCellule = tailleCellule;
-
-		System.out.println( largeur + "|" + longueur );
 		
 		this.plateau    = new Cellule[longueur][largeur];
 
@@ -233,15 +231,10 @@ public class Plateau
 	{
 		if (cellule.getSymbole() == null) return; 
 
-		System.out.println("setting the base "+base.getLibelle() + " with cell : "+ cellule);
-
 		Cellule ecrase = null;
 
 		for (Cellule cel : this.ensBases)
 		{
-
-			System.out.println(cel);
-
 			if (cel.getSymbole().getCouleurBase() != null )
 			{
 				// Si il y'a deja une base du même type
@@ -249,7 +242,6 @@ public class Plateau
 				{
 					cel.getSymbole().setBase(null );
 					ecrase = cel;
-					System.out.println("gay");
 				}
 			}
 		}
@@ -483,6 +475,15 @@ public class Plateau
 				if ( c.estBase() && !this.ensBases.contains( c ) ){ this.ensBases.add( c ) ;}
 			}
 		}
+	}
+
+	public void retirerBaseDansCellule( Cellule cellule )
+	{
+		if ( cellule == null || cellule.getSymbole() == null ) { return ; }
+
+		if ( this.ensBases.contains( cellule ) ){ this.ensBases.remove( cellule ) ;}
+
+		cellule.getSymbole().setBase( null ) ;
 	}
 
 

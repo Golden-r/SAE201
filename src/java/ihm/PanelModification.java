@@ -132,12 +132,18 @@ public class PanelModification extends JPanel
 
 		if ( this.panelPlateauOuestZone != null ){ this.panelPlateauOuestZone.mettreAJourPrevisu() ;}
 	}
+
+	public void majBtnEnregistrer()
+	{
+		this.panelPlateauNord.majBtnEnregistrer() ;
+	}
 	
 	
 
-	public boolean  getModeSelection()        { return this.panelPlateauOuestZone   .getModeSelection  ()         ;}
-	public int      getZoneSelectioner()      { return this.panelPlateauOuestZone   .getZoneSelectioner()       ;}
-	public boolean  getModePlacementSymbole() { return this.panelPlateauOuestSymbole.getModePlacement  ()      ;}
-	public ESymbole getSymboleSelectionne ()  { return this.panelPlateauOuestSymbole.getSymboleSelectionne() ;}
-	public ECouleur getBaseSelectione      () { return this.panelPlateauOuestBase   .getBaseSelectionne() ;}
-	}
+	public boolean  getModeSelection()        { return this.panelPlateauOuestZone   .getModeSelection     ()     ;}
+	public int      getZoneSelectioner()      { return this.panelPlateauOuestZone   .getZoneSelectioner   ()     ;}
+	public boolean  getModePlacementSymbole() { return this.panelPlateauOuestSymbole.getModePlacement     ()     ;}
+	public ESymbole getSymboleSelectionne ()  { return this.panelPlateauOuestSymbole.getSymboleSelectionne()     ;}
+	public ECouleur getBaseSelectione      () { return this.panelPlateauOuestBase   .getBaseSelectionne   ()     ;}
+	public boolean  getModePlacementBase()    { return this.panelPlateauOuestBase   .getModePlacement     ()     ;}
+}
