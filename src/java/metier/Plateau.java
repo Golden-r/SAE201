@@ -412,8 +412,9 @@ public class Plateau
 		lstEnregistrelent.add ( "" + this.largeur       ) ;
 		lstEnregistrelent.add ( "" + this.longueur      ) ;
 		lstEnregistrelent.add ( "" + this.tailleCellule ) ;
-		lstEnregistrelent.add ( "" + this.getLstCouleur() ) ;
-		lstEnregistrelent.add ( "" + this.getLstSymbole() ) ;
+				
+		lstEnregistrelent.add ( this.getLstCouleur().toString().replace("[", "").replace("]", "")) ;
+		lstEnregistrelent.add ( this.getLstSymbole().toString().replace("[", "").replace("]", "") ) ;
 
 		for ( int lig = 0 ; lig < plateau.length ; lig ++ )
 			for ( int col = 0 ; col < plateau[lig].length ; col++ )
@@ -423,3 +424,4 @@ public class Plateau
 	}
 	
 }
+
