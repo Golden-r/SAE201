@@ -91,6 +91,7 @@ public class Plateau
 	public ArrayList<Integer>  getLstSymbole     ()          { return this.lstSymbole                                 ;}
 	public ArrayList<Liaison>  getEnsLiaison     ()          { return this.ensLiaison                                 ;}
 	public ArrayList<Zone   >  getEnsZones       ()          { return this.ensZones                                   ;}
+	public ArrayList<Cellule>  getEnsBases       ()          { return this.ensBases                                   ;}
 	public int                 getEtapeConception()          { return this.etapeConception                            ;}
 	public Zone                getZoneCourante   ()          { return this.zoneCourante                               ;}
 	public int[][]             getCheminLiaison( int indice ){ return this.ensLiaison.get( indice ).getCoordsChemin() ;}
@@ -201,7 +202,35 @@ public class Plateau
 
 	public void setBaseDansCellule(Cellule cellule, ECouleur base)
 	{
-		
+		if (cellule.getSymbole() == null) return; 
+
+		System.out.println("setting the base "+base.getLibelle() + " with cell : "+ cellule);
+
+		Cellule ecrase = null;
+
+		for (Cellule cel : this.ensBases)
+		{
+
+			System.out.println(cel);
+
+			if (cel.getSymbole().getCouleurBase() != null )
+			{
+				// Si il y'a deja une base du même type
+				if (cel.getSymbole().getCouleurBase() == base)
+				{
+					cel.getSymbole().setBase(null );
+					ecrase = cel;
+					System.out.println("gay");
+				}
+			}
+		}
+
+		if (ecrase != null)
+			this.ensBases.remove(ecrase);
+
+		this.ensBases.add(cellule);
+
+		cellule.getSymbole().setBase(base);
 	} 
 
 	public void setEtapeConception( int etape  )                   { this.etapeConception = etape ;}
