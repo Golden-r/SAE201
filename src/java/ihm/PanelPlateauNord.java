@@ -23,7 +23,13 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 	private JButton btnRetour  ;
 	private JButton btnSuivant ;
 
+	private JButton btnPrevisu ;
+
 	private JLabel lblNbZone ;
+
+	/*----------------------------*/
+	/* Constructeur de la classe */
+	/*----------------------------*/
 	
 	public PanelPlateauNord( Controleur ctrl , PanelModification panelModif , PanelPlateauSud panelSud ) 
 	{
@@ -39,21 +45,28 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		/* ----------------------------- */
 		/* Création des composants       */
 		/* ----------------------------- */
+		
+		JPanel panelCentre = new JPanel( new GridLayout( 1 , 2 )) ;
+
 
 		this.btnRetour  = new JButton("Retour") ;
 		this.btnSuivant = new JButton("Suivant") ;
 
 		this.lblNbZone = new JLabel( "Nombre de zone total : ") ;
+		this.lblNbZone.setOpaque(false );
 
-
-		
+		this.btnPrevisu = new JButton("Prévisualisation") ;
+		this.btnPrevisu.setBackground( Color.RED ) ;
 
 		/* ----------------------------- */ 
 		/* Positionnement des composants */
 		/* ----------------------------- */
 
+		panelCentre.add( this.lblNbZone );
+		panelCentre.add( this.btnPrevisu );
+
 		this.add( this.btnRetour  , BorderLayout.WEST   );
-		this.add( this.lblNbZone  , BorderLayout.CENTER );
+		this.add( panelCentre     , BorderLayout.CENTER );
 		this.add( this.btnSuivant , BorderLayout.EAST   );
 
 		/*---------------------------*/
@@ -62,6 +75,8 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		
 		this.btnRetour.addActionListener(this);
 		this.btnSuivant.addActionListener(this);
+
+		this.btnPrevisu.addActionListener(this);
 
 	}
 
@@ -119,10 +134,23 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 					break;
 			}
 
-
-			
-		
 		}
+
+
+		else if ( e.getSource() == this.btnPrevisu )
+		{
+			this.ctrl.setPrevisu() ;
+
+			if ( this.ctrl.getPrevisu() )
+			{
+				this.btnPrevisu.setBackground( Color.GREEN ) ;
+				this.btnPrevisu.setOpaque( true ) ; 
+			}
+			else { this.btnPrevisu.setBackground( Color.RED ) ;}
+			
+			this.panelModification.repaint() ;
+		}
+		
 	}
 
 	private void enregistrerSous()

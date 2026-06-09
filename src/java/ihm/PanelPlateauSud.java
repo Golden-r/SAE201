@@ -15,9 +15,17 @@ import java.awt.Color;
 
 public class PanelPlateauSud extends JPanel 
 {
+	/*----------------------------*/ 
+	/*  Attributs de la classe    */
+	/*----------------------------*/
+	
 	private Controleur ctrl;
 
 	private JLabel lblMessage ;
+
+	/*----------------------------*/
+	/* Constructeur de la classe */
+	/*----------------------------*/
 
 
 	public PanelPlateauSud( Controleur ctrl ) 
@@ -34,20 +42,21 @@ public class PanelPlateauSud extends JPanel
 
 		this.lblMessage = new JLabel("Veuillez sélectionner les zones et passer à l'étape suivante.") ;
 
-		
-
 		/* ----------------------------- */ 
 		/* Positionnement des composants */
 		/* ----------------------------- */
 
 		this.add( this.lblMessage ) ;
 
-
 		/*---------------------------*/
 		/* Activation des composants */
 		/*---------------------------*/
 		
 	}
+
+	/*----------------------------*/
+	/*  Méthodes                  */
+	/*----------------------------*/
 
 	public void afficherMsgZone()
 	{

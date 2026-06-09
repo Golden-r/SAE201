@@ -36,6 +36,8 @@ public class Plateau
 	private ArrayList<Liaison> ensLiaison ;
 	private ArrayList<Zone>    ensZones   ;
 
+	private boolean modePrevisu ;
+
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
@@ -58,6 +60,8 @@ public class Plateau
 		this.ensBases   = new ArrayList<Cellule>();
 		this.ensLiaison = new ArrayList<Liaison>();
 		this.ensZones   = new ArrayList<Zone>   ();
+
+		this.modePrevisu = false ;
 	}
 
 	/*----------------------------*/
@@ -68,6 +72,7 @@ public class Plateau
 	public int     getTailleLongueur   ()             { return this.longueur        ;}
 	public int     getTailleCellule    ()             { return this.tailleCellule   ;}
 	public int     getEtapeConception  ()             { return this.etapeConception ;}
+	public boolean getPrevisu()                       { return this.modePrevisu ; }
 	public int     getNbZonesDistinctes()
 	{
 		ArrayList<Zone> zonesUniques = new ArrayList<Zone>() ;
@@ -237,13 +242,12 @@ public class Plateau
 		cellule.getSymbole().setBase( base ) ;
 	}
 
-	public void setEtapeConception( int etape  )                   { this.etapeConception = etape ;}
-	public void setZoneCourante   ( Zone zone  )                   { this.zoneCourante    = zone  ;}
-	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison  ;}
+	public void setEtapeConception( int etape  )                   { this.etapeConception = etape         ;}
+	public void setZoneCourante   ( Zone zone  )                   { this.zoneCourante    = zone          ;}
+	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison         ;}
+	public void setPrevisu()                                       { this.modePrevisu = !this.modePrevisu ;}
 
-	/*----------------------------*/
-	/*  Teste                     */
-	/*----------------------------*/
+
 
 	public boolean estDansPlateau( int x, int y )            { return x >= 0 && x < longueur && y >= 0 && y < largeur; }
 	public boolean estCroiser    (ArrayList<Cellule> trajet)

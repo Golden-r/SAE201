@@ -4,6 +4,7 @@ import controleur.Controleur;
 
 //
 import metier.Zone;
+import metier.Cellule;
 import metier.ECouleur;
 import metier.ESymbole;
 //
@@ -128,6 +129,8 @@ public class PanelPlateau extends JPanel
 			int taille = ctrl.getTailleCellule();
 			int col = e.getX() / taille;
 			int lig = e.getY() / taille;
+
+			if ( PanelPlateau.this.ctrl.getPrevisu() ) { return ; }
 			
 			if (!PanelPlateau.this.estDansPlateau(col, lig)) return; 
 
@@ -216,11 +219,35 @@ public class PanelPlateau extends JPanel
 				int x = col * taille;
 				int y = lig * taille;
 
-                if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getZone() != null) 
+
+
+               Cellule c = this.ctrl.getCellule(col, lig) ;
+
+                if ( c != null && c.getZone() != null ) 
                 {
-                    g.setColor(this.ctrl.getCellule(col, lig).getZone().getCouleur());
-                    g.fillRect(x, y, taille, taille);
+                    if ( this.ctrl.getPrevisu() ) // mode image des zone
+                    {
+                        String nomFichier ;
+
+                        // Si un bâtiment ou une base est présent, on charge l'image modifiée
+                        if ( c.getSymbole() != null ) { nomFichier = c.getZone().getTypeZone().getNomImageBase() ;}
+                        else                          { nomFichier = c.getZone().getTypeZone().getNomImage()     ;}
+
+                        String chemin  = "./src/ressource/images/Zones/" + nomFichier ;
+                        Image  imgZone = new ImageIcon(chemin).getImage() ;
+
+						System.out.println( chemin );
+
+                        g.drawImage( imgZone, x, y, taille, taille, null ) ;
+                    }
+                    else // mode couleur des zone
+                    {
+                        g.setColor( c.getZone().getCouleur() ) ;
+                        g.fillRect( x, y, taille, taille ) ;
+                    }
                 }
+
+
 
 				if (this.ctrl.getCellule(col, lig) != null && this.ctrl.getCellule(col, lig).getSymbole() != null)
 				{

@@ -64,6 +64,15 @@ public class Zone
 
 	}
 
+	public void setCouleur (EZone typeZone, int occurence)
+	{
+		this.couleur = Zone.determinerCouleur(typeZone, occurence);
+	}
+
+	/*----------------------------*/
+	/*  Méthodes                  */
+	/*----------------------------*/
+	
 	public static Color determinerCouleur ( EZone typeZone, int occurrence )
 	{
 		
@@ -93,9 +102,5 @@ public class Zone
 
 		return new Color(r, g, b);
 	}
-
-	public void setCouleur (EZone typeZone, int occurence)
-	{
-		this.couleur = Zone.determinerCouleur(typeZone, occurence);
-	}
+	
 }

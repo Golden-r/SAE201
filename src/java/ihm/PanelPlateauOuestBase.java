@@ -22,6 +22,10 @@ import java.awt.Image;
 
 public class PanelPlateauOuestBase extends JPanel implements ActionListener
 {
+	/*----------------------------*/ 
+	/*  Attributs de la classe    */
+	/*----------------------------*/
+
 	Controleur ctrl ;
 
 	private JComboBox<String> jcbBase;
@@ -31,6 +35,9 @@ public class PanelPlateauOuestBase extends JPanel implements ActionListener
 	private JRadioButton cbPlacer;
 	private JRadioButton cbGomme;
 
+	/*----------------------------*/
+	/* Constructeur de la classe */
+	/*----------------------------*/
 
 	public PanelPlateauOuestBase( Controleur ctrl ) 
 	{
@@ -93,6 +100,9 @@ public class PanelPlateauOuestBase extends JPanel implements ActionListener
 		this.jcbBase.addActionListener(this);
 
 	}
+	/*----------------------------*/ 
+	/*  Methodes			      */
+	/*----------------------------*/
 
 	public void actionPerformed( ActionEvent e ) 
 	{

@@ -28,6 +28,10 @@ import java.util.ArrayList;
 
 public class PanelCreation extends JPanel implements ActionListener , ItemListener
 {
+	/*----------------------------*/ 
+	/*  Attributs de la classe    */
+	/*----------------------------*/
+
 	private Controleur ctrl;
 
 	private JPanel panelGestion ;
@@ -36,19 +40,23 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 	private JPanel[] tabPanelCreation ;
 
 	private JButton btnNouveau ; 
-	private JButton btnAncien ; 
-	private JButton btnCopie ;
+	private JButton btnAncien  ; 
+	private JButton btnCopie   ;
 
-	private JButton btnValider;
+	private JButton btnValider       ;
 	private JButton btnReinitialiser ;
 
 	private JTextField  txtTailleLongueur ; 
-	private JTextField  txtTailleLargeur ; 
-	private JLabel      lblNbCouleur ; 
-	private JCheckBox[] tabCbCouleur ;
-	private JLabel      lblNbSymbole ;
-	private JCheckBox[] tabCbSymbole ;
-	private JTextField  txtTailleCases ;
+	private JTextField  txtTailleLargeur  ; 
+	private JLabel      lblNbCouleur      ; 
+	private JCheckBox[] tabCbCouleur      ;
+	private JLabel      lblNbSymbole      ;
+	private JCheckBox[] tabCbSymbole      ;
+	private JTextField  txtTailleCases    ;
+
+	/*----------------------------*/
+	/* Constructeur de la classe  */
+	/*----------------------------*/
 
 
 	public PanelCreation( Controleur ctrl ) 
@@ -62,8 +70,6 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		this.panelCreation = new JPanel( new GridLayout( 5 , 1 ) );
 		this.panelCreation.setVisible(false);
-
-
 
 		this.btnNouveau = new JButton("Nouveau") ;
 		this.btnAncien  = new JButton("Ancien" ) ;
@@ -87,19 +93,14 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		this.btnValider      .setBackground( Color.GREEN  );
 		this.btnReinitialiser.setBackground( Color.YELLOW );
 
-
-
-
 		this.panelGestion = new JPanel( new FlowLayout(FlowLayout.CENTER, 30, 5) );
 		this.txtTailleLongueur = new JTextField("10" , 4) ;
 		this.txtTailleLargeur  = new JTextField("10" , 4) ;
-
 
 		this.lblNbCouleur = new JLabel("0" );
 		this.tabCbCouleur = new JCheckBox[ECouleur.values().length] ;
 		for ( int cpt = 0 ; cpt < this.tabCbCouleur.length-1 ; cpt++ ) 
 			this.tabCbCouleur[cpt] = new JCheckBox( ECouleur.values()[cpt].getLibelle() ) ;
-
 
 		this.lblNbSymbole = new JLabel("0");
 		this.tabCbSymbole = new JCheckBox[ESymbole.values().length] ;
@@ -114,7 +115,6 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		this.tabPanelCreation[4] = new JPanel();
 		this.tabPanelCreation[4].setBackground( Color.LIGHT_GRAY );
-
 
 		this.tabPanelCreation[0].setBorder( BorderFactory.createEmptyBorder( 20 , 25,  0, 25));
 		this.tabPanelCreation[1].setBorder( BorderFactory.createEmptyBorder( 0  , 25,  0, 25));
@@ -138,8 +138,6 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		this.panelGestion.add( this.btnAncien ) ;
 		this.panelGestion.add( this.btnCopie ) ;
 
-
-
 		this.tabPanelCreation[0].add( new JLabel("Taille : " ) );
 		this.tabPanelCreation[0].add( this.txtTailleLargeur );
 		this.tabPanelCreation[0].add( new JLabel(" X " )       );
@@ -162,9 +160,6 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 
 		this.tabPanelCreation[4].add( this.btnValider );
 		this.tabPanelCreation[4].add( this.btnReinitialiser );
-
-
-
 
 
 		this.panelCreation.add( this.tabPanelCreation[0] );
@@ -199,6 +194,9 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 			this.tabCbSymbole[cpt].addItemListener(this);
 	}
 
+	/*----------------------------*/ 
+	/*  Methodes                  */
+	/*----------------------------*/
 
 	public void itemStateChanged(ItemEvent e) 
 	{

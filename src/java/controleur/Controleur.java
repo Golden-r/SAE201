@@ -70,7 +70,7 @@ public class Controleur
 
 		return Color.BLACK ;
 	}
-
+	public boolean            getPrevisu()                          { return this.metierPlateau.getPrevisu() ;}
 	
 
 	/*----------------------------*/
@@ -81,7 +81,7 @@ public class Controleur
 	public void setEtapeConception        ( int  etape   )                  { this.metierPlateau.setEtapeConception(etape)         ;}
 	public void setZoneCourante           ( Zone zone    )                  { this.metierPlateau.setZoneCourante   (zone )         ;}
 	public void setCelluleBase            ( Cellule cellule, ECouleur base) { this.metierPlateau.setBaseDansCellule(cellule, base) ;}
-
+	public void setPrevisu()                                                { this.metierPlateau.setPrevisu() ; }
 	
 
 	/*----------------------------*/
