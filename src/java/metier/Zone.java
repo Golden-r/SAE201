@@ -32,6 +32,7 @@ public class Zone
         this.couleur  = new Color(200,200,200);
 		this.typeZone = typeZone              ;
 		this.id       = Zone.NB_ZONES++       ;
+		
 	}
 
     public Zone ( EZone typeZone, int id  )
@@ -50,9 +51,9 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public Color getCouleur  () { return this.couleur  ;}
-	public EZone getTypeZone () { return this.typeZone ;}
-	public int   getId       () { return this.id       ;}
+    public Color getCouleur  ()              { return this.couleur  ;}
+	public EZone getTypeZone ()              { return this.typeZone ;}
+	public int   getId       ()              { return this.id       ;}
 	
     /*----------------------------*/
 	/*  Modificateur              */
@@ -68,6 +69,8 @@ public class Zone
 	{
 		this.couleur = Zone.determinerCouleur(typeZone, occurence);
 	}
+
+
 
 	/*----------------------------*/
 	/*  Méthodes                  */

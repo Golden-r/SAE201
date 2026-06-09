@@ -341,7 +341,6 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 		JFileChooser            fileChooser ;
 		FileNameExtensionFilter filtre ;
 		File                    fichierChoisi ;
-		String                  cheminFichier ;
 		int                     reponse ;
 
 		/*----------------*/

@@ -57,7 +57,7 @@ public class PanelPlateauOuestZone extends JPanel implements ActionListener
 
 		this.btgRadio   = new ButtonGroup();
 		this.cbSelecion = new JRadioButton("Selecion", true);
-		this.cbGomme    = new JRadioButton("cbGomme"                 );
+		this.cbGomme    = new JRadioButton("Gomme"                 );
 
 
 

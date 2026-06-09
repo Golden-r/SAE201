@@ -37,6 +37,7 @@ public class Plateau
 	private ArrayList<Zone>    ensZones   ;
 
 	private boolean modePrevisu ;
+	private int indiceZoneSelectionnee ;
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -62,6 +63,7 @@ public class Plateau
 		this.ensZones   = new ArrayList<Zone>   ();
 
 		this.modePrevisu = false ;
+		this.indiceZoneSelectionnee = 0 ;
 	}
 
 	/*----------------------------*/
@@ -202,6 +204,7 @@ public class Plateau
 
 		return trajet;
 	}
+	public int                 getIndiceZoneSelectionnee ()  { return this.indiceZoneSelectionnee ; }
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -246,7 +249,7 @@ public class Plateau
 	public void setZoneCourante   ( Zone zone  )                   { this.zoneCourante    = zone          ;}
 	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison         ;}
 	public void setPrevisu()                                       { this.modePrevisu = !this.modePrevisu ;}
-
+	public void setIndiceZoneSelectionnee ( int indice )           { this.indiceZoneSelectionnee = indice ;}
 
 
 	public boolean estDansPlateau( int x, int y )            { return x >= 0 && x < longueur && y >= 0 && y < largeur; }

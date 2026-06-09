@@ -31,7 +31,6 @@ public class Controleur
 	private Plateau           metierPlateau;
 	private GestionFichier    metierGestionFichier;
 
-	private int indiceZone ;
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -77,11 +76,11 @@ public class Controleur
 	/*  Modificateur              */
 	/*----------------------------*/
 
-	public void setIndiceZoneSelectionnee ( int  indice  )                  { this.indiceZone = indice                             ;}
+	public void setIndiceZoneSelectionnee ( int  indice  )                  { this.metierPlateau.setIndiceZoneSelectionnee( indice )  ;}
 	public void setEtapeConception        ( int  etape   )                  { this.metierPlateau.setEtapeConception(etape)         ;}
 	public void setZoneCourante           ( Zone zone    )                  { this.metierPlateau.setZoneCourante   (zone )         ;}
 	public void setCelluleBase            ( Cellule cellule, ECouleur base) { this.metierPlateau.setBaseDansCellule(cellule, base) ;}
-	public void setPrevisu()                                                { this.metierPlateau.setPrevisu() ; }
+	public void setPrevisu()                                                { this.metierPlateau.setPrevisu()                      ;}
 	
 
 	/*----------------------------*/
@@ -168,7 +167,7 @@ public class Controleur
 	{
 		Cellule cell            = this.getCellule(x, y)           ;
 		Zone    zoneCell        = cell.getZone()                  ;
-		EZone   typeSelectionne = EZone.values()[this.indiceZone] ;
+		EZone   typeSelectionne = EZone.values()[ this.metierPlateau.getIndiceZoneSelectionnee() ] ;
 
 		if (zoneCell != null)
 			return zoneCell;

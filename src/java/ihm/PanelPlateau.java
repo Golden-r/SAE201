@@ -221,7 +221,7 @@ public class PanelPlateau extends JPanel
 
 
 
-               Cellule c = this.ctrl.getCellule(col, lig) ;
+				Cellule c = this.ctrl.getCellule(col, lig) ;
 
                 if ( c != null && c.getZone() != null ) 
                 {
@@ -267,12 +267,14 @@ public class PanelPlateau extends JPanel
 					tg.drawImage(rawImg, 0, 0, size, size, null);
 					tg.dispose();
 
-					Color baseColor = null;
-					if (this.ctrl.getCellule(col, lig).getSymbole().getCouleurBase() != null) {
-						baseColor = this.ctrl.getCellule(col, lig).getSymbole().getCouleurBase().getCouleur();
+					Color coulBase = null;
+					if (this.ctrl.getCellule(col, lig).getSymbole().getCouleurBase() != null)
+					{
+						coulBase = this.ctrl.getCellule(col, lig).getSymbole().getCouleurBase().getCouleur();
 					}
 
-					if (baseColor != null) {
+					if (coulBase != null)
+					{
 						BufferedImage tintedImg = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 						Graphics2D gTint = tintedImg.createGraphics();
 						
@@ -283,7 +285,7 @@ public class PanelPlateau extends JPanel
 						gTint.setComposite(AlphaComposite.SrcAtop);
 						
 						// on set la transparence aussi
-						Color highlightColor = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 255);
+						Color highlightColor = new Color(coulBase.getRed(), coulBase.getGreen(), coulBase.getBlue(), 175);
 						gTint.setColor(highlightColor);
 						gTint.fillRect(0, 0, size, size);
 						gTint.dispose();
