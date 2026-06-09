@@ -75,19 +75,69 @@ public class PanelPlateau extends JPanel
 	/*-----------------------------------------*/
 	private class GereSouris extends MouseAdapter
 	{
-		public void mouseClicked(MouseEvent e)
+		// Quand on clique (une seule fois)
+		public void mousePressed(MouseEvent e)
+		{
+			this.agirSurCase(e);
+		}
+
+		// Quand on maintient le clic et qu'on bouge
+		public void mouseDragged(MouseEvent e)
+		{
+			this.agirSurCase(e);
+		}
+
+		// Quand on bouge la souris SANS cliquer (pour le survol)
+		public void mouseMoved(MouseEvent e) 
+		{
+			int taille = ctrl.getTailleCellule();
+			int col = e.getX() / taille;
+			int lig = e.getY() / taille;
+
+			if (PanelPlateau.this.estDansPlateau(col, lig)) 
+			{
+				if (hoveredLig != lig || hoveredCol != col) 
+				{
+					hoveredLig = lig;
+					hoveredCol = col;
+					PanelPlateau.this.repaint();
+				}
+			} 
+			else 
+			{
+				if (hoveredLig != -1 || hoveredCol != -1) 
+				{
+					hoveredLig = -1;
+					hoveredCol = -1;
+					PanelPlateau.this.repaint();
+				}
+			}
+		}
+
+		// Quand la souris sort du plateau
+		public void mouseExited(MouseEvent e) 
+		{
+			hoveredLig = -1;
+			hoveredCol = -1;
+			PanelPlateau.this.repaint();
+		}
+
+		// --- Méthode centrale qui applique les modifications --- //
+		private void agirSurCase(MouseEvent e)
 		{
 			int taille = ctrl.getTailleCellule();
 			int col = e.getX() / taille;
 			int lig = e.getY() / taille;
 			
-			
-			if (!PanelPlateau.this.estDansPlateau(col, lig)) return; // si c'est pas dans le plateau
+			if (!PanelPlateau.this.estDansPlateau(col, lig)) return; 
 
-			if ( PanelPlateau.this.ctrl.getEtapeConception() == 1 ) //etape selection zone 
+			// On utilise SwingUtilities pour détecter le clic même pendant un mouvement (drag)
+			boolean clicGauche = SwingUtilities.isLeftMouseButton(e);
+			boolean clicDroit  = SwingUtilities.isRightMouseButton(e);
+
+			if ( PanelPlateau.this.ctrl.getEtapeConception() == 1 ) // Etape zone 
 			{
-				
-				if (e.getButton() == MouseEvent.BUTTON1)
+				if ( clicGauche )
 				{
 					if ( PanelPlateau.this.panelModification.getModeSelection() )
 					{
@@ -101,87 +151,54 @@ public class PanelPlateau extends JPanel
 					PanelPlateau.this.panelModification.mettreAJourNbZones();
 				}
 
-				if (e.getButton() == MouseEvent.BUTTON3) { ctrl.setZoneCourante(null) ;}
-				
+				if ( clicDroit ) { ctrl.setZoneCourante(null) ;}
 			}				
 				
-			if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 )
+			if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 ) // Etape symbole
 			{
-				if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
+				if ( clicGauche ) // Uniquement avec le clic gauche (sécurité)
 				{
-					ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionne();
-					if (sym != null) 
+					if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
 					{
-						ctrl.clicSurCaseSymbole(col, lig, sym);
+						ESymbole sym = PanelPlateau.this.panelModification.getSymboleSelectionne();
+						if (sym != null) 
+						{
+							ctrl.clicSurCaseSymbole(col, lig, sym);
+						}
+					} 
+					else
+					{
+						ctrl.retirerSymbole(col, lig);
 					}
-				} 
-				else
-				{
-					ctrl.retirerSymbole(col, lig);
+					
+					PanelPlateau.this.panelModification.majBtnSuivant() ;
 				}
-				
-				PanelPlateau.this.panelModification.majBtnSuivant() ;
 			}
 
-			if ( PanelPlateau.this.ctrl.getEtapeConception() == 3 ) //etape selection base
+			if ( PanelPlateau.this.ctrl.getEtapeConception() == 3 ) // Etape base
 			{
-				if ( PanelPlateau.this.panelModification.getModePlacementBase() ) 
+				if ( clicGauche ) // Uniquement avec le clic gauche
 				{
-					ECouleur base = PanelPlateau.this.panelModification.getBaseSelectione();
-
-					if (base != null) 
+					if ( PanelPlateau.this.panelModification.getModePlacementBase() ) 
 					{
-						ctrl.clicSurCaseBase(col, lig, base);
+						ECouleur base = PanelPlateau.this.panelModification.getBaseSelectione();
+
+						if (base != null) 
+						{
+							ctrl.clicSurCaseBase(col, lig, base);
+						}
 					}
+					else
+					{
+						ctrl.retirerBase(col, lig);
+					}
+					
+					PanelPlateau.this.panelModification.majBtnSuivant() ;
 				}
-				else
-				{
-					ctrl.retirerBase(col, lig);
-				}
-				
-				PanelPlateau.this.panelModification.majBtnSuivant() ;
 			}
 			
-				
-			
-			repaint();
+			PanelPlateau.this.repaint();
 		}
-	}
-
-
-	public void mouseMoved(MouseEvent e) 
-	{
-		int taille = ctrl.getTailleCellule();
-		int col = e.getX() / taille;
-		int lig = e.getY() / taille;
-
-
-		if (PanelPlateau.this.estDansPlateau(col, lig)) 
-		{
-			if (hoveredLig != lig || hoveredCol != col) 
-			{
-				hoveredLig = lig;
-				hoveredCol = col;
-			}
-		} 
-		else 
-		{
-			if (hoveredLig != -1 || hoveredCol != -1) 
-			{
-				hoveredLig = -1;
-				hoveredCol = -1;
-			}
-		}
-		
-		repaint();
-	}
-
-
-	public void mouseExited(MouseEvent e) 
-	{
-		hoveredLig = -1;
-		hoveredCol = -1;
-		repaint();
 	}
 	
 
@@ -251,7 +268,6 @@ public class PanelPlateau extends JPanel
 					} 
 					else
 					{
-						// pas de couleur de base, juste l'image
 						g.drawImage(img, x, y, null);
 					}
 				}

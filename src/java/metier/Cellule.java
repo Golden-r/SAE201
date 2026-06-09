@@ -3,6 +3,14 @@ package metier;
 import metier.* ;
 import java.util.ArrayList ;
 
+/* SAE 2.01 | Développement d'une application 
+* Cellule
+*
+* Date     : 02/06/2026
+* @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
+* Groupe   : 4
+*/
+
 public class Cellule 
 {
     /*----------------------------*/ 

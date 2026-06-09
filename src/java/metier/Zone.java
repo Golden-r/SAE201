@@ -19,9 +19,9 @@ public class Zone
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-    private Color couleur;
-	private EZone typeZone;
-	private int   id;
+    private Color couleur  ;
+	private EZone typeZone ;
+	private int   id       ;
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -50,9 +50,9 @@ public class Zone
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-    public        Color    getCouleur     (){ return this.couleur  ;}
-	public        EZone    getTypeZone    (){ return this.typeZone ;}
-	public        int      getId          (){ return this.id       ;}
+    public Color getCouleur  () { return this.couleur  ;}
+	public EZone getTypeZone () { return this.typeZone ;}
+	public int   getId       () { return this.id       ;}
 	
     /*----------------------------*/
 	/*  Modificateur              */
@@ -64,7 +64,7 @@ public class Zone
 
 	}
 
-	public void setCouleur ( EZone typeZone, int occurrence )
+	public static Color determinerCouleur ( EZone typeZone, int occurrence )
 	{
 		
 		Color base      ;
@@ -74,7 +74,7 @@ public class Zone
 		int   b         ;
 
 		base      = typeZone.getCouleur() ;
-		variation = occurrence * 25 ;
+		variation = occurrence * 25       ;
 
 		r = base.getRed()   + variation ;
 		g = base.getGreen() + variation ;
@@ -91,6 +91,11 @@ public class Zone
 		g = Math.max(0, g) ;
 		b = Math.max(0, b) ;
 
-		this.couleur = new Color(r, g, b);
+		return new Color(r, g, b);
+	}
+
+	public void setCouleur (EZone typeZone, int occurence)
+	{
+		this.couleur = Zone.determinerCouleur(typeZone, occurence);
 	}
 }

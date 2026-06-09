@@ -127,10 +127,6 @@ public class Plateau
         /*----------------*/
 
         ArrayList<Zone> ensZoneMemeType ;
-        int             occurrence      ;
-        Color           base            ;
-        int             variation       ;
-        int             r, g, b         ;
 
         /*----------------*/
         /* Instructions  */
@@ -139,42 +135,21 @@ public class Plateau
         ensZoneMemeType = new ArrayList<>() ;
 
         for(int cptX = 0; cptX < this.longueur; cptX++)
-        {
             for(int cptY = 0; cptY < this.largeur; cptY++)
             {
                 Cellule tmpCell = this.plateau[cptX][cptY] ;
 
                 if(tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone)
                 {
-                    if(!ensZoneMemeType.contains(tmpCell.getZone()))
+                    if( !ensZoneMemeType.contains(tmpCell.getZone()) )
                     {
                         ensZoneMemeType.add(tmpCell.getZone()) ;
                     }
                 }
             }
-        }
 
-        occurrence = ensZoneMemeType.size() ;
 
-        base      = typeZone.getCouleur() ;
-        variation = occurrence * 25 ;
-
-        r = base.getRed()   + variation ;
-        g = base.getGreen() + variation ;
-        b = base.getBlue()  + variation ;
-
-        while (r > 255 || g > 255 || b > 255 || r + g + b > 650)
-        {
-            r -= 85 ;
-            g -= 85 ;
-            b -= 85 ;
-        }
-
-        r = Math.max(0, r) ;
-        g = Math.max(0, g) ;
-        b = Math.max(0, b) ;
-
-        return new Color(r, g, b) ;
+        return Zone.determinerCouleur(typeZone, ensZoneMemeType.size());
     }
 	
 	public ArrayList<Integer>  getLstCouleur     ()          { return this.lstCouleur                                 ;}
@@ -207,13 +182,13 @@ public class Plateau
 
 		while(curseurX != arrivee.getX() || curseurY != arrivee.getY())
 		{
-
 			Cellule tmpCellule = this.getCellule(curseurX, curseurY);
 
-			//blocage si obstacle sur le chemin
-			if(tmpCellule != null && !tmpCellule.estVide()) return null;
+			if( tmpCellule != null && tmpCellule.getSymbole() != null ) 
+			{ 
+				return null ;
+			}
 
-			//coordonnée pour la liaison
 		    trajet.add(tmpCellule);
 
 			curseurX += directionX;
@@ -238,20 +213,11 @@ public class Plateau
 	{
 		if ( this.estDansPlateau(cellule.getX(), cellule.getY())) 
 			plateau[cellule.getX()][cellule.getY()].setZone(zone);
-
 	}
 
 	public void setBaseDansCellule( Cellule cellule, ECouleur base)
 	{
-		/*----------------*/
-		/* Données        */
-		/*----------------*/
 		Cellule ancienneBaseMemeCouleur ;
-
-		/*----------------*/
-		/* Instructions   */
-		/*----------------*/
-
 		ancienneBaseMemeCouleur = null ;
 
 		if ( cellule == null || cellule.getSymbole() == null ) { return ; }
@@ -262,7 +228,6 @@ public class Plateau
 				cel.getSymbole().setBase( null ) ;
 				ancienneBaseMemeCouleur = cel ;
 			}
-
 
 		if ( ancienneBaseMemeCouleur != null )  { this.ensBases.remove( ancienneBaseMemeCouleur ) ;}
 
@@ -310,7 +275,6 @@ public class Plateau
 				if(l.getReseau() == couleur)
 				{
 					//depart du câble vers une destination non visité
-
 					//Vérification (sens : depart -> arrivee)
 					if(l.getDepart() == tmpCellule && !visite.contains(l.getArrivee()) && !aVisite.contains(l.getArrivee()))
 						aVisite.add(l.getArrivee());
@@ -345,63 +309,33 @@ public class Plateau
 			for ( int j = i + 1 ; j < batiments.size() ; j++ ) 
 				this.ajouterLiaison(batiments.get(i), batiments.get(j), couleur) ;
 	}
-
-	public boolean ajouterLiaison(Cellule depart, Cellule arrivee, ECouleur couleur)
+	
+	public void ajouterLiaison(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
 		ArrayList<Cellule> trajet = this.getTrajet(depart, arrivee);
 
-		if(trajet == null) return false;
+		if(trajet != null) this.ensLiaison.add(new Liaison(depart, arrivee, couleur, trajet));
 
-		this.ensLiaison.add(new Liaison(depart, arrivee, couleur, trajet));
-
-		return true;
 	}
-
+		
 	public void retirerSymbole(int x, int y)
 	{
 		Cellule tmpCellule = this.getCellule(x, y);
 
-		if (tmpCellule == null || tmpCellule.estVide())
-			return;
+		if (tmpCellule == null || tmpCellule.getSymbole() == null) { return ; }
 
-		ArrayList<Cellule> extremites = new ArrayList<Cellule>();
-		ECouleur reseau = null;
-
-		for (int cpt = this.ensLiaison.size()-1; cpt >= 0; cpt--)
-		{
-			Liaison tmpLiaison = this.ensLiaison.get(cpt);
-
-			//liaison réseau part du symbole supprimé
-			if (tmpLiaison.getDepart() == tmpCellule)
-			{
-				if (!extremites.contains(tmpLiaison.getArrivee()))
-					extremites.add(tmpLiaison.getArrivee());
-				reseau = tmpLiaison.getReseau();
-				this.ensLiaison.remove(cpt);
-			}
-
-			//liaison réseau arrive du symbole supprimé
-			else if (tmpLiaison.getArrivee() == tmpCellule)
-			{
-				if (!extremites.contains(tmpLiaison.getDepart()))
-					extremites.add(tmpLiaison.getDepart());
-				reseau = tmpLiaison.getReseau();
-				this.ensLiaison.remove(cpt);
-			}
-		}
-
-		if (this.ensBases.contains(tmpCellule))
-		{
-			this.ensBases.remove(tmpCellule);
-		}
+		if (this.ensBases.contains(tmpCellule)) { this.ensBases.remove(tmpCellule) ;}
 		
 		tmpCellule.setSymbole(null);
+	}
 
-		if (reseau != null && extremites.size() >= 2)
-			for (int lig = 0; lig < extremites.size(); lig++)
-				for (int col = lig + 1; col < extremites.size(); col++)
-					this.ajouterLiaison(extremites.get(lig), extremites.get(col), reseau);
-	
+	public void retirerBaseDansCellule( Cellule cellule )
+	{
+		if ( cellule == null || cellule.getSymbole() == null ) { return ; }
+
+		if ( this.ensBases.contains( cellule ) ){ this.ensBases.remove( cellule ) ;}
+
+		cellule.getSymbole().setBase( null ) ;
 	}
 
 	public void supprimerZone(int x, int y)
@@ -496,15 +430,6 @@ public class Plateau
 		}
 	}
 
-	public void retirerBaseDansCellule( Cellule cellule )
-	{
-		if ( cellule == null || cellule.getSymbole() == null ) { return ; }
-
-		if ( this.ensBases.contains( cellule ) ){ this.ensBases.remove( cellule ) ;}
-
-		cellule.getSymbole().setBase( null ) ;
-	}
-
 	public void enregistrerFichier(File fichier)
 	{
 		ArrayList<String> lstEnregistrement;
@@ -530,4 +455,3 @@ public class Plateau
 		GestionFichier.ecrireFichier(fichier, lstEnregistrement);
 	}
 }
-
