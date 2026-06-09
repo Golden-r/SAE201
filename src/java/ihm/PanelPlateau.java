@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.AlphaComposite;
@@ -305,13 +306,13 @@ public class PanelPlateau extends JPanel
 					g.fillRect(x, y, taille, taille);
 				}
 
-				g.setColor(Color.BLACK);
+				g.setColor(Color.LIGHT_GRAY);
 				g.drawRect(x, y, taille, taille); 
 			}
 
 
 		// Dessin des liaisons (trajets)
-	
+
 		for ( int cptL = 0 ; cptL < this.ctrl.getNbLiaisons() ; cptL++ )
 		{
 			g.setColor( this.ctrl.getCouleurLiaison( cptL ) ) ;
@@ -320,15 +321,26 @@ public class PanelPlateau extends JPanel
 
 			if ( chemin != null && chemin.length > 1 )
 			{
+				// 1. On crée le contexte Graphics2D à partir de g
+				Graphics2D g2 = (Graphics2D) g;
+				
+				// 2. On applique l'épaisseur de 5 pixels AVANT de dessiner
+				g2.setStroke(new BasicStroke(2.0f));
+
 				for ( int cptP = 0 ; cptP < chemin.length - 1 ; cptP++ )
 				{
 					int x1 = chemin[cptP][0]     * taille + ( taille / 2 ) ;
 					int y1 = chemin[cptP][1]     * taille + ( taille / 2 ) ;
 					int x2 = chemin[cptP + 1][0] * taille + ( taille / 2 ) ;
 					int y2 = chemin[cptP + 1][1] * taille + ( taille / 2 ) ;
-
-					g.drawLine( x1, y1, x2, y2 ) ;
+					
+					// 3. On utilise g2 pour appliquer la couleur et dessiner la ligne
+					g2.setColor(Color.BLACK) ;
+					g2.drawLine( x1, y1, x2, y2 ) ;
 				}
+				
+				// 4. On remet l'épaisseur par défaut à la fin du chemin
+				g2.setStroke(new BasicStroke(1.0f));
 			}
 		}
 		
