@@ -236,8 +236,6 @@ public class PanelPlateau extends JPanel
                         String chemin  = "./src/ressource/images/Zones/" + nomFichier ;
                         Image  imgZone = new ImageIcon(chemin).getImage() ;
 
-						System.out.println( chemin );
-
                         g.drawImage( imgZone, x, y, taille, taille, null ) ;
                     }
                     else // mode couleur des zone

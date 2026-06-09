@@ -13,7 +13,7 @@ import java.awt.Image;
 import java.awt.Color;
 
 /* SAE 2.01 | Développement d'une application 
-* PanelPlateauOuest
+* PanelPlateauOuestZone
 *
 * Date     : 02/06/2026
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
@@ -34,7 +34,7 @@ public class PanelPlateauOuestZone extends JPanel implements ActionListener
 	private Color  couleurCourante ;
 	
 
-	public PanelPlateauOuest( Controleur ctrl ) 
+	public PanelPlateauOuestZone( Controleur ctrl ) 
 	{
 		this.ctrl = ctrl ;
 
@@ -125,7 +125,7 @@ public class PanelPlateauOuestZone extends JPanel implements ActionListener
 		{
 			super.paintComponent(g);
 			
-			g.setColor( PanelPlateauOuest.this.couleurCourante );
+			g.setColor( PanelPlateauOuestZone.this.couleurCourante );
 			g.fillRect( 10, 5, 40, 40 ); 
 			
 			g.setColor( Color.BLACK );

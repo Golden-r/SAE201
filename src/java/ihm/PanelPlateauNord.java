@@ -47,13 +47,13 @@ public class PanelPlateauNord extends JPanel implements ActionListener
 		/* ----------------------------- */
 		
 		JPanel panelCentre = new JPanel( new GridLayout( 1 , 2 )) ;
+		panelCentre.setOpaque(false) ;
 
 
 		this.btnRetour  = new JButton("Retour") ;
 		this.btnSuivant = new JButton("Suivant") ;
 
 		this.lblNbZone = new JLabel( "Nombre de zone total : ") ;
-		this.lblNbZone.setOpaque(false );
 
 		this.btnPrevisu = new JButton("Prévisualisation") ;
 		this.btnPrevisu.setBackground( Color.RED ) ;

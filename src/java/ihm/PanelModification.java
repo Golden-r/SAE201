@@ -29,7 +29,7 @@ public class PanelModification extends JPanel
 
 	private PanelPlateau      			panelPlateau ;
 	private PanelPlateauNord  			panelPlateauNord ;
-	private PanelPlateauOuest 			panelPlateauOuestZone ; 
+	private PanelPlateauOuestZone 		panelPlateauOuestZone ; 
 	private PanelPlateauOuestSymbole 	panelPlateauOuestSymbole ;
 	private PanelPlateauOuestBase       panelPlateauOuestBase;
 	private PanelPlateauSud 			panelSud ;
@@ -51,7 +51,7 @@ public class PanelModification extends JPanel
 		this.panelSud   		= new PanelPlateauSud( this.ctrl ) ;
 		this.panelPlateauNord   = new PanelPlateauNord( this.ctrl , this , this.panelSud ) ;
 		this.panelEst   		= new JPanel() ;
-		this.panelPlateauOuestZone 		= new PanelPlateauOuest( this.ctrl ) ;
+		this.panelPlateauOuestZone 		= new PanelPlateauOuestZone( this.ctrl ) ;
 		this.panelPlateauOuestSymbole 	= new PanelPlateauOuestSymbole	( this.ctrl ) ;
 		this.panelPlateauOuestBase      = new PanelPlateauOuestBase( this.ctrl );
         
@@ -65,13 +65,13 @@ public class PanelModification extends JPanel
 
 		this.add( this.panelPlateau , BorderLayout.CENTER );	
 
-		this.add( this.panelPlateauNord  , BorderLayout.NORTH );
-		this.add( this.panelSud   , BorderLayout.SOUTH );
-		this.add( this.panelEst   , BorderLayout.EAST  );
+		this.add( this.panelPlateauNord      , BorderLayout.NORTH );
+		this.add( this.panelSud              , BorderLayout.SOUTH );
+		this.add( this.panelEst              , BorderLayout.EAST  );
 		this.add( this.panelPlateauOuestZone , BorderLayout.WEST  );
 
 		/*---------------------------*/
-		/* Activation des composants */
+		/* Activation des composants */ 
 		/*---------------------------*/
 
         
