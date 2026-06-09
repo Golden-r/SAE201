@@ -12,7 +12,6 @@ import java.awt.Color;
 */
 
 public enum ESymbole
-
 {
 	MAISONS     ("Maisons"     , 'm' ),
 	IMMEUBLES   ("Immeubles"   , 'i' ),
@@ -21,18 +20,33 @@ public enum ESymbole
 	ECOLES      ("Écoles"      , 'e' ),
 	USINES      ("Usines"      , 'u' );
 
-    private String libelle;
-    private char   nom ;
+    /*----------------------------*/ 
+	/*  Attributs de la classe    */
+	/*----------------------------*/
+
+    private String libelle ;
     private String nomImage;
+    private char   nom     ;
+    
+
+    /*----------------------------*/
+	/*  Constructeur de la classe */
+	/*----------------------------*/
 
     ESymbole ( String libelle, char nom )
     {
         this.libelle  = libelle;
-        this.nom      = nom    ;
         this.nomImage = libelle;
+        this.nom      = nom    ;
+        
     }
 
+    /*----------------------------*/
+	/*  Accesseur                 */
+	/*----------------------------*/
+
     public String getLibelle()  { return this.libelle  ;}
-    public char   getNom()      { return this.nom      ;}
     public String getNomImage() { return this.nomImage ;}
+    public char   getNom()      { return this.nom      ;}
+    
 }

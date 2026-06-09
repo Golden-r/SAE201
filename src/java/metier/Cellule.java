@@ -16,7 +16,6 @@ public class Cellule
     private Zone    zone ;
 
     private boolean estVide ;
-
     private boolean estBase ;
 
     /*----------------------------*/
@@ -50,11 +49,8 @@ public class Cellule
 
     public void setX        ( int     coordonneeX  ) { this.coordonneeX  = coordonneeX ; }
     public void setY        ( int     coordonneeY  ) { this.coordonneeY  = coordonneeY ; }
-
     public void setSymbole  ( Symbole symbole      ) { this.symbole      = symbole     ; }
     public void setZone     ( Zone    zone         ) { this.zone         = zone        ; }
-
-    //public void setEstVide  ( boolean estVide      ) { this.estVide      = estVide     ; }
 
     /*----------------------------*/
 	/*  Test                      */
@@ -71,31 +67,20 @@ public class Cellule
     /*----------------------------*/
 	/*  Méthodes                  */
 	/*----------------------------*/
-
     
     public String toString()
 	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
 		String sRet ;
-
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
 
 		sRet = this.coordonneeX + "," + this.coordonneeY ;
 
 		if ( this.symbole != null ){ sRet += "," + this.symbole.getTypeSymbole() + "," + this.symbole.getCouleurBase() ;}
-		else                       { sRet += ",null,null" ;}
+		else                       { sRet += ",null,null"                                                              ;}
 
 		if ( this.zone != null )
-		{ sRet += "," + this.zone.getCouleur().getRGB() + "," + this.zone.getTypeZone() + "," + this.zone.getId() ;}
+			{ sRet += "," + this.zone.getCouleur().getRGB() + "," + this.zone.getTypeZone() + "," + this.zone.getId() ;}
 		else
-		{
-			sRet += ",null,null,null" ;
-		}
+			{ sRet += ",null,null,null"                                                                               ;}
 
 		sRet += "," + this.estVide + "," + this.estBase ;
 

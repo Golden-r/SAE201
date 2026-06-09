@@ -30,8 +30,8 @@ public class Zone
     public Zone ( EZone typeZone  )
     {
         this.couleur  = new Color(200,200,200);
-		this.typeZone = typeZone;
-		this.id       = Zone.NB_ZONES++;
+		this.typeZone = typeZone              ;
+		this.id       = Zone.NB_ZONES++       ;
 	}
 
     public Zone ( EZone typeZone, int id  )
@@ -54,7 +54,6 @@ public class Zone
 	public        EZone    getTypeZone    (){ return this.typeZone ;}
 	public        int      getId          (){ return this.id       ;}
 	
-
     /*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
@@ -67,25 +66,30 @@ public class Zone
 
 	public void setCouleur ( EZone typeZone, int occurrence )
 	{
-		this.id       = id;
+		
+		Color base      ;
+		int   variation ;
+		int   r         ;
+		int   g         ;
+		int   b         ;
 
-		Color base      = typeZone.getCouleur();
-		int   variation = occurrence * 25;
+		base      = typeZone.getCouleur() ;
+		variation = occurrence * 25 ;
 
-		int r = base.getRed()   + variation;
-		int g = base.getGreen() + variation;
-		int b = base.getBlue()  + variation;
+		r = base.getRed()   + variation ;
+		g = base.getGreen() + variation ;
+		b = base.getBlue()  + variation ;
 
 		while (r > 255 || g > 255 || b > 255 || r + g + b > 650)
 		{
-			r -= 85;
-			g -= 85;
-			b -= 85;
+			r -= 85 ;
+			g -= 85 ;
+			b -= 85 ;
 		}
 
-		r = Math.max(0, r);
-		g = Math.max(0, g);
-		b = Math.max(0, b);
+		r = Math.max(0, r) ;
+		g = Math.max(0, g) ;
+		b = Math.max(0, b) ;
 
 		this.couleur = new Color(r, g, b);
 	}

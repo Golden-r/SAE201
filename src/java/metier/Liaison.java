@@ -17,11 +17,10 @@ public class Liaison
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 	
-	private Cellule            depart;
-	private Cellule            arrivee;
-	private ECouleur           reseau;
-	private ArrayList<Cellule>    CelluleTraversees;
-	
+	private Cellule            depart           ;
+	private Cellule            arrivee          ;
+	private ECouleur           reseau           ;
+	private ArrayList<Cellule> CelluleTraversees;
 	
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -29,9 +28,9 @@ public class Liaison
 	
 	public Liaison(Cellule depart, Cellule arrivee, ECouleur reseau, ArrayList<Cellule> CelluleTraversees)
 	{
-		this.depart  = depart;
-		this.arrivee = arrivee;
-		this.reseau = reseau;
+		this.depart            = depart           ;
+		this.arrivee           = arrivee          ;
+		this.reseau            = reseau           ;
 		this.CelluleTraversees = CelluleTraversees;
 	}
 	
@@ -39,11 +38,10 @@ public class Liaison
 	/*  Accesseur                 */
 	/*----------------------------*/
 	
-	public Cellule         		getDepart			() { return this.depart;          }
-	public Cellule         		getArrivee			() { return this.arrivee;         }
-	public ECouleur        		getReseau			() { return this.reseau;         }
+	public Cellule         		getDepart			() { return this.depart           ; }
+	public Cellule         		getArrivee			() { return this.arrivee          ; }
+	public ECouleur        		getReseau			() { return this.reseau           ; }
 	public ArrayList<Cellule> 	getCelluleTraversees() { return this.CelluleTraversees; }
-	
 	
 	/*----------------------------*/
 	/*  Méthodes                  */
@@ -63,16 +61,8 @@ public class Liaison
 
 	public int[][] getCoordsChemin()
 	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
 		ArrayList<Cellule> lstToutesLesCells ;
 		int[][]            coords            ;
-
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
 
 		lstToutesLesCells = new ArrayList<>() ;
 

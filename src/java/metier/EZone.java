@@ -33,19 +33,30 @@ public enum EZone
 	ZONE19 ("Le Val de l'Eau"          , new Color(100,200,255) ,"Val_de_l_Eau"           ), 
 	ZONE20 ("Le Grand Parc Urbain"     , new Color(100,220,100) ,"Grand_Parc_Urbain"      ); 
 
+	/*----------------------------*/ 
+	/*  Attributs de la classe    */
+	/*----------------------------*/
+
 	private String libelle      ;
 	private String nomImage     ;
 	private String nomImageBase ;
 	private Color  couleur      ;
-	
 
+	/*----------------------------*/
+	/*  Constructeur de la classe */
+	/*----------------------------*/
+	
 	EZone ( String libelle, Color couleur, String nomImage)
 	{
-		this.libelle      = libelle;
-		this.couleur      = couleur;
-		this.nomImage     = nomImage + ".png";
+		this.libelle      = libelle              ;
+		this.nomImage     = nomImage + ".png"    ;
 		this.nomImageBase = nomImage +"_Base.png";
+		this.couleur      = couleur              ;
 	}
+
+	/*----------------------------*/
+	/*  Accesseur                 */
+	/*----------------------------*/
 
 	public static String[] getZonesLibelles()
 	{

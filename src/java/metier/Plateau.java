@@ -21,32 +21,31 @@ public class Plateau
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 	
-	private int largeur;
-	private int longueur;
-	private int tailleCellule;
+	private int largeur         ;
+	private int longueur        ;
+	private int tailleCellule   ;
+	private int etapeConception ;  // 1 = zone , 2 = symbole , 3 = base
+
+	private Zone zoneCourante    ;
+
+	private Cellule[][]        plateau    ;
 
 	private ArrayList<Integer> lstCouleur ;
 	private ArrayList<Integer> lstSymbole ;
-
-	private Cellule[][] plateau;
-
 	private ArrayList<Cellule> ensBases   ;
 	private ArrayList<Liaison> ensLiaison ;
 	private ArrayList<Zone>    ensZones   ;
-
-	private int  etapeConception ; // 1 = zone , 2 = symbole , 3 = base
-	private Zone zoneCourante;
-
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-	public Plateau(int longueur, int largeur, int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole) 
+	public Plateau ( int longueur, int largeur, int tailleCellule, ArrayList<Integer> lstCouleur, ArrayList<Integer> lstSymbole) 
 	{
-		this.largeur       = largeur;
-		this.longueur      = longueur;
-		this.tailleCellule = tailleCellule;
+		this.largeur         = largeur      ;
+		this.longueur        = longueur     ;
+		this.tailleCellule   = tailleCellule;
+		this.etapeConception = 1            ;
 		
 		this.plateau    = new Cellule[longueur][largeur];
 
@@ -59,24 +58,59 @@ public class Plateau
 		this.ensBases   = new ArrayList<Cellule>();
 		this.ensLiaison = new ArrayList<Liaison>();
 		this.ensZones   = new ArrayList<Zone>   ();
-
-		this.etapeConception = 1 ;
 	}
-
 
 	/*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int     getTailleLargeur  ()             { return this.largeur       ;}
-	public int     getTailleLongueur ()             { return this.longueur      ;}
-	public int     getTailleCellule  ()             { return this.tailleCellule ;}
-	public Cellule getCellule        (int x, int y) 
+	public int     getTailleLargeur    ()             { return this.largeur         ;}
+	public int     getTailleLongueur   ()             { return this.longueur        ;}
+	public int     getTailleCellule    ()             { return this.tailleCellule   ;}
+	public int     getEtapeConception  ()             { return this.etapeConception ;}
+	public int     getNbZonesDistinctes()
+	{
+		ArrayList<Zone> zonesUniques = new ArrayList<Zone>() ;
+
+		for ( int cptX = 0 ; cptX < this.longueur ; cptX++ )
+			for ( int cptY = 0 ; cptY < this.largeur ; cptY++ )
+			{
+				Cellule tmpCell = this.plateau[cptX][cptY] ;
+
+				if ( tmpCell != null && tmpCell.getZone() != null )
+					if ( !zonesUniques.contains( tmpCell.getZone() ) )
+						zonesUniques.add( tmpCell.getZone() ) ;
+			}
+
+		return zonesUniques.size() ;
+	}
+	public int     getNbBatiments      ()
+	{
+		int nbBatiments ;
+
+		nbBatiments = 0 ;
+
+		for ( int x = 0 ; x < this.longueur ; x++ )
+		{
+			for ( int y = 0 ; y < this.largeur ; y++ )
+			{
+				if ( this.plateau[x][y] != null && this.plateau[x][y].getSymbole() != null ){ nbBatiments++ ;}
+			}
+		}
+
+		return nbBatiments ;
+	}
+
+	public int[][] getCheminLiaison    ( int indice ){ return this.ensLiaison.get( indice ).getCoordsChemin() ;}
+	
+	public Zone    getZoneCourante     ()            { return this.zoneCourante                               ;}
+	
+	public Cellule getCellule          (int x, int y) 
 	{
 		if (!estDansPlateau(x, y)) return null;
 		return plateau[x][y];
 	}
-	public Cellule getSymboleDansCellule(Symbole symbole)
+	public Cellule getSymboleDansCellule  (Symbole symbole)
 	{
 		for (int x = 0; x < this.longueur; x++)
 			for (int y = 0; y < this.largeur; y++)
@@ -85,15 +119,69 @@ public class Plateau
 		
 		return null;
 	}
+
+	public Color   getCouleurProchaineZone( EZone typeZone )
+    {
+        /*----------------*/
+        /* Données       */
+        /*----------------*/
+
+        ArrayList<Zone> ensZoneMemeType ;
+        int             occurrence      ;
+        Color           base            ;
+        int             variation       ;
+        int             r, g, b         ;
+
+        /*----------------*/
+        /* Instructions  */
+        /*----------------*/
+
+        ensZoneMemeType = new ArrayList<>() ;
+
+        for(int cptX = 0; cptX < this.longueur; cptX++)
+        {
+            for(int cptY = 0; cptY < this.largeur; cptY++)
+            {
+                Cellule tmpCell = this.plateau[cptX][cptY] ;
+
+                if(tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone)
+                {
+                    if(!ensZoneMemeType.contains(tmpCell.getZone()))
+                    {
+                        ensZoneMemeType.add(tmpCell.getZone()) ;
+                    }
+                }
+            }
+        }
+
+        occurrence = ensZoneMemeType.size() ;
+
+        base      = typeZone.getCouleur() ;
+        variation = occurrence * 25 ;
+
+        r = base.getRed()   + variation ;
+        g = base.getGreen() + variation ;
+        b = base.getBlue()  + variation ;
+
+        while (r > 255 || g > 255 || b > 255 || r + g + b > 650)
+        {
+            r -= 85 ;
+            g -= 85 ;
+            b -= 85 ;
+        }
+
+        r = Math.max(0, r) ;
+        g = Math.max(0, g) ;
+        b = Math.max(0, b) ;
+
+        return new Color(r, g, b) ;
+    }
+	
 	public ArrayList<Integer>  getLstCouleur     ()          { return this.lstCouleur                                 ;}
 	public ArrayList<Integer>  getLstSymbole     ()          { return this.lstSymbole                                 ;}
 	public ArrayList<Liaison>  getEnsLiaison     ()          { return this.ensLiaison                                 ;}
 	public ArrayList<Zone   >  getEnsZones       ()          { return this.ensZones                                   ;}
 	public ArrayList<Cellule>  getEnsBases       ()          { return this.ensBases                                   ;}
-	public int                 getEtapeConception()          { return this.etapeConception                            ;}
-	public Zone                getZoneCourante   ()          { return this.zoneCourante                               ;}
-	public int[][]             getCheminLiaison( int indice ){ return this.ensLiaison.get( indice ).getCoordsChemin() ;}
-
 	public ArrayList<Cellule>  getTrajet         ( Cellule depart, Cellule arrivee )
 	{
 		ArrayList<Cellule> trajet = new ArrayList<Cellule>();
@@ -135,176 +223,64 @@ public class Plateau
 		return trajet;
 	}
 
-	public Color getCouleurProchaineZone( EZone typeZone )
-	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
-		ArrayList<Zone> ensZoneMemeType ;
-		int             occurrence      ;
-		Color           base            ;
-		int             variation       ;
-		int             r, g, b         ;
-
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
-
-		ensZoneMemeType = new ArrayList<>() ;
-
-		for(int cptX = 0; cptX < this.longueur; cptX++)
-		{
-			for(int cptY = 0; cptY < this.largeur; cptY++)
-			{
-				Cellule tmpCell = this.plateau[cptX][cptY] ;
-
-				if(tmpCell != null && tmpCell.getZone() != null && tmpCell.getZone().getTypeZone() == typeZone)
-				{
-					if(!ensZoneMemeType.contains(tmpCell.getZone()))
-					{
-						ensZoneMemeType.add(tmpCell.getZone()) ;
-					}
-				}
-			}
-		}
-
-		occurrence = ensZoneMemeType.size() ;
-
-		base      = typeZone.getCouleur() ;
-		variation = occurrence * 25 ;
-
-		r = base.getRed()   + variation ;
-		g = base.getGreen() + variation ;
-		b = base.getBlue()  + variation ;
-
-		while (r > 255 || g > 255 || b > 255 || r + g + b > 650)
-		{
-			r -= 85 ;
-			g -= 85 ;
-			b -= 85 ;
-		}
-
-		r = Math.max(0, r) ;
-		g = Math.max(0, g) ;
-		b = Math.max(0, b) ;
-
-		return new Color(r, g, b) ;
-	}
-	
-	public int getNbZonesDistinctes()
-	{
-		ArrayList<Zone> zonesUniques = new ArrayList<Zone>() ;
-
-		for ( int cptX = 0 ; cptX < this.longueur ; cptX++ )
-			for ( int cptY = 0 ; cptY < this.largeur ; cptY++ )
-			{
-				Cellule tmpCell = this.plateau[cptX][cptY] ;
-
-				if ( tmpCell != null && tmpCell.getZone() != null )
-					if ( !zonesUniques.contains( tmpCell.getZone() ) )
-						zonesUniques.add( tmpCell.getZone() ) ;
-			}
-
-		return zonesUniques.size() ;
-	}
-	
-	public int getNbBatiments()
-	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
-		int nbBatiments ;
-
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
-
-		nbBatiments = 0 ;
-
-		for ( int x = 0 ; x < this.longueur ; x++ )
-		{
-			for ( int y = 0 ; y < this.largeur ; y++ )
-			{
-				if ( this.plateau[x][y] != null && this.plateau[x][y].getSymbole() != null ){ nbBatiments++ ;}
-			}
-		}
-
-		return nbBatiments ;
-	}
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
 
     
-	public void setSymboleDansCellule(Cellule cellule, Symbole symbole) 
+	public void setSymboleDansCellule( Cellule cellule, Symbole symbole) 
 	{
 		if ( this.estDansPlateau(cellule.getX(), cellule.getY()) )
 			plateau[cellule.getX()][cellule.getY()].setSymbole(symbole);
 	}
 
-	public void setZoneDansCellule(Cellule cellule , Zone zone) 
+	public void setZoneDansCellule( Cellule cellule, Zone zone) 
 	{
 		if ( this.estDansPlateau(cellule.getX(), cellule.getY())) 
 			plateau[cellule.getX()][cellule.getY()].setZone(zone);
 
 	}
 
-	public void setBaseDansCellule(Cellule cellule, ECouleur base)
+	public void setBaseDansCellule( Cellule cellule, ECouleur base)
 	{
-		if (cellule.getSymbole() == null) return; 
+		/*----------------*/
+		/* Données        */
+		/*----------------*/
+		Cellule ancienneBaseMemeCouleur ;
 
-		Cellule ecrase = null;
+		/*----------------*/
+		/* Instructions   */
+		/*----------------*/
 
-		for (Cellule cel : this.ensBases)
-		{
-			if (cel.getSymbole().getCouleurBase() != null )
+		ancienneBaseMemeCouleur = null ;
+
+		if ( cellule == null || cellule.getSymbole() == null ) { return ; }
+
+		for ( Cellule cel : this.ensBases )
+			if ( cel.getSymbole().getCouleurBase() == base )
 			{
-				// Si il y'a deja une base du même type
-				if (cel.getSymbole().getCouleurBase() == base)
-				{
-					cel.getSymbole().setBase(null );
-					ecrase = cel;
-				}
+				cel.getSymbole().setBase( null ) ;
+				ancienneBaseMemeCouleur = cel ;
 			}
-		}
 
-		if (ecrase != null)
-			this.ensBases.remove(ecrase);
 
-		this.ensBases.add(cellule);
+		if ( ancienneBaseMemeCouleur != null )  { this.ensBases.remove( ancienneBaseMemeCouleur ) ;}
 
-		cellule.getSymbole().setBase(base);
-	} 
+		if ( this.ensBases.contains( cellule ) ){ this.ensBases.remove( cellule ) ;}
+
+		this.ensBases.add( cellule ) ;
+		cellule.getSymbole().setBase( base ) ;
+	}
 
 	public void setEtapeConception( int etape  )                   { this.etapeConception = etape ;}
 	public void setZoneCourante   ( Zone zone  )                   { this.zoneCourante    = zone  ;}
 	public void setEnsLiaison     (ArrayList<Liaison> EnsLiaison ) { this.ensLiaison = EnsLiaison  ;}
 
 	/*----------------------------*/
-	/*  Méthodes                  */
+	/*  Teste                     */
 	/*----------------------------*/
-	public void relierToutLesSymbole ( ECouleur couleur )
-	{
-		ArrayList<Cellule> batiments = new ArrayList<>();
 
-		for ( int cpt = 0 ; cpt < this.plateau.length ; cpt ++ ) {
-			for ( int col = 0 ; col < this.plateau[cpt].length ; col++ )
-			{
-				Cellule c = this.plateau[cpt][col];
-
-				if ( c != null && !c.estVide() && c.getSymbole() != null )
-					batiments.add ( c );	
-			}
-		}
-
-		for ( int i = 0 ; i < batiments.size() ; i++ ) 
-			for ( int j = i + 1 ; j < batiments.size() ; j++ ) 
-				this.ajouterLiaison(batiments.get(i), batiments.get(j), couleur) ;
-	}
-
-    public boolean estDansPlateau( int x, int y )            { return x >= 0 && x < longueur && y >= 0 && y < largeur; }
+	public boolean estDansPlateau( int x, int y )            { return x >= 0 && x < longueur && y >= 0 && y < largeur; }
 	public boolean estCroiser    (ArrayList<Cellule> trajet)
 	{
 		for(int cptS = 0; cptS < trajet.size(); cptS++)
@@ -348,15 +324,33 @@ public class Plateau
 		return false;
 	}
 
+	/*----------------------------*/
+	/*  Méthodes                  */
+	/*----------------------------*/
+	public void relierToutLesSymbole ( ECouleur couleur )
+	{
+		ArrayList<Cellule> batiments = new ArrayList<>();
+
+		for ( int cpt = 0 ; cpt < this.plateau.length ; cpt ++ ) {
+			for ( int col = 0 ; col < this.plateau[cpt].length ; col++ )
+			{
+				Cellule c = this.plateau[cpt][col];
+
+				if ( c != null && !c.estVide() && c.getSymbole() != null )
+					batiments.add ( c );	
+			}
+		}
+
+		for ( int i = 0 ; i < batiments.size() ; i++ ) 
+			for ( int j = i + 1 ; j < batiments.size() ; j++ ) 
+				this.ajouterLiaison(batiments.get(i), batiments.get(j), couleur) ;
+	}
+
 	public boolean ajouterLiaison(Cellule depart, Cellule arrivee, ECouleur couleur)
 	{
-
-		//if(this.existeChemin(depart, arrivee, couleur)) return false;
-
 		ArrayList<Cellule> trajet = this.getTrajet(depart, arrivee);
 
-		if(trajet == null)                 return false;
-		//if(this.estCroiser(trajet)) return false;
+		if(trajet == null) return false;
 
 		this.ensLiaison.add(new Liaison(depart, arrivee, couleur, trajet));
 
@@ -396,6 +390,11 @@ public class Plateau
 			}
 		}
 
+		if (this.ensBases.contains(tmpCellule))
+		{
+			this.ensBases.remove(tmpCellule);
+		}
+		
 		tmpCellule.setSymbole(null);
 
 		if (reseau != null && extremites.size() >= 2)
@@ -480,10 +479,6 @@ public class Plateau
 
 	public void chargerDonnees( ArrayList<Cellule> lstCellules )
 	{
-		/*----------------*/
-		/* Instructions   */
-		/*----------------*/
-
 		if ( lstCellules == null ) { return ; }
 
 		for ( int cptC = 0 ; cptC < lstCellules.size() ; cptC++ )
@@ -510,19 +505,9 @@ public class Plateau
 		cellule.getSymbole().setBase( null ) ;
 	}
 
-
-	// TODO
 	public void enregistrerFichier(File fichier)
 	{
-		/*----------------*/
-		/* Données        */
-		/*----------------*/
-
 		ArrayList<String> lstEnregistrement;
-
-		/*----------------*/
-		/* Instructions   */
-		/*----------------*/
 
 		lstEnregistrement = new ArrayList<String>();
 
@@ -536,18 +521,10 @@ public class Plateau
 		for (int x = 0; x < this.plateau.length; x++)
 			for (int y = 0; y < this.plateau[x].length; y++)
 			{
-				Cellule c = this.plateau[x][y];
-				// On récupère le nom de l'enum sous forme de texte (ou "null" si vide)
-				//String nomZone    = (c.getZone()    != null) ? c.getZone().getTypeZone().name()   : "null";
-				//String nomSymbole = (c.getSymbole() != null) ? c.getSymbole().getTypeSymbole().name() : "null";
-				
-				String   celluleData = (c.toString());
+				Cellule c           = this.plateau[x][y];
+				String  celluleData = c.toString();
 
-
-				// Format de sauvegarde : X,Y,Zone,Symbole (ex: 5,10,ZONE1,MAISONS)
-				//lstEnregistrement.add(x + "," + y + "," + nomZone + "," + nomSymbole);
 				lstEnregistrement.add( celluleData );
-
 			}
 
 		GestionFichier.ecrireFichier(fichier, lstEnregistrement);

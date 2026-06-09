@@ -24,17 +24,14 @@ public class Symbole
     private ESymbole            symbole     ;
     private ECouleur            couleurBase ;
 
-
     /*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
     public Symbole ( ESymbole symbole ) 
     {
-
         this.symbole     = symbole ;
         this.couleurBase = null    ;
-
     }
 
     /*----------------------------*/

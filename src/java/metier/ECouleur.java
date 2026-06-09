@@ -21,8 +21,16 @@ public enum ECouleur
 
     LIAISON ("LIAISON"               , Color.GRAY           );
 
+    /*----------------------------*/ 
+	/*  Attributs de la classe    */
+	/*----------------------------*/
+
     private String libelle;
     private Color  couleur;
+
+    /*----------------------------*/
+	/*  Constructeur de la classe */
+	/*----------------------------*/
 
     ECouleur ( String libelle, Color couleur )
     {
@@ -30,7 +38,10 @@ public enum ECouleur
         this.couleur = couleur;
     }
 
-
+    /*----------------------------*/
+	/*  Accesseur                 */
+	/*----------------------------*/
+    
     public String getLibelle(){ return this.libelle; }
     public Color  getCouleur(){ return this.couleur; }
 }

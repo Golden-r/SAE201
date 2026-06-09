@@ -5,12 +5,10 @@ import java.awt.Frame;
 import java.io.File;
 import java.util.ArrayList;
 
-
 import ihm.FrameCreation;
 import ihm.FrameModification;
 
 import metier.*;
-
 
 /* SAE 2.01 | Développement d'une application 
 * Controleur
@@ -19,8 +17,6 @@ import metier.*;
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
 * Groupe   : 4
 */
-
-// TODO : changer les noms des IHM's
 
 public class Controleur
 {
@@ -37,7 +33,6 @@ public class Controleur
 
 	private int indiceZone ;
 
-
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
@@ -46,7 +41,6 @@ public class Controleur
 	{
 
 	}
-
 
 	/*----------------------------*/
 	/*  Accesseur                 */
@@ -117,24 +111,32 @@ public class Controleur
 	
 	public void chargerPlateau ( File fichier )
 	{
-		PlateauData proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
+		PlateauData        proprietes     ;
+		int                tailleLargeur  ;
+		int                tailleLongueur ;
+		int                tailleCellule  ;
+		ArrayList<Integer> lstCouleur     ;
+		ArrayList<Integer> lstSymbole     ;
 
-		if (proprietes == null) return;
+
+		proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
+
+		if ( proprietes == null ) { return ; }
 		
-		System.out.println("Données lues depuis le fichier : \n" + proprietes);
+		System.out.println( "Données lues depuis le fichier : \n" + proprietes ) ;
 
-		int tailleLargeur  = proprietes.tailleLargeur;
-		int tailleLongueur = proprietes.tailleLongueur;
-		int tailleCellule  = proprietes.tailleCellule;
+		tailleLargeur  = proprietes.tailleLargeur  ;
+		tailleLongueur = proprietes.tailleLongueur ;
+		tailleCellule  = proprietes.tailleCellule  ;
 
-		ArrayList<Integer> lstCouleur  = proprietes.lstCouleur;
-		ArrayList<Integer> lstSymbole  = proprietes.lstSymbole;
+		lstCouleur     = proprietes.lstCouleur     ;
+		lstSymbole     = proprietes.lstSymbole     ;
 
-		this.creerPlateau( tailleLongueur , tailleLargeur, tailleCellule, lstCouleur, lstSymbole);
+		this.creerPlateau( tailleLongueur, tailleLargeur, tailleCellule, lstCouleur, lstSymbole ) ;
 		
 		if ( proprietes.lstCellules != null ){ this.metierPlateau.chargerDonnees( proprietes.lstCellules ) ;}
 
-		this.lancerModification();
+		this.lancerModification() ;
 	}
 
 	public void enregistrerFichier( File fichier ) { this.metierPlateau.enregistrerFichier( fichier ) ;}
@@ -142,15 +144,7 @@ public class Controleur
 
 	public boolean toutesLesBasesPlacees()
 	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
 		int nbBasesRequises = 0 ;
-
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
 
 		for ( Integer i : this.getLstCouleur() )
 			if ( i == 1 ) { nbBasesRequises++ ; }
@@ -160,23 +154,11 @@ public class Controleur
 
 	public boolean assezDeBatimentsPourBases()
 	{
-		/*----------------*/
-		/* Données       */
-		/*----------------*/
-
 		int nbBasesRequises = 0 ;
 
-		/*----------------*/
-		/* Instructions  */
-		/*----------------*/
-
 		for ( Integer i : this.getLstCouleur() )
-		{
 			if ( i == 1 ) 
-			{ 
 				nbBasesRequises++ ; 
-			}
-		}
 
 		return this.metierPlateau.getNbBatiments() >= nbBasesRequises ;
 	}
@@ -184,10 +166,9 @@ public class Controleur
 
 	public Zone clicSurCase(int x, int y, Zone zoneCourante)
 	{
-		Cellule cell = this.getCellule(x, y);
-		Zone zoneCell = cell.getZone();
-
-		EZone typeSelectionne = EZone.values()[this.indiceZone];
+		Cellule cell            = this.getCellule(x, y)           ;
+		Zone    zoneCell        = cell.getZone()                  ;
+		EZone   typeSelectionne = EZone.values()[this.indiceZone] ;
 
 		if (zoneCell != null)
 			return zoneCell;
@@ -202,11 +183,11 @@ public class Controleur
 				{
 					Cellule tmp = this.getCellule(cptX, cptY);
 
-					if (tmp != null && tmp.getZone() != null &&
-						tmp.getZone().getTypeZone() == typeSelectionne)
+					if (tmp != null && tmp.getZone() != null           &&
+						tmp.getZone().getTypeZone() == typeSelectionne &&
+						!ensZoneMemeType.contains(tmp.getZone())          )
 					{
-						if (!ensZoneMemeType.contains(tmp.getZone()))
-							ensZoneMemeType.add(tmp.getZone());
+						ensZoneMemeType.add(tmp.getZone());
 					}
 				}
 			}
@@ -232,9 +213,7 @@ public class Controleur
 					Cellule voisin = this.getCellule(x + dx, y + dy);
 
 					if (voisin != null && voisin.getZone() == zoneCourante)
-					{
 						estAdjacent = true;
-					}
 				}
 			}
 		}
@@ -277,7 +256,7 @@ public class Controleur
 	public void retirerSymbole      (int x, int y) { this.metierPlateau.retirerSymbole(x , y)                     ;}
 	public void renitialiserLiaison ()             { this.metierPlateau.setEnsLiaison( new ArrayList<Liaison>() ) ;}
 	
-	public void retirerBase( int x, int y )
+	public void retirerBase         (int x, int y)
 	{
 		Cellule cell = this.getCellule( x, y ) ;
 		
