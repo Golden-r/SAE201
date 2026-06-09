@@ -51,9 +51,9 @@ public class PanelModification extends JPanel
 		this.panelSud   		= new PanelPlateauSud( this.ctrl ) ;
 		this.panelPlateauNord   = new PanelPlateauNord( this.ctrl , this , this.panelSud ) ;
 		this.panelEst   		= new JPanel() ;
-		this.panelPlateauOuestZone 		= new PanelPlateauOuestZone( this.ctrl ) ;
-		this.panelPlateauOuestSymbole 	= new PanelPlateauOuestSymbole	( this.ctrl ) ;
-		this.panelPlateauOuestBase      = new PanelPlateauOuestBase( this.ctrl );
+		this.panelPlateauOuestZone 		= new PanelPlateauOuestZone   ( this.ctrl ) ;
+		this.panelPlateauOuestSymbole 	= new PanelPlateauOuestSymbole( this.ctrl ) ;
+		this.panelPlateauOuestBase      = new PanelPlateauOuestBase   ( this.ctrl ) ;
         
 		this.panelPlateauNord .setBackground( Color.LIGHT_GRAY );
 		this.panelSud  .setBackground( Color.LIGHT_GRAY  );
