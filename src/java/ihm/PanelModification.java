@@ -75,6 +75,7 @@ public class PanelModification extends JPanel
 		/*---------------------------*/
 
         
+		this.mettreAJourNbZones();
 	}
 	
 	public void passerEtapeZone()

@@ -58,8 +58,7 @@ public class PanelPlateau extends JPanel
 		/*---------------------------*/
 		/* Activation des composants */
 		/*---------------------------*/
-	
-
+		
 		GereSouris gereSouris = new GereSouris();
 		this.addMouseMotionListener(gereSouris);
 		this.addMouseListener(gereSouris);

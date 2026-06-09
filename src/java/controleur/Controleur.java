@@ -119,6 +119,8 @@ public class Controleur
 	{
 		PlateauData proprietes = this.metierGestionFichier.lireFichier( fichier ) ;
 
+		if (proprietes == null) return;
+		
 		System.out.println("Données lues depuis le fichier : \n" + proprietes);
 
 		int tailleLargeur  = proprietes.tailleLargeur;

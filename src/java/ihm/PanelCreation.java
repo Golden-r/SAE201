@@ -3,18 +3,17 @@ package ihm;
 import controleur.Controleur;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.FileHandler;
 
 import metier.ESymbole;
 import metier.ECouleur;
 
 
 import javax.swing.*;
-
-import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
-
-
+import java.io.IOException;
+import java.nio.file.Files;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -242,6 +241,8 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 			this.btnNouveau.setBackground( Color.BLACK     );
 			this.btnAncien .setBackground( Color.BLACK     );
 			this.btnCopie  .setBackground( Color.DARK_GRAY );
+
+			this.copierFichier();
 		}
 
 
@@ -366,6 +367,83 @@ public class PanelCreation extends JPanel implements ActionListener , ItemListen
 	}
 	
 
+	private void copierFichier()
+	{
+		/*----------------*/
+		/*  Données       */
+		/*----------------*/
+
+		JFileChooser            fileChooser ;
+		FileNameExtensionFilter filtre ;
+		File                    fichierChoisi ;
+		String                  cheminFichier ;
+		int                     reponse ;
+
+		/*----------------*/
+		/*  Instructions  */
+		/*----------------*/
+
+		fileChooser = new JFileChooser( new File("./src/ressource/data") );
+		
+		filtre = new FileNameExtensionFilter("Fichiers de sauvegarde (.data)", "data"); //filtre que les .data
+		fileChooser.setFileFilter(filtre);
+
+
+		reponse = fileChooser.showOpenDialog(this);
+
+		if (reponse == JFileChooser.APPROVE_OPTION)
+		{
+			fichierChoisi = fileChooser.getSelectedFile();
+
+			String nom = fichierChoisi.getName();
+			int point = nom.lastIndexOf('.');
+
+			//séparation du nom de base et de l'extension
+			String base = (point == -1) ? nom : nom.substring(0, point);
+			String ext  = (point == -1) ? ""  : nom.substring(point);
+
+			int version = 1;
+
+			//si le fichier choisi contient déjà "_copieX", on extrait la base et le numéro de départ
+			int id = base.lastIndexOf("_copie");
+			if (id != -1) {
+				String numberPart = base.substring(id + 6);
+				try
+				{
+					version = Integer.parseInt(numberPart) + 1;
+					base = base.substring(0, id);
+					//on garde uniquement le nom d'origine
+				}
+				catch (NumberFormatException e)
+				{
+					//si "_copie" n'était pas suivi d'un nombre valide, on traite le tout comme le nom de base
+					version = 1;
+				}
+			}
+
+			//boucle pour trouver le premier nom de fichier disponible
+			File clone;
+			do
+			{
+				String nouveauNom = base + "_copie" + version + ext;
+				clone = new File(fichierChoisi.getParent(), nouveauNom);
+				version++;
+			}
+			while (clone.exists());
+
+			//copie du fichier et chargement
+			try
+			{
+				Files.copy(fichierChoisi.toPath(), clone.toPath());
+				this.ctrl.chargerPlateau(clone);
+			} 
+			catch (IOException e)
+			{
+				e.printStackTrace();
+				System.out.println("Erreur lors de la copie du fichier.");
+			}
+		}
+	}
 
 }
 
