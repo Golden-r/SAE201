@@ -62,6 +62,7 @@ public class PanelPlateau extends JPanel
 		/*---------------------------*/
 		
 		GereSouris gereSouris = new GereSouris();
+
 		this.addMouseMotionListener(gereSouris);
 		this.addMouseListener(gereSouris);
 	}
@@ -77,20 +78,17 @@ public class PanelPlateau extends JPanel
 	/*-----------------------------------------*/
 	private class GereSouris extends MouseAdapter
 	{
-		// Quand on clique (une seule fois)
 		public void mousePressed(MouseEvent e)
 		{
 			this.agirSurCase(e);
 		}
 
-		// Quand on maintient le clic et qu'on bouge
 		public void mouseDragged(MouseEvent e)
 		{
 			this.agirSurCase(e);
 		}
 
-		// Quand on bouge la souris SANS cliquer (pour le survol)
-		public void mouseMoved(MouseEvent e) 
+		public void mouseMoved(MouseEvent e) //survol
 		{
 			int taille = ctrl.getTailleCellule();
 			int col = e.getX() / taille;
@@ -116,7 +114,6 @@ public class PanelPlateau extends JPanel
 			}
 		}
 
-		// Quand la souris sort du plateau
 		public void mouseExited(MouseEvent e) 
 		{
 			hoveredLig = -1;
@@ -135,7 +132,6 @@ public class PanelPlateau extends JPanel
 			
 			if (!PanelPlateau.this.estDansPlateau(col, lig)) return; 
 
-			// On utilise SwingUtilities pour détecter le clic même pendant un mouvement (drag)
 			boolean clicGauche = SwingUtilities.isLeftMouseButton(e);
 			boolean clicDroit  = SwingUtilities.isRightMouseButton(e);
 
@@ -160,7 +156,7 @@ public class PanelPlateau extends JPanel
 				
 			if ( PanelPlateau.this.ctrl.getEtapeConception() == 2 ) // Etape symbole
 			{
-				if ( clicGauche ) // Uniquement avec le clic gauche (sécurité)
+				if ( clicGauche )
 				{
 					if (PanelPlateau.this.panelModification.getModePlacementSymbole()) 
 					{
@@ -181,7 +177,7 @@ public class PanelPlateau extends JPanel
 
 			if ( PanelPlateau.this.ctrl.getEtapeConception() == 3 ) // Etape base
 			{
-				if ( clicGauche ) // Uniquement avec le clic gauche
+				if ( clicGauche ) 
 				{
 					if ( PanelPlateau.this.panelModification.getModePlacementBase() ) 
 					{
@@ -230,7 +226,6 @@ public class PanelPlateau extends JPanel
                     {
                         String nomFichier ;
 
-                        // Si un bâtiment ou une base est présent, on charge l'image modifiée
                         if ( c.getSymbole() != null ) { nomFichier = c.getZone().getTypeZone().getNomImageBase() ;}
                         else                          { nomFichier = c.getZone().getTypeZone().getNomImage()     ;}
 
@@ -279,19 +274,15 @@ public class PanelPlateau extends JPanel
 						BufferedImage tintedImg = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 						Graphics2D gTint = tintedImg.createGraphics();
 						
-						// 1) dessiner l'image originale
 						gTint.drawImage(img, 0, 0, null);
 						
-						// 2) Changer le composite Change pour colorier que les pixels non transparents
 						gTint.setComposite(AlphaComposite.SrcAtop);
 						
-						// on set la transparence aussi
 						Color highlightColor = new Color(coulBase.getRed(), coulBase.getGreen(), coulBase.getBlue(), 175);
 						gTint.setColor(highlightColor);
 						gTint.fillRect(0, 0, size, size);
 						gTint.dispose();
 
-						// 3) ON dessine l'image tintée finale
 						g.drawImage(tintedImg, x, y, null);
 					} 
 					else
@@ -321,10 +312,8 @@ public class PanelPlateau extends JPanel
 
 			if ( chemin != null && chemin.length > 1 )
 			{
-				// 1. On crée le contexte Graphics2D à partir de g
 				Graphics2D g2 = (Graphics2D) g;
 				
-				// 2. On applique l'épaisseur de 5 pixels AVANT de dessiner
 				g2.setStroke(new BasicStroke(2.0f));
 
 				for ( int cptP = 0 ; cptP < chemin.length - 1 ; cptP++ )
@@ -334,12 +323,10 @@ public class PanelPlateau extends JPanel
 					int x2 = chemin[cptP + 1][0] * taille + ( taille / 2 ) ;
 					int y2 = chemin[cptP + 1][1] * taille + ( taille / 2 ) ;
 					
-					// 3. On utilise g2 pour appliquer la couleur et dessiner la ligne
 					g2.setColor(Color.BLACK) ;
 					g2.drawLine( x1, y1, x2, y2 ) ;
 				}
 				
-				// 4. On remet l'épaisseur par défaut à la fin du chemin
 				g2.setStroke(new BasicStroke(1.0f));
 			}
 		}
