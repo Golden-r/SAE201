@@ -1,22 +1,31 @@
-./src/Controleur.java
+./src/java/controleur/Controleur.java
+
+
+./src/java/metier/ESymbole.java
+./src/java/metier/ECouleur.java
+./src/java/metier/EZone.java
+
+./src/java/metier/Plateau.java
+./src/java/metier/PlateauData.java
+./src/java/metier/Cellule.java
+./src/java/metier/Symbole.java
+./src/java/metier/Zone.java
+./src/java/metier/Liaison.java
+./src/java/metier/GestionFichier.java
 
 
 
-./src/metier/ESymbole.java
-./src/metier/ECouleur.java
 
-./src/metier/Symbole.java
-./src/metier/Plateau.java
-./src/metier/Zone.java
-./src/metier/Liaison.java
-./src/metier/Pioche.java
-./src/metier/Carte.java
+./src/java/ihm/FrameCreation.java
+./src/java/ihm/PanelCreation.java
 
+./src/java/ihm/FrameModification.java
+./src/java/ihm/PanelModification.java
 
+./src/java/ihm/PanelPlateau.java
+./src/java/ihm/PanelPlateauNord.java
+./src/java/ihm/PanelPlateauSud.java
 
-./src/ihm/FrameCreation.java
-./src/ihm/PanelCreation.java
-./src/ihm/FrameModification.java
-./src/ihm/PanelModification.java
-./src/ihm/FrameJeu.java
-./src/ihm/PanelJeu.java
+./src/java/ihm/PanelPlateauOuestZone.java
+./src/java/ihm/PanelPlateauOuestSymbole.java
+./src/java/ihm/PanelPlateauOuestBase.java
