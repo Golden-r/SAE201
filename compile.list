@@ -15,8 +15,14 @@
 ./src/java/metier/Zone.java
 ./src/java/metier/Liaison.java
 ./src/java/metier/GestionFichier.java
+./src/java/metier/Joueur.java
+./src/java/metier/Carte.java
+./src/java/metier/Pioche.java
+./src/java/metier/Partie.java
 
 
+./src/java/ihm/FrameJeu.java
+./src/java/ihm/PanelJeu.java
 
 
 ./src/java/ihm/FrameMenu.java

@@ -1,5 +1,7 @@
 package metier ;
 
+import metier.* ;
+
 /* SAE 2.01 | Développement d'une application 
 * Carte
 * d
