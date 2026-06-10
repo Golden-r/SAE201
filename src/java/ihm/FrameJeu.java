@@ -2,6 +2,7 @@ package ihm;
 
 import controleur.Controleur;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,15 +16,16 @@ import java.awt.*;
 
 public class FrameJeu extends JFrame
 {
-	public FrameJeu( Controleur ctrl)
+	public FrameJeu( Controleur ctrl )
     {
         
         this.setTitle("Application jeu - Groupe 4");
 		this.setSize(1200, 120);
-		this.setLocation(50, 100);
+
+		this.setLocationRelativeTo(null);
 
 		
-		this.add(new PanelJeu ( ctrl ));
+		this.add(new PanelJeu (ctrl ));
 
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

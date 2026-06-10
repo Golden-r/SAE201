@@ -26,13 +26,10 @@ public class PanelJeu extends JPanel
 		/* Création des composants       */
 		/* ----------------------------- */
         
-		this.setBackground( Color.red );
-
 		/* ----------------------------- */
 		/* Positionnement des composants */
 		/* ----------------------------- */
 
-        
 
 		/*---------------------------*/
 		/* Activation des composants */

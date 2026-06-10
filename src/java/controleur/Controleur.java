@@ -2,12 +2,14 @@ package controleur;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.io.File;
 import java.util.ArrayList;
 
 import ihm.FrameJeu;
 import ihm.FrameMenu;
+import ihm.ManageurFont;
 
 import metier.*;
 
@@ -47,6 +49,9 @@ public class Controleur
 	public String[]   getDescriptionModes() { return EModes.getDescriptionModes(); }
 	
 	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU); }
+
+	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
+
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
@@ -59,6 +64,8 @@ public class Controleur
 	{
 		this.frameMenu = new FrameMenu(this);
 	}
+
+	
 
 	/*----------------------------*/
 	/*   Main                     */

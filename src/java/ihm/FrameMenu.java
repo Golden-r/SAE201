@@ -18,21 +18,24 @@ public class FrameMenu extends JFrame
 {
 	private Controleur ctrl;
 
+
 	public FrameMenu( Controleur ctrl )
     {
-        this.ctrl = ctrl;
 
-        this.setTitle("Selection de mode de jeu - Groupe 4");
-		this.setSize(this.ctrl.getSizeMenu());
+        this.setTitle("Application jeu - Groupe 4");
+        this.setSize(700, 500);
+        
 
-		this.setLocation(1000, 10);
+        Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        int positionY = (tailleEcran.height - this.getHeight()) / 2;
 
-		
-		this.add( new PanelMenu (ctrl) );
+        this.setLocation( 0 , positionY);
 
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
+        this.add(new PanelMenu (ctrl ));
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
 
     }
 }

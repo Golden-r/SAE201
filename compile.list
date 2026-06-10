@@ -19,17 +19,17 @@
 ./src/java/metier/Carte.java
 ./src/java/metier/Pioche.java
 ./src/java/metier/Partie.java
+./src/java/metier/Manche.java
 
 
-./src/java/ihm/FrameJeu.java
-./src/java/ihm/PanelJeu.java
 
+
+./src/java/ihm/ManageurFont.java
 
 ./src/java/ihm/FrameMenu.java
 ./src/java/ihm/PanelMenu.java
 
 ./src/java/ihm/FrameJeu.java
 ./src/java/ihm/PanelJeu.java
-
 
 
