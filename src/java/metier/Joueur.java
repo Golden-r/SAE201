@@ -10,7 +10,7 @@ public class Joueur
 
     private String   pseudo ;
     private int      score  ;
-    //private ECouleur reseau ;
+    private ECouleur reseau ;
     private ArrayList<Liaison > ensLiaisonVisite  ;
     private ArrayList<ECouleur> ensECouleurVisite ;
 
@@ -22,7 +22,7 @@ public class Joueur
     {
         this.pseudo            = pseudo ;
         this.score             = 0      ;
-        //this.reseau            = null   ;
+        this.reseau            = null   ;
         this.ensLiaisonVisite  = new ArrayList<Liaison> () ;
         this.ensECouleurVisite = new ArrayList<ECouleur>() ;
     }
@@ -33,7 +33,7 @@ public class Joueur
  
     public String              getPseudo               () { return this.pseudo              ;}
     public int                 getScore                () { return this.score               ;}
-    //public ECouleur            getreseau               () { return this.reseau              ;}
+    public ECouleur            getreseau               () { return this.reseau              ;}
     public ArrayList<Liaison>  getEnsLiaisonVisite     () { return this.ensLiaisonVisite    ;}
     public ArrayList<ECouleur> getEnsECouleurVisite    () { return this.ensECouleurVisite   ;}
 
@@ -41,10 +41,10 @@ public class Joueur
 	/*  Modificateur              */
 	/*----------------------------*/
 
-    public void     setPseudo            ( String             pseudo                ) { this.pseudo            = pseudo            ;}
-    public void     setScore             ( int                score                 ) { this.score             = score             ;}
-    //public ECouleur setreseau            ( ECouleur           reseau                ) { this.reseau            = reseau            ;}
-    public void     setEnsLiaisonVisite  ( ArrayList<Liaison> ensLiaisonVisite      ) { this.ensLiaisonVisite  = ensLiaisonVisite  ;}
+    public void     setPseudo            ( String              pseudo               ) { this.pseudo            = pseudo            ;}
+    public void     setScore             ( int                 score                ) { this.score             = score             ;}
+    public void     setReseau            ( ECouleur            reseau               ) { this.reseau            = reseau            ;}
+    public void     setEnsLiaisonVisite  ( ArrayList<Liaison>  ensLiaisonVisite     ) { this.ensLiaisonVisite  = ensLiaisonVisite  ;}
     public void     setEnsECouleurVisite ( ArrayList<ECouleur> ensECouleurVisite    ) { this.ensECouleurVisite = ensECouleurVisite ;}
 
     /*----------------------------*/
@@ -66,7 +66,7 @@ public class Joueur
     public void retirerECouleurVisite ( ECouleur couleur ) { this.ensECouleurVisite.remove( couleur  ) ;}
 
     public void ajouterEnsLiaisonVisite ( Liaison liaison ) { this.ensLiaisonVisite.add   ( liaison  ) ;}
-    public void retirerensLiaisonVisite ( Liaison liaison ) { this.ensLiaisonVisite.remove( liaison  ) ;}
+    public void retirerEnsLiaisonVisite ( Liaison liaison ) { this.ensLiaisonVisite.remove( liaison  ) ;}
 
     public boolean aDejaJoue(ECouleur couleur) { return this.ensECouleurVisite.contains(couleur) ;}
 
@@ -140,7 +140,7 @@ public class Joueur
 
 
         // 3. Application de ta formule mathématique
-        int scoreManche = nbZoneVisite * nbMaxCelluleVisiteUneZone;
+        int scoreManche = zonesVisitees.size() * nbMaxCelluleVisiteUneZone;
 
         // Cumul dans le score global du joueur
         this.ajouterScore(scoreManche);

@@ -1,5 +1,6 @@
 package metier;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Partie
@@ -9,14 +10,15 @@ public class Partie
 	/*----------------------------*/
     
     private Plateau             plateau         ;
-    private ArrayList<Joueur>   ensJoueur       ;
+    private ArrayList<Joueur>   ensJoueurs       ;
     private Pioche              pioche          ;
     private Carte               carteCourante   ;
     private ArrayList<ECouleur> reseauxJouables ;
+    private ArrayList<ESymbole> symboles        ;
+    private Manche              manche          ;
     
     private int     mancheCourante      ;
     private int     nbMancheMax         ;
-    private int     indiceJoueurCourant ;
 
     /*----------------------------*/
 	/* Constructeur de la classe  */
@@ -29,6 +31,7 @@ public class Partie
 		/*----------------*/
 
         ArrayList<Integer>  lstCouleurPlateau ;
+        ArrayList<Integer>  lstSymbolePlateau ;
 
         /*----------------*/
 		/* Instructions   */
@@ -37,11 +40,10 @@ public class Partie
         this.plateau             = plateau ;
         this.mancheCourante      = 1       ;
         this.nbMancheMax         = 0       ;
-        this.indiceJoueurCourant = 0       ;
 
-        this.ensJoueurs    = new ArrayList<Joueur>() ;
-        this.pioche        = new Pioche()            ;
-        this.carteCourante = null                    ;
+        this.ensJoueurs      = new ArrayList<Joueur>() ;
+        this.reseauxJouables = new ArrayList<ECouleur>();
+        this.symboles        = new ArrayList<ESymbole>();
 
         lstCouleurPlateau = this.plateau.getLstCouleur();
 
@@ -51,19 +53,29 @@ public class Partie
             {
                 if(lstCouleurPlateau.get(cpt) == 1)
                 {
-                    this.reseauxJouables.add(ECouleur.getCouleur(cpt));
+                    this.reseauxJouables.add(ECouleur.values()[cpt]);
                     this.nbMancheMax++;
                 }
             }
         }
 
-        if(reseaux.size() < nbJoueur)
-            throw new IllegalArgumentException("Impossible de lancer la partie le nombre de réseau est inférieur au nombre de joueur.");
         
-        for(int cpt = 0; cpt < nbJoueur; cpt++)
-            this.ensJoueurs.add(new Joueur("Joueur " + (cpt + 1)));
 
-        this.attribuerReseauxManche();
+        lstSymbolePlateau = this.plateau.getLstSymbole();
+
+		if (lstSymbolePlateau != null)
+			for (int cpt = 0; cpt < lstSymbolePlateau.size(); cpt++)
+				if (lstSymbolePlateau.get(cpt) == 1)
+					this.symboles.add(ESymbole.values()[cpt]);
+
+		if (this.reseauxJouables.size() < nbJoueur)
+			throw new IllegalArgumentException("Impossible de lancer la partie le nombre de réseau est inférieur au nombre de joueur.");
+		
+		for (int cpt = 0; cpt < nbJoueur; cpt++)
+			this.ensJoueurs.add(new Joueur("Joueur " + (cpt + 1)));
+
+		this.pioche = new Pioche(this.symboles);
+		this.manche = new Manche(this.mancheCourante, this.ensJoueurs, this.pioche, this.reseauxJouables);
         
     }
 

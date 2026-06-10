@@ -55,7 +55,7 @@ public class Pioche
 	/*  Méthodes                  */
 	/*----------------------------*/
 
-	public boolean isMancheTerminee()
+	public boolean estMancheTerminee()
 	{
 		return this.nbCarteSombre <= 0;
 	}

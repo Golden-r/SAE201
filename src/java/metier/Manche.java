@@ -1,6 +1,7 @@
 package metier ;
 
 import java.util.ArrayList ;
+import java.util.Collections;
 
 
 public class Manche 
@@ -9,7 +10,7 @@ public class Manche
 	/* Attributs de la classe     */
 	/*----------------------------*/
 
-    private ArrayList<Joueur> ensJoueur ;
+    private ArrayList<Joueur> ensJoueurs;
     private Pioche pioche               ;
     private Carte  carteCourante        ;
     private int    idJoueur             ;
@@ -19,30 +20,30 @@ public class Manche
 	/* Constructeur de la classe  */
 	/*----------------------------*/
     
-    public Manche (int numManche, ArrayList<Joueur> ensJoueur, Pioche pioche, ArrayList<ECouleur> reseaux)
+    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux)
     {
         boolean             bAssignement ;
         ArrayList<ECouleur> reseauxDispo ;
 
-        this.numManche = numManche ;
-        this.ensJoueur = ensJoueur ;
-        this.pioche    = pioche    ;
-        this.idJoueur  = 0         ;
-
+        this.numManche  = numManche  ;
+        this.ensJoueurs = ensJoueurs ;
+        this.pioche     = pioche     ;
+        this.idJoueur   = 0          ;
+ 
         bAssignement = false;
         reseauxDispo = null;
 
         while(!bAssignement)
         {
             bAssignement = true;
-            reseauDispo  = new ArrayList<ECouleur>(this.reseaux);
+            reseauxDispo  = new ArrayList<ECouleur>(reseaux);
 
             Collections.shuffle(reseauxDispo);
 
-            for(int cpt = 0; cpt < this.ensJoueur.size(); cpt++)
+            for(int cpt = 0; cpt < this.ensJoueurs.size(); cpt++)
             {
                 
-                if(this.enJoueur.get(cpt).aDejaJoue(reseauxDispo.get(cpt)))
+                if(this.ensJoueurs.get(cpt).aDejaJoue(reseauxDispo.get(cpt)))
                 {
                     bAssignement = false;
                     break;
@@ -50,13 +51,13 @@ public class Manche
             }
         }
 
-        for(int cpt = 0; cpt < this.ensJoueur.size(); cpt++)
+        for(int cpt = 0; cpt < this.ensJoueurs.size(); cpt++)
         {
-            this.ensJoueur.get(cpt).setReseau(reseauDispo.get(cpt));
-            this.ensJoueur.get(cpt).ajouterECouleurVisite();
+            this.ensJoueurs.get(cpt).setReseau(reseauxDispo.get(cpt));
+            this.ensJoueurs.get(cpt).ajouterECouleurVisite(reseauxDispo.get(cpt));
         }
 
-        this.carteCourante = this.pioche.tirerCarte();
+        this.carteCourante = this.pioche.piocher();
     }
 
     /*----------------------------*/
@@ -78,20 +79,15 @@ public class Manche
 	/* Méthodes                   */
 	/*----------------------------*/
 
-    public void piocherCarte()
-    {
-        this.carteCourante = this.pioche.tirerCarte();
-    }
-
     public void passerTour()
     {
         if(this.ensJoueurs.isEmpty())
             return;
 
-        this.indiceJoueurCourant++;
+        this.idJoueur++;
 
-        if(this.indiceJoueurCourant >= this.ensJoueurs.size())
-            this.indiceJoueurCourant = 0;       
+        if(this.idJoueur >= this.ensJoueurs.size())
+            this.idJoueur = 0;       
     }
 
 
