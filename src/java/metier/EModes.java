@@ -1,5 +1,13 @@
 package metier;
 
+/* SAE 2.01 | Développement d'une application 
+* EModes
+*
+* Date     : 10/06/2026
+* @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
+* Groupe   : 4
+*/
+
 public enum EModes
 {
     SOLO ( "Solo"         , "Jouer à Reseaux Urbains en solo !"                        ,   1),

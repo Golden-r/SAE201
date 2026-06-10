@@ -3,7 +3,14 @@ package metier;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import metier.*;
+/* SAE 2.01 | Développement d'une application 
+* Manche
+*
+* Date     : 10/06/2026
+* @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
+* Groupe   : 4
+*/
+
 public class Partie
 {
     /*----------------------------*/ 
@@ -17,6 +24,7 @@ public class Partie
     private ArrayList<ECouleur> reseauxJouables ;
     private ArrayList<ESymbole> symboles        ;
     private Manche              manche          ;
+    private EModes              mode            ;
     
     private int     mancheCourante      ;
     private int     nbMancheMax         ;
@@ -25,7 +33,7 @@ public class Partie
 	/* Constructeur de la classe  */
 	/*----------------------------*/
 
-    public Partie(Plateau plateau, int nbJoueur)
+    public Partie(Plateau plateau, int nbJoueur, EModes mode)
     {
         /*----------------*/
 		/* Données        */
@@ -38,9 +46,19 @@ public class Partie
 		/* Instructions   */
 		/*----------------*/
 
+        if (mode == EModes.SOLO && nbJoueur != 1)
+			throw new IllegalArgumentException("Le mode Solo nécessite exactement 1 joueur.");
+			
+		if (mode == EModes.POSTE && nbJoueur != 2)
+			throw new IllegalArgumentException("Le mode 2 Joueurs nécessite exactement 2 joueurs.");
+			
+		if (mode == EModes.MULTI && nbJoueur < 2)
+			throw new IllegalArgumentException("Le mode Multi Joueurs nécessite au moins 2 joueurs.");
+
         this.plateau             = plateau ;
         this.mancheCourante      = 1       ;
         this.nbMancheMax         = 0       ;
+        this.mode                = mode    ;
 
         this.ensJoueurs      = new ArrayList<Joueur>() ;
         this.reseauxJouables = new ArrayList<ECouleur>();
@@ -89,6 +107,7 @@ public class Partie
     public int                 getMancheCourante()  { return this.mancheCourante  ;}
     public int                 getNbMancheMax()     { return this.nbMancheMax     ;}
     public ArrayList<ECouleur> getReseauxJouables() { return this.reseauxJouables ;}
+    public EModes              getMode()            { return this.mode            ;}
     
 
     /*----------------------------*/

@@ -4,6 +4,15 @@ import java.util.ArrayList ;
 import java.util.Collections;
 
 
+/* SAE 2.01 | Développement d'une application 
+* Manche
+*
+* Date     : 10/06/2026
+* @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
+* Groupe   : 4
+*/
+
+
 public class Manche 
 {
     /*----------------------------*/ 
