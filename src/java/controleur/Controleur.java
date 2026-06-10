@@ -89,18 +89,7 @@ public class Controleur
 
 	public void lancerCreation(){ this.frameCreation = new FrameCreation( this ) ;}
 
-	public void retourCreation()
-	{
-		if ( this.frameModification != null ){ this.frameModification.dispose() ;}
 
-		this.lancerCreation() ;
-	}
-
-	public void lancerModification(  )
-	{
-		this.frameCreation.dispose();
-		this.frameModification = new FrameModification( this ) ;
-	}
 
 	public void creerPlateau( int tailleLongueur , int tailleLargeur , int tailleCellule , ArrayList<Integer> lstCouleur , ArrayList<Integer> lstSymbole )
 	{

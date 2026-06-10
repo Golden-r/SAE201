@@ -2,14 +2,13 @@ package ihm;
 
 import controleur.Controleur;
 
-
 import javax.swing.*;
 import java.awt.*;
 
 /* SAE 2.01 | Développement d'une application 
 * FrameJeu
 *
-* Date     : 02/06/2026
+* Date     : 09/06/2026
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
 * Groupe   : 4
 */
@@ -24,7 +23,7 @@ public class FrameJeu extends JFrame
 		this.setLocation(50, 100);
 
 		
-		this.add(new PanelJeu (ctrl ));
+		this.add(new PanelJeu ( ctrl ));
 
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
