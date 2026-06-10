@@ -12,20 +12,13 @@
 ./src/java/metier/Zone.java
 ./src/java/metier/Liaison.java
 ./src/java/metier/GestionFichier.java
+./src/java/metier/Joueur.java
+./src/java/metier/Carte.java
+./src/java/metier/Pioche.java
+./src/java/metier/Partie.java
 
 
+./src/java/ihm/FrameJeu.java
+./src/java/ihm/PanelJeu.java
 
-
-./src/java/ihm/FrameCreation.java
-./src/java/ihm/PanelCreation.java
-
-./src/java/ihm/FrameModification.java
-./src/java/ihm/PanelModification.java
-
-./src/java/ihm/PanelPlateau.java
-./src/java/ihm/PanelPlateauNord.java
-./src/java/ihm/PanelPlateauSud.java
-
-./src/java/ihm/PanelPlateauOuestZone.java
-./src/java/ihm/PanelPlateauOuestSymbole.java
-./src/java/ihm/PanelPlateauOuestBase.java
+/src/java/ihm/PanelPlateau.java
