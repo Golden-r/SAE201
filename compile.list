@@ -4,6 +4,9 @@
 ./src/java/metier/ESymbole.java
 ./src/java/metier/ECouleur.java
 ./src/java/metier/EZone.java
+./src/java/metier/EModes.java
+
+
 
 ./src/java/metier/Plateau.java
 ./src/java/metier/PlateauData.java
@@ -16,16 +19,11 @@
 
 
 
-./src/java/ihm/FrameCreation.java
-./src/java/ihm/PanelCreation.java
+./src/java/ihm/FrameMenu.java
+./src/java/ihm/PanelMenu.java
 
-./src/java/ihm/FrameModification.java
-./src/java/ihm/PanelModification.java
+./src/java/ihm/FrameJeu.java
+./src/java/ihm/PanelJeu.java
 
-./src/java/ihm/PanelPlateau.java
-./src/java/ihm/PanelPlateauNord.java
-./src/java/ihm/PanelPlateauSud.java
 
-./src/java/ihm/PanelPlateauOuestZone.java
-./src/java/ihm/PanelPlateauOuestSymbole.java
-./src/java/ihm/PanelPlateauOuestBase.java
+
