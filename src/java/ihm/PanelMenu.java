@@ -15,6 +15,10 @@ import java.util.HashMap;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.io.File;
+
 /* SAE 2.01 | Développement d'une application 
 * PanelJeu
 *
@@ -23,11 +27,11 @@ import javax.swing.event.ChangeListener;
 * Groupe   : 4
 */
 
-public class PanelMenu extends JPanel implements ActionListener, ChangeListener
+public class PanelMenu extends JPanel implements ActionListener, ChangeListener, ListSelectionListener
 {	
 
 	private static final String[] TAB_ACTIONS  = {"Regles", "Stats", "Jouer", "Personnage", "Boutique"};
-	private static final Color    COULEUR_BLEU = new Color (41,98,145);
+	private static final Color    COULEUR_BLEU = new Color (24, 32, 118);
 	private static       String[] modeJeu ;
 	
 
@@ -59,6 +63,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 	private JLabel    lblPseudo ;
 	private JLabel    lblImgPerso ;
 	private JButton   btnLancer ;
+
+	private JList<String> lstSauvegardes;
 
 
 	public PanelMenu( Controleur ctrl ) 
@@ -92,35 +98,37 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 		/* Création des composants       */
 		/* ----------------------------- */
 		this.setLayout( new BorderLayout() );
-		//this.imgFond = new ImageIcon("./src/ressource/images/Fond/fond.png").getImage();
+		this.imgFond = new ImageIcon("./src/ressource/images/Fond/fond_menu_100.png").getImage();
 	
 		
-		this.panelJoueur = new JPanel( new GridLayout( 3, 1 ) );
+		this.panelJoueur = new JPanel( new BorderLayout() );
 		this.panelJoueur.setPreferredSize(new Dimension(largeurMenu, (int)(hauteurMenu * 0.60)));
 		this.panelJoueur.setOpaque(false);
 
 		this.lblPseudo = new JLabel("Joueur 1");
-		this.lblPseudo.setFont(new Font("Arial", Font.PLAIN, 22));
+		this.lblPseudo.setFont(new Font("Arial", Font.BOLD, 22));
+		this.lblPseudo.setForeground( new Color( 252, 227, 147 ));
 
 		panelJoueurHaut = new JPanel( new FlowLayout( FlowLayout.CENTER ) );
 		panelJoueurHaut.setOpaque(false);
-		panelJoueurHaut.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0)); 
+		panelJoueurHaut.setBorder(BorderFactory.createEmptyBorder(80, 0, 0, 0)); 
 		
-		iconPerso = new ImageIcon("./src/ressource/images/Personnage/p_boutique_or.png");
-		imgPerso = iconPerso.getImage().getScaledInstance(150, 150, SCALE_SMOOTH); 
+		iconPerso = new ImageIcon("./src/ressource/images/Personnage/p_noir.png");
+		imgPerso = iconPerso.getImage().getScaledInstance(200, 200, SCALE_SMOOTH); 
 		this.lblImgPerso = new JLabel(new ImageIcon(imgPerso));
 		
 		panelJoueurCentre = new JPanel( new FlowLayout( FlowLayout.CENTER ) );
 		panelJoueurCentre.setOpaque(false);
 		
 		this.btnLancer = new JButton("Lancer");
-		this.btnLancer.setBackground(new Color(220, 252, 231));
-		this.btnLancer.setForeground(new Color(22, 163, 74));
+		this.btnLancer.setBackground(new Color(252, 227, 147) );
+		this.btnLancer.setForeground( Color.white);
 		this.btnLancer.setPreferredSize(new Dimension(160, 45));
 		this.btnLancer.setFont(new Font("Arial", Font.BOLD, 18));
+		this.btnLancer.setFocusPainted(false);
 		
 		panelJoueurBas = new JPanel( new FlowLayout( FlowLayout.CENTER ) );
-		panelJoueurBas.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
+		panelJoueurBas.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 		panelJoueurBas.setOpaque(false);
 		
 
@@ -148,8 +156,12 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 		this.btnDeMute = new JButton(iconDeMute);
 		this.btnMute  .setPreferredSize(new Dimension(30, 30));
 		this.btnDeMute.setPreferredSize(new Dimension(30, 30));
-		this.btnMute  .setBackground( new Color (254, 249, 195) );
-		this.btnDeMute.setBackground( new Color (254, 249, 195) );
+		this.btnMute  .setBackground( Color.RED );
+		this.btnDeMute.setBackground( PanelMenu.COULEUR_BLEU );
+		this.btnMute.setBorderPainted(false);
+		this.btnDeMute.setBorderPainted(false);
+
+
 
 		this.musiqueDeFond = new ManageurMusique("./src/ressource/musique/musique_menu.wav");
 		this.musiqueDeFond.setVolume(this.memoireVolume);
@@ -160,9 +172,40 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 		this.panelChoix.setOpaque(false);
 
 		
-		this.panelMap  = new JPanel();
+		// --- CONFIGURATION DU PANEL MAP (DROITE) ---
+		this.panelMap = new JPanel(new GridBagLayout()); // GridBagLayout pour centrer la liste facilement
 		this.panelMap.setPreferredSize(new Dimension((int)(largeurMenu * 0.20), hauteurMenu));
 		this.panelMap.setOpaque(false);
+
+		// 1. Lecture dynamique des fichiers .data
+		File dossier = new File("./src/ressource/donnees"); // <-- TON DOSSIER ICI
+		String[] tabFichiers = {"Aucune sauvegarde"}; // Texte par défaut si le dossier est vide ou introuvable
+		
+		if (dossier.exists() && dossier.isDirectory()) 
+		{
+			// Filtre pour ne garder que les fichiers qui terminent par ".data"
+			File[] fichiersData = dossier.listFiles((dir, nom) -> nom.endsWith(".data"));
+			
+			if (fichiersData != null && fichiersData.length > 0) 
+			{
+				tabFichiers = new String[fichiersData.length];
+				for (int i = 0; i < fichiersData.length; i++) 
+				{
+					tabFichiers[i] = fichiersData[i].getName();
+				}
+			}
+		}
+
+		// 2. Création de la JList
+		this.lstSauvegardes = new JList<>(tabFichiers);
+		this.lstSauvegardes.setFont(new Font("Arial", Font.PLAIN, 14));
+		this.lstSauvegardes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // On ne peut choisir qu'une map à la fois
+		
+		// 3. Ajout d'une barre de défilement (au cas où il y a beaucoup de maps)
+		JScrollPane scrollList = new JScrollPane(this.lstSauvegardes);
+		scrollList.setPreferredSize(new Dimension(150, 200));
+		
+		this.panelMap.add(scrollList);
 
 
 		this.tabBtnModes = new JButton[ PanelMenu.modeJeu.length ];
@@ -174,6 +217,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 			this.tabBtnModes[cpt].setPreferredSize(new Dimension(140, 100));
 			this.tabBtnModes[cpt].setBackground( new Color(255, 237, 213) );
 			this.tabBtnModes[cpt].setForeground( new Color(237, 109, 39)  );
+			this.tabBtnModes[cpt].setBorderPainted(false);
+			this.tabBtnModes[cpt].setFocusPainted(false);
 		}
 
 		this.tabBtnModes[0].setFont(new Font("Arial", Font.BOLD , 16));
@@ -205,6 +250,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 			this.tabBtnChoix[cpt].setBackground   ( PanelMenu.COULEUR_BLEU ) ;
 			this.tabBtnChoix[cpt].setPreferredSize( new Dimension(100 , 100) ) ;
 			this.tabBtnChoix[cpt].setActionCommand( TAB_ACTIONS[cpt] );
+			this.tabBtnChoix[cpt].setBorderPainted(false);//contour
+			this.tabBtnChoix[cpt].setFocusPainted(false);//contour click
 			
 			this.tabWrapBtnChoix[cpt] = new JPanel(new BorderLayout());
 			this.tabWrapBtnChoix[cpt].setOpaque(false);
@@ -250,9 +297,9 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 		panelJoueurCentre.add(this.lblImgPerso);
 		panelJoueurBas.add(this.btnLancer);
 
-		this.panelJoueur.add(panelJoueurHaut);
-		this.panelJoueur.add(panelJoueurCentre);
-		this.panelJoueur.add(panelJoueurBas);
+		this.panelJoueur.add(panelJoueurHaut, BorderLayout.NORTH);
+		this.panelJoueur.add(panelJoueurCentre, BorderLayout.CENTER);
+		this.panelJoueur.add(panelJoueurBas, BorderLayout.SOUTH);
 
 
 		this.add( this.panelChoix  , BorderLayout.SOUTH);
@@ -270,6 +317,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 		this.sbMusic  .addChangeListener(this);
 
 		this.btnLancer.addActionListener(this);
+
+		this.lstSauvegardes.addListSelectionListener(this);
 		
 		GereSouris gereSouris = new GereSouris();
 
@@ -385,7 +434,7 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 
 		if ( e.getSource() == this.btnLancer )
 		{
-			this.btnLancer.setBackground(new Color(34, 197, 94));
+			this.btnLancer.setBackground(new Color(252, 200, 122));
 			this.btnLancer.setForeground( Color.WHITE );
 		}
 
@@ -423,6 +472,21 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener
 		if (e.getSource() == this.sbMusic) 
 		{
 			if (this.musiqueDeFond != null){ this.musiqueDeFond.setVolume(this.sbMusic.getValue());}
+		}
+	}
+
+
+	public void valueChanged(ListSelectionEvent e) 
+	{
+		if (!e.getValueIsAdjusting()) 
+		{
+			String fichierSelectionne = this.lstSauvegardes.getSelectedValue();
+			
+			if (fichierSelectionne != null && !fichierSelectionne.equals("Aucune sauvegarde")) 
+			{
+				System.out.println("Ouverture de la prévisualisation pour : " + fichierSelectionne);
+				
+			}
 		}
 	}
 
