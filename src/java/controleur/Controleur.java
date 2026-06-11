@@ -7,6 +7,7 @@ import java.io.File;
 import ihm.FrameJeu;
 import ihm.FrameMenu;
 import ihm.ManageurFont;
+import java.awt.Color;
 
 import metier.*;
 
@@ -31,7 +32,7 @@ public class Controleur
 	private FrameMenu    frameMenu;
 
 	private Partie         partie   ;
-	private GestionFichier metierGestionFichier;
+	
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -45,6 +46,48 @@ public class Controleur
 	/*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
+
+	public int getTailleLargeur() { 
+        return (this.partie != null && this.partie.getPlateau() != null) ? this.partie.getPlateau().getTailleLargeur() : 0;
+    }
+    
+    public int getTailleLongueur() { 
+        return (this.partie != null && this.partie.getPlateau() != null) ? this.partie.getPlateau().getTailleLongueur() : 0;
+    }
+    
+    public int getTailleCellule() { 
+        return (this.partie != null && this.partie.getPlateau() != null) ? this.partie.getPlateau().getTailleCellule() : 0;
+    }
+	public Cellule getCellule(int col, int lig) { 
+        if (this.partie == null || this.partie.getPlateau() == null) return null;
+        return this.partie.getPlateau().getCellule(col, lig);
+    }
+    
+    public boolean getPrevisu() { 
+        if (this.partie == null || this.partie.getPlateau() == null) return false;
+        return this.partie.getPlateau().getPrevisu();
+    }
+    
+    public int getNbLiaisons() { 
+        if (this.partie == null || this.partie.getPlateau() == null) return 0;
+        return this.partie.getPlateau().getEnsLiaison().size();
+    }
+    
+    public Color getCouleurLiaison(int indice) {
+        if (this.partie == null || this.partie.getPlateau() == null) return Color.BLACK;
+        
+        Liaison l = this.partie.getPlateau().getEnsLiaison().get(indice);
+
+        if (l != null && l.getReseau() != null)
+            return l.getReseau().getCouleur();
+
+        return Color.BLACK;
+    }
+	public int[][] getCheminLiaison(int indice) { 
+        if (this.partie == null || this.partie.getPlateau() == null) return null;
+        return this.partie.getPlateau().getCheminLiaison(indice);
+    }
+
 	public String[]   getNomJeu          () { return EModes.getNomModes        ()           ; }
 	public String[]   getDescriptionModes() { return EModes.getDescriptionModes()           ; }
 
@@ -53,6 +96,7 @@ public class Controleur
 	public Partie     getPartie          () { return this.partie                            ; }
 
 	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
+
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -75,7 +119,7 @@ public class Controleur
 		if(fichier == null || !fichier.exists())
 			return;
 		
-		proprietes = this.metierGestionFichier.lireFichier(fichier) ;
+		proprietes = GestionFichier.lireFichier(fichier) ;
 
 		if(proprietes == null)
 			return;
@@ -87,6 +131,92 @@ public class Controleur
 		
 		this.partie   = new Partie(plateau, nbJoueur, mode, modeDebug);
 		this.frameJeu = new FrameJeu(this);
+	}
+
+	public void passerALaMancheSuivante()
+	{
+		if (this.partie == null) return;
+
+		this.partie.passerManche();
+	}
+
+	public void allerALaManche(int numManche)
+	{
+		if (this.partie == null) return;
+		if (numManche < 1) return;
+
+		while (this.partie.getManche() != null && this.partie.getMancheCourante() < numManche)
+		{
+			this.partie.passerManche();
+		}
+	}
+
+	public void piocherCarteCourante()
+	{
+		if (this.partie == null) return;
+		if (this.partie.getManche() == null) return;
+
+		this.partie.getManche().piocherCarte();
+	}
+
+	public void selectionnerCarte(String symbole, boolean estSombre, boolean estJoker)
+	{
+		if (this.partie == null) return;
+		if (this.partie.getManche() == null) return;
+
+		ESymbole symboleChoisi = null;
+
+		if (!estJoker && symbole != null && !symbole.isEmpty())
+			symboleChoisi = ESymbole.valueOf(symbole);
+
+		this.partie.getManche().piocherCarteSpecifique(
+			new Carte(symboleChoisi, estSombre, estJoker)
+		);
+	}
+
+	public String getTexteEtatPartie()
+	{
+		if (this.partie == null)
+			return "Aucune partie en cours.";
+
+		if (this.partie.getManche() == null)
+			return "Fin de partie.\nManche courante : " + this.partie.getMancheCourante();
+
+		String texte = "";
+		texte += "Mode : " + this.partie.getMode() + "\n";
+		texte += "Manche : " + this.partie.getMancheCourante() + " / " + this.partie.getNbMancheMax() + "\n";
+
+		if (this.partie.getManche().getCarteCourante() == null)
+		{
+			texte += "Carte : aucune\n";
+		}
+		else
+		{
+			texte += "Carte symbole : " + this.partie.getManche().getCarteCourante().getSymbole() + "\n";
+			texte += "Carte sombre : "  + this.partie.getManche().getCarteCourante().estSombre() + "\n";
+			texte += "Carte joker : "   + this.partie.getManche().getCarteCourante().estJoker() + "\n";
+		}
+
+		return texte;
+	}
+
+	public boolean aUnePartieEnCours()
+	{
+		return this.partie != null;
+	}
+
+	public int getNumeroMancheCourante()
+	{
+		if (this.partie == null) return 0;
+
+		return this.partie.getMancheCourante();
+	}
+
+	public int getNombreManchesMax()
+	{
+		if (this.partie == null) return 0;
+
+		return this.partie.getNbMancheMax();
 	}
 
 	

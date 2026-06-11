@@ -8,307 +8,369 @@ import controleur.Controleur;
 
 public class TestJeu
 {
-	public static void main(String[] args)
-	{
-		Scanner sc = new Scanner(System.in);
-		int choix;
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int choix;
 
-		System.out.println("====================================================");
-		System.out.println("                VALIDATION DU METIER                ");
-		System.out.println("====================================================\n");
+        System.out.println("====================================================");
+        System.out.println(" VALIDATION DU METIER ");
+        System.out.println("====================================================\n");
 
-		System.out.println("Choisissez un test a executer :");
-		System.out.println("1 - Test aleatoire sur plusieurs manches");
-		System.out.println("2 - Test gagnant avec departage en cas d'egalite");
-		System.out.print("Votre choix : ");
+        System.out.println("Choisissez un test a executer :");
+        System.out.println("1 - Test aleatoire sur plusieurs manches");
+        System.out.println("2 - Test gagnant avec departage en cas d'egalite");
+        System.out.println("3 - Test boutique");
+        System.out.print("Votre choix : ");
 
-		choix = sc.nextInt();
-		System.out.println();
+        choix = sc.nextInt();
+        System.out.println();
 
-		switch (choix)
-		{
-			case 1:
-				testAleatoire();
-				break;
+        switch (choix)
+        {
+            case 1:
+                testAleatoire();
+                break;
 
-			case 2:
-				testDepartageGagnant();
-				break;
+            case 2:
+                testDepartageGagnant();
+                break;
 
-			default:
-				System.out.println("Choix invalide.");
-				break;
-		}
+            case 3:
+                testBoutique();
+                break;
 
-		sc.close();
+            default:
+                System.out.println("Choix invalide.");
+                break;
+        }
 
-		System.out.println("====================================================");
-		System.out.println("                   FIN DES TESTS                    ");
-		System.out.println("====================================================");
-	}
+        sc.close();
 
-	public static Plateau creerPlateau()
-	{
-		ArrayList<Integer> lstCouleur = new ArrayList<Integer>();
-		ArrayList<Integer> lstSymbole = new ArrayList<Integer>();
+        System.out.println("====================================================");
+        System.out.println(" FIN DES TESTS ");
+        System.out.println("====================================================");
+    }
 
-		lstCouleur.add(1);
-		lstCouleur.add(1);
-		lstCouleur.add(0);
-		lstCouleur.add(0);
+    public static Plateau creerPlateau()
+    {
+        ArrayList<Integer> lstCouleur = new ArrayList<Integer>();
+        ArrayList<Integer> lstSymbole = new ArrayList<Integer>();
 
-		lstSymbole.add(1);
-		lstSymbole.add(1);
-		lstSymbole.add(0);
-		lstSymbole.add(0);
+        lstCouleur.add(1);
+        lstCouleur.add(1);
+        lstCouleur.add(0);
+        lstCouleur.add(0);
 
-		return new Plateau(3, 3, 50, lstCouleur, lstSymbole);
-	}
+        lstSymbole.add(1);
+        lstSymbole.add(1);
+        lstSymbole.add(0);
+        lstSymbole.add(0);
 
-	public static ArrayList<Joueur> creerJoueurs()
-	{
-		ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
+        return new Plateau(3, 3, 50, lstCouleur, lstSymbole);
+    }
 
-		Joueur joueur1 = new Joueur("Timothe");
-		Joueur joueur2 = new Joueur("Rayan");
+    public static ArrayList<Joueur> creerJoueurs()
+    {
+        ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
 
-		listeJoueurs.add(joueur1);
-		listeJoueurs.add(joueur2);
+        Joueur joueur1 = new Joueur("Timothe");
+        Joueur joueur2 = new Joueur("Rayan");
 
-		return listeJoueurs;
-	}
+        listeJoueurs.add(joueur1);
+        listeJoueurs.add(joueur2);
 
-	public static Pioche creerPioche(Plateau plateau)
-	{
-		ArrayList<ESymbole> symbolesPioche = new ArrayList<ESymbole>();
+        return listeJoueurs;
+    }
 
-		if (plateau.getLstSymbole() != null)
-		{
-			for (int cpt = 0; cpt < plateau.getLstSymbole().size(); cpt++)
-			{
-				if (plateau.getLstSymbole().get(cpt) == 1)
-				{
-					symbolesPioche.add(ESymbole.values()[cpt]);
-				}
-			}
-		}
+    public static Pioche creerPioche(Plateau plateau)
+    {
+        ArrayList<ESymbole> symbolesPioche = new ArrayList<ESymbole>();
 
-		return new Pioche(symbolesPioche, true);
-	}
+        if (plateau.getLstSymbole() != null)
+        {
+            for (int cpt = 0; cpt < plateau.getLstSymbole().size(); cpt++)
+            {
+                if ((Integer) plateau.getLstSymbole().get(cpt) == 1)
+                {
+                    symbolesPioche.add(ESymbole.values()[cpt]);
+                }
+            }
+        }
 
-	public static ArrayList<ECouleur> creerReseauxCarte()
-	{
-		ArrayList<ECouleur> reseauxCarte = new ArrayList<ECouleur>();
-		reseauxCarte.add(ECouleur.BLEU);
-		reseauxCarte.add(ECouleur.ROUGE);
-		return reseauxCarte;
-	}
+        return new Pioche(symbolesPioche, true);
+    }
 
-	public static void testAleatoire()
-	{
-		Plateau plateau;
-		ArrayList<Joueur> listeJoueurs;
-		ArrayList<ECouleur> reseauxCarte;
-		Pioche pioche;
-		Manche manche;
-		Partie partie;
-		Carte carteTiree;
-		Random random;
+    public static ArrayList<ECouleur> creerReseauxCarte()
+    {
+        ArrayList<ECouleur> reseauxCarte = new ArrayList<ECouleur>();
+        reseauxCarte.add(ECouleur.BLEU);
+        reseauxCarte.add(ECouleur.ROUGE);
+        return reseauxCarte;
+    }
 
-		random = new Random();
+    public static void testAleatoire()
+    {
+        Plateau plateau;
+        ArrayList<Joueur> listeJoueurs;
+        ArrayList<ECouleur> reseauxCarte;
+        Pioche pioche;
+        Manche manche;
+        Partie partie;
+        Carte carteTiree;
+        Random random;
 
-		System.out.println("[TEST 1] TEST ALEATOIRE");
-		System.out.println("----------------------------------------------------");
+        random = new Random();
 
-		try
-		{
-			plateau      = creerPlateau();
-			listeJoueurs = creerJoueurs();
-			reseauxCarte = creerReseauxCarte();
-			pioche       = creerPioche(plateau);
+        System.out.println("[TEST 1] TEST ALEATOIRE");
+        System.out.println("----------------------------------------------------");
 
-			manche = new Manche(1, listeJoueurs, pioche, reseauxCarte, true);
-			carteTiree = manche.getPioche().piocher();
+        try
+        {
+            plateau = creerPlateau();
+            listeJoueurs = creerJoueurs();
+            reseauxCarte = creerReseauxCarte();
+            pioche = creerPioche(plateau);
 
-			System.out.printf("%-30s : %s\n", "Carte tiree valide", (carteTiree != null ? "OK" : "ECHEC"));
+            manche = new Manche(1, listeJoueurs, pioche, reseauxCarte, true);
+            carteTiree = manche.getPioche().piocher();
 
-			partie = new Partie(plateau, 2, EModes.POSTE, true);
-			partie.getEnsJoueur().clear();
+            System.out.printf("%-30s : %s\n", "Carte tiree valide", (carteTiree != null ? "OK" : "ECHEC"));
 
-			for (Joueur j : listeJoueurs)
-				partie.ajouterJoueur(j);
+            partie = new Partie(plateau, 2, EModes.POSTE, true);
+            partie.getEnsJoueur().clear();
 
-			int nbManches = 3;
+            for (Joueur j : listeJoueurs)
+                partie.ajouterJoueur(j);
 
-			for (int i = 1; i <= nbManches; i++)
-			{
-				partie.passerManche();
+            int nbManches = 3;
 
-				int pointsGagnes = random.nextInt(3) + 1;
-				int joueurChoisi = random.nextInt(2);
+            for (int i = 1; i <= nbManches; i++)
+            {
+                partie.passerManche();
 
-				if (joueurChoisi == 0)
-				{
-					for (int p = 0; p < pointsGagnes; p++)
-						listeJoueurs.get(0).ajouterScore();
+                int pointsGagnes = random.nextInt(3) + 1;
+                int joueurChoisi = random.nextInt(2);
 
-					System.out.printf("%-30s : %s gagne %d pt(s)\n", "Resultat manche " + i, listeJoueurs.get(0).getPseudo(), pointsGagnes);
-				}
-				else
-				{
-					for (int p = 0; p < pointsGagnes; p++)
-						listeJoueurs.get(1).ajouterScore();
+                if (joueurChoisi == 0)
+                {
+                    for (int p = 0; p < pointsGagnes; p++)
+                        listeJoueurs.get(0).ajouterScore();
 
-					System.out.printf("%-30s : %s gagne %d pt(s)\n", "Resultat manche " + i, listeJoueurs.get(1).getPseudo(), pointsGagnes);
-				}
+                    System.out.printf("%-30s : %s gagne %d pt(s)\n", "Resultat manche " + i, listeJoueurs.get(0).getPseudo(), pointsGagnes);
+                }
+                else
+                {
+                    for (int p = 0; p < pointsGagnes; p++)
+                        listeJoueurs.get(1).ajouterScore();
 
-				System.out.printf("%-30s : %d pts\n", "Score J1 (" + listeJoueurs.get(0).getPseudo() + ")", listeJoueurs.get(0).getScore());
-				System.out.printf("%-30s : %d pts\n", "Score J2 (" + listeJoueurs.get(1).getPseudo() + ")", listeJoueurs.get(1).getScore());
-				System.out.println();
-			}
+                    System.out.printf("%-30s : %s gagne %d pt(s)\n", "Resultat manche " + i, listeJoueurs.get(1).getPseudo(), pointsGagnes);
+                }
 
-			ArrayList<Joueur> gagnants = partie.getGagnant();
+                System.out.printf("%-30s : %d pts\n", "Score J1 (" + listeJoueurs.get(0).getPseudo() + ")", listeJoueurs.get(0).getScore());
+                System.out.printf("%-30s : %d pts\n", "Score J2 (" + listeJoueurs.get(1).getPseudo() + ")", listeJoueurs.get(1).getScore());
+                System.out.println();
+            }
 
-			if (gagnants != null && !gagnants.isEmpty())
-			{
-				for (Joueur j : gagnants)
-				{
-					System.out.printf("%-30s : %s (%d pts)\n", "Gagnant detecte", j.getPseudo(), j.getScore());
-				}
-			}
-			else
-			{
-				System.out.printf("%-30s : %s\n", "Gagnant detecte", "AUCUN");
-			}
-		}
-		catch (Exception e)
-		{
-			System.out.println("Erreur Test Aleatoire : " + e.getMessage());
-		}
+            ArrayList gagnants = partie.getGagnant();
 
-		System.out.println();
-	}
+            if (gagnants != null && !gagnants.isEmpty())
+            {
+                for (Object obj : gagnants)
+                {
+                    Joueur j = (Joueur) obj;
+                    System.out.printf("%-30s : %s (%d pts)\n", "Gagnant detecte", j.getPseudo(), j.getScore());
+                }
+            }
+            else
+            {
+                System.out.printf("%-30s : %s\n", "Gagnant detecte", "AUCUN");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Erreur Test Aleatoire : " + e.getMessage());
+        }
 
-	public static void testDepartageGagnant()
-	{
-		Plateau plateau;
-		ArrayList<Joueur> listeJoueurs;
-		Partie partie;
+        System.out.println();
+    }
 
-		System.out.println("[TEST 2] TEST DEPARTAGE GAGNANT");
-		System.out.println("----------------------------------------------------");
+    public static void testDepartageGagnant()
+    {
+        Plateau plateau;
+        ArrayList<Joueur> listeJoueurs;
+        Partie partie;
 
-		try
-		{
-			plateau      = creerPlateau();
-			listeJoueurs = creerJoueurs();
+        System.out.println("[TEST 2] TEST DEPARTAGE GAGNANT");
+        System.out.println("----------------------------------------------------");
 
-			partie = new Partie(plateau, 2, EModes.POSTE, true);
-			partie.getEnsJoueur().clear();
+        try
+        {
+            plateau = creerPlateau();
+            listeJoueurs = creerJoueurs();
 
-			for (Joueur j : listeJoueurs)
-				partie.ajouterJoueur(j);
+            partie = new Partie(plateau, 2, EModes.POSTE, true);
+            partie.getEnsJoueur().clear();
 
-			Joueur j1 = listeJoueurs.get(0);
-			Joueur j2 = listeJoueurs.get(1);
+            for (Joueur j : listeJoueurs)
+                partie.ajouterJoueur(j);
 
-			int[] manchesJ1 = {3, 0, 2};
-			int[] manchesJ2 = {1, 2, 2};
+            Joueur j1 = listeJoueurs.get(0);
+            Joueur j2 = listeJoueurs.get(1);
 
-			int totalJ1 = 0;
-			int totalJ2 = 0;
+            int[] manchesJ1 = {3, 0, 2};
+            int[] manchesJ2 = {1, 2, 2};
 
-			for (int i = 0; i < manchesJ1.length; i++)
-			{
-				totalJ1 += manchesJ1[i];
-				totalJ2 += manchesJ2[i];
-			}
+            int totalJ1 = 0;
+            int totalJ2 = 0;
 
-			for (int i = 0; i < totalJ1; i++) j1.ajouterScore();
-			for (int i = 0; i < totalJ2; i++) j2.ajouterScore();
+            for (int i = 0; i < manchesJ1.length; i++)
+            {
+                totalJ1 += manchesJ1[i];
+                totalJ2 += manchesJ2[i];
+            }
 
-			System.out.printf("%-30s : %s\n", "Joueur 1", j1.getPseudo());
-			System.out.printf("%-30s : %s\n", "Joueur 2", j2.getPseudo());
-			System.out.printf("%-30s : %d pts\n", "Score final J1", j1.getScore());
-			System.out.printf("%-30s : %d pts\n", "Score final J2", j2.getScore());
+            for (int i = 0; i < totalJ1; i++) j1.ajouterScore();
+            for (int i = 0; i < totalJ2; i++) j2.ajouterScore();
 
-			if (j1.getScore() > j2.getScore())
-			{
-				System.out.printf("%-30s : %s\n", "Gagnant", j1.getPseudo());
-			}
-			else if (j2.getScore() > j1.getScore())
-			{
-				System.out.printf("%-30s : %s\n", "Gagnant", j2.getPseudo());
-			}
-			else
-			{
-				System.out.println("Egalite sur le score total.");
-				System.out.println("Application du departage par somme des manches...");
+            System.out.printf("%-30s : %s\n", "Joueur 1", j1.getPseudo());
+            System.out.printf("%-30s : %s\n", "Joueur 2", j2.getPseudo());
+            System.out.printf("%-30s : %d pts\n", "Score final J1", j1.getScore());
+            System.out.printf("%-30s : %d pts\n", "Score final J2", j2.getScore());
 
-				int sommeManchesJ1 = 0;
-				int sommeManchesJ2 = 0;
+            if (j1.getScore() > j2.getScore())
+            {
+                System.out.printf("%-30s : %s\n", "Gagnant", j1.getPseudo());
+            }
+            else if (j2.getScore() > j1.getScore())
+            {
+                System.out.printf("%-30s : %s\n", "Gagnant", j2.getPseudo());
+            }
+            else
+            {
+                System.out.println("Egalite sur le score total.");
+                System.out.println("Application du departage par somme des manches...");
 
-				for (int i = 0; i < manchesJ1.length; i++)
-				{
-					sommeManchesJ1 += manchesJ1[i];
-					sommeManchesJ2 += manchesJ2[i];
-				}
+                int sommeManchesJ1 = 0;
+                int sommeManchesJ2 = 0;
 
-				System.out.printf("%-30s : %d\n", "Somme manches J1", sommeManchesJ1);
-				System.out.printf("%-30s : %d\n", "Somme manches J2", sommeManchesJ2);
+                for (int i = 0; i < manchesJ1.length; i++)
+                {
+                    sommeManchesJ1 += manchesJ1[i];
+                    sommeManchesJ2 += manchesJ2[i];
+                }
 
-				if (sommeManchesJ1 > sommeManchesJ2)
-				{
-					System.out.printf("%-30s : %s\n", "Gagnant au departage", j1.getPseudo());
-				}
-				else if (sommeManchesJ2 > sommeManchesJ1)
-				{
-					System.out.printf("%-30s : %s\n", "Gagnant au departage", j2.getPseudo());
-				}
-				else
-				{
-					System.out.printf("%-30s : %s\n", "Resultat final", "EGALITE PARFAITE");
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			System.out.println("Erreur Test Departage : " + e.getMessage());
-		}
+                System.out.printf("%-30s : %d\n", "Somme manches J1", sommeManchesJ1);
+                System.out.printf("%-30s : %d\n", "Somme manches J2", sommeManchesJ2);
 
-		System.out.println();
-	}
+                if (sommeManchesJ1 > sommeManchesJ2)
+                {
+                    System.out.printf("%-30s : %s\n", "Gagnant au departage", j1.getPseudo());
+                }
+                else if (sommeManchesJ2 > sommeManchesJ1)
+                {
+                    System.out.printf("%-30s : %s\n", "Gagnant au departage", j2.getPseudo());
+                }
+                else
+                {
+                    System.out.printf("%-30s : %s\n", "Resultat final", "EGALITE PARFAITE");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Erreur Test Departage : " + e.getMessage());
+        }
 
-	public static void testFichierEtControleur()
-	{
-		Plateau plateau;
-		File fichierTest;
-		PlateauData pData;
-		Controleur ctrl;
+        System.out.println();
+    }
 
-		System.out.println("[TEST ANNEXE] FICHIERS ET CONTROLEUR");
-		System.out.println("----------------------------------------------------");
+    public static void testBoutique()
+    {
+        Boutique boutique;
+        Joueur joueur;
+        Objet obj1;
+        Objet obj2;
+        boolean achat1;
+        boolean achat2;
+        boolean vente1;
 
-		try
-		{
-			plateau = creerPlateau();
+        System.out.println("[TEST 3] TEST BOUTIQUE");
+        System.out.println("----------------------------------------------------");
 
-			fichierTest = new File("test_plateau.csv");
-			plateau.enregistrerFichier(fichierTest);
-			System.out.printf("%-30s : %s\n", "Sauvegarde plateau", (fichierTest.exists() ? "OK" : "ECHEC"));
+        try
+        {
+            boutique = new Boutique();
+            joueur = new Joueur("Mathys");
 
-			pData = GestionFichier.lireFichier(fichierTest);
-			System.out.printf("%-30s : %d\n", "Lecture plateau (longueur)", pData.tailleLongueur);
+            obj1 = new ObjetCosmetique("Theme Sombre", 40);
+            obj2 = new ObjetSon("Pack Retro", 70);
 
-			GestionFichier.supprimerFichier(fichierTest);
-		}
-		catch (Exception e)
-		{
-			System.out.println("Erreur Fichier : " + e.getMessage());
-		}
+            boutique.ajouterObjets(obj1);
+            boutique.ajouterObjets(obj2);
 
-		ctrl = new Controleur();
-		System.out.printf("%-30s : %d\n", "Controleur (nb modes)", ctrl.getNomJeu().length);
-		System.out.println();
-	}
+            System.out.printf("%-30s : %d\n", "Monnaie initiale", joueur.getMonaieJoueur());
+            System.out.printf("%-30s : %d\n", "Nb objets boutique", boutique.getObjets().size());
+
+            Objet objetTrouve = boutique.getObjet("Theme Sombre");
+            System.out.printf("%-30s : %s\n", "Recherche Theme Sombre", (objetTrouve != null ? "OK" : "ECHEC"));
+
+            achat1 = boutique.achatObjet(obj1, joueur);
+            System.out.printf("%-30s : %s\n", "Achat objet 1", (achat1 ? "OK" : "ECHEC"));
+            System.out.printf("%-30s : %d\n", "Monnaie apres achat 1", joueur.getMonaieJoueur());
+            System.out.printf("%-30s : %d\n", "Inventaire joueur", joueur.getObjets().size());
+
+            achat2 = boutique.achatObjet(obj2, joueur);
+            System.out.printf("%-30s : %s\n", "Achat objet 2", (achat2 ? "OK" : "ECHEC"));
+            System.out.printf("%-30s : %d\n", "Monnaie apres achat 2", joueur.getMonaieJoueur());
+            System.out.printf("%-30s : %d\n", "Inventaire joueur", joueur.getObjets().size());
+
+            vente1 = boutique.VendreObjet(obj1, joueur);
+            System.out.printf("%-30s : %s\n", "Vente objet 1", (vente1 ? "OK" : "ECHEC"));
+            System.out.printf("%-30s : %d\n", "Monnaie apres vente", joueur.getMonaieJoueur());
+            System.out.printf("%-30s : %d\n", "Inventaire final", joueur.getObjets().size());
+
+            Objet objetAbsent = boutique.getObjet("Objet Inexistant");
+            System.out.printf("%-30s : %s\n", "Recherche objet absent", (objetAbsent == null ? "OK" : "ECHEC"));
+        }
+        catch (Exception e)
+        {
+            System.out.println("Erreur Test Boutique : " + e.getMessage());
+        }
+
+        System.out.println();
+    }
+
+    public static void testFichierEtControleur()
+    {
+        Plateau plateau;
+        File fichierTest;
+        PlateauData pData;
+        Controleur ctrl;
+
+        System.out.println("[TEST ANNEXE] FICHIERS ET CONTROLEUR");
+        System.out.println("----------------------------------------------------");
+
+        try
+        {
+            plateau = creerPlateau();
+
+            fichierTest = new File("test_plateau.csv");
+            plateau.enregistrerFichier(fichierTest);
+            System.out.printf("%-30s : %s\n", "Sauvegarde plateau", (fichierTest.exists() ? "OK" : "ECHEC"));
+
+            pData = GestionFichier.lireFichier(fichierTest);
+            System.out.printf("%-30s : %d\n", "Lecture plateau (longueur)", pData.tailleLongueur);
+
+            GestionFichier.supprimerFichier(fichierTest);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Erreur Fichier : " + e.getMessage());
+        }
+
+        ctrl = new Controleur();
+        System.out.printf("%-30s : %d\n", "Controleur (nb modes)", ctrl.getNomJeu().length);
+        System.out.println();
+    }
 }
