@@ -6,12 +6,12 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class FramePrevisu extends JFrame 
+public class FramePrevisuPlateau extends JFrame 
 {
     private Controleur ctrl;
     private Plateau    plateauPrevisu;
 
-    public FramePrevisu(Controleur ctrl, Plateau plateauPrevisu) 
+    public FramePrevisuPlateau(Controleur ctrl, Plateau plateauPrevisu) 
     {
         this.ctrl           = ctrl;
         this.plateauPrevisu = plateauPrevisu;
@@ -23,9 +23,11 @@ public class FramePrevisu extends JFrame
         Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         int posX = tailleEcran.width - this.getWidth() - 50; 
         int posY = (tailleEcran.height - this.getHeight()) / 2; 
-        
+
 		this.setLocation(posX, posY);
-        
+
+		
+		this.add( new PanelPrevisuPlateau(plateauPrevisu ) ) ;
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);

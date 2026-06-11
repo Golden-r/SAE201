@@ -6,7 +6,7 @@ import java.io.File;
 
 import ihm.FrameJeu;
 import ihm.FrameMenu;
-import ihm.FramePrevisu;
+import ihm.FramePrevisuPlateau;
 import ihm.ManageurFont;
 import java.awt.Color;
 
@@ -130,7 +130,7 @@ public class Controleur
 		
 		if(proprietes.lstCellules != null){ plateauPrevisu.chargerDonnees(proprietes.lstCellules);}
 		
-		new FramePrevisu(this, plateauPrevisu);
+		new FramePrevisuPlateau(this, plateauPrevisu);
 	}
 
 
