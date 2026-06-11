@@ -37,6 +37,7 @@
 
 ./src/java/ihm/FramePrevisuPlateau.java
 ./src/java/ihm/PanelPrevisuPlateau.java
+./src/java/ihm/PanelPlateau.java
 
 
 ./src/java/ihm/FrameJeu.java

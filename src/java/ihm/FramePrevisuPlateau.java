@@ -3,12 +3,13 @@ package ihm;
 import controleur.Controleur;
 import metier.Plateau;
 import javax.swing.JFrame;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public class FramePrevisuPlateau extends JFrame 
 {
-    private PanelJeu panelActuel;
+    private PanelPlateau panelActuel;
 
     public FramePrevisuPlateau(Controleur ctrl, Plateau plateauPrevisu) 
     {
@@ -23,25 +24,25 @@ public class FramePrevisuPlateau extends JFrame
 
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLayout(new BorderLayout());
 
-        this.panelActuel = new PanelJeu(plateauPrevisu);
-        this.add(this.panelActuel);
+        this.panelActuel = new PanelPlateau(plateauPrevisu);
+		this.add(this.panelActuel, BorderLayout.CENTER);
 
         this.setVisible(true);
     }
 
 	public void majPlateau(Plateau nouveauPlateau) 
-    {
-        if (this.panelActuel != null) 
-        {
-            this.remove(this.panelActuel);
-        }
+	{
+		if (this.panelActuel != null) 
+		{
+			this.remove(this.panelActuel);
+		}
 
-        this.panelActuel = new PanelJeu(nouveauPlateau);
-        
-        this.add(this.panelActuel);
+		this.panelActuel = new PanelPlateau(nouveauPlateau);
+		this.add(this.panelActuel, BorderLayout.CENTER);
 
-        this.revalidate();
-        this.repaint();
-    }
+		this.revalidate();
+		this.repaint();
+	}
 }
