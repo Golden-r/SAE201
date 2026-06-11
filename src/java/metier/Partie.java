@@ -117,27 +117,16 @@ public class Partie
 
         ArrayList<Joueur>  ensGagnant = new ArrayList<Joueur> () ;
 
-        Joueur Gagnant = this.ensJoueurs.get(0) ;
-        Boolean joueurDejaCompte =false ;
-        
-        for ( Joueur j : this.ensJoueurs )
-        {
-            if ( j.getScore() > Gagnant.getScore() )
-            {
-                ensGagnant = new ArrayList<Joueur> () ;
-                Gagnant    = j ;
-                ensGagnant.add(j) ;
-            }
-            if ( j.getScore() == Gagnant.getScore() )
-            {
-                for ( Joueur jtmp : this.ensJoueurs )
-                    if ( jtmp.equals(j) )
-                        joueurDejaCompte = true ;
+        int scoreMax = Integer.MIN_VALUE; 
 
-                if ( joueurDejaCompte == false )
-                    ensGagnant.add(j) ;
-                else 
-                    joueurDejaCompte = false ;
+        for (Joueur j : this.ensJoueurs) {
+            if (j.getScore() > scoreMax) {
+                scoreMax = j.getScore();
+                ensGagnant.clear(); 
+                ensGagnant.add(j);
+            } 
+            else if (j.getScore() == scoreMax) {
+                ensGagnant.add(j);
             }
         }
         return ensGagnant ;
