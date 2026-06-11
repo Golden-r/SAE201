@@ -15,6 +15,7 @@
 ./src/java/metier/Zone.java
 ./src/java/metier/Liaison.java
 ./src/java/metier/GestionFichier.java
+./src/java/metier/Objet.java
 ./src/java/metier/Joueur.java
 ./src/java/metier/Carte.java
 ./src/java/metier/Pioche.java

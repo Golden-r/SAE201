@@ -1,6 +1,7 @@
 package metier ;
 
 import java.util.ArrayList ;
+import metier.Objet;
 
 
 /* SAE 2.01 | Développement d'une application 
