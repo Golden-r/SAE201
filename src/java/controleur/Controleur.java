@@ -7,7 +7,7 @@ import java.io.File;
 import ihm.FrameJeu;
 import ihm.FrameMenu;
 import ihm.FramePrevisuPlateau;
-import ihm.ManageurFont;
+
 import java.awt.Color;
 
 import metier.*;
@@ -22,16 +22,18 @@ import metier.*;
 
 public class Controleur
 {
-	final static int WIDTH_MENU  = 1000;
-	final static int HEIGHT_MENU =  500;
-	
+
 	/*----------------------------*/
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-	private FrameJeu     frameJeu ;
-	private FrameMenu    frameMenu;
+	final static int WIDTH_MENU  = 1000;
+	final static int HEIGHT_MENU =  500;
+
+	private FrameJeu            frameJeu    ;
+	private FrameMenu           frameMenu   ;
 	private FramePrevisuPlateau framePrevisu;
+	private ManageurMusique gestionnaireMusique;
 
 	private Partie         partie   ;
 	
@@ -49,33 +51,35 @@ public class Controleur
 	/*  Accesseur                 */
 	/*----------------------------*/
 
-	public int getTailleLargeur() { 
+	public int       getTailleLargeur() 
+	{ 
         return (this.partie != null && this.partie.getPlateau() != null) ? this.partie.getPlateau().getTailleLargeur() : 0;
     }
-    
-    public int getTailleLongueur() { 
+    public int       getTailleLongueur() 
+	{ 
         return (this.partie != null && this.partie.getPlateau() != null) ? this.partie.getPlateau().getTailleLongueur() : 0;
     }
-    
-    public int getTailleCellule() { 
+    public int       getTailleCellule() 
+	{ 
         return (this.partie != null && this.partie.getPlateau() != null) ? this.partie.getPlateau().getTailleCellule() : 0;
     }
-	public Cellule getCellule(int col, int lig) { 
+	public Cellule   getCellule(int col, int lig) 
+	{ 
         if (this.partie == null || this.partie.getPlateau() == null) return null;
         return this.partie.getPlateau().getCellule(col, lig);
     }
-    
-    public boolean getPrevisu() { 
+    public boolean   getPrevisu() 
+	{ 
         if (this.partie == null || this.partie.getPlateau() == null) return false;
         return this.partie.getPlateau().getPrevisu();
     }
-    
-    public int getNbLiaisons() { 
+    public int       getNbLiaisons() 
+	{ 
         if (this.partie == null || this.partie.getPlateau() == null) return 0;
         return this.partie.getPlateau().getEnsLiaison().size();
     }
-    
-    public Color getCouleurLiaison(int indice) {
+    public Color     getCouleurLiaison(int indice) 
+	{
         if (this.partie == null || this.partie.getPlateau() == null) return Color.BLACK;
         
         Liaison l = this.partie.getPlateau().getEnsLiaison().get(indice);
@@ -85,21 +89,17 @@ public class Controleur
 
         return Color.BLACK;
     }
-	public int[][] getCheminLiaison(int indice) { 
+	public int[][]   getCheminLiaison(int indice) 
+	{ 
         if (this.partie == null || this.partie.getPlateau() == null) return null;
         return this.partie.getPlateau().getCheminLiaison(indice);
     }
-
-	public String[]   getNomJeu          () { return EModes.getNomModes        ()           ; }
-	public String[]   getDescriptionModes() { return EModes.getDescriptionModes()           ; }
-
-	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU) ; }
-
-	public Partie     getPartie          () { return this.partie                            ; }
-	public String[] getListeSauvegardes() { return GestionFichier.getListeSauvegardes(); }
-	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
-
-	public String[] getLibellesSymboles()
+	public String[]  getNomJeu          () { return EModes.getNomModes()                   ;}
+	public String[]  getDescriptionModes() { return EModes.getDescriptionModes()           ;}
+	public Dimension getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU) ;}
+	public Partie    getPartie          () { return this.partie                            ;}
+	public String[]  getListeSauvegardes() { return GestionFichier.getListeSauvegardes()   ;}
+	public String[]  getLibellesSymboles()
 	{
 		ESymbole[] tabSymboles = ESymbole.values();
 		String[] tabLibelles = new String[tabSymboles.length];
@@ -111,8 +111,7 @@ public class Controleur
 
 		return tabLibelles;
 	}
-
-	public String getCheminImageCarteActive() 
+	public String    getCheminImageCarteActive() 
 	{
 		Carte c = this.partie.getManche().getCarteCourante();
 
@@ -120,9 +119,43 @@ public class Controleur
 		
 		return "./src/ressource/images/Cartes/" + c.getSymbole().getNomImage() + ".png";
 	}
+	public String    getTexteEtatPartie()
+	{
+		if (this.partie == null)
+			return "Aucune partie en cours.";
+
+		if (this.partie.getManche() == null)
+			return "Fin de partie.\nManche courante : " + this.partie.getMancheCourante();
+
+		String texte = "";
+		texte += "Mode : " + this.partie.getMode() + "\n";
+		texte += "Manche : " + this.partie.getMancheCourante() + " / " + this.partie.getNbMancheMax() + "\n";
+
+		if (this.partie.getManche().getCarteCourante() == null)
+		{
+			texte += "Carte : aucune\n";
+		}
+		else
+		{
+			texte += "Carte symbole : " + this.partie.getManche().getCarteCourante().getSymbole() + "\n";
+			texte += "Carte sombre : "  + this.partie.getManche().getCarteCourante().estSombre() + "\n";
+			texte += "Carte joker : "   + this.partie.getManche().getCarteCourante().estJoker() + "\n";
+		}
+
+		return texte;
+	}
+	public int       getNumeroMancheCourante()
+	{
+		if (this.partie == null) return 0;
+
+		return this.partie.getMancheCourante();
+	}
+	
+	public int       getVolumeMusique(){ return this.gestionnaireMusique.getVolumeMusique() ;}
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
+	public void      setVolumeMusique(int volume ){ if ( this.gestionnaireMusique != null) { this.gestionnaireMusique.setVolumeMusique(volume) ;} }
 
 	
 	/*----------------------------*/
@@ -132,6 +165,21 @@ public class Controleur
 	{
 		this.frameMenu = new FrameMenu(this);
 	}
+
+	public void lancerMusique()
+	{
+		this.gestionnaireMusique = new ManageurMusique("./src/ressource/musique/musique_menu.wav");
+		this.gestionnaireMusique.setVolumeMusique( this.gestionnaireMusique.getVolumeMusique() );
+		this.gestionnaireMusique.jouerEnBoucle();
+	}
+	public void couperMusique(boolean estMute) 
+	{
+		if (this.gestionnaireMusique != null) 
+		{
+			this.gestionnaireMusique.setMute(estMute);
+		}
+	}
+
 
 	public void LancerFramePrevisu(String nomFichier)
 	{
@@ -157,7 +205,6 @@ public class Controleur
 		} 
 		else { this.framePrevisu.majPlateau(plateauPrevisu);}
 	}
-
 
 	public void lancerPartie(File fichier, int nbJoueur, EModes mode, boolean modeDebug)
 	{
@@ -227,38 +274,9 @@ public class Controleur
 		);
 	}
 
-	public String getTexteEtatPartie()
-	{
-		if (this.partie == null)
-			return "Aucune partie en cours.";
+	
 
-		if (this.partie.getManche() == null)
-			return "Fin de partie.\nManche courante : " + this.partie.getMancheCourante();
 
-		String texte = "";
-		texte += "Mode : " + this.partie.getMode() + "\n";
-		texte += "Manche : " + this.partie.getMancheCourante() + " / " + this.partie.getNbMancheMax() + "\n";
-
-		if (this.partie.getManche().getCarteCourante() == null)
-		{
-			texte += "Carte : aucune\n";
-		}
-		else
-		{
-			texte += "Carte symbole : " + this.partie.getManche().getCarteCourante().getSymbole() + "\n";
-			texte += "Carte sombre : "  + this.partie.getManche().getCarteCourante().estSombre() + "\n";
-			texte += "Carte joker : "   + this.partie.getManche().getCarteCourante().estJoker() + "\n";
-		}
-
-		return texte;
-	}
-
-	public int getNumeroMancheCourante()
-	{
-		if (this.partie == null) return 0;
-
-		return this.partie.getMancheCourante();
-	}
 
 	
 

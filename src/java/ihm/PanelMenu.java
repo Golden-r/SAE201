@@ -1,6 +1,7 @@
 package ihm;
 import controleur.Controleur;
 import metier.EModes;
+import metier.ManageurMusique;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -49,7 +50,6 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 	private ImageIcon[] tabIconesPetites ;
 	private ImageIcon[] tabIconesGrandes ;
 
-	private ManageurMusique musiqueDeFond;
 	private JPanel     panelMusic  ;
 	private JSlider    sbMusic;
 	private JButton    btnMute ;
@@ -59,7 +59,7 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 	private JButton[] tabBtnChoix ;
 	
 	private Font      fontCustom  ;
-	private int memoireVolume = 50;
+	
 
 	private JLabel    lblPseudo ;
 	private JLabel    lblImgPerso ;
@@ -73,10 +73,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 	{
 
 		this.ctrl = ctrl ; 
-		
-
-		this.chargerFont();
-		
+		this.ctrl.lancerMusique();
+				
 
 		int largeurMenu = this.ctrl.getSizeMenu().width;
 		int hauteurMenu = this.ctrl.getSizeMenu().height;
@@ -153,7 +151,7 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		this.panelMusic = new JPanel(new BorderLayout());
 		this.panelMusic.setOpaque(false );
 
-		this.sbMusic = new JSlider(JSlider.HORIZONTAL, 0, 100, memoireVolume);
+		this.sbMusic = new JSlider(JSlider.HORIZONTAL, 0, 100, this.ctrl.getVolumeMusique() );
 		this.sbMusic.setOpaque(false );
 		iconMute   = new ImageIcon("./src/ressource/images/Bouton/mute.png");
 		iconDeMute = new ImageIcon("./src/ressource/images/Bouton/demute.png");
@@ -167,10 +165,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		this.btnDeMute.setBorderPainted(false);
 
 
-
-		this.musiqueDeFond = new ManageurMusique("./src/ressource/musique/musique_menu.wav");
-		this.musiqueDeFond.setVolume(this.memoireVolume);
-		this.musiqueDeFond.jouerEnBoucle();
+		
+		
 
 		this.panelChoix = new JPanel( new GridLayout( 1 , 5 , 10 , 10));
 		this.panelChoix.setPreferredSize(new Dimension(largeurMenu, (int)(hauteurMenu * 0.15)));
@@ -384,15 +380,20 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		}
 
 
-		if ( e.getSource() == this.btnMute && this.sbMusic.getValue() > 0  )
+		if ( e.getSource() == this.btnMute && this.sbMusic.getValue() > 0 )
 		{
-			this.memoireVolume = this.sbMusic.getValue();
-			this.sbMusic.setValue( 0 ) ;
+			this.ctrl.couperMusique(true);
+			this.sbMusic.removeChangeListener(this);
+			this.sbMusic.setValue(0);
+			this.sbMusic.addChangeListener(this);
 		}
 
 		if ( e.getSource() == this.btnDeMute && this.sbMusic.getValue() == 0 )
 		{
-			this.sbMusic.setValue(this.memoireVolume);
+			this.sbMusic.removeChangeListener(this);
+			this.sbMusic.setValue(this.ctrl.getVolumeMusique());
+			this.ctrl.couperMusique(false);
+			this.sbMusic.addChangeListener(this);
 		}
 
 
@@ -501,7 +502,7 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 	{
 		if (e.getSource() == this.sbMusic) 
 		{
-			if (this.musiqueDeFond != null){ this.musiqueDeFond.setVolume(this.sbMusic.getValue());}
+			this.ctrl.setVolumeMusique(this.sbMusic.getValue());
 		}
 	}
 

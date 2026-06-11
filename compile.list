@@ -22,12 +22,7 @@
 ./src/java/metier/Partie.java
 ./src/java/metier/Manche.java
 ./src/java/metier/Objet.java
-
-
-
-
-./src/java/ihm/ManageurFont.java
-./src/java/ihm/ManageurMusique.java
+./src/java/metier/ManageurMusique.java
 
 
 
