@@ -1,7 +1,5 @@
 package metier;
 
-import metier.*;
-
 import java.util.ArrayList;
 import java.awt.Color;
 
@@ -169,6 +167,7 @@ public class Plateau
 		ArrayList<Cellule> trajet = new ArrayList<Cellule>();
 
 		if ( depart == null || arrivee == null ) return null;
+		if ( depart.equals(arrivee)            ) return null;
 
 		int distX = arrivee.getX() - depart.getX();
 		int distY = arrivee.getY() - depart.getY();

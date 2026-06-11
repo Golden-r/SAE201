@@ -23,6 +23,9 @@ public class Joueur
     private ArrayList<Liaison > ensLiaisonVisite  ;
     private ArrayList<ECouleur> ensECouleurVisite ;
 
+    private int                 monaieJoueur      ;
+    private ArrayList<Objet>    ensObjets         ;
+
     /*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
@@ -34,17 +37,33 @@ public class Joueur
         this.reseau            = null                      ;
         this.ensLiaisonVisite  = new ArrayList<Liaison> () ;
         this.ensECouleurVisite = new ArrayList<ECouleur>() ;
+
+        this.monaieJoueur      = 100                       ;
+        this.ensObjets         = new ArrayList<Objet>()    ;
     }
 
     /*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
  
-    public String              getPseudo               () { return this.pseudo            ;}
-    public int                 getScore                () { return this.score             ;}
-    public ECouleur            getreseau               () { return this.reseau            ;}
-    public ArrayList<Liaison>  getEnsLiaisonVisite     () { return this.ensLiaisonVisite  ;}
-    public ArrayList<ECouleur> getEnsECouleurVisite    () { return this.ensECouleurVisite ;}
+    public String              getPseudo               () { return this.pseudo                 ;}
+    public int                 getScore                () { return this.score                  ;}
+    public ECouleur            getreseau               () { return this.reseau                 ;}
+    public ArrayList<Liaison>  getEnsLiaisonVisite     () { return this.ensLiaisonVisite       ;}
+    public ArrayList<ECouleur> getEnsECouleurVisite    () { return this.ensECouleurVisite      ;}
+
+    public int                 getMonaieJoueur         () { return this.monaieJoueur           ;}
+    public ArrayList<Objet>    getObjets               () { return this.ensObjets              ;}
+    
+    public Objet               getObjet  (String objet )  
+    {
+        for(Objet obj : this.ensObjets)
+        {
+            if(obj.getNom().equals(objet))
+                return obj;
+        }
+        return null;
+    }
 
     /*----------------------------*/
 	/*  Modificateur              */
@@ -74,8 +93,14 @@ public class Joueur
     public void ajouterECouleurVisite   ( ECouleur couleur ) { this.ensECouleurVisite.add   ( couleur  )       ;}
     public void retirerECouleurVisite   ( ECouleur couleur ) { this.ensECouleurVisite.remove( couleur  )       ;}
 
-    public void ajouterEnsLiaisonVisite ( Liaison liaison )  { this.ensLiaisonVisite.add   ( liaison  )        ;}
-    public void retirerEnsLiaisonVisite ( Liaison liaison )  { this.ensLiaisonVisite.remove( liaison  )        ;}
+    public void ajouterEnsLiaisonVisite ( Liaison liaison  ) { this.ensLiaisonVisite.add   ( liaison  )        ;}
+    public void retirerEnsLiaisonVisite ( Liaison liaison  ) { this.ensLiaisonVisite.remove( liaison  )        ;}
+
+    public void ajouterObjets           ( Objet objet      ) { this.ensObjets.add          ( objet  )          ;}
+    public void retirerObjets           ( Objet objet      ) { this.ensObjets.remove       ( objet  )          ;}
+
+    public void ajouterMonaisJoueur     ( int monaie       ) { this.monaieJoueur +=   monaie                   ;}
+    public void retirerMonaisJoueur     ( int monaie       ) { this.monaieJoueur -=   monaie                   ;}
 
     public boolean aDejaJoue            (ECouleur couleur)   { return this.ensECouleurVisite.contains(couleur) ;}
 
@@ -156,9 +181,13 @@ public class Joueur
         int scoreManche = zonesVisitees.size() * nbMaxCelluleVisiteUneZone;
 
         // Cumul dans le score global du joueur
-        this.ajouterScore(scoreManche);
+        
 
         return scoreManche;
-    }       
+    }     
 
+    public void ajouterScore () 
+    {
+        this.score += this.calculerScore() ;
+    }
 }

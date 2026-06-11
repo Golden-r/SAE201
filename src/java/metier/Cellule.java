@@ -1,6 +1,5 @@
 package metier;
 
-import metier.* ;
 import java.util.ArrayList ;
 
 /* SAE 2.01 | Développement d'une application 
@@ -55,10 +54,10 @@ public class Cellule
 	/*  Modificateur              */
 	/*----------------------------*/
 
-    public void setX        ( int     coordonneeX  ) { this.coordonneeX  = coordonneeX ; }
-    public void setY        ( int     coordonneeY  ) { this.coordonneeY  = coordonneeY ; }
-    public void setSymbole  ( Symbole symbole      ) { this.symbole      = symbole     ; }
-    public void setZone     ( Zone    zone         ) { this.zone         = zone        ; }
+    public void setX        ( int     coordonneeX  ) { this.coordonneeX  = coordonneeX ;}
+    public void setY        ( int     coordonneeY  ) { this.coordonneeY  = coordonneeY ;}
+    public void setSymbole  ( Symbole symbole      ) { this.symbole      = symbole     ;}
+    public void setZone     ( Zone    zone         ) { this.zone         = zone        ;}
 
     /*----------------------------*/
 	/*  Test                      */

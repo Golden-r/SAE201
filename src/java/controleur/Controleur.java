@@ -1,11 +1,8 @@
 package controleur;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.io.File;
-import java.util.ArrayList;
 
 import ihm.FrameJeu;
 import ihm.FrameMenu;
@@ -16,7 +13,7 @@ import metier.*;
 /* SAE 2.01 | Développement d'une application 
 * Controleur
 *
-* Date     : 02/06/2026
+* Date     : 10/06/2026
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
 * Groupe   : 4
 */
@@ -30,8 +27,11 @@ public class Controleur
 	/*  Attributs de la classe    */
 	/*----------------------------*/
 
-	private FrameJeu     frameJeu;
+	private FrameJeu     frameJeu ;
 	private FrameMenu    frameMenu;
+
+	private Partie         partie   ;
+	private GestionFichier metierGestionFichier;
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
@@ -45,10 +45,12 @@ public class Controleur
 	/*----------------------------*/
 	/*  Accesseur                 */
 	/*----------------------------*/
-	public String[]   getNomJeu          () { return EModes.getNomModes        (); }
-	public String[]   getDescriptionModes() { return EModes.getDescriptionModes(); }
-	
-	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU); }
+	public String[]   getNomJeu          () { return EModes.getNomModes        ()           ; }
+	public String[]   getDescriptionModes() { return EModes.getDescriptionModes()           ; }
+
+	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU) ; }
+
+	public Partie     getPartie          () { return this.partie                            ; }
 
 	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
 
@@ -63,6 +65,28 @@ public class Controleur
 	public void lancerMenu()
 	{
 		this.frameMenu = new FrameMenu(this);
+	}
+
+	public void lancerPartie(File fichier, int nbJoueur, EModes mode, boolean modeDebug)
+	{
+		PlateauData proprietes ;
+		Plateau     plateau    ;
+
+		if(fichier == null || !fichier.exists())
+			return;
+		
+		proprietes = this.metierGestionFichier.lireFichier(fichier) ;
+
+		if(proprietes == null)
+			return;
+		
+		plateau = new Plateau(proprietes.tailleLongueur, proprietes.tailleLargeur, proprietes.tailleCellule, proprietes.lstCouleur, proprietes.lstSymbole);
+		
+		if(proprietes.lstCellules != null)
+			plateau.chargerDonnees(proprietes.lstCellules);
+		
+		this.partie   = new Partie(plateau, nbJoueur, mode, modeDebug);
+		this.frameJeu = new FrameJeu(this);
 	}
 
 	

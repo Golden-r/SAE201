@@ -1,10 +1,9 @@
 package metier ;
 
-import metier.* ;
 
 /* SAE 2.01 | Développement d'une application 
 * Carte
-* d
+* 
 * Date     : 10/06/2026
 * @author  : AZAANOUNE Rayan , BASSAM YOUSSIF Youssif , FERRIER Mathys , LARBI Timothe 
 * Groupe   : 4
@@ -40,6 +39,6 @@ public class Carte
 	/*  Méthodes                  */
 	/*----------------------------*/
 
-	public boolean  isSombre()   { return this.estSombre; }
-	public boolean  isJoker()    { return this.estJoker;  }
+	public boolean  estSombre()   { return this.estSombre; }
+	public boolean  estJoker()    { return this.estJoker;  }
 }

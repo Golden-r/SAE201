@@ -1,7 +1,6 @@
 package metier ;
 
 import java.util.ArrayList ;
-import java.util.Collections;
 
 
 /* SAE 2.01 | Développement d'une application 
@@ -29,44 +28,28 @@ public class Manche
 	/* Constructeur de la classe  */
 	/*----------------------------*/
     
-    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux)
+    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux, boolean modeDebug)
     {
-        boolean             bAssignement ;
-        ArrayList<ECouleur> reseauxDispo ;
+        ECouleur reseau;
 
         this.numManche  = numManche  ;
         this.ensJoueurs = ensJoueurs ;
         this.pioche     = pioche     ;
         this.idJoueur   = 0          ;
  
-        bAssignement = false;
-        reseauxDispo = null;
-
-        while(!bAssignement)
-        {
-            bAssignement = true;
-            reseauxDispo  = new ArrayList<ECouleur>(reseaux);
-
-            Collections.shuffle(reseauxDispo);
-
-            for(int cpt = 0; cpt < this.ensJoueurs.size(); cpt++)
-            {
-                
-                if(this.ensJoueurs.get(cpt).aDejaJoue(reseauxDispo.get(cpt)))
-                {
-                    bAssignement = false;
-                    break;
-                }
-            }
-        }
 
         for(int cpt = 0; cpt < this.ensJoueurs.size(); cpt++)
         {
-            this.ensJoueurs.get(cpt).setReseau(reseauxDispo.get(cpt));
-            this.ensJoueurs.get(cpt).ajouterECouleurVisite(reseauxDispo.get(cpt));
+            reseau = reseaux.get((cpt + numManche - 1) % reseaux.size());
+
+            this.ensJoueurs.get(cpt).setReseau(reseau);
+            this.ensJoueurs.get(cpt).ajouterECouleurVisite(reseau);
         }
 
-        this.carteCourante = this.pioche.piocher();
+        if(!modeDebug)
+            this.carteCourante = this.pioche.piocher();
+        else
+            this.carteCourante = null;
     }
 
     /*----------------------------*/
@@ -97,6 +80,16 @@ public class Manche
 
         if(this.idJoueur >= this.ensJoueurs.size())
             this.idJoueur = 0;       
+    }
+
+    public void piocherCarte()
+    {
+        this.carteCourante = this.pioche.piocher();
+    }
+
+    public void piocherCarteSpecifique(Carte carte)
+    {
+        this.carteCourante = this.pioche.piocherSpecifique(carte);
     }
 
 

@@ -1,7 +1,7 @@
 package metier;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /* SAE 2.01 | Développement d'une application 
 * Manche
@@ -18,9 +18,8 @@ public class Partie
 	/*----------------------------*/
     
     private Plateau             plateau         ;
-    private ArrayList<Joueur>   ensJoueurs       ;
+    private ArrayList<Joueur>   ensJoueurs      ;
     private Pioche              pioche          ;
-    private Carte               carteCourante   ;
     private ArrayList<ECouleur> reseauxJouables ;
     private ArrayList<ESymbole> symboles        ;
     private Manche              manche          ;
@@ -28,12 +27,13 @@ public class Partie
     
     private int     mancheCourante      ;
     private int     nbMancheMax         ;
+    private boolean modeDebug           ;
 
     /*----------------------------*/
 	/* Constructeur de la classe  */
 	/*----------------------------*/
 
-    public Partie(Plateau plateau, int nbJoueur, EModes mode)
+    public Partie(Plateau plateau, int nbJoueur, EModes mode, boolean modeDebug)
     {
         /*----------------*/
 		/* Données        */
@@ -46,21 +46,22 @@ public class Partie
 		/* Instructions   */
 		/*----------------*/
 
-        if (mode == EModes.SOLO && nbJoueur != 1)
+        if (mode == EModes.SOLO && nbJoueur != mode.getLimiteJoueur() )
 			throw new IllegalArgumentException("Le mode Solo nécessite exactement 1 joueur.");
 			
-		if (mode == EModes.POSTE && nbJoueur != 2)
+		if (mode == EModes.POSTE && nbJoueur != mode.getLimiteJoueur())
 			throw new IllegalArgumentException("Le mode 2 Joueurs nécessite exactement 2 joueurs.");
 			
-		if (mode == EModes.MULTI && nbJoueur < 2)
+		if (mode == EModes.MULTI && nbJoueur > mode.getLimiteJoueur())
 			throw new IllegalArgumentException("Le mode Multi Joueurs nécessite au moins 2 joueurs.");
 
-        this.plateau             = plateau ;
-        this.mancheCourante      = 1       ;
-        this.nbMancheMax         = 0       ;
-        this.mode                = mode    ;
+        this.plateau             = plateau   ;
+        this.mancheCourante      = 1         ;
+        this.nbMancheMax         = 0         ;
+        this.mode                = mode      ;
+        this.modeDebug           = modeDebug ;
 
-        this.ensJoueurs      = new ArrayList<Joueur>() ;
+        this.ensJoueurs      = new ArrayList<Joueur>()  ;
         this.reseauxJouables = new ArrayList<ECouleur>();
         this.symboles        = new ArrayList<ESymbole>();
 
@@ -78,7 +79,7 @@ public class Partie
             }
         }
 
-        
+        Collections.shuffle(this.reseauxJouables);
 
         lstSymbolePlateau = this.plateau.getLstSymbole();
 
@@ -93,8 +94,8 @@ public class Partie
 		for (int cpt = 0; cpt < nbJoueur; cpt++)
 			this.ensJoueurs.add(new Joueur("Joueur " + (cpt + 1)));
 
-		this.pioche = new Pioche(this.symboles);
-		this.manche = new Manche(this.mancheCourante, this.ensJoueurs, this.pioche, this.reseauxJouables);
+		this.pioche = new Pioche(this.symboles, this.modeDebug);
+		this.manche = new Manche(this.mancheCourante, this.ensJoueurs, this.pioche, this.reseauxJouables, this.modeDebug);
         
     }
 
@@ -108,6 +109,28 @@ public class Partie
     public int                 getNbMancheMax()     { return this.nbMancheMax     ;}
     public ArrayList<ECouleur> getReseauxJouables() { return this.reseauxJouables ;}
     public EModes              getMode()            { return this.mode            ;}
+    public Manche              getManche()          { return this.manche          ;}
+    public boolean             getModeDebug()       { return this.modeDebug       ;}
+    public ArrayList<Joueur>   getGagnant()
+    {
+        if (this.ensJoueurs == null || this.ensJoueurs.isEmpty()) return null;
+
+        ArrayList<Joueur>  ensGagnant = new ArrayList<Joueur> () ;
+
+        int scoreMax = Integer.MIN_VALUE; 
+
+        for (Joueur j : this.ensJoueurs) {
+            if (j.getScore() > scoreMax) {
+                scoreMax = j.getScore();
+                ensGagnant.clear(); 
+                ensGagnant.add(j);
+            } 
+            else if (j.getScore() == scoreMax) {
+                ensGagnant.add(j);
+            }
+        }
+        return ensGagnant ;
+    }
     
 
     /*----------------------------*/
@@ -122,7 +145,13 @@ public class Partie
     public void passerManche()
     {
         this.mancheCourante++;
+
+        if (!this.estFinDePartie())
+            this.manche = new Manche(this.mancheCourante,this.ensJoueurs, this.pioche, this.reseauxJouables, this.modeDebug);
+        else
+            this.manche = null;
     }
+
 
     public boolean estFinDePartie()
     {
