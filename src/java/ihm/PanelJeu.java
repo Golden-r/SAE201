@@ -41,6 +41,10 @@ public class PanelJeu extends JPanel
     
 	public PanelJeu( Controleur ctrl ) 
 	{
+		/* ----------------------------- */
+		/* Création des composants       */
+		/* ----------------------------- */
+
 		this.ctrl           = ctrl ; 
 		this.plateauPrevisu = null ;
 
@@ -49,6 +53,15 @@ public class PanelJeu extends JPanel
         
 		this.setPreferredSize( new Dimension( largeurTotal, hauteurTotal ) );
 		this.setBackground( Color.WHITE );
+
+		/* ----------------------------- */
+		/* Positionnement des composants */
+		/* ----------------------------- */
+
+
+		/* ----------------------------- */
+		/* Activation des composants     */
+		/* ----------------------------- */
 
 
 	}
