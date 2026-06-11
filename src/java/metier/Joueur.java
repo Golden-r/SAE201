@@ -2,6 +2,8 @@ package metier ;
 
 import java.util.ArrayList ;
 
+import metier.* ;
+
 
 /* SAE 2.01 | Développement d'une application 
 * Joueur

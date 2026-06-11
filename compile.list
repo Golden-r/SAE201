@@ -20,6 +20,7 @@
 ./src/java/metier/Pioche.java
 ./src/java/metier/Partie.java
 ./src/java/metier/Manche.java
+./src/java/metier/Objet.java
 
 
 

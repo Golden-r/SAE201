@@ -193,16 +193,11 @@ public class Controleur
 		else
 		{
 			texte += "Carte symbole : " + this.partie.getManche().getCarteCourante().getSymbole() + "\n";
-			texte += "Carte sombre : "  + this.partie.getManche().getCarteCourante().estSombre() + "\n";
-			texte += "Carte joker : "   + this.partie.getManche().getCarteCourante().estJoker() + "\n";
+			texte += "Carte sombre : " + this.partie.getManche().getCarteCourante().estSombre() + "\n";
+			texte += "Carte joker : " + this.partie.getManche().getCarteCourante().estJoker() + "\n";
 		}
 
 		return texte;
-	}
-
-	public boolean aUnePartieEnCours()
-	{
-		return this.partie != null;
 	}
 
 	public int getNumeroMancheCourante()
@@ -210,13 +205,6 @@ public class Controleur
 		if (this.partie == null) return 0;
 
 		return this.partie.getMancheCourante();
-	}
-
-	public int getNombreManchesMax()
-	{
-		if (this.partie == null) return 0;
-
-		return this.partie.getNbMancheMax();
 	}
 
 	
