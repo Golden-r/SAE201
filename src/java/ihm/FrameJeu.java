@@ -21,7 +21,7 @@ public class FrameJeu extends JFrame
         
         this.setTitle("Application jeu - Groupe 4");
 
-		this.setSize(1200, 120);
+		this.setSize(1000, 1000);
 
 		this.setLocationRelativeTo(null);
 

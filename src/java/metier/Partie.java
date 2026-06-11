@@ -96,6 +96,8 @@ public class Partie
 
 		this.pioche = new Pioche(this.symboles, this.modeDebug);
 		this.manche = new Manche(this.mancheCourante, this.ensJoueurs, this.pioche, this.reseauxJouables, this.modeDebug);
+
+		this.plateau.relierToutLesSymbole( ECouleur.values()[6] );
         
     }
 

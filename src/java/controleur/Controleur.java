@@ -31,6 +31,7 @@ public class Controleur
 
 	private FrameJeu     frameJeu ;
 	private FrameMenu    frameMenu;
+	private FramePrevisuPlateau framePrevisu;
 
 	private Partie         partie   ;
 	
@@ -143,7 +144,11 @@ public class Controleur
 		
 		if(proprietes.lstCellules != null){ plateauPrevisu.chargerDonnees(proprietes.lstCellules);}
 		
-		new FramePrevisuPlateau(this, plateauPrevisu);
+		if (this.framePrevisu == null || !this.framePrevisu.isDisplayable()) 
+		{
+			this.framePrevisu = new FramePrevisuPlateau(this, plateauPrevisu);
+		} 
+		else { this.framePrevisu.majPlateau(plateauPrevisu);}
 	}
 
 
@@ -160,6 +165,11 @@ public class Controleur
 		if(proprietes == null)
 			return;
 		
+		if (this.framePrevisu != null && this.framePrevisu.isDisplayable()) 
+		{
+			this.framePrevisu.dispose();
+		}
+
 		plateau = new Plateau(proprietes.tailleLongueur, proprietes.tailleLargeur, proprietes.tailleCellule, proprietes.lstCouleur, proprietes.lstSymbole);
 		
 		if(proprietes.lstCellules != null)

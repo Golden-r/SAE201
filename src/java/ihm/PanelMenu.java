@@ -432,8 +432,25 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 
 		if ( e.getSource() == this.btnLancer )
 		{
+			String fichierSelectionne = this.lstSauvegardes.getSelectedValue();
+
+			if (fichierSelectionne == null || fichierSelectionne.equals("Aucune sauvegarde")) 
+			{
+
+				return; 
+			}
+
 			this.btnLancer.setBackground(new Color(252, 200, 122));
 			this.btnLancer.setForeground( Color.WHITE );
+
+	
+			SwingUtilities.getWindowAncestor(this).setVisible(false);
+			File fichierMap = new File("./src/ressource/data/" + fichierSelectionne); 
+	
+			metier.EModes modeChoisi = metier.EModes.values()[0];
+				
+			this.ctrl.lancerPartie(fichierMap, 1, modeChoisi, false);
+
 		}
 
 
@@ -465,17 +482,6 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
             }
             case "Jouer" ->
 			{
-                System.out.println("Action déclenchée : Lancement de la partie");
-    
-				// Fermer ou masquer la fenêtre du menu principal
-				// (Puisque PanelMenu est dans FrameMenu, on récupère la fenêtre ancêtre)
-				SwingUtilities.getWindowAncestor(this).setVisible(false);
-
-				// On passe des paramètres par défaut pour tester le chargement
-				File fichierMap = new File("./src/ressource/maps/maps1.data"); // À ajuster selon tes fichiers
-				metier.EModes modeChoisi = metier.EModes.values()[0];       // Mode par défaut (ex: le premier)
-				
-				this.ctrl.lancerPartie(fichierMap, 1, modeChoisi, false);
 			}
             case "Personnage" ->
 			{
