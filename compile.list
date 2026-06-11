@@ -25,6 +25,10 @@
 
 
 ./src/java/ihm/ManageurFont.java
+./src/java/ihm/ManageurMusique.java
+
+
+
 
 ./src/java/ihm/FrameMenu.java
 ./src/java/ihm/PanelMenu.java
