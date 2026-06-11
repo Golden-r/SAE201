@@ -1,6 +1,9 @@
 package controleur;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import java.awt.Font;
 import java.io.File;
 
@@ -162,6 +165,65 @@ public class Controleur
 	}
 	
 	public int       getVolumeMusique(){ return this.gestionnaireMusique.getVolumeMusique() ;}
+
+	public int getMancheMax() 
+	{
+		if (this.partie == null) return 1;
+		return this.partie.getNbMancheMax();
+	}
+
+	public String getNomReseauJoueurCourant() 
+	{
+		if (this.partie == null || this.partie.getManche() == null || this.partie.getManche().getJoueurCourant() == null) 
+		{
+			return "Eau_potable"; 
+		}
+
+		ECouleur reseauActuel = this.partie.getManche().getJoueurCourant().getreseau();
+		
+		if (reseauActuel != null) 
+		{
+			return reseauActuel.getLibelle();
+		}
+		
+		return "Eau_potable";
+	}
+
+	public ArrayList<String> getCheminsHistoriqueCartes()
+	{
+		/*----------------*/
+		/* Données        */
+		/*----------------*/
+		
+		ArrayList<String> cheminsHistorique;
+		ArrayList<Carte>  cartesTirees;
+		Carte                       c;
+		String                      chemin;
+
+		/*----------------*/
+		/* Instructions   */
+		/*----------------*/
+		
+		cheminsHistorique = new ArrayList<String>();
+
+		if (this.partie == null || this.partie.getManche() == null) { return cheminsHistorique; }
+
+		cartesTirees = this.partie.getManche().getPioche().getCartesTirees();
+		for (int cpt = 0; cpt < cartesTirees.size() - 1; cpt++)
+		{
+			c = cartesTirees.get(cpt);
+
+			if ( c.estJoker() ){ chemin = "./src/ressource/images/Cartes/Joker_Carte_" + (c.estSombre() ? "N" : "B") + ".png";}
+			else               { chemin = "./src/ressource/images/Cartes/" + c.getSymbole().getNomImage() + "_Carte_" + (c.estSombre() ? "N" : "B") + ".png";}
+
+			cheminsHistorique.add(chemin);
+		}
+
+		Collections.reverse(cheminsHistorique);
+
+		return cheminsHistorique;
+	}
+	
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
