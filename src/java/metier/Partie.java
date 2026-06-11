@@ -1,6 +1,5 @@
 package metier;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /* SAE 2.01 | Développement d'une application 
@@ -47,13 +46,13 @@ public class Partie
 		/* Instructions   */
 		/*----------------*/
 
-        if (mode == EModes.SOLO && nbJoueur != 1)
+        if (mode == EModes.SOLO && nbJoueur != mode.getLimiteJoueur() )
 			throw new IllegalArgumentException("Le mode Solo nécessite exactement 1 joueur.");
 			
-		if (mode == EModes.POSTE && nbJoueur != 2)
+		if (mode == EModes.POSTE && nbJoueur != mode.getLimiteJoueur())
 			throw new IllegalArgumentException("Le mode 2 Joueurs nécessite exactement 2 joueurs.");
 			
-		if (mode == EModes.MULTI && nbJoueur < 2)
+		if (mode == EModes.MULTI && nbJoueur > mode.getLimiteJoueur())
 			throw new IllegalArgumentException("Le mode Multi Joueurs nécessite au moins 2 joueurs.");
 
         this.plateau             = plateau   ;
@@ -80,7 +79,7 @@ public class Partie
             }
         }
 
-        
+        Collections.shuffle(this.reseauxJouables);
 
         lstSymbolePlateau = this.plateau.getLstSymbole();
 
@@ -111,21 +110,28 @@ public class Partie
     public ArrayList<ECouleur> getReseauxJouables() { return this.reseauxJouables ;}
     public EModes              getMode()            { return this.mode            ;}
     public boolean             getModeDebug()       { return this.modeDebug       ;}
-    
-    // a modifier car pas terminé
-    public Joueur              getGagnant()         
+    public ArrayList<Joueur>   getGagnant()
     {
         if (this.ensJoueurs == null || this.ensJoueurs.isEmpty()) return null;
+
+        ArrayList<Joueur>  ensGagnant = new ArrayList<Joueur> () ;
 
         Joueur Gagnant = this.ensJoueurs.get(0) ;
         
         for ( Joueur j : this.ensJoueurs )
         {
-            if ( j.getScore() >= Gagnant.getScore() )
-                if ( ! Gagnant.equals(j) )
-                    Gagnant = j ;
+            if ( j.getScore() > Gagnant.getScore() )
+            {
+                ensGagnant = new ArrayList<Joueur> () ;
+                Gagnant    = j ;
+                ensGagnant.add(j) ;
+            }
+            if ( j.getScore() == Gagnant.getScore() )
+            {
+                ensGagnant.add(j) ;
+            }
         }
-        return Gagnant ;
+        return ensGagnant ;
     }
     
 

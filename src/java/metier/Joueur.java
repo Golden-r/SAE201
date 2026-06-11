@@ -156,9 +156,13 @@ public class Joueur
         int scoreManche = zonesVisitees.size() * nbMaxCelluleVisiteUneZone;
 
         // Cumul dans le score global du joueur
-        this.ajouterScore(scoreManche);
+        
 
         return scoreManche;
-    }       
+    }     
 
+    public void ajouterScore () 
+    {
+        this.score += this.calculerScore() ;
+    }
 }

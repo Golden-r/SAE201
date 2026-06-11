@@ -31,39 +31,20 @@ public class Manche
     
     public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux, boolean modeDebug)
     {
-        boolean             bAssignement ;
-        ArrayList<ECouleur> reseauxDispo ;
+        ECouleur reseau;
 
         this.numManche  = numManche  ;
         this.ensJoueurs = ensJoueurs ;
         this.pioche     = pioche     ;
         this.idJoueur   = 0          ;
  
-        bAssignement = false;
-        reseauxDispo = null;
-
-        while(!bAssignement)
-        {
-            bAssignement = true;
-            reseauxDispo  = new ArrayList<ECouleur>(reseaux);
-
-            Collections.shuffle(reseauxDispo);
-
-            for(int cpt = 0; cpt < this.ensJoueurs.size(); cpt++)
-            {
-                
-                if(this.ensJoueurs.get(cpt).aDejaJoue(reseauxDispo.get(cpt)))
-                {
-                    bAssignement = false;
-                    break;
-                }
-            }
-        }
 
         for(int cpt = 0; cpt < this.ensJoueurs.size(); cpt++)
         {
-            this.ensJoueurs.get(cpt).setReseau(reseauxDispo.get(cpt));
-            this.ensJoueurs.get(cpt).ajouterECouleurVisite(reseauxDispo.get(cpt));
+            reseau = reseaux.get((cpt + numManche - 1) % reseaux.size());
+
+            this.ensJoueurs.get(cpt).setReseau(reseau);
+            this.ensJoueurs.get(cpt).ajouterECouleurVisite(reseau);
         }
 
         if(!modeDebug)

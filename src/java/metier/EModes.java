@@ -12,13 +12,13 @@ public enum EModes
 {
     SOLO ( "Solo"         , "Jouer à Reseaux Urbains en solo !"                        ,   1),
     POSTE( "2 Joueurs"    , "Jouer à deux joueurs à Reseaux Urbains en Pass n' Play ! ",   2),
-    MULTI( "Multi Joueurs", "Joeur à 2+ joueurs à Reseaux Urbains en ligne !"          ,null);
+    MULTI( "Multi Joueurs", "Joeur à 2+ joueurs à Reseaux Urbains en ligne !"          ,  16);
 
     private String  libelle    ;
     private String  description;
-    private Integer limite     ;
+    private int     limite     ;
 
-    EModes(String libelle, String description, Integer limite)
+    EModes(String libelle, String description, int limite)
     {
         this.libelle     = libelle;
         this.description = description;
@@ -32,7 +32,7 @@ public enum EModes
 	public String getLibelle     () { return this.libelle    ;}
     public String getDescription () { return this.description;}   
 
-    public int    getLimiteJoueur() { return this.limite.intValue();}   
+    public int    getLimiteJoueur() { return this.limite;}   
 
     public static String[] getNomModes()
 	{
