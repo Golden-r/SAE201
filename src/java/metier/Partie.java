@@ -118,6 +118,7 @@ public class Partie
         ArrayList<Joueur>  ensGagnant = new ArrayList<Joueur> () ;
 
         Joueur Gagnant = this.ensJoueurs.get(0) ;
+        Boolean joueurDejaCompte =false ;
         
         for ( Joueur j : this.ensJoueurs )
         {
@@ -129,7 +130,14 @@ public class Partie
             }
             if ( j.getScore() == Gagnant.getScore() )
             {
-                ensGagnant.add(j) ;
+                for ( Joueur jtmp : this.ensJoueurs )
+                    if ( jtmp.equals(j) )
+                        joueurDejaCompte = true ;
+
+                if ( joueurDejaCompte == false )
+                    ensGagnant.add(j) ;
+                else 
+                    joueurDejaCompte = false ;
             }
         }
         return ensGagnant ;
