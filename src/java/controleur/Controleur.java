@@ -112,13 +112,22 @@ public class Controleur
 		return tabLibelles;
 	}
 
-	public String getCheminImageCarteActive() 
+	public String getCheminImageCarteActive()
 	{
+		if (this.partie == null || this.partie.getManche() == null)
+			return null;
+
 		Carte c = this.partie.getManche().getCarteCourante();
 
-		if (c == null) return null;
-		
-		return "./src/ressource/images/Cartes/" + c.getSymbole().getNomImage() + ".png";
+		if (c == null)
+			return null;
+
+		if (c.estJoker())
+			return "./src/ressource/images/Cartes/Joker_Carte_" + (c.estSombre() ? "N" : "B") + ".png";
+
+		return "./src/ressource/images/Cartes/"
+				+ c.getSymbole().getNomImage() + "_Carte_"
+				+ (c.estSombre() ? "N" : "B")  + ".png";
 	}
 	/*----------------------------*/
 	/*  Modificateur              */

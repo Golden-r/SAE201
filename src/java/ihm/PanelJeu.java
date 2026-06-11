@@ -124,6 +124,8 @@ public class PanelJeu extends JPanel
 		this.add( this.panelSud,         BorderLayout.SOUTH  );
 		this.add( this.panelEst,         BorderLayout.EAST   );
 		this.add( this.panelOuest,       BorderLayout.WEST   );
+
+		this.ajouterCarteTiree();
 	}
 
 
@@ -142,6 +144,7 @@ public class PanelJeu extends JPanel
 			this.panelHistorique.revalidate();
 			this.panelHistorique.repaint();
 		}
+		System.out.println("Chemin carte : " + chemin);
 	}
 
 	private ImageIcon redimensionnerImage(String chemin, int w, int h) 
