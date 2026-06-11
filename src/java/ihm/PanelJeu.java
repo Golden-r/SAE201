@@ -6,12 +6,15 @@ import metier.ECouleur;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+
+import java.awt.Dimension;
 
 public class PanelJeu extends JPanel
 {
@@ -27,11 +30,17 @@ public class PanelJeu extends JPanel
 
 	private JLabel lblManche ;
 	private JLabel lblImageReseau ;
+
+	private JLabel lblCarteActive;
+	private JPanel panelHistorique;
     
 	public PanelJeu( Controleur ctrl ) 
 	{
 		this.ctrl = ctrl;
 		this.setLayout( new BorderLayout() );
+
+		JPanel panelCarteActive;
+		JScrollPane scrollHistorique;
 
 		/* ----------------------------- */
 		/* Création des composants       */
@@ -42,19 +51,31 @@ public class PanelJeu extends JPanel
 		this.panelNord  = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 15)); 
 		this.panelSud   = new JPanel();
 		this.panelEst   = new JPanel();
-		this.panelOuest = new JPanel();
+		this.panelSud  .setBackground( PanelJeu.COULEUR_BLEU );
+		this.panelEst  .setBackground( PanelJeu.COULEUR_BLEU );
+		this.panelNord .setBackground( PanelJeu.COULEUR_BLEU );
 
-		this.panelNord .setBackground( Color.DARK_GRAY );
-		this.panelSud  .setBackground( Color.DARK_GRAY );
-		this.panelEst  .setBackground( Color.DARK_GRAY );
-		this.panelOuest.setBackground( Color.DARK_GRAY );
 
+
+		this.panelOuest = new JPanel(new BorderLayout());
+		this.panelOuest.setBackground( PanelJeu.COULEUR_BLEU );
+
+		panelCarteActive = new JPanel();
+		panelCarteActive.setBackground(Color.DARK_GRAY);
+		this.lblCarteActive = new JLabel();
+
+		this.panelHistorique = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		this.panelHistorique.setBackground(Color.GRAY);
+		scrollHistorique = new JScrollPane(this.panelHistorique);
+		scrollHistorique.setPreferredSize(new Dimension(120, 200));
+
+		
 
 
 		//panelNord
 		int mancheCourante = 1;
 		int mancheMax      = 1;
-		String nomReseau   = "ReseauDefaut"; 
+		String nomReseau   = "Eau_potable"; 
 
 		if (this.ctrl.getPartie() != null) 
 		{
@@ -66,7 +87,8 @@ public class PanelJeu extends JPanel
 				ECouleur reseauActuel = this.ctrl.getPartie().getManche().getJoueurCourant().getreseau();
 				if (reseauActuel != null) 
 				{
-					nomReseau = reseauActuel.name(); 
+					nomReseau = reseauActuel.getLibelle(); 
+
 				}
 			}
 		}
@@ -90,11 +112,41 @@ public class PanelJeu extends JPanel
 		/* ----------------------------- */
 		/* Positionnement des composants */
 		/* ----------------------------- */
+
+		panelCarteActive.add(this.lblCarteActive);
+
+		this.panelOuest.add(panelCarteActive, BorderLayout.NORTH);
+		this.panelOuest.add(scrollHistorique, BorderLayout.CENTER);
+
 		
 		this.add( this.plateauJeuMilieu, BorderLayout.CENTER );	
 		this.add( this.panelNord,        BorderLayout.NORTH  );
 		this.add( this.panelSud,         BorderLayout.SOUTH  );
 		this.add( this.panelEst,         BorderLayout.EAST   );
 		this.add( this.panelOuest,       BorderLayout.WEST   );
+	}
+
+
+	public void ajouterCarteTiree() 
+	{
+		String chemin = this.ctrl.getCheminImageCarteActive();
+		JLabel lblMiniCarte;
+		
+		if (chemin != null) 
+		{
+			this.lblCarteActive.setIcon(redimensionnerImage(chemin, 100, 150));
+
+			lblMiniCarte = new JLabel(redimensionnerImage(chemin, 30, 45));
+			this.panelHistorique.add(lblMiniCarte);
+			
+			this.panelHistorique.revalidate();
+			this.panelHistorique.repaint();
+		}
+	}
+
+	private ImageIcon redimensionnerImage(String chemin, int w, int h) 
+	{
+		ImageIcon icon = new ImageIcon(chemin);
+		return new ImageIcon(icon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
 	}
 }

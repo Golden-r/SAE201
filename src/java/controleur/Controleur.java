@@ -112,7 +112,14 @@ public class Controleur
 		return tabLibelles;
 	}
 
+	public String getCheminImageCarteActive() 
+	{
+		Carte c = this.partie.getManche().getCarteCourante();
 
+		if (c == null) return null;
+		
+		return "./src/ressource/images/Cartes/" + c.getSymbole().getNomImage() + ".png";
+	}
 	/*----------------------------*/
 	/*  Modificateur              */
 	/*----------------------------*/
@@ -239,8 +246,8 @@ public class Controleur
 		else
 		{
 			texte += "Carte symbole : " + this.partie.getManche().getCarteCourante().getSymbole() + "\n";
-			texte += "Carte sombre : " + this.partie.getManche().getCarteCourante().estSombre() + "\n";
-			texte += "Carte joker : " + this.partie.getManche().getCarteCourante().estJoker() + "\n";
+			texte += "Carte sombre : "  + this.partie.getManche().getCarteCourante().estSombre() + "\n";
+			texte += "Carte joker : "   + this.partie.getManche().getCarteCourante().estJoker() + "\n";
 		}
 
 		return texte;
