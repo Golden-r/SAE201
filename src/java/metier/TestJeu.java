@@ -1,178 +1,305 @@
 package metier;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 import java.io.File;
 import controleur.Controleur;
 
-public class TestJeu 
+public class TestJeu
 {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
-		ArrayList<Integer>  lstCouleur;
-		ArrayList<Integer>  lstSymbole;
-		Plateau             plateau;
-		Cellule             cellA;
-		Cellule             cellB;
-		Cellule             cellC;
-		Cellule             cellGauche;
-		Cellule             cellDroite;
-		Cellule             cellHaut;
-		Cellule             cellBas;
-		ArrayList<Cellule>  trajetAB;
-		ArrayList<Cellule>  trajetAC;
-		ArrayList<Cellule>  trajetCroise;
-		boolean             estCroise;
-		Joueur              joueur1;
-		Joueur              joueur2;
-		Zone                zone1;
-		ArrayList<Cellule>  cellsTraversees;
-		Liaison             l1;
-		Liaison             l2;
-		int                 scoreObtenu1;
-		int                 scoreObtenu2;
-		ArrayList<Joueur>   listeJoueurs;
-		ArrayList<ECouleur> reseauxCarte;
-		ArrayList<ESymbole> symbolesPioche;
-		Pioche              pioche;
-		Manche              manche;
-		Partie              partie;
-		Carte               carteTiree;
-		Controleur          ctrl;
-		File                fichierTest;
-		PlateauData         pData;
+		Scanner sc = new Scanner(System.in);
+		int choix;
 
 		System.out.println("====================================================");
 		System.out.println("                VALIDATION DU METIER                ");
 		System.out.println("====================================================\n");
 
-		lstCouleur = new ArrayList<Integer>();
-		lstCouleur.add(1); 
-		lstCouleur.add(1); 
-		lstCouleur.add(0); 
+		System.out.println("Choisissez un test a executer :");
+		System.out.println("1 - Test aleatoire sur plusieurs manches");
+		System.out.println("2 - Test gagnant avec departage en cas d'egalite");
+		System.out.print("Votre choix : ");
+
+		choix = sc.nextInt();
+		System.out.println();
+
+		switch (choix)
+		{
+			case 1:
+				testAleatoire();
+				break;
+
+			case 2:
+				testDepartageGagnant();
+				break;
+
+			default:
+				System.out.println("Choix invalide.");
+				break;
+		}
+
+		sc.close();
+
+		System.out.println("====================================================");
+		System.out.println("                   FIN DES TESTS                    ");
+		System.out.println("====================================================");
+	}
+
+	public static Plateau creerPlateau()
+	{
+		ArrayList<Integer> lstCouleur = new ArrayList<Integer>();
+		ArrayList<Integer> lstSymbole = new ArrayList<Integer>();
+
+		lstCouleur.add(1);
+		lstCouleur.add(1);
+		lstCouleur.add(0);
 		lstCouleur.add(0);
 
-		lstSymbole = new ArrayList<Integer>();
-		lstSymbole.add(1); 
-		lstSymbole.add(1); 
-		lstSymbole.add(0); 
+		lstSymbole.add(1);
+		lstSymbole.add(1);
+		lstSymbole.add(0);
 		lstSymbole.add(0);
 
-		plateau = new Plateau(3, 3, 50, lstCouleur, lstSymbole);
+		return new Plateau(3, 3, 50, lstCouleur, lstSymbole);
+	}
 
-		cellA = plateau.getCellule(0, 0);
-		cellB = plateau.getCellule(1, 0);
-		cellC = plateau.getCellule(2, 0);
+	public static ArrayList<Joueur> creerJoueurs()
+	{
+		ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
 
-		cellA.setSymbole(new Symbole(ESymbole.values()[0]));
-		cellB.setSymbole(new Symbole(ESymbole.values()[1]));
-		cellC.setSymbole(new Symbole(ESymbole.values()[0]));
+		Joueur joueur1 = new Joueur("Timothe");
+		Joueur joueur2 = new Joueur("Rayan");
 
-		trajetAB = plateau.getTrajet(cellA, cellB);
-		trajetAC = plateau.getTrajet(cellA, cellC);
-
-		System.out.println("[1] GEOMETRIE ET PLATEAU");
-		System.out.println("----------------------------------------------------");
-		System.out.printf("%-30s : %s\n", "Trajet A -> B valide", (trajetAB != null ? "OK" : "ECHEC"));
-		System.out.printf("%-30s : %s\n", "Trajet A -> C bloque", (trajetAC == null ? "OK" : "ECHEC"));
-
-		cellB.setSymbole(null); 
-		
-		cellGauche = plateau.getCellule(0, 1);
-		cellDroite = plateau.getCellule(2, 1);
-		
-		plateau.ajouterLiaison(cellGauche, cellDroite, ECouleur.BLEU);
-		System.out.printf("%-30s : %d\n", "Nb liaisons plateau", plateau.getEnsLiaison().size());
-
-		cellHaut = plateau.getCellule(1, 0);
-		cellBas  = plateau.getCellule(1, 2);
-		
-		trajetCroise = plateau.getTrajet(cellHaut, cellBas);
-		estCroise    = plateau.estCroiser(trajetCroise);
-		System.out.printf("%-30s : %s\n\n", "Croisement detecte", (estCroise ? "OK" : "ECHEC"));
-
-		joueur1 = new Joueur("Timothe");
-		joueur2 = new Joueur("Rayan");
-		
-		zone1 = new Zone(EZone.values()[0], 1);
-		cellA.setZone(zone1);
-		cellC.setZone(zone1);
-
-		cellsTraversees = new ArrayList<Cellule>();
-		cellsTraversees.add(cellB);
-		
-		l1 = new Liaison(cellA, cellC, ECouleur.BLEU, cellsTraversees);
-		joueur1.ajouterLiaison(l1);
-
-		l2 = new Liaison(cellA, cellC, ECouleur.ROUGE, cellsTraversees);
-		joueur2.ajouterLiaison(l2);
-
-		scoreObtenu1 = joueur1.calculerScore();
-		scoreObtenu2 = joueur2.calculerScore();
-
-		listeJoueurs = new ArrayList<Joueur>();
 		listeJoueurs.add(joueur1);
 		listeJoueurs.add(joueur2);
 
-		reseauxCarte = new ArrayList<ECouleur>();
+		return listeJoueurs;
+	}
+
+	public static Pioche creerPioche(Plateau plateau)
+	{
+		ArrayList<ESymbole> symbolesPioche = new ArrayList<ESymbole>();
+
+		if (plateau.getLstSymbole() != null)
+		{
+			for (int cpt = 0; cpt < plateau.getLstSymbole().size(); cpt++)
+			{
+				if (plateau.getLstSymbole().get(cpt) == 1)
+				{
+					symbolesPioche.add(ESymbole.values()[cpt]);
+				}
+			}
+		}
+
+		return new Pioche(symbolesPioche, true);
+	}
+
+	public static ArrayList<ECouleur> creerReseauxCarte()
+	{
+		ArrayList<ECouleur> reseauxCarte = new ArrayList<ECouleur>();
 		reseauxCarte.add(ECouleur.BLEU);
 		reseauxCarte.add(ECouleur.ROUGE);
+		return reseauxCarte;
+	}
 
-		symbolesPioche = new ArrayList<ESymbole>();
-		
-		if (plateau.getLstSymbole() != null) 
-			for (int cpt = 0; cpt < plateau.getLstSymbole().size(); cpt++) 
-				if (plateau.getLstSymbole().get(cpt) == 1) 
-					symbolesPioche.add(ESymbole.values()[cpt]);
+	public static void testAleatoire()
+	{
+		Plateau plateau;
+		ArrayList<Joueur> listeJoueurs;
+		ArrayList<ECouleur> reseauxCarte;
+		Pioche pioche;
+		Manche manche;
+		Partie partie;
+		Carte carteTiree;
+		Random random;
 
-		pioche = new Pioche(symbolesPioche, true); 
+		random = new Random();
 
-		System.out.println("[2] JEU, PIOCHE ET SCORES");
+		System.out.println("[TEST 1] TEST ALEATOIRE");
 		System.out.println("----------------------------------------------------");
-		System.out.printf("%-30s : %d pts\n", "Score J1 (" + joueur1.getPseudo() + ")", scoreObtenu1);
-		System.out.printf("%-30s : %d pts\n", "Score J2 (" + joueur2.getPseudo() + ")", scoreObtenu2);
 
-		try 
+		try
 		{
-			manche = new Manche(1, listeJoueurs, pioche, reseauxCarte, true);
-			System.out.printf("%-30s : %s\n", "Reseau J1", listeJoueurs.get(0).getreseau().getLibelle());
-			
-			manche.passerTour();
-			System.out.printf("%-30s : %s\n", "Joueur courant", manche.getJoueurCourant().getPseudo());
+			plateau      = creerPlateau();
+			listeJoueurs = creerJoueurs();
+			reseauxCarte = creerReseauxCarte();
+			pioche       = creerPioche(plateau);
 
+			manche = new Manche(1, listeJoueurs, pioche, reseauxCarte, true);
 			carteTiree = manche.getPioche().piocher();
+
 			System.out.printf("%-30s : %s\n", "Carte tiree valide", (carteTiree != null ? "OK" : "ECHEC"));
-			System.out.printf("%-30s : %s\n\n", "Manche terminee", (manche.getPioche().estMancheTerminee() ? "OUI" : "NON"));
 
 			partie = new Partie(plateau, 2, EModes.POSTE, true);
 			partie.getEnsJoueur().clear();
-			partie.ajouterJoueur(joueur1);
-			partie.ajouterJoueur(joueur2);
-			partie.passerManche();
-			
-			System.out.println("[3] GESTION DES GAGNANTS");
-			System.out.println("----------------------------------------------------");
-			System.out.printf("%-30s : %d\n", "Manche courante", partie.getMancheCourante());
-			
 
-			System.out.println();
-		} 
-		catch (Exception e) 
+			for (Joueur j : listeJoueurs)
+				partie.ajouterJoueur(j);
+
+			int nbManches = 3;
+
+			for (int i = 1; i <= nbManches; i++)
+			{
+				partie.passerManche();
+
+				int pointsGagnes = random.nextInt(3) + 1;
+				int joueurChoisi = random.nextInt(2);
+
+				if (joueurChoisi == 0)
+				{
+					for (int p = 0; p < pointsGagnes; p++)
+						listeJoueurs.get(0).ajouterScore();
+
+					System.out.printf("%-30s : %s gagne %d pt(s)\n", "Resultat manche " + i, listeJoueurs.get(0).getPseudo(), pointsGagnes);
+				}
+				else
+				{
+					for (int p = 0; p < pointsGagnes; p++)
+						listeJoueurs.get(1).ajouterScore();
+
+					System.out.printf("%-30s : %s gagne %d pt(s)\n", "Resultat manche " + i, listeJoueurs.get(1).getPseudo(), pointsGagnes);
+				}
+
+				System.out.printf("%-30s : %d pts\n", "Score J1 (" + listeJoueurs.get(0).getPseudo() + ")", listeJoueurs.get(0).getScore());
+				System.out.printf("%-30s : %d pts\n", "Score J2 (" + listeJoueurs.get(1).getPseudo() + ")", listeJoueurs.get(1).getScore());
+				System.out.println();
+			}
+
+			ArrayList<Joueur> gagnants = partie.getGagnant();
+
+			if (gagnants != null && !gagnants.isEmpty())
+			{
+				for (Joueur j : gagnants)
+				{
+					System.out.printf("%-30s : %s (%d pts)\n", "Gagnant detecte", j.getPseudo(), j.getScore());
+				}
+			}
+			else
+			{
+				System.out.printf("%-30s : %s\n", "Gagnant detecte", "AUCUN");
+			}
+		}
+		catch (Exception e)
 		{
-			System.out.println("Erreur Partie/Manche : " + e.getMessage());
+			System.out.println("Erreur Test Aleatoire : " + e.getMessage());
 		}
 
-		System.out.println("[4] FICHIERS ET CONTROLEUR");
+		System.out.println();
+	}
+
+	public static void testDepartageGagnant()
+	{
+		Plateau plateau;
+		ArrayList<Joueur> listeJoueurs;
+		Partie partie;
+
+		System.out.println("[TEST 2] TEST DEPARTAGE GAGNANT");
 		System.out.println("----------------------------------------------------");
-		
+
 		try
 		{
+			plateau      = creerPlateau();
+			listeJoueurs = creerJoueurs();
+
+			partie = new Partie(plateau, 2, EModes.POSTE, true);
+			partie.getEnsJoueur().clear();
+
+			for (Joueur j : listeJoueurs)
+				partie.ajouterJoueur(j);
+
+			Joueur j1 = listeJoueurs.get(0);
+			Joueur j2 = listeJoueurs.get(1);
+
+			int[] manchesJ1 = {3, 0, 2};
+			int[] manchesJ2 = {1, 2, 2};
+
+			int totalJ1 = 0;
+			int totalJ2 = 0;
+
+			for (int i = 0; i < manchesJ1.length; i++)
+			{
+				totalJ1 += manchesJ1[i];
+				totalJ2 += manchesJ2[i];
+			}
+
+			for (int i = 0; i < totalJ1; i++) j1.ajouterScore();
+			for (int i = 0; i < totalJ2; i++) j2.ajouterScore();
+
+			System.out.printf("%-30s : %s\n", "Joueur 1", j1.getPseudo());
+			System.out.printf("%-30s : %s\n", "Joueur 2", j2.getPseudo());
+			System.out.printf("%-30s : %d pts\n", "Score final J1", j1.getScore());
+			System.out.printf("%-30s : %d pts\n", "Score final J2", j2.getScore());
+
+			if (j1.getScore() > j2.getScore())
+			{
+				System.out.printf("%-30s : %s\n", "Gagnant", j1.getPseudo());
+			}
+			else if (j2.getScore() > j1.getScore())
+			{
+				System.out.printf("%-30s : %s\n", "Gagnant", j2.getPseudo());
+			}
+			else
+			{
+				System.out.println("Egalite sur le score total.");
+				System.out.println("Application du departage par somme des manches...");
+
+				int sommeManchesJ1 = 0;
+				int sommeManchesJ2 = 0;
+
+				for (int i = 0; i < manchesJ1.length; i++)
+				{
+					sommeManchesJ1 += manchesJ1[i];
+					sommeManchesJ2 += manchesJ2[i];
+				}
+
+				System.out.printf("%-30s : %d\n", "Somme manches J1", sommeManchesJ1);
+				System.out.printf("%-30s : %d\n", "Somme manches J2", sommeManchesJ2);
+
+				if (sommeManchesJ1 > sommeManchesJ2)
+				{
+					System.out.printf("%-30s : %s\n", "Gagnant au departage", j1.getPseudo());
+				}
+				else if (sommeManchesJ2 > sommeManchesJ1)
+				{
+					System.out.printf("%-30s : %s\n", "Gagnant au departage", j2.getPseudo());
+				}
+				else
+				{
+					System.out.printf("%-30s : %s\n", "Resultat final", "EGALITE PARFAITE");
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("Erreur Test Departage : " + e.getMessage());
+		}
+
+		System.out.println();
+	}
+
+	public static void testFichierEtControleur()
+	{
+		Plateau plateau;
+		File fichierTest;
+		PlateauData pData;
+		Controleur ctrl;
+
+		System.out.println("[TEST ANNEXE] FICHIERS ET CONTROLEUR");
+		System.out.println("----------------------------------------------------");
+
+		try
+		{
+			plateau = creerPlateau();
+
 			fichierTest = new File("test_plateau.csv");
 			plateau.enregistrerFichier(fichierTest);
 			System.out.printf("%-30s : %s\n", "Sauvegarde plateau", (fichierTest.exists() ? "OK" : "ECHEC"));
 
 			pData = GestionFichier.lireFichier(fichierTest);
 			System.out.printf("%-30s : %d\n", "Lecture plateau (longueur)", pData.tailleLongueur);
-			
+
 			GestionFichier.supprimerFichier(fichierTest);
 		}
 		catch (Exception e)
@@ -181,10 +308,7 @@ public class TestJeu
 		}
 
 		ctrl = new Controleur();
-		System.out.printf("%-30s : %d\n\n", "Controleur (nb modes)", ctrl.getNomJeu().length);
-
-		System.out.println("====================================================");
-		System.out.println("                   FIN DES TESTS                    ");
-		System.out.println("====================================================");
+		System.out.printf("%-30s : %d\n", "Controleur (nb modes)", ctrl.getNomJeu().length);
+		System.out.println();
 	}
 }

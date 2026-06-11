@@ -18,9 +18,8 @@ public class Partie
 	/*----------------------------*/
     
     private Plateau             plateau         ;
-    private ArrayList<Joueur>   ensJoueurs       ;
+    private ArrayList<Joueur>   ensJoueurs      ;
     private Pioche              pioche          ;
-    private Carte               carteCourante   ;
     private ArrayList<ECouleur> reseauxJouables ;
     private ArrayList<ESymbole> symboles        ;
     private Manche              manche          ;
@@ -110,6 +109,7 @@ public class Partie
     public int                 getNbMancheMax()     { return this.nbMancheMax     ;}
     public ArrayList<ECouleur> getReseauxJouables() { return this.reseauxJouables ;}
     public EModes              getMode()            { return this.mode            ;}
+    public Manche              getManche()          { return this.manche          ;}
     public boolean             getModeDebug()       { return this.modeDebug       ;}
     public ArrayList<Joueur>   getGagnant()
     {
@@ -145,7 +145,13 @@ public class Partie
     public void passerManche()
     {
         this.mancheCourante++;
+
+        if (!this.estFinDePartie())
+            this.manche = new Manche(this.mancheCourante,this.ensJoueurs, this.pioche, this.reseauxJouables, this.modeDebug);
+        else
+            this.manche = null;
     }
+
 
     public boolean estFinDePartie()
     {
