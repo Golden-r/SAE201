@@ -102,5 +102,15 @@ public class Manche
             this.idJoueur = 0;       
     }
 
+    public void piocherCarte()
+    {
+        this.carteCourante = this.pioche.piocher();
+    }
+
+    public void piocherCarteSpecifique(Carte carte)
+    {
+        this.carteCourante = this.pioche.piocherSpecifique(carte);
+    }
+
 
 }

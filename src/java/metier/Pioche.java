@@ -88,7 +88,7 @@ public class Pioche
 		Carte carteTiree = this.paquet.remove(0);
 		this.cartesTirees.add(carteTiree);
 		
-		if(carteTiree.isSombre()) this.nbCarteSombre--;
+		if(carteTiree.estSombre()) this.nbCarteSombre--;
 		
 		return carteTiree;
 	}
@@ -99,7 +99,7 @@ public class Pioche
 			return null;
 		
 		this.paquet.remove(carte);
-		this.carteTirees.add(carte);
+		this.cartesTirees.add(carte);
 
 		if(carte.estSombre())
 			this.nbCarteSombre--;
