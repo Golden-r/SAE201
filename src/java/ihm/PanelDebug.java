@@ -22,9 +22,18 @@ public class PanelDebug extends JPanel implements ActionListener
     private JTextField txtManche;
     private JButton btnAllerManche;
     private JButton btnMancheSuivante;
+    private JButton btnPiocherCarte;
 
-    private JPanel panelCartes;
-    private JButton[] tabBtnCartes;
+    private JButton btnRond;
+    private JButton btnRondSombre;
+    private JButton btnCarre;
+    private JButton btnCarreSombre;
+    private JButton btnTriangle;
+    private JButton btnTriangleSombre;
+    private JButton btnEtoile;
+    private JButton btnEtoileSombre;
+    private JButton btnJoker;
+    private JButton btnJokerSombre;
 
     private JTextArea txtEtat;
 
@@ -48,29 +57,77 @@ public class PanelDebug extends JPanel implements ActionListener
 
         this.add(panelHaut, BorderLayout.NORTH);
 
-        String[] tabCartes = this.ctrl.getLibellesCartes();
+        JPanel panelCentre = new JPanel(new GridLayout(2, 5));
 
-        this.panelCartes = new JPanel(new GridLayout(0, 4));
-        this.tabBtnCartes = new JButton[tabCartes.length];
+        this.btnRond = new JButton("ROND");
+        this.btnRondSombre = new JButton("ROND SOMBRE");
+        this.btnCarre = new JButton("CARRE");
+        this.btnCarreSombre = new JButton("CARRE SOMBRE");
+        this.btnTriangle = new JButton("TRIANGLE");
+        this.btnTriangleSombre = new JButton("TRIANGLE SOMBRE");
+        this.btnEtoile = new JButton("ETOILE");
+        this.btnEtoileSombre = new JButton("ETOILE SOMBRE");
+        this.btnJoker = new JButton("JOKER");
+        this.btnJokerSombre = new JButton("JOKER SOMBRE");
+        this.btnPiocherCarte = new JButton("PIOCHER ALEATOIRE");
 
-        for (int cpt = 0; cpt < tabCartes.length; cpt++)
-        {
-            this.tabBtnCartes[cpt] = new JButton(tabCartes[cpt]);
-            this.tabBtnCartes[cpt].addActionListener(this);
-            this.panelCartes.add(this.tabBtnCartes[cpt]);
-        }
+        this.styliserBoutonCarte(this.btnRond);
+        this.styliserBoutonCarte(this.btnRondSombre);
+        this.styliserBoutonCarte(this.btnCarre);
+        this.styliserBoutonCarte(this.btnCarreSombre);
+        this.styliserBoutonCarte(this.btnTriangle);
+        this.styliserBoutonCarte(this.btnTriangleSombre);
+        this.styliserBoutonCarte(this.btnEtoile);
+        this.styliserBoutonCarte(this.btnEtoileSombre);
+        this.styliserBoutonCarte(this.btnJoker);
+        this.styliserBoutonCarte(this.btnJokerSombre);
 
-        this.add(new JScrollPane(this.panelCartes), BorderLayout.CENTER);
+        panelCentre.add(this.btnRond);
+        panelCentre.add(this.btnRondSombre);
+        panelCentre.add(this.btnCarre);
+        panelCentre.add(this.btnCarreSombre);
+        panelCentre.add(this.btnTriangle);
+        panelCentre.add(this.btnTriangleSombre);
+        panelCentre.add(this.btnEtoile);
+        panelCentre.add(this.btnEtoileSombre);
+        panelCentre.add(this.btnJoker);
+        panelCentre.add(this.btnJokerSombre);
+
+        this.add(panelCentre, BorderLayout.CENTER);
 
         this.txtEtat = new JTextArea();
         this.txtEtat.setEditable(false);
 
-        this.add(new JScrollPane(this.txtEtat), BorderLayout.SOUTH);
+        JPanel panelBas = new JPanel(new BorderLayout());
+        panelBas.add(this.btnPiocherCarte, BorderLayout.NORTH);
+        panelBas.add(new JScrollPane(this.txtEtat), BorderLayout.CENTER);
+
+        this.add(panelBas, BorderLayout.SOUTH);
 
         this.btnAllerManche.addActionListener(this);
         this.btnMancheSuivante.addActionListener(this);
+        this.btnPiocherCarte.addActionListener(this);
+
+        this.btnRond.addActionListener(this);
+        this.btnRondSombre.addActionListener(this);
+        this.btnCarre.addActionListener(this);
+        this.btnCarreSombre.addActionListener(this);
+        this.btnTriangle.addActionListener(this);
+        this.btnTriangleSombre.addActionListener(this);
+        this.btnEtoile.addActionListener(this);
+        this.btnEtoileSombre.addActionListener(this);
+        this.btnJoker.addActionListener(this);
+        this.btnJokerSombre.addActionListener(this);
 
         this.mettreAJourAffichage();
+    }
+
+    private void styliserBoutonCarte(JButton btn)
+    {
+        btn.setBorderPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setFocusPainted(false);
+        btn.setOpaque(false);
     }
 
     public void actionPerformed(ActionEvent e)
@@ -92,13 +149,40 @@ public class PanelDebug extends JPanel implements ActionListener
             this.ctrl.passerALaMancheSuivante();
         }
 
-        for (int cpt = 0; cpt < this.tabBtnCartes.length; cpt++)
+        if (e.getSource() == this.btnPiocherCarte)
         {
-            if (e.getSource() == this.tabBtnCartes[cpt])
-            {
-                this.ctrl.selectionnerCarte(cpt);
-            }
+            this.ctrl.piocherCarteCourante();
         }
+
+        if (e.getSource() == this.btnRond)
+            this.ctrl.selectionnerCarte("ROND", false, false);
+
+        if (e.getSource() == this.btnRondSombre)
+            this.ctrl.selectionnerCarte("ROND", true, false);
+
+        if (e.getSource() == this.btnCarre)
+            this.ctrl.selectionnerCarte("CARRE", false, false);
+
+        if (e.getSource() == this.btnCarreSombre)
+            this.ctrl.selectionnerCarte("CARRE", true, false);
+
+        if (e.getSource() == this.btnTriangle)
+            this.ctrl.selectionnerCarte("TRIANGLE", false, false);
+
+        if (e.getSource() == this.btnTriangleSombre)
+            this.ctrl.selectionnerCarte("TRIANGLE", true, false);
+
+        if (e.getSource() == this.btnEtoile)
+            this.ctrl.selectionnerCarte("ETOILE", false, false);
+
+        if (e.getSource() == this.btnEtoileSombre)
+            this.ctrl.selectionnerCarte("ETOILE", true, false);
+
+        if (e.getSource() == this.btnJoker)
+            this.ctrl.selectionnerCarte(null, false, true);
+
+        if (e.getSource() == this.btnJokerSombre)
+            this.ctrl.selectionnerCarte(null, true, true);
 
         this.mettreAJourAffichage();
     }

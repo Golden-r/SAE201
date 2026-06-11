@@ -16,7 +16,7 @@ public class FrameDebug extends JFrame
 
         this.add(new PanelDebug(ctrl));
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
 }
