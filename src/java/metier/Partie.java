@@ -28,12 +28,13 @@ public class Partie
     
     private int     mancheCourante      ;
     private int     nbMancheMax         ;
+    private boolean modeDebug           ;
 
     /*----------------------------*/
 	/* Constructeur de la classe  */
 	/*----------------------------*/
 
-    public Partie(Plateau plateau, int nbJoueur, EModes mode)
+    public Partie(Plateau plateau, int nbJoueur, EModes mode, boolean modeDebug)
     {
         /*----------------*/
 		/* Données        */
@@ -55,12 +56,13 @@ public class Partie
 		if (mode == EModes.MULTI && nbJoueur < 2)
 			throw new IllegalArgumentException("Le mode Multi Joueurs nécessite au moins 2 joueurs.");
 
-        this.plateau             = plateau ;
-        this.mancheCourante      = 1       ;
-        this.nbMancheMax         = 0       ;
-        this.mode                = mode    ;
+        this.plateau             = plateau   ;
+        this.mancheCourante      = 1         ;
+        this.nbMancheMax         = 0         ;
+        this.mode                = mode      ;
+        this.modeDebug           = modeDebug ;
 
-        this.ensJoueurs      = new ArrayList<Joueur>() ;
+        this.ensJoueurs      = new ArrayList<Joueur>()  ;
         this.reseauxJouables = new ArrayList<ECouleur>();
         this.symboles        = new ArrayList<ESymbole>();
 
@@ -93,8 +95,8 @@ public class Partie
 		for (int cpt = 0; cpt < nbJoueur; cpt++)
 			this.ensJoueurs.add(new Joueur("Joueur " + (cpt + 1)));
 
-		this.pioche = new Pioche(this.symboles);
-		this.manche = new Manche(this.mancheCourante, this.ensJoueurs, this.pioche, this.reseauxJouables);
+		this.pioche = new Pioche(this.symboles, this.modeDebug);
+		this.manche = new Manche(this.mancheCourante, this.ensJoueurs, this.pioche, this.reseauxJouables, this.modeDebug);
         
     }
 
@@ -108,6 +110,23 @@ public class Partie
     public int                 getNbMancheMax()     { return this.nbMancheMax     ;}
     public ArrayList<ECouleur> getReseauxJouables() { return this.reseauxJouables ;}
     public EModes              getMode()            { return this.mode            ;}
+    public boolean             getModeDebug()       { return this.modeDebug       ;}
+    
+    // a modifier car pas terminé
+    public Joueur              getGagnant()         
+    {
+        if (this.ensJoueurs == null || this.ensJoueurs.isEmpty()) return null;
+
+        Joueur Gagnant = this.ensJoueurs.get(0) ;
+        
+        for ( Joueur j : this.ensJoueurs )
+        {
+            if ( j.getScore() >= Gagnant.getScore() )
+                if ( ! Gagnant.equals(j) )
+                    Gagnant = j ;
+        }
+        return Gagnant ;
+    }
     
 
     /*----------------------------*/

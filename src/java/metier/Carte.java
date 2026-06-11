@@ -40,6 +40,6 @@ public class Carte
 	/*  Méthodes                  */
 	/*----------------------------*/
 
-	public boolean  isSombre()   { return this.estSombre; }
-	public boolean  isJoker()    { return this.estJoker;  }
+	public boolean  estSombre()   { return this.estSombre; }
+	public boolean  estJoker()    { return this.estJoker;  }
 }

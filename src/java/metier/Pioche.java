@@ -23,17 +23,19 @@ public class Pioche
 	private ArrayList<Carte> paquet;
 	private ArrayList<Carte> cartesTirees;
 	private int              nbCarteSombre;
+	private boolean          modeDebug;
 	
 
 	/*----------------------------*/
 	/*  Constructeur de la classe */
 	/*----------------------------*/
 
-	public Pioche(ArrayList<ESymbole> symbolesEnJeu)
+	public Pioche(ArrayList<ESymbole> symbolesEnJeu, boolean modeDebug)
 	{
 		this.paquet        = new ArrayList<Carte>();
 		this.cartesTirees  = new ArrayList<Carte>();
 		this.nbCarteSombre = 0;
+		this.modeDebug     = modeDebug;
 		
 		this.initialiserPaquet(symbolesEnJeu);
 	}
@@ -45,7 +47,7 @@ public class Pioche
 	public ArrayList<Carte> getPaquet       () { return this.paquet       ; }
 	public ArrayList<Carte> getCartesTirees () { return this.cartesTirees ; }
 	public int              getNbCarteSombre() { return this.nbCarteSombre; }
-	
+	public boolean          getModeDebug    () { return this.modeDebug    ; }
 
 	/*----------------------------*/
 	/*  Modificateur              */
@@ -75,7 +77,8 @@ public class Pioche
 		
 		this.nbCarteSombre++;
 		
-		Collections.shuffle(this.paquet);
+		if(!modeDebug)
+			Collections.shuffle(this.paquet);
 	}
 	
 	public Carte piocher()
@@ -88,5 +91,19 @@ public class Pioche
 		if(carteTiree.isSombre()) this.nbCarteSombre--;
 		
 		return carteTiree;
+	}
+
+	public Carte piocherSpecifique(Carte carte)
+	{
+		if(this.paquet.isEmpty() || !this.paquet.contains(carte)) 
+			return null;
+		
+		this.paquet.remove(carte);
+		this.carteTirees.add(carte);
+
+		if(carte.estSombre())
+			this.nbCarteSombre--;
+		
+		return carte;
 	}
 }

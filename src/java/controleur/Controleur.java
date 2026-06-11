@@ -47,7 +47,7 @@ public class Controleur
 	/*----------------------------*/
 	public String[]   getNomJeu          () { return EModes.getNomModes        (); }
 	public String[]   getDescriptionModes() { return EModes.getDescriptionModes(); }
-	
+
 	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU); }
 
 	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }

@@ -29,7 +29,7 @@ public class Manche
 	/* Constructeur de la classe  */
 	/*----------------------------*/
     
-    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux)
+    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux, boolean modeDebug)
     {
         boolean             bAssignement ;
         ArrayList<ECouleur> reseauxDispo ;
@@ -66,7 +66,10 @@ public class Manche
             this.ensJoueurs.get(cpt).ajouterECouleurVisite(reseauxDispo.get(cpt));
         }
 
-        this.carteCourante = this.pioche.piocher();
+        if(!modeDebug)
+            this.carteCourante = this.pioche.piocher();
+        else
+            this.carteCourante = null;
     }
 
     /*----------------------------*/
