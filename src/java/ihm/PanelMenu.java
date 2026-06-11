@@ -209,15 +209,20 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 			this.tabBtnModes[cpt].setForeground( new Color(237, 109, 39)  );
 			this.tabBtnModes[cpt].setBorderPainted(false);
 			this.tabBtnModes[cpt].setFocusPainted(false);
+
+			// on peut juste utiliser le blaze du mode comme actioncommand :skull:
+			this.tabBtnModes[cpt].setActionCommand(PanelMenu.modeJeu[cpt]);
 		}
 
-		this.tabBtnModes[0].setFont(new Font("Arial", Font.BOLD , 16));
+		this.overlayLeMode(0);
+		// note : mon cher youssif la même logique est repetitive donc je vais juste appeler la methode privée.
+		/*this.tabBtnModes[0].setFont(new Font("Arial", Font.BOLD , 16));
 		this.tabBtnModes[1].setFont(new Font("Arial", Font.PLAIN, 13));
 		this.tabBtnModes[2].setFont(new Font("Arial", Font.PLAIN, 13));
 
 		this.tabBtnModes[0].setBackground( new Color(249, 115, 22) );
-		this.tabBtnModes[0].setForeground( Color.WHITE );
-		
+		this.tabBtnModes[0].setForeground( Color.WHITE );*/
+
 		
 
 
@@ -346,7 +351,22 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		repaint();
 		revalidate();
 	}*/
-	
+
+	// note : j'ai mutualisé la logique 
+	private void overlayLeMode(int indexBoutton)
+	{
+		for (int cpt = 0; cpt < this.tabBtnModes.length; cpt++)
+		{
+			this.tabBtnModes[cpt].setBackground( new Color(255, 237, 213) );
+			this.tabBtnModes[cpt].setForeground( new Color(237, 109, 39)  );
+			this.tabBtnModes[cpt].setFont(new Font("Arial", Font.PLAIN, 13));
+		}
+
+		this.tabBtnModes[indexBoutton].setBackground( new Color(249, 115, 22 ) );
+		this.tabBtnModes[indexBoutton].setForeground( Color.WHITE );
+		this.tabBtnModes[indexBoutton].setFont(new Font("Arial", Font.BOLD , 16));
+	}
+
 	public void actionPerformed( ActionEvent e)
     {
         String action = e.getActionCommand();
@@ -396,41 +416,6 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 			this.sbMusic.addChangeListener(this);
 		}
 
-
-
-		if ( e.getSource() == this.tabBtnModes[0] )
-		{ 
-			this.tabBtnModes[0].setBackground( new Color(249, 115, 22 ) ); this.tabBtnModes[0].setForeground( Color.WHITE );
-			this.tabBtnModes[1].setBackground( new Color(255, 237, 213) ); this.tabBtnModes[1].setForeground( new Color(237, 109, 39)  );
-			this.tabBtnModes[2].setBackground( new Color(255, 237, 213) ); this.tabBtnModes[2].setForeground( new Color(237, 109, 39)  );
-			
-			this.tabBtnModes[0].setFont(new Font("Arial", Font.BOLD , 16));
-			this.tabBtnModes[1].setFont(new Font("Arial", Font.PLAIN, 13));
-			this.tabBtnModes[2].setFont(new Font("Arial", Font.PLAIN, 13));
-		}
-
-		if ( e.getSource() == this.tabBtnModes[1] )
-		{ 
-			this.tabBtnModes[0].setBackground( new Color(255, 237, 213) ); this.tabBtnModes[0].setForeground( new Color(237, 109, 39)  );
-			this.tabBtnModes[1].setBackground( new Color(249, 115, 22)  ); this.tabBtnModes[1].setForeground( Color.WHITE );
-			this.tabBtnModes[2].setBackground( new Color(255, 237, 213) ); this.tabBtnModes[2].setForeground( new Color(237, 109, 39)  );
-		
-			this.tabBtnModes[0].setFont(new Font("Arial", Font.PLAIN, 13));
-			this.tabBtnModes[1].setFont(new Font("Arial", Font.BOLD , 16));
-			this.tabBtnModes[2].setFont(new Font("Arial", Font.PLAIN, 13));
-		}
-
-		if ( e.getSource() == this.tabBtnModes[2] )
-		{
-			this.tabBtnModes[0].setBackground( new Color(255, 237, 213) ); this.tabBtnModes[0].setForeground( new Color(237, 109, 39)  );
-			this.tabBtnModes[1].setBackground( new Color(255, 237, 213) ); this.tabBtnModes[1].setForeground( new Color(237, 109, 39)  );
-			this.tabBtnModes[2].setBackground( new Color(249, 115, 22)  ); this.tabBtnModes[2].setForeground( Color.WHITE );
-		
-			this.tabBtnModes[0].setFont(new Font("Arial", Font.PLAIN, 13));
-			this.tabBtnModes[1].setFont(new Font("Arial", Font.PLAIN, 13));
-			this.tabBtnModes[2].setFont(new Font("Arial", Font.BOLD , 16));
-		}
-
 		if ( e.getSource() == this.btnLancer )
 		{
 			String fichierSelectionne = this.lstSauvegardes.getSelectedValue();
@@ -451,26 +436,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 			metier.EModes modeChoisi = metier.EModes.values()[0];
 				
 			this.ctrl.lancerPartie(fichierMap, 1, modeChoisi, false);
-
 		}
-
-
-		if ( e.getSource() == this.tabBtnModes[0] ) 
-		{ 			
-			this.panelDroiteJoueur.setVisible(false);
-		}
-
-		if ( e.getSource() == this.tabBtnModes[1] ) 
-		{ 
-			this.panelDroiteJoueur.setVisible(true);
-		}
-
-		if ( e.getSource() == this.tabBtnModes[2] )
-		{
-			this.panelDroiteJoueur.setVisible(true);
-		}
-
-
+		
         switch (action) 
         {
             case "Regles" ->
@@ -493,6 +460,31 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
                 System.out.println("Action déclenchée : Ouverture de la boutique");
             }
 			
+			/*-----------*/
+			/*   Modes   */
+			/*-----------*/
+			case "Solo" ->
+			{
+				System.out.println("Action déclenchée : Selection du mode Solo");
+				this.overlayLeMode(0);
+
+				this.panelDroiteJoueur.setVisible(false);
+			}
+			case "2 Joueurs" ->
+			{
+				System.out.println("Action déclenchée : Selection du mode Deux Joueurs");
+				this.overlayLeMode(1);
+
+				this.panelDroiteJoueur.setVisible(true);
+			}
+			case "Multi Joueurs" ->
+			{
+				System.out.println("Action déclenchée : Selection du mode Multi Joueurs");
+				this.overlayLeMode(2);
+
+				this.panelDroiteJoueur.setVisible(true);
+			}
+
             default -> System.out.println("Action inconnue : " + action);
         }
     }
