@@ -23,6 +23,9 @@ public class Joueur
     private String              pseudo            ;
     private int                 score             ;
     private ECouleur            reseau            ;
+
+    private Cellule             CelluleTete       ;
+    private Cellule             CelluleQueue      ;
     private ArrayList<Liaison > ensLiaisonVisite  ;
     private ArrayList<ECouleur> ensECouleurVisite ;
 
@@ -38,6 +41,9 @@ public class Joueur
         this.pseudo            = pseudo                    ;
         this.score             = 0                         ;
         this.reseau            = null                      ;
+
+        this.CelluleTete       = null                      ;
+        this.CelluleQueue      = null                      ;
         this.ensLiaisonVisite  = new ArrayList<Liaison> () ;
         this.ensECouleurVisite = new ArrayList<ECouleur>() ;
 
@@ -57,6 +63,9 @@ public class Joueur
 
     public int                 getMonaieJoueur         () { return this.monaieJoueur           ;}
     public ArrayList<Objet>    getObjets               () { return this.ensObjets              ;}
+
+    public Cellule             getCelluleTete          () { return this.CelluleTete            ;}
+    public Cellule             getCelluleQueue         () { return this.CelluleQueue           ;}
     
     public Objet               getObjet  (String objet )  
     {
@@ -78,6 +87,9 @@ public class Joueur
     public void     setEnsLiaisonVisite  ( ArrayList<Liaison>  ensLiaisonVisite  ) { this.ensLiaisonVisite  = ensLiaisonVisite  ;}
     public void     setEnsECouleurVisite ( ArrayList<ECouleur> ensECouleurVisite ) { this.ensECouleurVisite = ensECouleurVisite ;}
 
+    public void     setCelluleTete       ( Cellule             Tete              ) { this.CelluleTete       = Tete              ;}
+    public void     setCelluleQueue      ( Cellule             Queue             ) { this.CelluleQueue      = Queue             ;}
+
     /*----------------------------*/
 	/*  Test                      */
 	/*----------------------------*/
@@ -87,7 +99,29 @@ public class Joueur
 	/*  Méthodes                  */
 	/*----------------------------*/
 
-    public void ajouterLiaison          ( Liaison liaison )  { this.ensLiaisonVisite.add   ( liaison )         ;}
+    public void ajouterLiaison          ( Liaison liaison )  
+    { 
+        if ( liaison.getDepart().equals(this.CelluleTete) ||  liaison.getArrivee().equals(this.CelluleTete) )
+        {
+            if ( liaison.getDepart().equals(this.CelluleTete) )                
+                this.CelluleTete   = liaison.getArrivee() ;
+            else 
+                this.CelluleQueue  = liaison.getDepart() ;
+
+            this.ensLiaisonVisite.add( liaison ) ;
+        }
+        else 
+            if( liaison.getDepart().equals(this.CelluleQueue) ||  liaison.getArrivee().equals(this.CelluleQueue) )
+            {
+                if ( liaison.getDepart().equals(this.CelluleQueue) )                
+                    this.CelluleQueue  = liaison.getArrivee() ;
+                else 
+                    this.CelluleQueue  = liaison.getDepart() ;
+
+                this.ensLiaisonVisite.add( liaison ) ;
+            }
+            
+    }
     public void retirerLiaison          ( Liaison liaison )  { this.ensLiaisonVisite.remove( liaison )         ;}
 
     public void ajouterScore            ( int score )        { this.score += score                             ;}
