@@ -498,7 +498,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 			
 			if (fichierSelectionne != null && !fichierSelectionne.equals("Aucune sauvegarde")) 
 			{
-				System.out.println("Ouverture de la prévisualisation pour : " + fichierSelectionne);
+				this.ctrl.LancerFramePrevisu(fichierSelectionne);
+				System.out.println("lancement framePREVISU");
 				
 			}
 		}

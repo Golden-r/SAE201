@@ -35,6 +35,8 @@
 ./src/java/ihm/FrameMenu.java
 ./src/java/ihm/PanelMenu.java
 
+./src/java/ihm/FramePrevisu.java
+
 ./src/java/ihm/FrameJeu.java
 ./src/java/ihm/PanelJeu.java
 
