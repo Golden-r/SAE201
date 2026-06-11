@@ -97,6 +97,19 @@ public class Controleur
 
 	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
 
+	public String[] getLibellesSymboles()
+	{
+		ESymbole[] tabSymboles = ESymbole.values();
+		String[] tabLibelles = new String[tabSymboles.length];
+
+		for (int i = 0; i < tabSymboles.length; i++)
+		{
+			tabLibelles[i] = tabSymboles[i].getLibelle();
+		}
+
+		return tabLibelles;
+	}
+
 
 	/*----------------------------*/
 	/*  Modificateur              */
