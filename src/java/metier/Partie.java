@@ -2,10 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.Collections;
-<<<<<<< HEAD
 
-=======
->>>>>>> f4ef8aca5e88618959c73c7cc4d027886e4f7b71
 /* SAE 2.01 | Développement d'une application 
 * Manche
 *
