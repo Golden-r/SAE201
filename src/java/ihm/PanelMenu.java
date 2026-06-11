@@ -42,7 +42,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 	private JPanel    panelJoueur ;
 	private JPanel    panelChoix  ;
 	private JPanel    panelMode   ;
-	private JPanel    panelMap    ;
+	private JPanel    panelDroite ;
+	private JPanel    panelDroiteJoueur;
 
 	private JPanel[]    tabWrapBtnChoix ;
 	private ImageIcon[] tabIconesPetites ;
@@ -65,6 +66,7 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 	private JButton   btnLancer ;
 
 	private JList<String> lstSauvegardes;
+	
 
 
 	public PanelMenu( Controleur ctrl ) 
@@ -92,6 +94,9 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 
 		ImageIcon iconPerso ;
 		Image     imgPerso ;
+
+		JScrollPane scrollList;
+		JPanel panelListe ;
 
 
 		/* ----------------------------- */
@@ -172,40 +177,29 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		this.panelChoix.setOpaque(false);
 
 		
-		// --- CONFIGURATION DU PANEL MAP (DROITE) ---
-		this.panelMap = new JPanel(new GridBagLayout()); // GridBagLayout pour centrer la liste facilement
-		this.panelMap.setPreferredSize(new Dimension((int)(largeurMenu * 0.20), hauteurMenu));
-		this.panelMap.setOpaque(false);
 
-		// 1. Lecture dynamique des fichiers .data
-		File dossier = new File("./src/ressource/donnees"); // <-- TON DOSSIER ICI
-		String[] tabFichiers = {"Aucune sauvegarde"}; // Texte par défaut si le dossier est vide ou introuvable
-		
-		if (dossier.exists() && dossier.isDirectory()) 
-		{
-			// Filtre pour ne garder que les fichiers qui terminent par ".data"
-			File[] fichiersData = dossier.listFiles((dir, nom) -> nom.endsWith(".data"));
-			
-			if (fichiersData != null && fichiersData.length > 0) 
-			{
-				tabFichiers = new String[fichiersData.length];
-				for (int i = 0; i < fichiersData.length; i++) 
-				{
-					tabFichiers[i] = fichiersData[i].getName();
-				}
-			}
-		}
 
-		// 2. Création de la JList
+		this.panelDroite = new JPanel(new GridLayout(2, 1)); 
+		this.panelDroite.setPreferredSize(new Dimension((int)(largeurMenu * 0.20), hauteurMenu));
+		this.panelDroite.setOpaque(false);
+
+		this.panelDroiteJoueur = new JPanel();
+		this.panelDroiteJoueur.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10)); 
+		this.panelDroiteJoueur.setVisible(false); 
+
+		panelListe = new JPanel(new BorderLayout());
+		panelListe.setOpaque(false);
+		panelListe.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10)); 
+
+		String[] tabFichiers = this.ctrl.getListeSauvegardes();
+
 		this.lstSauvegardes = new JList<>(tabFichiers);
 		this.lstSauvegardes.setFont(new Font("Arial", Font.PLAIN, 14));
-		this.lstSauvegardes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // On ne peut choisir qu'une map à la fois
+		this.lstSauvegardes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		// 3. Ajout d'une barre de défilement (au cas où il y a beaucoup de maps)
-		JScrollPane scrollList = new JScrollPane(this.lstSauvegardes);
-		scrollList.setPreferredSize(new Dimension(150, 200));
+		scrollList = new JScrollPane(this.lstSauvegardes);
 		
-		this.panelMap.add(scrollList);
+
 
 
 		this.tabBtnModes = new JButton[ PanelMenu.modeJeu.length ];
@@ -292,20 +286,24 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		}
 
 
+		this.panelDroiteJoueur.add(new JLabel("liste joueur")); //temporraire
+		panelListe      .add(scrollList, BorderLayout.CENTER);
+		this.panelDroite.add(this.panelDroiteJoueur);
+		this.panelDroite.add(panelListe);
 
-		panelJoueurHaut.add(this.lblPseudo);
+		panelJoueurHaut  .add(this.lblPseudo  );
 		panelJoueurCentre.add(this.lblImgPerso);
-		panelJoueurBas.add(this.btnLancer);
+		panelJoueurBas   .add(this.btnLancer  );
 
-		this.panelJoueur.add(panelJoueurHaut, BorderLayout.NORTH);
-		this.panelJoueur.add(panelJoueurCentre, BorderLayout.CENTER);
-		this.panelJoueur.add(panelJoueurBas, BorderLayout.SOUTH);
+		this.panelJoueur.add(panelJoueurHaut  , BorderLayout.NORTH  );
+		this.panelJoueur.add(panelJoueurCentre, BorderLayout.CENTER );
+		this.panelJoueur.add(panelJoueurBas   , BorderLayout.SOUTH  );
 
 
-		this.add( this.panelChoix  , BorderLayout.SOUTH);
-		this.add( this.panelJoueur , BorderLayout.CENTER);
-		this.add( this.panelMode   , BorderLayout.WEST );
-		this.add( this.panelMap    , BorderLayout.EAST );
+		this.add( this.panelChoix  , BorderLayout.SOUTH  );
+		this.add( this.panelJoueur , BorderLayout.CENTER );
+		this.add( this.panelMode   , BorderLayout.WEST   );
+		this.add( this.panelDroite , BorderLayout.EAST   );
 
 
 		/* ----------------------------- */
@@ -439,6 +437,22 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 		}
 
 
+		if ( e.getSource() == this.tabBtnModes[0] ) 
+		{ 			
+			this.panelDroiteJoueur.setVisible(false);
+		}
+
+		if ( e.getSource() == this.tabBtnModes[1] ) 
+		{ 
+			this.panelDroiteJoueur.setVisible(true);
+		}
+
+		if ( e.getSource() == this.tabBtnModes[2] )
+		{
+			this.panelDroiteJoueur.setVisible(true);
+		}
+
+
         switch (action) 
         {
             case "Regles" ->
@@ -452,7 +466,17 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
             case "Jouer" ->
 			{
                 System.out.println("Action déclenchée : Lancement de la partie");
-            }
+    
+				// Fermer ou masquer la fenêtre du menu principal
+				// (Puisque PanelMenu est dans FrameMenu, on récupère la fenêtre ancêtre)
+				SwingUtilities.getWindowAncestor(this).setVisible(false);
+
+				// On passe des paramètres par défaut pour tester le chargement
+				File fichierMap = new File("./src/ressource/maps/maps1.data"); // À ajuster selon tes fichiers
+				metier.EModes modeChoisi = metier.EModes.values()[0];       // Mode par défaut (ex: le premier)
+				
+				this.ctrl.lancerPartie(fichierMap, 1, modeChoisi, false);
+			}
             case "Personnage" ->
 			{
                 System.out.println("Action déclenchée : Personnalisation du profil");
@@ -484,7 +508,8 @@ public class PanelMenu extends JPanel implements ActionListener, ChangeListener,
 			
 			if (fichierSelectionne != null && !fichierSelectionne.equals("Aucune sauvegarde")) 
 			{
-				System.out.println("Ouverture de la prévisualisation pour : " + fichierSelectionne);
+				this.ctrl.LancerFramePrevisu(fichierSelectionne);
+				System.out.println("lancement framePREVISU");
 				
 			}
 		}

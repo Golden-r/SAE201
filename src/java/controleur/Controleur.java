@@ -6,6 +6,7 @@ import java.io.File;
 
 import ihm.FrameJeu;
 import ihm.FrameMenu;
+import ihm.FramePrevisu;
 import ihm.ManageurFont;
 import java.awt.Color;
 
@@ -94,7 +95,7 @@ public class Controleur
 	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU) ; }
 
 	public Partie     getPartie          () { return this.partie                            ; }
-
+	public String[] getListeSauvegardes() { return GestionFichier.getListeSauvegardes(); }
 	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
 
 	public String[] getLibellesSymboles()
@@ -123,6 +124,28 @@ public class Controleur
 	{
 		this.frameMenu = new FrameMenu(this);
 	}
+
+	public void LancerFramePrevisu(String nomFichier)
+	{
+		File fichier;
+		PlateauData proprietes;
+		Plateau plateauPrevisu;
+
+
+		fichier = new File("./src/ressource/data/" + nomFichier);
+		if ( fichier == null || !fichier.exists() ) return;
+		
+		
+		proprietes = GestionFichier.lireFichier(fichier);
+		if(proprietes == null) return;
+		
+		plateauPrevisu = new Plateau(proprietes.tailleLongueur, proprietes.tailleLargeur, proprietes.tailleCellule, proprietes.lstCouleur, proprietes.lstSymbole);
+		
+		if(proprietes.lstCellules != null){ plateauPrevisu.chargerDonnees(proprietes.lstCellules);}
+		
+		new FramePrevisu(this, plateauPrevisu);
+	}
+
 
 	public void lancerPartie(File fichier, int nbJoueur, EModes mode, boolean modeDebug)
 	{
