@@ -83,13 +83,15 @@ public class PanelPlateau extends JPanel
 		else                             { return this.ctrl.getCheminLiaison(indice) ;}
 	}
 
-	@Override
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
 		
 		int taille = this.getTailleCellule(); 
 
+		/* --------------------------------------------------- */
+		/* COUCHE 1 : DESSIN DES ZONES DE FOND ET DES CONTOURS */
+		/* --------------------------------------------------- */
 		for (int lig = 0; lig < this.getTailleLargeur(); lig++) 
 		{
 			for (int col = 0; col < this.getTailleLongueur(); col++) 
@@ -99,19 +101,61 @@ public class PanelPlateau extends JPanel
 
 				Cellule c = this.getCellule(col, lig);
 
-				// 1. Dessin des zones de fond
+				// Dessin des zones de fond
 				if (c != null && c.getZone() != null) 
 				{
-					String nomFichier;
-					if (c.getSymbole() != null) { nomFichier = c.getZone().getTypeZone().getNomImageBase(); }
-					else                        { nomFichier = c.getZone().getTypeZone().getNomImage(); }
+					String nomFichier = c.getZone().getTypeZone().getNomImageBase();
 
 					String chemin = "./src/ressource/images/Zones/" + nomFichier;
 					Image imgZone = new ImageIcon(chemin).getImage();
 					g.drawImage(imgZone, x, y, taille, taille, null);
 				}
 
-				// 2. Dessin des bâtiments/symboles
+				// Dessin des contours de cases
+				g.setColor(Color.LIGHT_GRAY);
+				g.drawRect(x, y, taille, taille); 
+			}
+		}
+
+		/* --------------------------------------------------- */
+		/* COUCHE 2 : DESSIN DES LIAISONS                      */
+		/* --------------------------------------------------- */
+		for (int cptL = 0; cptL < this.getNbLiaisons(); cptL++) 
+		{
+			g.setColor(this.getCouleurLiaison(cptL));
+			int[][] chemin = this.getCheminLiaison(cptL);
+
+			if (chemin != null && chemin.length > 1) 
+			{
+				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(2.0f));
+
+				for (int cptP = 0; cptP < chemin.length - 1; cptP++) 
+				{
+					int x1 = chemin[cptP][0]     * taille + (taille / 2);
+					int y1 = chemin[cptP][1]     * taille + (taille / 2);
+					int x2 = chemin[cptP + 1][0] * taille + (taille / 2);
+					int y2 = chemin[cptP + 1][1] * taille + (taille / 2);
+					
+					g2.setColor(Color.BLACK);
+					g2.drawLine(x1, y1, x2, y2);
+				}
+				g2.setStroke(new BasicStroke(1.0f));
+			}
+		}
+
+		/* --------------------------------------------------- */
+		/* COUCHE 3 : DESSIN DES BÂTIMENTS ET SYMBOLES         */
+		/* --------------------------------------------------- */
+		for (int lig = 0; lig < this.getTailleLargeur(); lig++) 
+		{
+			for (int col = 0; col < this.getTailleLongueur(); col++) 
+			{
+				int x = col * taille;
+				int y = lig * taille;
+
+				Cellule c = this.getCellule(col, lig);
+
 				if (c != null && c.getSymbole() != null) 
 				{
 					String nomFichier = c.getSymbole().getTypeSymbole().getLibelle() + ".png";
@@ -150,35 +194,6 @@ public class PanelPlateau extends JPanel
 						g.drawImage(img, x, y, null);
 					}
 				}
-
-				// 3. Dessin des contours de cases
-				g.setColor(Color.LIGHT_GRAY);
-				g.drawRect(x, y, taille, taille); 
-			}
-		}
-
-		// 4. Dessin des liaisons (uniquement en jeu)
-		for (int cptL = 0; cptL < this.getNbLiaisons(); cptL++) 
-		{
-			g.setColor(this.getCouleurLiaison(cptL));
-			int[][] chemin = this.getCheminLiaison(cptL);
-
-			if (chemin != null && chemin.length > 1) 
-			{
-				Graphics2D g2 = (Graphics2D) g;
-				g2.setStroke(new BasicStroke(2.0f));
-
-				for (int cptP = 0; cptP < chemin.length - 1; cptP++) 
-				{
-					int x1 = chemin[cptP][0]     * taille + (taille / 2);
-					int y1 = chemin[cptP][1]     * taille + (taille / 2);
-					int x2 = chemin[cptP + 1][0] * taille + (taille / 2);
-					int y2 = chemin[cptP + 1][1] * taille + (taille / 2);
-					
-					g2.setColor(Color.BLACK);
-					g2.drawLine(x1, y1, x2, y2);
-				}
-				g2.setStroke(new BasicStroke(1.0f));
 			}
 		}
 	}

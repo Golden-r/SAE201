@@ -20,15 +20,12 @@ public class FrameJeu extends JFrame
     {
         
         this.setTitle("Application jeu - Groupe 4");
-
-		this.setSize(1000, 1000);
-
 		this.setLocationRelativeTo(null);
 
 		
 		this.add(new PanelJeu (ctrl ));
 
-
+		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
     }
