@@ -202,4 +202,28 @@ public class GestionFichier
             return false;
         }
     }
+
+
+	public static String[] getListeSauvegardes() 
+    {
+        File dossier = new File("./src/ressource/data");
+        
+        if (dossier.exists() && dossier.isDirectory()) 
+        {
+            File[] fichiersData = dossier.listFiles((dir, nom) -> nom.endsWith(".data"));
+            
+            if (fichiersData != null && fichiersData.length > 0) 
+            {
+                String[] tabFichiers = new String[fichiersData.length];
+                for (int cpt = 0; cpt < fichiersData.length; cpt++) 
+                {
+                    tabFichiers[cpt] = fichiersData[cpt].getName();
+                }
+                return tabFichiers;
+            }
+        }
+        
+        return new String[]{"Aucune sauvegarde"};
+    }
+
 }

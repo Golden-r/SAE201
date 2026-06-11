@@ -94,7 +94,7 @@ public class Controleur
 	public Dimension  getSizeMenu        () { return new Dimension(WIDTH_MENU, HEIGHT_MENU) ; }
 
 	public Partie     getPartie          () { return this.partie                            ; }
-
+	public String[] getListeSauvegardes() { return GestionFichier.getListeSauvegardes(); }
 	public Font       retourneFont       (String nom, float size) { return ManageurFont.getFont(nom, size); }
 
 
