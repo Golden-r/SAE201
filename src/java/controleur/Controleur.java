@@ -1,11 +1,8 @@
 package controleur;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.io.File;
-import java.util.ArrayList;
 
 import ihm.FrameJeu;
 import ihm.FrameMenu;
@@ -83,7 +80,13 @@ public class Controleur
 		if(proprietes == null)
 			return;
 		
-		plateau = new Plateau();
+		plateau = new Plateau(proprietes.tailleLongueur, proprietes.tailleLargeur, proprietes.tailleCellule, proprietes.lstCouleur, proprietes.lstSymbole);
+		
+		if(proprietes.lstCellules != null)
+			plateau.chargerDonnees(proprietes.lstCellules);
+		
+		this.partie   = new Partie(plateau, nbJoueur, mode, modeDebug);
+		this.frameJeu = new FrameJeu(this);
 	}
 
 	
