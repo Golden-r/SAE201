@@ -10,6 +10,7 @@ import java.io.File;
 import ihm.FrameJeu;
 import ihm.FrameMenu;
 import ihm.FramePrevisuPlateau;
+import ihm.PanelJeu;
 
 import java.awt.Color;
 
@@ -36,6 +37,7 @@ public class Controleur
 	private FrameJeu            frameJeu    ;
 	private FrameMenu           frameMenu   ;
 	private FramePrevisuPlateau framePrevisu;
+	private PanelJeu            panelJeu ;
 	private ManageurMusique gestionnaireMusique;
 
 	private Partie         partie   ;
@@ -168,7 +170,7 @@ public class Controleur
 
 	public int getMancheMax() 
 	{
-		if (this.partie == null) return 1;
+		if (this.partie == null) return -1;
 		return this.partie.getNbMancheMax();
 	}
 
@@ -305,11 +307,10 @@ public class Controleur
 		this.frameJeu = new FrameJeu(this);
 	}
 
-	public void passerALaMancheSuivante()
+	public int passerALaMancheSuivante()
 	{
-		if (this.partie == null) return;
-
-		this.partie.passerManche();
+		if (this.partie == null ) return -1;
+		return this.partie.passerManche();
 	}
 
 	public void allerALaManche(int numManche)
@@ -323,6 +324,12 @@ public class Controleur
 		}
 	}
 
+	public void finDeManche()
+	{
+		this.panelJeu.finDeManche();
+	}
+
+
 	public void piocherCarteCourante()
 	{
 		if (this.partie == null) return;
@@ -330,7 +337,7 @@ public class Controleur
 
 		this.partie.getManche().piocherCarte();
 	}
-
+	
 	public void selectionnerCarte(String symbole, boolean estSombre, boolean estJoker)
 	{
 		if (this.partie == null) return;
@@ -344,6 +351,24 @@ public class Controleur
 		this.partie.getManche().piocherCarteSpecifique(
 			new Carte(symboleChoisi, estSombre, estJoker)
 		);
+	}
+
+	public boolean estDerniereManche()
+	{
+		if(this.partie == null) return false;
+
+		return this.partie.estDerniereManche();
+	}
+
+	public boolean estMancheTerminee()
+	{
+
+		if (this.partie == null || this.partie.getManche() == null) 
+		{ 
+			return false; 
+		}
+
+		return this.partie.getManche().getPioche().estMancheTerminee();
 	}
 
 	

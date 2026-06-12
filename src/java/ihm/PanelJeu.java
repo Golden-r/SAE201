@@ -38,16 +38,18 @@ public class PanelJeu extends JPanel implements ActionListener
 	private JLabel lblImageReseau ;
 
 	private JLabel lblCarteActive;
+	private JPanel panelCarteActive;
 	private JPanel panelHistorique;
 
 	private JButton btnPiocher ;
+	private JButton btnMancheSuivant ;
     
 	public PanelJeu( Controleur ctrl ) 
 	{
 		this.ctrl = ctrl;
 		this.setLayout( new BorderLayout() );
 
-		JPanel panelCarteActive;
+		
 		JScrollPane scrollHistorique;
 		JPanel panelConteneurHistorique;
 
@@ -67,8 +69,8 @@ public class PanelJeu extends JPanel implements ActionListener
 		this.panelOuest = new JPanel(new BorderLayout());
 		this.panelOuest.setBackground( PanelJeu.COULEUR_BLEU );
 
-		panelCarteActive = new JPanel();
-		panelCarteActive.setBackground(PanelJeu.COULEUR_BLEU);
+		this.panelCarteActive = new JPanel();
+		this.panelCarteActive.setBackground(PanelJeu.COULEUR_BLEU);
 		this.lblCarteActive = new JLabel();
 
 		panelConteneurHistorique = new JPanel(new BorderLayout());
@@ -88,7 +90,9 @@ public class PanelJeu extends JPanel implements ActionListener
 		this.panelSud   = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10)); 
 		this.panelSud  .setBackground( PanelJeu.COULEUR_BLEU );
 
-		this.btnPiocher = new JButton("Piocher une carte");
+		this.btnPiocher       = new JButton("Piocher une carte");
+		this.btnMancheSuivant = new JButton("Manche suivant"   );
+		this.btnMancheSuivant.setEnabled(false);
 
 
 
@@ -118,14 +122,13 @@ public class PanelJeu extends JPanel implements ActionListener
 		/* Positionnement des composants */
 		/* ----------------------------- */
 
-		panelCarteActive.add(this.lblCarteActive);
+		this.panelCarteActive.add(this.lblCarteActive);
 
-		this.panelOuest.add(panelCarteActive, BorderLayout.NORTH);
+		this.panelOuest.add( this.panelCarteActive, BorderLayout.NORTH);
 		this.panelOuest.add(scrollHistorique, BorderLayout.CENTER);
 
-		
-		this.panelSud.add(this.btnPiocher);
-
+		this.panelSud.add( this.btnPiocher);
+		this.panelSud.add( this.btnMancheSuivant);
 		
 		this.add( this.plateauJeuMilieu, BorderLayout.CENTER );	
 		this.add( this.panelNord,        BorderLayout.NORTH  );
@@ -137,6 +140,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		/* Activation des composants     */
 		/* ----------------------------- */
 		this.btnPiocher.addActionListener(this);
+		this.btnMancheSuivant.addActionListener(this);
 
 
 
@@ -151,7 +155,35 @@ public class PanelJeu extends JPanel implements ActionListener
 			
 			this.ajouterCarteTiree();
 			this.majPanelNord();
+
+			if (this.ctrl.estMancheTerminee() ){ this.finDeManche(); }
 		}
+		
+		if ( e.getSource() == this.btnMancheSuivant )
+		{
+			this.ctrl.passerALaMancheSuivante();
+
+			this.btnPiocher      .setEnabled(true  );
+			this.btnMancheSuivant.setEnabled(false );
+
+			this.majPanelNord();
+			this.reinitPanelCarte();
+			
+			
+		}
+
+	}
+
+	public void finDeManche ()
+	{
+		if ( this.ctrl.getNumeroMancheCourante() == this.ctrl.getMancheMax())
+		{
+			this.btnMancheSuivant.setEnabled(false );
+		}
+
+		this.btnPiocher      .setEnabled(false );
+		this.btnMancheSuivant.setEnabled(true );
+
 	}
 
 	public void majPanelNord()
@@ -186,15 +218,23 @@ public class PanelJeu extends JPanel implements ActionListener
 	}
 
 
+	public void reinitPanelCarte()
+	{
+		this.panelHistorique.removeAll();
+		this.panelCarteActive.removeAll();
+		this.panelHistorique.revalidate();
+		this.panelHistorique.repaint();
+	}
+
 	public void ajouterCarteTiree() 
 	{
 		/*----------------*/
 		/* Données        */
 		/*----------------*/
 
-		String                      cheminActive ;
+		String            cheminActive ;
 		ArrayList<String> historique   ;
-		JLabel                      lblMiniCarte ;
+		JLabel            lblMiniCarte ;
 
 		/*----------------*/
 		/* Instructions   */

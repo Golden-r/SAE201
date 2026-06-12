@@ -82,7 +82,6 @@ public class Partie
         Collections.shuffle(this.reseauxJouables);
 
         lstSymbolePlateau = this.plateau.getLstSymbole();
-
 		if (lstSymbolePlateau != null)
 			for (int cpt = 0; cpt < lstSymbolePlateau.size(); cpt++)
 				if (lstSymbolePlateau.get(cpt) == 1)
@@ -105,15 +104,15 @@ public class Partie
 	/* Accesseurs                 */
 	/*----------------------------*/
 
-    public Plateau             getPlateau()         { return this.plateau         ;}
-    public ArrayList<Joueur>   getEnsJoueur()       { return this.ensJoueurs      ;}
-    public int                 getMancheCourante()  { return this.mancheCourante  ;}
-    public int                 getNbMancheMax()     { return this.nbMancheMax     ;}
+    public Plateau             getPlateau        ()  { return this.plateau         ;}
+    public ArrayList<Joueur>   getEnsJoueur      () { return this.ensJoueurs      ;}
+    public int                 getMancheCourante () { return this.mancheCourante  ;}
+    public int                 getNbMancheMax    () { return this.nbMancheMax     ;}
     public ArrayList<ECouleur> getReseauxJouables() { return this.reseauxJouables ;}
-    public EModes              getMode()            { return this.mode            ;}
-    public Manche              getManche()          { return this.manche          ;}
-    public boolean             getModeDebug()       { return this.modeDebug       ;}
-    public ArrayList<Joueur>   getGagnant()
+    public EModes              getMode           () { return this.mode            ;}
+    public Manche              getManche         () { return this.manche          ;}
+    public boolean             getModeDebug      () { return this.modeDebug       ;}
+    public ArrayList<Joueur>   getGagnant        ()
     {
         if (this.ensJoueurs == null || this.ensJoueurs.isEmpty()) return null;
 
@@ -144,19 +143,29 @@ public class Partie
         this.ensJoueurs.add(joueur);
     }
 
-    public void passerManche()
+    public int passerManche()
     {
         this.mancheCourante++;
 
         if (!this.estFinDePartie())
+        {
+            this.pioche = new Pioche(this.symboles, this.modeDebug);
             this.manche = new Manche(this.mancheCourante,this.ensJoueurs, this.pioche, this.reseauxJouables, this.modeDebug);
+        }
         else
             this.manche = null;
+        
+        return this.mancheCourante;
     }
 
 
     public boolean estFinDePartie()
     {
         return this.mancheCourante > this.nbMancheMax;
+    }
+
+    public boolean estDerniereManche()
+    {
+        return this.mancheCourante == this.nbMancheMax;
     }
 }

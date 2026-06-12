@@ -20,7 +20,7 @@ public abstract class Objet
     }
 
 
-    public String getNom()  { return this.nom  ;}
+    public String getNom () { return this.nom  ;}
     public int    getPrix() { return this.prix ;}
 
     public abstract String getCategorie();

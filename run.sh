@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 javac @compile.list  -d  class

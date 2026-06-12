@@ -33,7 +33,7 @@ public class Carte
 	/*  Accesseur                 */
 	/*----------------------------*/
 	
-	public ESymbole getSymbole() { return this.symbole;   }
+	public ESymbole getSymbole()  { return this.symbole;   }
 	
 	/*----------------------------*/
 	/*  Méthodes                  */

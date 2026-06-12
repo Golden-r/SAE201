@@ -89,6 +89,16 @@ public class GestionFichier
                         ESymbole symbole = ESymbole.valueOf(symboleNom);
 
                         c.setSymbole(new Symbole(symbole));
+                        
+                        //if (proprietes.lstSymbole.get(symbole.ordinal()) == null)
+                        //{
+                        //    proprietes.lstSymbole.add(symbole.ordinal(), new Integer(1));
+                       //}
+                        //else
+                        //{
+
+                        //}
+                        //ArrayList<Integer>
 
                         if ( !reseaux.equals("null") )
                         {

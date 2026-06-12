@@ -62,10 +62,14 @@ public class Pioche
 		return this.nbCarteSombre <= 0;
 	}
 	
-	private void initialiserPaquet(ArrayList<ESymbole> symbolesEnJeu)
+	public void initialiserPaquet(ArrayList<ESymbole> symbolesEnJeu)
 	{
+		this.paquet.clear();
+
+		System.out.println(symbolesEnJeu);
 		for(int cpt = 0; cpt < symbolesEnJeu.size(); cpt++)
 		{
+			System.out.println("Ajout de carte " + symbolesEnJeu.get(cpt).getLibelle());
 			this.paquet.add(new Carte(symbolesEnJeu.get(cpt),false,false));
 			this.paquet.add(new Carte(symbolesEnJeu.get(cpt),true, false));
 			

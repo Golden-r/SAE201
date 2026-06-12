@@ -18,6 +18,7 @@ public class Manche
 	/* Attributs de la classe     */
 	/*----------------------------*/
 
+
     private ArrayList<Joueur> ensJoueurs;
     private Pioche pioche               ;
     private Carte  carteCourante        ;
@@ -28,7 +29,7 @@ public class Manche
 	/* Constructeur de la classe  */
 	/*----------------------------*/
     
-    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux, boolean modeDebug)
+    public Manche (int numManche, ArrayList<Joueur> ensJoueurs, Pioche pioche, ArrayList<ECouleur> reseaux, boolean modeDebug )
     {
         ECouleur reseau;
 
@@ -84,13 +85,17 @@ public class Manche
 
     public void piocherCarte()
     {
-        this.carteCourante = this.pioche.piocher();
+		if ( this.pioche.estMancheTerminee() == false )
+		{
+			this.carteCourante = this.pioche.piocher();
+
+		}
+            
     }
 
     public void piocherCarteSpecifique(Carte carte)
     {
         this.carteCourante = this.pioche.piocherSpecifique(carte);
     }
-
 
 }
